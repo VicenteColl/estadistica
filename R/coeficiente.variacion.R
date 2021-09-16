@@ -1,0 +1,136 @@
+#' @title Coeficiente de variación.
+#'
+#' @description Calcula el coeficiente de variación de Pearson.
+#' @usage coeficiente.variacion(x, variable = NULL, pesos = NULL)
+#'
+#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
+#' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
+#'
+#' @author
+#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \emph{Economía Aplicada.}
+#'
+#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' Universidad de Valencia (España)
+#'
+#' @references
+#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#'
+#' @import dplyr
+#'
+#' @export
+coeficiente.variacion <- function(x, variable = NULL, pesos= NULL){
+
+  x <- data.frame(x)
+  varnames <- names(x)
+
+
+  if(is.null(variable)){
+
+    x <- x
+
+  } else{
+
+    if(is.numeric(variable)){
+
+      if(all(variable <= length(x))){
+
+        variable <- variable
+
+
+      } else{
+
+        stop("Seleccion errronea de variables")
+
+      }
+    }
+
+    if(is.character(variable)){
+
+      if(all(variable %in% varnames)){
+        variable = match(variable,varnames)
+      } else {
+        stop("El nombre de la variable no es valido")
+      }
+    }
+
+  }
+
+
+  if(is.null(pesos) & !is.null(variable)){
+
+    x <- x[,variable] %>% as.data.frame()
+    varnames <- names(x)
+
+  }
+
+  if(!is.null(pesos) & !is.null(variable)){
+
+    if((length(variable) | length(pesos)) > 1){
+
+      stop("Para calcular la desviacion tipica a partir de la distribucion de frecuencias solo puedes seleccionar una variable y unos pesos")
+
+    }
+
+    if(is.numeric(pesos)){
+
+      pesos <- pesos
+
+    }
+
+
+    if(is.character(pesos)){
+
+      if(pesos %in% varnames){
+        pesos = match(pesos,varnames)
+      } else {
+        stop("El nombre de los pesos no es valido")
+      }
+    }
+
+
+    x <- x[,c(variable,pesos)] %>% as.data.frame()
+    varnames <- names(x)
+
+  }
+
+  clase <- sapply(x, class)
+
+  if (!all(clase %in% c("numeric","integer"))) {
+    stop("No puede calcularse la varianza, alguna variable que has seleccionado no es cuantitativa")
+  }
+
+
+  if(is.null(pesos)){
+
+    valor_media <- media(x,variable)
+    valor_desviacion <- desviacion(x,variable)
+    coef_variacion <- valor_desviacion / valor_media
+    names(coef_variacion) <- paste("coef_variacion_",varnames,sep="")
+
+  } else{
+
+    valor_desviacion <- desviacion(x,variable = variable, pesos = pesos)
+    valor_media <- media(x,variable = variable, pesos = pesos)
+
+    coef_variacion <- valor_desviacion / valor_media
+    coef_variacion <- as.data.frame(coef_variacion)
+    names(coef_variacion) <- paste("coef_variacion_",varnames[1],sep="")
+
+
+  }
+
+  return(coef_variacion)
+
+
+
+}

@@ -1,0 +1,145 @@
+#' @title Media (artimética).
+#'
+#' @description Calcula la media aritmética.
+#'
+#' \figure{a.jpg}{options: width="25\%" alt="Figure: a.jpg}
+#'
+
+#' @usage media(x, variable = NULL, pesos = NULL)
+#'
+#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
+#' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
+#'
+#' @author
+#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \emph{Economía Aplicada.}
+#'
+#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' Universidad de Valencia (España)
+#'
+#' @references
+#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#'
+#' @import dplyr
+#'
+#' @export
+media <- function(x, variable = NULL, pesos = NULL){
+
+  x <- data.frame(x)
+  varnames <- names(x)
+
+  if(is.null(variable)){
+
+    x <- x
+
+  } else{
+
+    if(is.numeric(variable)){
+
+      if(all(variable <= length(x))){
+
+        variable <- variable
+
+      } else{
+
+        stop("Selecci\\u00f3n err\\u00f3nea de variables")
+
+      }
+    }
+
+    if(is.character(variable)){
+
+      if(all(variable %in% varnames)){
+        variable = match(variable,varnames)
+      } else {
+        stop("El nombre de la variable no es v\\u00e1lido")
+      }
+    }
+
+  }
+
+
+  if(is.null(pesos) & !is.null(variable)){
+
+    x <- x[,variable] %>% as.data.frame()
+    varnames <- varnames[variable]
+
+  }
+
+  if(!is.null(pesos) & !is.null(variable)){
+
+    if((length(variable) | length(pesos)) > 1){
+
+      stop("Para calcular la media a partir de la distribuci\\u00fn de frecuencias solo puedes seleccionar una variable y unos pesos")
+
+    }
+
+    if(is.numeric(pesos)){
+
+      pesos <- pesos
+
+    }
+
+
+    if(is.character(pesos)){
+
+      if(pesos %in% varnames){
+        pesos = match(pesos,varnames)
+      } else {
+        stop("El nombre de los pesos no es v\\u00e1lido")
+      }
+    }
+
+    if(pesos == variable){
+
+      stop("Has seleccionado la misma columna del dataframe para la variable y los pesos")
+
+    }
+
+
+    x <- x[,c(variable,pesos)] %>% as.data.frame()
+    varnames <- varnames[c(variable,pesos)]
+
+  }
+
+  clase <- sapply(x, class)
+
+  if (!all(clase %in% c("numeric","integer"))) {
+    stop("No puede calcularse la media, alguna variable que has seleccionado no es cuantitativa")
+  }
+
+  if(is.null(pesos)){
+
+    media <- apply(x,2,mean,na.rm=TRUE)
+    media <- as.data.frame(t(media))
+
+  } else{
+
+    media <- x %>%
+      na.omit %>%
+      rename(variable2 = varnames[1], pesos = varnames[2]) %>%
+      dplyr::summarize(media = sum(variable2*pesos)/sum(pesos)) %>%
+      as.data.frame()
+
+    varnames <- varnames[1]
+
+
+  }
+
+
+  names(media) <- paste("media_",varnames,sep="")
+
+  return(media)
+
+}
+
+

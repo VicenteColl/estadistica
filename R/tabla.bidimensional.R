@@ -1,0 +1,150 @@
+#' @title Tabla doble entrada.
+#'
+#' @description Calcula la tabla de frecuencias bidimensionales.
+#' @usage tabla.bidimensional(x,
+#'                            distribucion = c("cruzada","condicionada"),
+#'                            frecuencias = c("absolutas","relativas"))
+#'
+#' @param x Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).
+#' @param distribucion Es un caracter. Por defecto se obtien la tabla cruzada (distribucion = "cruzada"). Para obtener las distribuciones condicionadas cambiar el argumento: distribucion = "condicionada".
+#' @param frecuencias Es un carácter. Por defecto se obtienen las frecuencias absolutas ordinarias (frecuencias = "absolutas"). Para obtener las frecuencias relativas ordinarias cambiar el argumento: frecuencias = "relativas".
+#'
+#' @author
+#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \emph{Economía Aplicada.}
+#'
+#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#' Universidad de Valencia (España)
+#'
+#' @references
+#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#'
+#'
+#' @import tidyverse
+#'
+#' @export
+tabla.bidimensional <- function(x,
+                                distribucion = c("cruzada","condicionada"),
+                                frecuencias = c("absolutas","relativas")){
+
+  tipo_distribucion <- tolower(tipo_distribucion)
+  tipo_distribucion <- match.arg(tipo_distribucion)
+
+  tipo_frecuencias <- tolower(tipo_frecuencias)
+  tipo_frecuencias <- match.arg(tipo_frecuencias)
+
+
+  x <- as.data.frame(x) %>%
+    na.omit
+
+  varnames <- colnames(x)
+  numvariables <- length(x)
+
+  variable1 <- readline(prompt = "Intoduce el nombre de la variable 1 (filas): ")
+  variable2 <- readline(prompt = "Intoduce el nombre de la variable 2 (columnas): ")
+  variable <- c(variable1,variable2) #nombres de las variables
+
+  if(variable1 %in% varnames){
+    variable1 = which(varnames == variable1)
+  } else{
+    stop("Comprueba el nombre de la variable")
+  }
+  if(variable2 %in% varnames){
+    variable2 = which(varnames == variable2)
+  } else{
+    stop("Comprueba el nombre de la variable")
+  }
+
+  x <- x %>%
+    select(variable1,variable2)
+
+  names(x) <- c("filas","columnas")
+
+  clase <- sapply(x, class)
+
+  if (!all(clase %in% c("numeric","integer","factor","logic"))){
+    stop("No puede construirse la tabla de frecuencias, alguna variable seleccionada es caracter")
+  }
+
+
+  if(frecuencias == "absolutas"){
+
+    if(distribucion == "cruzada"){
+      tabla <- x %>%
+        table()
+      tabla <- addmargins(tabla)
+
+    } else{
+      print("Si quieres obtener la distribuci\'on de variable1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
+      tipo <- readline(prompt = "Distribuci\'on condicionada por filas (1) o por columnas (2): ")
+      tipo = as.numeric(tipo)
+
+      tabla2 <- x %>%
+        table()
+      namesfilas <- row.names(tabla2)
+      namescolumnas <- colnames(tabla2)
+
+      if(tipo == 1){
+        tabla_aux <- x %>%
+          select(tipo) %>%
+          group_by(filas) %>%
+          count() %>%
+          ungroup() %>%
+          select(n)
+        n = length(namescolumnas)
+        tabla_aux <- cbind(tabla_aux, replicate(n-1,tabla_aux$n))
+
+      } else{
+        tabla_aux <- x %>%
+          select(tipo) %>%
+          group_by(columnas) %>%
+          count() %>%
+          ungroup() %>%
+          select(n)
+
+        n = length(namesfilas)
+        tabla_aux <- cbind(tabla_aux, replicate(n-1,tabla_aux$n)) %>%
+          t()
+      }
+
+      tabla <-  tabla_aux * as.matrix(prop.table(tabla2,tipo))
+      row.names(tabla) <- namesfilas
+      colnames(tabla) <- namescolumnas
+
+    }
+
+  } else{
+
+    if(distribucion == "cruzada"){
+      tabla <- x %>%
+        table()
+      tabla <- prop.table(tabla)
+      tabla <- addmargins(tabla)
+
+    } else{
+      print("Si quieres obtener la distribuci\'on de varible1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
+      tipo <- readline(prompt = "Distribuci\'on condicionada por filas (1) o por columnas (2): ")
+      tipo = as.numeric(tipo)
+
+      if(tipo == 1){
+        tabla2 <- x %>%
+          table()
+        tabla <- prop.table(tabla2,2)
+      } else{
+        tabla2 <- x %>%
+          table()
+        tabla <- prop.table(tabla2,1)
+      }
+    }
+  }
+
+  return(tabla)
+
+}

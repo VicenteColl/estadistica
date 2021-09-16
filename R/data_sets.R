@@ -1,0 +1,37 @@
+#' Data: Encuesta cuatrienal de estructura salarial (2018).
+#'
+#' Datos del Instituto Nacional de Estadística. Hay un total de 216726 observaciones de 10 variables seleccionadas. Los datos han sido tratados siguiendo las instrucciones que se adjuntan a los microdatos.
+#' @usage data("salarios2018")
+#' @format Dataframe con 216726 observaciones de 10 variables.
+#' \describe{
+#'   \item{ID}{Identificador del encuestado).}
+#'   \item{CODIGO.REGION}{region}
+#'   \item{SEXO}{Sexo (1=hombre, 6=mujer)}
+#'   \item{ESTUDIOS}{Nivel de estudios).}
+#'   \item{TIPO.JORNADA}{Tipo de jornada laboral).}
+#'   \item{TIPO.CONTRATO}{Tipo de contrato laboral}
+#'   \item{SALARIO.BRUTO.ANUAL}{Salario bruto anual}
+#'   \item{SALARIO.ORDINARIO.ANUAL}Salario ordinario anual}
+#'   \item{PAGOS.EXTRA}{Pagos extraordinarios anuales}
+#'   \item{FACTOR.ELEVACION}{Factor de elevación}
+#' }
+#' @source Instituto Nacional de Estadística \url{http://www.ine.es/}
+#'
+#' @author
+#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \emph{Quantitative Methods for Measuring Culture (MC2). Applied Economics.}
+#'
+#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \emph{Economía Aplicada.}
+#'
+#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' Universidad de Valencia (España)
+#'
+"salarios2018"
+
+

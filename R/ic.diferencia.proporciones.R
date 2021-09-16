@@ -1,0 +1,186 @@
+#' @title Intervalo confianza para la diferencia de dos proporciones.
+#'
+#' @description Calcula el intervalo de confianza de la diferencia de dos proporciones.
+#' @usage ic.diferencia.proporciones(x,
+#'                      variable = NULL,
+#'                      introducir = FALSE,
+#'                      p_muestral = c(1,1),
+#'                      confianza = 0.95)
+#'
+#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
+#' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
+#' @param p_muestral Es un vector de longitud 2 cuyo primer elemento hará referencia a qué valor se toma para la proporción de la muestra 1 y el segundo al de la muestra 2.
+#' El valor 1 indica que se toma la proporción de la muestra, el valor 2 indica que se toma el caso más desfavorable (p=q=0.5)
+#' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
+#'
+#' @author
+#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \emph{Economía Aplicada.}
+#'
+#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' Universidad de Valencia (España)
+#'
+#' @references
+#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#'
+#' @import dplyr
+#'
+#' @export
+ic.diferencia.proporciones <- function(x,
+                                       variable = NULL,
+                                       introducir = FALSE,
+                                       p_muestral = c(1,1),
+                                       confianza = 0.95){
+
+
+if(isFALSE(introducir)) {
+
+  print("En tus datos tiene que haber una variable de agrupación y una variable con éxitos(=1) y fracasos(=0)")
+
+  if(is.null(variable)){
+
+    if(length(x) == 2){
+
+      x <- data.frame(x)
+
+      agrupacion <- readline(prompt="Indica la posición (número de columna) de la variable de agrupación: ")
+      agrupacion <- as.numeric(agrupacion)
+
+      x <- x %>%
+        select(all_of(agrupacion),everything())
+      x <- na.omit(x)
+
+
+    } else{
+
+      stop("El conjunto de datos seleccionado no tiene 2 variables.")
+
+    }
+
+  } else if(length(x) > 2){
+
+    agrupacion <- readline(prompt="Indica la posición (número de columna) de la variable de agrupación: ")
+    agrupacion <- as.numeric(agrupacion)
+
+    exito <- readline(prompt="Indica la posición (número de columna) de la variable con éxitos (=1) y fracasos (=0): ")
+    exito <- as.numeric(exito)
+
+    variable <- c(agrupacion,exito)
+
+    x <- x[,variable] %>% as.data.frame()
+    varnames <- names(x)
+    x <- na.omit(x)
+
+
+  } else{
+
+    stop("Seleccion erronea de variables para calcular el IC")
+
+  }
+
+
+  if(!all(x[,2] == 0 | x[,2]==1)){
+
+    print("Aplica a tus datos la condicion que debe cumplir la poblacion para transfomar los datos en ceros (ausencia/no exito) y unos (presencia/exito)")
+    stop("Los valores en la muestra deben ser 0 y 1.")
+
+  }
+
+  if(!length(unique(x[,1]))==2){
+
+    stop("La variable de agrupación no tiene dos categorías")
+
+  }
+
+  df <- table(x)
+
+
+  # tamaño de la muestra
+  n <- apply(df,1,sum)
+  n1 <- as.numeric(n[1])
+  n2 <- as.numeric(n[2])
+
+  # media muestral
+  p_mu1 <- as.numeric(df[1,2]/n1)
+  p_mu2 <- as.numeric(df[2,2]/n2)
+
+
+} else{   # aquí empieza introducir datos
+
+
+  print("Primero vas a introducir los datos de la muestra 1 y a continuación introducirás los datos de la muestra 2")
+  print("Si los datos provienen de encuestas realizadas antes y después de una determinada acción, introduce primero los datos de la encuesta realizada después de dicha acción")
+
+  n1 <- readline(prompt = "Introducir el tamaño de la muestra 1: ")
+  n1 <- as.numeric(n1)
+
+  if(p_muestral[1] == 2){
+
+    p_mu1 <- 0.5
+
+  } else{
+    p_mu1 <- readline(prompt = "Introducir el valor de la proporcion muestral 1: ")
+    p_mu1 <- as.numeric(p_mu1)
+  }
+
+  n2 <- readline(prompt = "Introducir el tamaño de la muestra 2: ")
+  n2 <- as.numeric(n2)
+
+  if(p_muestral[2] == 2){
+
+    p_mu2 <- 0.5
+
+  } else{
+    p_mu2 <- readline(prompt = "Introducir el valor de la proporcion muestral 2: ")
+    p_mu2 <- as.numeric(p_mu2)
+  }
+
+}
+
+  if(confianza >= 0 & confianza <=1){
+
+    confianza <- confianza
+    alfa_2 <- (1-confianza)/2
+    valor_critico <- qnorm(alfa_2,lower.tail=FALSE)
+
+  } else{
+
+    stop("El nivel de confianza debe fijarse entre 0 y 1")
+
+  }
+
+
+  error_tipico <- sqrt((p_mu1 * (1-p_mu1))/n1 + (p_mu2 * (1-p_mu2))/n2)
+
+  limite_inf <- (p_mu1 - p_mu2) - valor_critico * error_tipico
+  limite_sup <- (p_mu1 - p_mu2) + valor_critico * error_tipico
+
+  if(limite_inf < limite_sup){
+
+    limite_inferior <- limite_inf
+    limite_superior <- limite_sup
+
+  } else{
+
+    limite_inferior <- limite_sup
+    limite_superior <- limite_inf
+  }
+
+
+  IC <- cbind(limite_inferior,limite_superior)
+  IC <- as.data.frame(IC)
+  row.names(IC) <- NULL
+
+  return(IC)
+
+}
+
