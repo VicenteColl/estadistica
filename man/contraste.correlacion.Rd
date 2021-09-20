@@ -2,7 +2,7 @@
 % Please edit documentation in R/contraste.correlacion.R
 \name{contraste.correlacion}
 \alias{contraste.correlacion}
-\title{Contraste de hipótesis de correlación.}
+\title{Contraste de hipótesis de correlación}
 \usage{
 contraste.correlacion(x,
                 variable = NULL,

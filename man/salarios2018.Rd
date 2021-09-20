@@ -3,7 +3,7 @@
 \docType{data}
 \name{salarios2018}
 \alias{salarios2018}
-\title{Data: Encuesta cuatrienal de estructura salarial (2018).}
+\title{Data: Encuesta cuatrienal de estructura salarial (2018)}
 \format{
 Dataframe con 216726 observaciones de 10 variables.
 \describe{

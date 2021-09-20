@@ -7,7 +7,7 @@
 \format{
 Dataframe con 21 observaciones de 4 variables.
 \describe{
-  \item{gasto.desarrollo}{Gastos de investigación y desarroll, en euros.}
+  \item{gasto.desarrollo}{Gastos de investigación y desarrollo, en euros.}
   \item{gasto.marketing}{Gastos de marketing, en euros.}
   \item{gasto.gestion}{Gastos de administración, en euros.}
   \item{beneficio}{Beneficios, en euros.}

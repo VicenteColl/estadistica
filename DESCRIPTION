@@ -8,7 +8,7 @@ Description: Este paquete contiene las funciones para poder seguir un curso de e
 License: GPL
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Depends:
     R (>= 3.5.0)
 Imports: tidyverse, ggalt, dplyr, tidyr, ggplot2, rio, data.table
