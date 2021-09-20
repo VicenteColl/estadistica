@@ -36,9 +36,9 @@ leer.datos <- function(introducir = FALSE, pos=1){
 
 
   } else{
-    print("Esta opción es válida si vas a introducir pocos datos.")
+    print("Esta opci\\u00f3n es v\\u00e1lida si vas a introducir pocos datos.")
 
-    numero_var <- readline(prompt = "¿los datos de cuántas variables quieres introducir? Indica el número: ")
+    numero_var <- readline(prompt = "\\u00bflos datos de cu\\u00e1ntas variables quieres introducir? Indica el n\\00famero: ")
     numero_var <- as.numeric(numero_var)
 
     print("Cuando termines de introducir tus datos pulsa ENTER")

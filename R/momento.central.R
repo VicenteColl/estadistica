@@ -33,7 +33,7 @@ momento.central <- function(x, orden){
 
   if(!is.integer(orden)){
 
-    stop("orden debe ser un valor numérico entero")
+    stop("El orden del momento central debe ser un valor num\\u00e9rico entero")
 
   }
 
@@ -42,7 +42,7 @@ momento.central <- function(x, orden){
 
   if(length(x) > 1){
 
-    stop("Esta función solo funciona para una variable y parece que tus datos tienen varias variables")
+    stop("Esta funci\\u00f3n solo funciona para una variable y parece que tus datos tienen varias variables")
 
   }
 
