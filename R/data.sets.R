@@ -1,4 +1,4 @@
-#' Data: Encuesta cuatrienal de estructura salarial (2018).
+#' Data: Encuesta cuatrienal de estructura salarial (2018)
 #'
 #' Datos del Instituto Nacional de Estadística. Hay un total de 216,726 observaciones de 10 variables seleccionadas. Los datos han sido tratados siguiendo las instrucciones que el INE adjunta con los microdatos.
 #' @usage data("salarios2018")
@@ -7,8 +7,8 @@
 #'   \item{ID}{Identificador del encuestado.}
 #'   \item{CODIGO.REGION}{region}
 #'   \item{SEXO}{Sexo (1=hombre, 6=mujer)}
-#'   \item{ESTUDIOS}{Nivel de estudios).}
-#'   \item{TIPO.JORNADA}{Tipo de jornada laboral).}
+#'   \item{ESTUDIOS}{Nivel de estudios.}
+#'   \item{TIPO.JORNADA}{Tipo de jornada laboral.}
 #'   \item{TIPO.CONTRATO}{Tipo de contrato laboral}
 #'   \item{SALARIO.BRUTO.ANUAL}{Salario bruto anual}
 #'   \item{SALARIO.ORDINARIO.ANUAL}{Salario ordinario anual}
@@ -40,11 +40,10 @@
 #' @usage data("startup")
 #' @format Dataframe con 21 observaciones de 4 variables.
 #' \describe{
-#'   \item{gasto.desarrollo}{Gastos de investigación y desarroll, en euros.}
+#'   \item{gasto.desarrollo}{Gastos de investigación y desarrollo, en euros.}
 #'   \item{gasto.marketing}{Gastos de marketing, en euros.}
 #'   \item{gasto.gestion}{Gastos de administración, en euros.}
 #'   \item{beneficio}{Beneficios, en euros.}
-
 #' }
 #' @source Muestra simulada.
 #'

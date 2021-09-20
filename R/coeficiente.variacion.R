@@ -49,7 +49,7 @@ coeficiente.variacion <- function(x, variable = NULL, pesos= NULL){
 
       } else{
 
-        stop("Seleccion errronea de variables")
+        stop("Selecci\\u00f3n err\\u00f3nea de variables")
 
       }
     }
@@ -59,7 +59,7 @@ coeficiente.variacion <- function(x, variable = NULL, pesos= NULL){
       if(all(variable %in% varnames)){
         variable = match(variable,varnames)
       } else {
-        stop("El nombre de la variable no es valido")
+        stop("El nombre de la variable no es v\\u00e1lido")
       }
     }
 
@@ -77,7 +77,7 @@ coeficiente.variacion <- function(x, variable = NULL, pesos= NULL){
 
     if((length(variable) | length(pesos)) > 1){
 
-      stop("Para calcular la desviacion tipica a partir de la distribucion de frecuencias solo puedes seleccionar una variable y unos pesos")
+      stop("Para calcular el coeficiente de variaci\\u00f3 a partir de la distribuci\\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
 
     }
 
@@ -93,7 +93,7 @@ coeficiente.variacion <- function(x, variable = NULL, pesos= NULL){
       if(pesos %in% varnames){
         pesos = match(pesos,varnames)
       } else {
-        stop("El nombre de los pesos no es valido")
+        stop("El nombre de los pesos no es v\\u00e1lido")
       }
     }
 
@@ -106,7 +106,7 @@ coeficiente.variacion <- function(x, variable = NULL, pesos= NULL){
   clase <- sapply(x, class)
 
   if (!all(clase %in% c("numeric","integer"))) {
-    stop("No puede calcularse la varianza, alguna variable que has seleccionado no es cuantitativa")
+    stop("No puede calcularse el coeficiente de variaci\\u00f3, alguna variable que has seleccionado no es cuantitativa")
   }
 
 

@@ -10,8 +10,8 @@ Dataframe con 216726 observaciones de 10 variables.
   \item{ID}{Identificador del encuestado.}
   \item{CODIGO.REGION}{region}
   \item{SEXO}{Sexo (1=hombre, 6=mujer)}
-  \item{ESTUDIOS}{Nivel de estudios).}
-  \item{TIPO.JORNADA}{Tipo de jornada laboral).}
+  \item{ESTUDIOS}{Nivel de estudios.}
+  \item{TIPO.JORNADA}{Tipo de jornada laboral.}
   \item{TIPO.CONTRATO}{Tipo de contrato laboral}
   \item{SALARIO.BRUTO.ANUAL}{Salario bruto anual}
   \item{SALARIO.ORDINARIO.ANUAL}{Salario ordinario anual}

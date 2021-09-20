@@ -1,5 +1,5 @@
 .onAttach <- function(...) {
-  packageStartupMessage("Este paquete esta pensado para servir de apoyo a la docencia de estadística descriptiva e inferencial.")
-  packageStartupMessage("Por favor, observa que este paquete está en desarrollo.")
+  packageStartupMessage("Este paquete est\u00e1 pensado para servir de apoyo a la docencia de estad\u00edstica descriptiva e inferencial.")
+  packageStartupMessage("Por favor, observa que este paquete est\u00e1 en desarrollo.")
   suppressPackageStartupMessages(library(ggalt))
   }
