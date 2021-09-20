@@ -32,7 +32,7 @@ import("dplyr")
 importFrom("magrittr","%>%")
 import("tidyr")
 import("ggplot2")
-#importFrom("ggalt","geom_dumbbell")
+importFrom("ggalt","geom_dumbbell")
 importFrom("data.table","rbindlist")
 importFrom("stats","addmargins","var","cov",
            "cor","sd","na.omit","dchisq",

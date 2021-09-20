@@ -36,6 +36,7 @@
 #' @references
 #' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 #'
+#' @importFrom ggalt geom_dumbbell
 #' @import dplyr ggplot2 ggalt
 #'
 #' @export
