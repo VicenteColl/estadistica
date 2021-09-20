@@ -31,12 +31,6 @@
 #' @export
 medidas.forma <- function(x, variable = NULL, pesos = NULL, alternativa = FALSE){
 
-  source("./R/desviacion.R")
-  source("./R/momento.central.R")
-  source("./R/media.R")
-
-
-
   x <- data.frame(x)
   varnames <- names(x)
 
