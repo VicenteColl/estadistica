@@ -6,7 +6,7 @@ Author: Vicente Coll-Serrano, Olga Blasco-Blasco, Rosario Martínez Verdú, Cris
 Maintainer: Vicente Coll-Serrano <vicente.coll@uv.es>
 Description: Este paquete contiene las funciones para poder seguir un curso de estadística básica.
 License: GPL
-Encoding: WINDOWS-1252
+Encoding: ISO-8859-1
 LazyData: true
 RoxygenNote: 7.1.2
 Depends:
