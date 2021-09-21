@@ -68,7 +68,7 @@ coeficiente.variacion <- function(x, variable = NULL, pesos= NULL){
 
   if(is.null(pesos) & !is.null(variable)){
 
-    x <- x[,variable.selected] %>% as.data.frame()
+    x <- x[,variable] %>% as.data.frame()
     varnames <- names(x)
 
   }
