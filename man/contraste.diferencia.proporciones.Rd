@@ -9,7 +9,7 @@ contraste.diferencia.proporciones(x,
                 introducir = FALSE,
                 hipotesis_nula = 0,
                 p_muestral = c(1,1,),
-                tipo_contraste = c("bilateral","cola izquierda","cola derecha"),
+                tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
                 alfa = 0.05,
                 grafico = FALSE)
 }

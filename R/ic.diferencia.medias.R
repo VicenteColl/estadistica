@@ -1,7 +1,46 @@
+#' @title Intervalo confianza para la diferencia de medias.
+#'
+#' @description Calcula el intervalo de confianza de la diferencia de medias poblacionales.
+#'
+#' @usage ic.diferencia.medias(x,
+#'                 variable = NULL,
+#'                 introducir = FALSE,
+#'                 poblacion = c("normal","desconocida"),
+#'                 var_pob = c("conocida","desconocida"),
+#'                 confianza = 0.95)
+#'
+#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
+#' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
+#' @param poblacion Es un carácter. Indica la distribución de probabilidad de la población. Por defecto poblacion = "normal". Si la distribución de la población es desconocida, cambiar el argumento a poblacion = "desconocida".
+#' @param var_pob Es un carácter. Indica si la varianza poblacional es conocida (por defecto, var_pob = "conocida") o desconocida. En este último caso debería cambiarse el argumento a var_pob = "desconocida".
+#' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
+#'
+#' @author
+#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \emph{Economía Aplicada.}
+#'
+#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' Universidad de Valencia (España)
+#'
+#' @references
+#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#'
+#' @import dplyr ggplot2 ggalt
+#'
+#' @export
 ic.diferencia.medias <- function(x,
                                  variable = NULL,
                                  introducir = FALSE,
-                                 distribucion = c("normal","desconocida"),
+                                 poblacion = c("normal","desconocida"),
                                  var_pob = c("conocida","desconocida"),
                                  iguales = FALSE,
                                  confianza = 0.95){
@@ -10,8 +49,8 @@ ic.diferencia.medias <- function(x,
   source("./R/varianza.R")
   source("./R/media.R")
 
-  distribucion <- tolower(distribucion)
-  distribucion <- match.arg(distribucion)
+  poblacion <- tolower(poblacion)
+  poblacion <- match.arg(poblacion)
 
   var_pob <- tolower(var_pob)
   var_pob <- match.arg(var_pob)
@@ -232,7 +271,7 @@ if(isFALSE(introducir)) {
 
   dif_medias <- media1 - media2
 
-  if(distribucion == "normal"){
+  if(poblacion == "normal"){
 
     if(var_pob == "conocida"){
 
@@ -301,7 +340,7 @@ if(isFALSE(introducir)) {
     if(var_pob == "conocida"){
 
 
-    } else{ # distribucion desconocida y varianzas poblaciones desconocidas
+    } else{ # poblacion desconocida y varianzas poblaciones desconocidas
 
       if(n1 >= 30 & n2 >= 30){ # muestras grandes
 

@@ -7,7 +7,7 @@
 #'                        introducir = FALSE,
 #'                        media_poblacion = c("desconocida","conocida"),
 #'                        hipotesis_nula = NULL,
-#'                        tipo_contraste =  c("bilateral","cola izquierda","cola derecha"),
+#'                        tipo_contraste =  c("bilateral","cola derecha","cola izquierda"),
 #'                        alfa = 0.05,
 #'                        grafico = FALSE))
 #'
@@ -49,7 +49,7 @@ contraste.varianza <- function(x,
                                introducir = FALSE,
                                media_poblacion = c("desconocida","conocida"),
                                hipotesis_nula = NULL,
-                               tipo_contraste = c("bilateral","cola izquierda","cola derecha"),
+                               tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
                                alfa = 0.05,
                                grafico = FALSE){
 

@@ -5,7 +5,7 @@
 #' @usage ic.media(x,
 #'                 variable = NULL,
 #'                 introducir = FALSE,
-#'                 distribucion = c("normal","desconocida"),
+#'                 poblacion = c("normal","desconocida"),
 #'                 var_pob = c("conocida","desconocida"),
 #'                 confianza = 0.95,
 #'                 grafico = FALSE)
@@ -13,7 +13,7 @@
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
-#' @param distribucion Es un carácter. Indica la distribución de probabilidad de la población. Por defecto distribucion = "normal". Si la distribución de la población es desconocida, cambiar el argumento a distribucion = "desconocida".
+#' @param poblacion Es un carácter. Indica la distribución de probabilidad de la población. Por defecto poblacion = "normal". Si la distribución de la población es desconocida, cambiar el argumento a poblacion = "desconocida".
 #' @param var_pob Es un carácter. Indica si la varianza poblacional es conocida (por defecto, var_pob = "conocida") o desconocida. En este último caso debería cambiarse el argumento a var_pob = "desconocida".
 #' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
 #' @param grafico Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.
@@ -43,13 +43,13 @@
 ic.media <- function(x,
                      variable = NULL,
                      introducir = FALSE,
-                     distribucion = c("normal","desconocida"),
+                     poblacion = c("normal","desconocida"),
                      var_pob = c("conocida","desconocida"),
                      confianza = 0.95,
                      grafico = FALSE){
 
-distribucion <- tolower(distribucion)
-distribucion <- match.arg(distribucion)
+poblacion <- tolower(poblacion)
+poblacion <- match.arg(poblacion)
 
 var_pob <- tolower(var_pob)
 var_pob <- match.arg(var_pob)
@@ -167,7 +167,7 @@ if(isFALSE(introducir)) {
 
   # caso 1. No puede hacerse
 
-  if(distribucion == "desconocida" & var_pob == "desconocida" & n < 30){
+  if(poblacion == "desconocida" & var_pob == "desconocida" & n < 30){
 
     print("La distribución de probabilidad de la población y su varianza son desconocidas. Además, el tamaño de la muestra es pequeño (n<30)")
     stop("Bajo estas condiciones no es posible estimar el intervalo de confianza")
@@ -203,9 +203,9 @@ if(isFALSE(introducir)) {
 
 # calculo intervalos
 
-  # caso 2 distribucion desconocida y varianza poblacional desconocida
+  # caso 2 poblacion desconocida y varianza poblacional desconocida
 
-  if(distribucion == "desconocida" & var_pob == "desconocida" & n >= 30){
+  if(poblacion == "desconocida" & var_pob == "desconocida" & n >= 30){
 
     print("La distribución de probabilidad de la población y su varianza son desconocidaS. Sin embargo, el tamaño de la muestra es grande (n>30)")
     print("En esta situación, la distribución de la media muestral puede considerarse normal como consecuencia del TCL.")
@@ -215,9 +215,9 @@ if(isFALSE(introducir)) {
 
   }
 
-  # casos 3, 4: distribucion desconocida y varianza poblacional conocida
+  # casos 3, 4: poblacion desconocida y varianza poblacional conocida
 
-  if(distribucion == "desconocida" & var_pob == "conocida"){
+  if(poblacion == "desconocida" & var_pob == "conocida"){
 
     if(n < 30){
 
@@ -239,7 +239,7 @@ if(isFALSE(introducir)) {
   }
 
 
-  if(distribucion == "normal"){
+  if(poblacion == "normal"){
 
     # caso 5. Poblacion normal y varianza conocida
 
@@ -324,7 +324,7 @@ if(isFALSE(introducir)) {
   )
 
 
-  if(distribucion == "normal" & var_pob == "desconocida" & n<30){
+  if(poblacion == "normal" & var_pob == "desconocida" & n<30){
 
     intervalo <- data.frame(ic = "intervalo confianza",inferior=limite_inferior,media=media,superior=limite_superior)
     plot <- ggplot(data = intervalo) +
@@ -358,7 +358,7 @@ if(isFALSE(introducir)) {
                 aes(y = ic, x=media, label=media)) +
       tema_blanco
 
-  } else if(distribucion == "desconocida" & var_pob == "conocida" & n<30) {
+  } else if(poblacion == "desconocida" & var_pob == "conocida" & n<30) {
 
     plot <- print("Este intervalo de confianza no tiene representación grafica")
 
@@ -370,7 +370,7 @@ if(isFALSE(introducir)) {
     plot <- ggplot(seq, aes(seq)) +
       stat_function(fun = dnorm, args = list(mean = media, sd = error_tipico)) +
       geom_area(stat = "function", fun = dnorm, args = list(mean = media, sd = error_tipico), fill = "darkgreen", xlim = c(limite_inferior,limite_superior)) +
-      labs(x = "", y = "",title = paste("Intervalo de confianza de la media\n(población",distribucion,",varianza poblacional",var_pob,",n",tamano,")\n(NC=",confianza*100,"%)")) +
+      labs(x = "", y = "",title = paste("Intervalo de confianza de la media\n(población",poblacion,",varianza poblacional",var_pob,",n",tamano,")\n(NC=",confianza*100,"%)")) +
       scale_y_continuous(breaks = NULL) +
       scale_x_continuous(breaks = c(limite_inferior,media,limite_superior)) +
       theme(axis.text.x = element_text(angle = 45)) +

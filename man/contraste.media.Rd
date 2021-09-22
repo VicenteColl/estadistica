@@ -9,7 +9,7 @@ contraste.media(x,
                        introducir = FALSE,
                        var_pob = c("conocida","desconocida"),
                        hipotesis_nula = NULL,
-                       tipo_contraste =  c("bilateral","cola izquierda","cola derecha"),
+                       tipo_contraste =  c("bilateral","cola derecha","cola izquierda"),
                        alfa = 0.05,
                        grafico = FALSE))
 }

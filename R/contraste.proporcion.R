@@ -6,7 +6,7 @@
 #'                        variable = NULL,
 #'                        introducir = FALSE,
 #'                        hipotesis_nula = NULL,
-#'                        tipo_contraste = c("bilateral","cola izquierda","cola derecha"),
+#'                        tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
 #'                        p_muestral = TRUE,
 #'                        alfa = 0.05,
 #'                        grafico = FALSE))
@@ -48,7 +48,7 @@ contraste.proporcion <- function(x,
                                  variable = NULL,
                                  introducir = FALSE,
                                  hipotesis_nula = NULL,
-                                 tipo_contraste = c("bilateral","cola izquierda","cola derecha"),
+                                 tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
                                  p_muestral = TRUE,
                                  alfa = 0.05,
                                  grafico = FALSE){
