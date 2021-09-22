@@ -4,7 +4,7 @@
 \alias{ic.correlacion}
 \title{Intervalo confianza para el coeficiente de correlación}
 \usage{
-ic.media(x,
+ic.correlacion(x,
                 variable = NULL,
                 introducir = FALSE,
                 confianza = 0.95)

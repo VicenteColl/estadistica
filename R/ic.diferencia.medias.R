@@ -7,6 +7,7 @@
 #'                 introducir = FALSE,
 #'                 poblacion = c("normal","desconocida"),
 #'                 var_pob = c("conocida","desconocida"),
+#'                 iguales = FALSE,
 #'                 confianza = 0.95)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -14,6 +15,7 @@
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
 #' @param poblacion Es un carácter. Indica la distribución de probabilidad de la población. Por defecto poblacion = "normal". Si la distribución de la población es desconocida, cambiar el argumento a poblacion = "desconocida".
 #' @param var_pob Es un carácter. Indica si la varianza poblacional es conocida (por defecto, var_pob = "conocida") o desconocida. En este último caso debería cambiarse el argumento a var_pob = "desconocida".
+#' @param iguales Por defecto se considera que las varianzas poblacionales son distintas (iguales = FALSE). En el supuesto de varianzas poblacionales iguales cambiar el argumento a iguales = TRUE
 #' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
 #'
 #' @author

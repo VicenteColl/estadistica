@@ -6,8 +6,8 @@
 #'                 variable = NULL,
 #'                 introducir = FALSE,
 #'                 hipotesis_nula = 0,
-#'                 p_muestral = c(1,1,),
 #'                 tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
+#'                 p_muestral = c(1,1),
 #'                 alfa = 0.05,
 #'                 grafico = FALSE)
 #'
@@ -15,12 +15,12 @@
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
 #' @param hipotesis_nula Es un valor numérico. Por defecto el valor está fijado en cero.
-#' @param p_muestral Es un vector de longitud 2 cuyo primer elemento hará referencia a qué valor se toma para la proporción de la muestra 1 y el segundo al de la muestra 2.
-#' El valor 1 indica que se toma la proporción de la muestra, el valor 2 indica que se toma el caso más desfavorable (p=q=0.5)
 #' @param tipo_contraste Es un carácter. Indica el tipo de contraste a realizar. Por defecto, tipo_contraste = "bilateral".
 #' Si tipo_contraste = "bilateral", se contraste la hipótesis nula igual un valor frente a la alternativa distinto de dicho valor.
 #' Si tipo_contraste = "cola derecha", se contrasta la hipótesis nula menor o igual a un valor frente a la alternativa mayor a dicho valor.
 #' Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o igual a un valor frente a la alternativa menos a dicho valor.
+#' @param p_muestral Es un vector de longitud 2 cuyo primer elemento hará referencia a qué valor se toma para la proporción de la muestra 1 y el segundo al de la muestra 2.
+#' El valor 1 indica que se toma la proporción de la muestra, el valor 2 indica que se toma el caso más desfavorable (p=q=0.5)
 #' @param alfa Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, alfa = 0.05 (5 por ciento)
 #' @param grafico Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.
 #'

@@ -11,7 +11,7 @@ contraste.media(x,
                        hipotesis_nula = NULL,
                        tipo_contraste =  c("bilateral","cola derecha","cola izquierda"),
                        alfa = 0.05,
-                       grafico = FALSE))
+                       grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

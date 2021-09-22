@@ -4,14 +4,14 @@
 \alias{contraste.proporcion}
 \title{Contraste de hipótesis sobre la proporción.}
 \usage{
-contraste.media(x,
+contraste.proporcion(x,
                        variable = NULL,
                        introducir = FALSE,
                        hipotesis_nula = NULL,
                        tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
                        p_muestral = TRUE,
                        alfa = 0.05,
-                       grafico = FALSE))
+                       grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

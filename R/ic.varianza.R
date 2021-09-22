@@ -11,7 +11,6 @@
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
 #' @param media_poblacion Es un carácter. Indica si la media de la población es desconocida (por defecto, media_poblacion = "desconocida") o conocida (en este caso, cambiar media_poblacion = "conocida").
-#' @param var_muestra Es un carácter. Indica si se utilizará la varianza muestral (por defecto, var_muestra = "muestral") o la cuasivarianza muestral (es este caso, cambiar var_muestra = "cuasi").
 #' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
 #'
 #' @author

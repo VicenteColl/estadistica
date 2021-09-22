@@ -9,6 +9,7 @@ ic.diferencia.medias(x,
                 introducir = FALSE,
                 poblacion = c("normal","desconocida"),
                 var_pob = c("conocida","desconocida"),
+                iguales = FALSE,
                 confianza = 0.95)
 }
 \arguments{
@@ -21,6 +22,8 @@ ic.diferencia.medias(x,
 \item{poblacion}{Es un carácter. Indica la distribución de probabilidad de la población. Por defecto poblacion = "normal". Si la distribución de la población es desconocida, cambiar el argumento a poblacion = "desconocida".}
 
 \item{var_pob}{Es un carácter. Indica si la varianza poblacional es conocida (por defecto, var_pob = "conocida") o desconocida. En este último caso debería cambiarse el argumento a var_pob = "desconocida".}
+
+\item{iguales}{Por defecto se considera que las varianzas poblacionales son distintas (iguales = FALSE). En el supuesto de varianzas poblacionales iguales cambiar el argumento a iguales = TRUE}
 
 \item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
 }

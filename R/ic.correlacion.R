@@ -2,7 +2,7 @@
 #'
 #' @description Calcula el intervalo de confianza para el coeficiente de correlación.
 #'
-#' @usage ic.media(x,
+#' @usage ic.correlacion(x,
 #'                 variable = NULL,
 #'                 introducir = FALSE,
 #'                 confianza = 0.95)

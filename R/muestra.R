@@ -6,10 +6,6 @@
 #'                confianza = 0.95,
 #'                irrestricto = FALSE)
 #'
-#' @section Detalles:
-#' La expresión de la media es:
-#' \eqn{\bar{x}=\frac{x_{i}*n_{i}}{n}}
-#'
 #' @param poblacion Texto, si es "normal" (por defecto) calcula el tamaño muestral que permita estimar la media de una población normal, si "dicotomica" para estimar la proporción p de una población.
 #' @param error_estimacion Es un valor que establece el error de estimación. Es la semiamplitud (mitad de la precisión) del intervalo de confianza. Esta aproximación solo es válida en distribuciones simétricas (normal o t-student).
 #' @param confianza Es un valor entre 0 y 1 que indica el nivel de confianza. Por defecto el valor es 0.95
@@ -33,20 +29,9 @@ muestra <- function(poblacion = c("normal","dicotomica"),
                     irrestricto = FALSE){
 
 
-  source("./R/desviacion.R")
-  source("./R/media.R")
-
-  tipo_poblacion <- c("normal","dicotomica")
-  poblacion <- tolower(poblacion)
 
   poblacion <- tolower(poblacion)
   poblacion <- match.arg(poblacion)
-
-  if(!poblacion %in% tipo_poblacion){
-    print("La distribuci\u00f3n de la poblaci\u00f3n tiene que ser normal o dicot\u00f3mica")
-    stop("Se ha detectado un error en la distribuci\u00f3n de la poblaci\u00f3n")
-
-  }
 
   if(is.null(error_estimacion)){
 

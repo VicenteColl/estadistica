@@ -21,12 +21,6 @@ muestra(poblacion = c("normal","dicotomica"),
 \description{
 Calcula el tamaño muestral para estimar la media de una población normal o la proporcion p de una población.
 }
-\section{Detalles}{
-
-La expresión de la media es:
-\eqn{\bar{x}=\frac{x_{i}*n_{i}}{n}}
-}
-
 \references{
 Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 }

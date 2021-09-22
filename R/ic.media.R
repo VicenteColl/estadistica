@@ -328,7 +328,7 @@ if(isFALSE(introducir)) {
 
     intervalo <- data.frame(ic = "intervalo confianza",inferior=limite_inferior,media=media,superior=limite_superior)
     plot <- ggplot(data = intervalo) +
-      ggalt::geom_dumbbell(aes(y = ic,
+      geom_dumbbell(aes(y = ic,
                         x = inferior,
                         xend = superior),
                     size = 1.5,
@@ -337,7 +337,7 @@ if(isFALSE(introducir)) {
                     size_xend = 3,
                     colour_x = "red",
                     colour_xend = "blue")  +
-      ggalt::geom_dumbbell(aes(y = ic,
+      geom_dumbbell(aes(y = ic,
                         x = media,
                         xend = media),
                     size = 1.5,
