@@ -38,7 +38,7 @@ ic.correlacion <- function(x,
                            introducir = FALSE,
                            confianza = 0.95){
 
-print("Calcula el intervalo de confianza de la correlación de dos poblaciones con distribución conjutntamente normal")
+print("Calcula el intervalo de confianza de la correlaci\\u00f3n de dos poblaciones con distribuci\\u00f3n conjuntamente normal")
 
 if(confianza >= 0 & confianza <=1){
 
@@ -64,7 +64,7 @@ if(isFALSE(introducir)) {
       x <- x
     } else{
       warning("Para calcular el intervalo de confianza hay que seleccionar 2 variables")
-      stop("El conjunto de datos seleccionado no tiene la dimension adecuada")
+      stop("El conjunto de datos seleccionado no tiene la dimensi\\u00f3n adecuada")
     }
   } else{
 
@@ -80,7 +80,7 @@ if(isFALSE(introducir)) {
         if(all(variable %in% varnames)){
           variable = match(variable,varnames)
           } else {
-            stop("El nombre de la variable no es valido")
+            stop("El nombre de la variable no es v\\u00e1lido")
           }
         }
 
@@ -88,8 +88,8 @@ if(isFALSE(introducir)) {
       names(x) <- varnames[variable]
 
       } else{
-        warning("Para calcular el intervalo de confianza de la razón de varianzas hay que seleccionar dos variables")
-        stop("El conjunto de datos seleccionado parece ser no valido")
+        warning("Para calcular el intervalo de confianza de la raz\\u00f3n de varianzas hay que seleccionar dos variables")
+        stop("El conjunto de datos seleccionado parece ser no v\\u00e1lido")
       }
   }
 
@@ -99,24 +99,24 @@ if(isFALSE(introducir)) {
     stop("No puede calcularse el intervalo de confianza porque la variable seleccionada no es cuantitativa")
   }
 
-  # tamaño de la muestra
+  # tama\\u00f1o de la muestra
   x <- na.omit(x)
   n <- nrow(x)
   correlacion <- correlacion(x)
 
-} else{   # aquí empieza introducir datos
+} else{   # aqu\\u00ed empieza introducir datos
 
-  print("A continuación, vas a introducir los datos muestrales.")
+  print("A continuaci\\u00f3n, vas a introducir los datos muestrales.")
 
-  n <- readline(prompt = "Introducir el tamaño de la muestra : ")
+  n <- readline(prompt = "Introducir el tama\\u00f3o de la muestra : ")
   n <- as.numeric(n)
 
-  correlacion <- readline(prompt = "Introducir el valor del coeficiente de correlación muestral: ")
+  correlacion <- readline(prompt = "Introducir el valor del coeficiente de correlaci\\u00f3n muestral: ")
   correlacion <- as.numeric(correlacion)
 
   if((correlacion < -1 | correlacion > 1)){
 
-    stop("El coeficiente de correlación debe estar comprendido entre -1 y 1.")
+    stop("El coeficiente de correlaci\\u00f3n debe estar comprendido entre -1 y 1.")
 
   }
 

@@ -80,7 +80,7 @@ desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cu
 
     if((length(variable) | length(pesos)) > 1){
 
-      stop("Para calcular la desviación típica a partir de la distribuci\\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
+      stop("Para calcular la desviaci\\u00f3n t\\u00edpica a partir de la distribuci\\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
 
     }
 
@@ -109,7 +109,7 @@ desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cu
   clase <- sapply(x, class)
 
   if (!all(clase %in% c("numeric","integer"))) {
-    stop("No puede calcularse la desviación típica, alguna variable que has seleccionado no es cuantitativa")
+    stop("No puede calcularse la desviaci\\u00f3n t\\u00edpica, alguna variable que has seleccionado no es cuantitativa")
   }
 
 

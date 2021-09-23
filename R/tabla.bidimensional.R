@@ -3,12 +3,14 @@
 #' @description Calcula la tabla de frecuencias bidimensionales.
 #' @usage tabla.bidimensional(x,
 #'                            distribucion = c("cruzada","condicionada"),
-#'                            frecuencias = c("absolutas","relativas"))
+#'                            frecuencias = c("absolutas","relativas"),
+#'                            exportar = TRUE)
 #'
 #' @param x Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).
 #' @param distribucion Es un caracter. Por defecto se obtien la tabla cruzada (distribucion = "cruzada"). Para obtener las distribuciones condicionadas cambiar el argumento: distribucion = "condicionada".
 #' @param frecuencias Es un carácter. Por defecto se obtienen las frecuencias absolutas ordinarias (frecuencias = "absolutas"). Para obtener las frecuencias relativas ordinarias cambiar el argumento: frecuencias = "relativas".
-#'
+#' @param exportar Por defecto, los resultados se exportan a una hoja de cálculo Excel (exportar = TRUE).
+
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
@@ -32,13 +34,14 @@
 #' @export
 tabla.bidimensional <- function(x,
                                 distribucion = c("cruzada","condicionada"),
-                                frecuencias = c("absolutas","relativas")){
+                                frecuencias = c("absolutas","relativas"),
+                                exportar = TRUE){
 
-  tipo_distribucion <- tolower(tipo_distribucion)
-  tipo_distribucion <- match.arg(tipo_distribucion)
+  distribucion <- tolower(distribucion)
+  distribucion <- match.arg(distribucion)
 
-  tipo_frecuencias <- tolower(tipo_frecuencias)
-  tipo_frecuencias <- match.arg(tipo_frecuencias)
+  frecuencias <- tolower(frecuencias)
+  frecuencias <- match.arg(frecuencias)
 
 
   x <- as.data.frame(x) %>%
@@ -70,7 +73,7 @@ tabla.bidimensional <- function(x,
   clase <- sapply(x, class)
 
   if (!all(clase %in% c("numeric","integer","factor","logic"))){
-    stop("No puede construirse la tabla de frecuencias, alguna variable seleccionada es caracter")
+    stop("No puede construirse la tabla de frecuencias, alguna variable seleccionada es car\\u00e1cter")
   }
 
 
@@ -82,8 +85,8 @@ tabla.bidimensional <- function(x,
       tabla <- addmargins(tabla)
 
     } else{
-      print("Si quieres obtener la distribuci\'on de variable1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
-      tipo <- readline(prompt = "Distribuci\'on condicionada por filas (1) o por columnas (2): ")
+      print("Si quieres obtener la distribuci\\u00f3n de variable1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
+      tipo <- readline(prompt = "Distribuci\\u00f3n condicionada por filas (1) o por columnas (2): ")
       tipo = as.numeric(tipo)
 
       tabla2 <- x %>%
@@ -129,8 +132,8 @@ tabla.bidimensional <- function(x,
       tabla <- addmargins(tabla)
 
     } else{
-      print("Si quieres obtener la distribuci\'on de varible1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
-      tipo <- readline(prompt = "Distribuci\'on condicionada por filas (1) o por columnas (2): ")
+      print("Si quieres obtener la distribuci\\u00f3n de varible1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
+      tipo <- readline(prompt = "Distribuci\\u00f3n condicionada por filas (1) o por columnas (2): ")
       tipo = as.numeric(tipo)
 
       if(tipo == 1){
@@ -143,6 +146,16 @@ tabla.bidimensional <- function(x,
         tabla <- prop.table(tabla2,1)
       }
     }
+  }
+
+  tabla <- as.matrix(tabla)
+
+
+  if (exportar) {
+    filename <- paste("Tabla cruzada de ", variable[1]," y ", variable[2], " (", Sys.time(), ").xlsx", sep = "")
+    filename <- gsub(" ", "_", filename)
+    filename <- gsub(":", ".", filename)
+    rio::export(tabla, file = filename)
   }
 
   return(tabla)

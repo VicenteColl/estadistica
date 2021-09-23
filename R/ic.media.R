@@ -94,7 +94,7 @@ if(isFALSE(introducir)) {
 
       } else{
 
-        stop("Seleccion erronea de variable")
+        stop("Selecci\\u00f3n err\\u00f3nea de variable")
 
       }
     }
@@ -107,7 +107,7 @@ if(isFALSE(introducir)) {
 
       } else {
 
-        stop("El nombre de la variable no es valido")
+        stop("El nombre de la variable no es v\\u00e1lido")
 
       }
 
@@ -132,7 +132,7 @@ if(isFALSE(introducir)) {
 
   }
 
-  # tamaño de la muestra
+  # tama\\u00f1o de la muestra
   n <- nrow(x)
 
   # media muestral
@@ -148,7 +148,7 @@ if(isFALSE(introducir)) {
 
       var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar? \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
-      if(var_muestra == "1"){
+      if(var_muestra == 1){
 
         desv_mu = desviacion(x)
 
@@ -160,16 +160,16 @@ if(isFALSE(introducir)) {
   }
 
 
-} else{   # aquí empieza introducir datos
+} else{   # aqu\\u00ed empieza introducir datos
 
-  n <- readline(prompt = "Introducir el tamaño de la muestra: ")
+  n <- readline(prompt = "Introducir el tama\\u00f1o de la muestra: ")
   n <- as.numeric(n)
 
   # caso 1. No puede hacerse
 
   if(poblacion == "desconocida" & var_pob == "desconocida" & n < 30){
 
-    print("La distribución de probabilidad de la población y su varianza son desconocidas. Además, el tamaño de la muestra es pequeño (n<30)")
+    print("La distribuci\\u00f3n de probabilidad de la poblaci\\u00f3n y su varianza son desconocidas. Adem\\u00e1s, el tama\\u00f1o de la muestra es peque\\u00f1o (n<30)")
     stop("Bajo estas condiciones no es posible estimar el intervalo de confianza")
 
   }
@@ -186,7 +186,7 @@ if(isFALSE(introducir)) {
 
     var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar? \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
-    if(var_muestra == "1"){
+    if(var_muestra == 1){
 
       varianza_muestral <- readline(prompt = "Introducir el valor de la varianza muestral: ")
       varianza_muestral <- as.numeric(varianza_muestral)
@@ -207,8 +207,8 @@ if(isFALSE(introducir)) {
 
   if(poblacion == "desconocida" & var_pob == "desconocida" & n >= 30){
 
-    print("La distribución de probabilidad de la población y su varianza son desconocidaS. Sin embargo, el tamaño de la muestra es grande (n>30)")
-    print("En esta situación, la distribución de la media muestral puede considerarse normal como consecuencia del TCL.")
+    print("La distribuci\\u00f3n de probabilidad de la poblaci\\u00f3n y su varianza son desconocidaS. Sin embargo, el tama\\u00f1o de la muestra es grande (n>30)")
+    print("En esta situaci\\u00f3n, la distribuci\\u00f3in de la media muestral puede considerarse normal como consecuencia del TCL.")
 
     valor_critico <- qnorm(alfa2,lower.tail = FALSE)
     error_tipico <- desv_mu / sqrt(n)
@@ -221,8 +221,8 @@ if(isFALSE(introducir)) {
 
     if(n < 30){
 
-      print("Intervalo de confianza para la media poblacional supuesta conocida la varianza poblacional. n pequeña (n<30)")
-      print("El intervalo de confianza será obtenido a partir de Tchebychev")
+      print("Intervalo de confianza para la media poblacional supuesta conocida la varianza poblacional. n peque\\u00f1a (n<30)")
+      print("El intervalo de confianza ser\\u00e1 obtenido a partir de Tchebychev")
 
       valor_critico <- 1
       error_tipico <- desv_pob / sqrt(n * alfa2 * 2)
@@ -230,7 +230,7 @@ if(isFALSE(introducir)) {
     } else{
 
       print("Intervalo de confianza para la media poblacional supuesta conocida la varianza poblacional. n grande (n>30)")
-      print("Como n es grande la distribución de la media muestral puede considerarse normal como consecuencia del TCL.")
+      print("Como n es grande la distribuci\\u00f3n de la media muestral puede considerarse normal como consecuencia del TCL.")
 
       valor_critico <- qnorm(alfa2,lower.tail = FALSE)
       error_tipico <- desv_pob / sqrt(n)
@@ -254,12 +254,11 @@ if(isFALSE(introducir)) {
 
       if(n < 30){  # con la t-student
 
-        if(var_muestra == "1"){ # caso 6_1. normal con varianza desconocida muestra pequeña (cuasivar muestral)
-
+        if(var_muestra == 1){ # caso 6_1. normal con varianza desconocida muestra peque\\u00f1a (cuasivar muestral)
           valor_critico <- qt(alfa2,n-1,lower.tail = FALSE)
           error_tipico <- desv_mu /sqrt(n-1)
 
-        } else{  # caso 6_1. normal con varianza desconocida muestra pequeña (var_muestral)
+        } else{  # caso 6_1. normal con varianza desconocida muestra peque\\u00f1a (var_muestral)
           print("Este es el intervalo que generalmente calculan los softwares (SPSS, Excel, etc.)")
 
           valor_critico <- qt(alfa2,n-1,lower.tail = FALSE)
@@ -271,8 +270,8 @@ if(isFALSE(introducir)) {
 
       if(n >= 30){
 
-        print("El tamaño de la muestra es grande (n>30). Se puede estimar la varianza poblacional y considerar el intervalo de varianza poblacional conocida.")
-        aproximacion <- as.numeric(readline('¿Quieres utilizar la aproximacion de la t a la normal? \n 1. "Sí" \n 2. "No" \n'))
+        print("El tama\\u00f1o de la muestra es grande (n>30). Se puede estimar la varianza poblacional y considerar el intervalo de varianza poblacional conocida.")
+        aproximacion <- as.numeric(readline('\\u00bfQuieres utilizar la aproximacion de la t a la normal? \n 1. "S\\u00ed" \n 2. "No" \n'))
 
         if(aproximacion == 1){  # aproximacion normal. Se estima sigma por S
           # caso 7. Se estima sigma por S y se estima el IC del caso 5
@@ -282,7 +281,7 @@ if(isFALSE(introducir)) {
 
         } else{  # con la t-student
 
-          if(var_muestra == "1"){ # caso 8_1 muestra grande, var muestral y t
+          if(var_muestra == 1){ # caso 8_1 muestra grande, var muestral y t
 
             valor_critico <- qt(alfa2,n-1,lower.tail = FALSE)
             error_tipico <- desv_mu /sqrt(n-1)
@@ -308,7 +307,7 @@ if(isFALSE(introducir)) {
     if(n>=30){
       tamano <- "grande"
     } else{
-      tamano <- "pequeña"
+      tamano <- "peque\\u00f1a"
     }
 
   tema_blanco <- theme(
@@ -360,7 +359,7 @@ if(isFALSE(introducir)) {
 
   } else if(poblacion == "desconocida" & var_pob == "conocida" & n<30) {
 
-    plot <- print("Este intervalo de confianza no tiene representación grafica")
+    plot <- print("Este intervalo de confianza no tiene representaci\\u00f3n gr\\u00e1fica")
 
   } else{
 
@@ -370,7 +369,7 @@ if(isFALSE(introducir)) {
     plot <- ggplot(seq, aes(seq)) +
       stat_function(fun = dnorm, args = list(mean = media, sd = error_tipico)) +
       geom_area(stat = "function", fun = dnorm, args = list(mean = media, sd = error_tipico), fill = "darkgreen", xlim = c(limite_inferior,limite_superior)) +
-      labs(x = "", y = "",title = paste("Intervalo de confianza de la media\n(población",poblacion,",varianza poblacional",var_pob,",n",tamano,")\n(NC=",confianza*100,"%)")) +
+      labs(x = "", y = "",title = paste("Intervalo de confianza de la media\n(poblaci\\u00f3n",poblacion,",varianza poblacional",var_pob,",n",tamano,")\n(NC=",confianza*100,"%)")) +
       scale_y_continuous(breaks = NULL) +
       scale_x_continuous(breaks = c(limite_inferior,media,limite_superior)) +
       theme(axis.text.x = element_text(angle = 45)) +

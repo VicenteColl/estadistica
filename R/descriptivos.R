@@ -51,7 +51,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = TR
 
       } else{
 
-        stop("Seleccion errronea de variables")
+        stop("Selecci\\u00f3n err\\u00f3nea de variables")
 
       }
     }
@@ -61,7 +61,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = TR
       if(all(variable %in% varnames)){
         variable = match(variable,varnames)
       } else {
-        stop("El nombre de la variable no es valido")
+        stop("El nombre de la variable no es v\\u00e1lido")
       }
     }
 
@@ -79,7 +79,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = TR
 
     if((length(variable) | length(pesos)) > 1){
 
-      stop("Para calcular la desviacion tipica a partir de la distribucion de frecuencias solo puedes seleccionar una variable y unos pesos")
+      stop("Para calcular los descriptivos a partir de la distribuci\\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
 
     }
 
@@ -95,7 +95,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = TR
       if(pesos %in% varnames){
         pesos = match(pesos,varnames)
       } else {
-        stop("El nombre de los pesos no es valido")
+        stop("El nombre de los pesos no es v\\u00e1lido")
       }
     }
 
@@ -152,7 +152,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = TR
 
   num_modas <-nrow(valor_moda)
 
-  row.names(resumen) <- c("media","mínimo","cuartil 1","mediana","cuartil 3", "máximo","varianza","desviacion tipica",
+  row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviacion tipica",
                           "coef_variacion","asimetria","curtosis",paste("moda ",seq(1:num_modas),sep=""))
 
   if (exportar) {

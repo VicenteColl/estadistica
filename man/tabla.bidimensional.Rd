@@ -6,7 +6,8 @@
 \usage{
 tabla.bidimensional(x,
                            distribucion = c("cruzada","condicionada"),
-                           frecuencias = c("absolutas","relativas"))
+                           frecuencias = c("absolutas","relativas"),
+                           exportar = TRUE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).}
@@ -14,6 +15,8 @@ tabla.bidimensional(x,
 \item{distribucion}{Es un caracter. Por defecto se obtien la tabla cruzada (distribucion = "cruzada"). Para obtener las distribuciones condicionadas cambiar el argumento: distribucion = "condicionada".}
 
 \item{frecuencias}{Es un carácter. Por defecto se obtienen las frecuencias absolutas ordinarias (frecuencias = "absolutas"). Para obtener las frecuencias relativas ordinarias cambiar el argumento: frecuencias = "relativas".}
+
+\item{exportar}{Por defecto, los resultados se exportan a una hoja de cálculo Excel (exportar = TRUE).}
 }
 \description{
 Calcula la tabla de frecuencias bidimensionales.
