@@ -15,8 +15,13 @@ media(x, variable = NULL, pesos = NULL)
 }
 \description{
 Calcula la media aritmética.
+}
+\details{
+Si se desea obtener la media a partir de una tabla estadística se utiliza la expresión:
 
-\figure{a.jpg}{options: width="25\%" alt="Figure: a.jpg}
+\figure{a.jpg}{options: width="25\%" alt="Figure: a.jpg" align="center"}
+
+En otro caso se utiliza la expresión:
 }
 \references{
 Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.

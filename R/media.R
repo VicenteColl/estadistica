@@ -2,9 +2,6 @@
 #'
 #' @description Calcula la media aritmética.
 #'
-#' \figure{a.jpg}{options: width="25\%" alt="Figure: a.jpg}
-#'
-
 #' @usage media(x, variable = NULL, pesos = NULL)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -25,6 +22,15 @@
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Universidad de Valencia (España)
+#'
+#' @details
+#'
+#' Si se desea obtener la media a partir de una tabla estadística se utiliza la expresión:
+#'
+#' \figure{a.jpg}{options: width="25\%" alt="Figure: a.jpg" align="center"}
+#'
+#' En otro caso se utiliza la expresión:
+#'
 #'
 #' @references
 #' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.

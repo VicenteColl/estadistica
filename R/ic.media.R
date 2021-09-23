@@ -37,7 +37,7 @@
 #' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 #'
 #' @importFrom ggalt geom_dumbbell
-#' @import dplyr ggplot2 ggalt
+#' @import dplyr ggalt ggplot2
 #'
 #' @export
 ic.media <- function(x,
@@ -328,7 +328,7 @@ if(isFALSE(introducir)) {
 
     intervalo <- data.frame(ic = "intervalo confianza",inferior=limite_inferior,media=media,superior=limite_superior)
     plot <- ggplot(data = intervalo) +
-      geom_dumbbell(aes(y = ic,
+      ggalt::geom_dumbbell(aes(y = ic,
                         x = inferior,
                         xend = superior),
                     size = 1.5,
@@ -337,7 +337,7 @@ if(isFALSE(introducir)) {
                     size_xend = 3,
                     colour_x = "red",
                     colour_xend = "blue")  +
-      geom_dumbbell(aes(y = ic,
+      ggalt::geom_dumbbell(aes(y = ic,
                         x = media,
                         xend = media),
                     size = 1.5,

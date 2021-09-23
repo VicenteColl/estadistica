@@ -56,8 +56,6 @@ muestra <- function(poblacion = c("normal","dicotomica"),
 
     varianza_pob <- as.numeric(readline('\u00bfLa varianza poblacional es conocida? \n 1. "S\u00ed" \n 2. "No" \n'))
 
-    varianza_pob <- as.numeric(varianza_pob)
-
     if(varianza_pob == 1){
 
       varianza <- readline(prompt="Introduce el valor de la varianza poblacional: ")
@@ -66,7 +64,7 @@ muestra <- function(poblacion = c("normal","dicotomica"),
 
       var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar: \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
-      if(var_muestra == "1"){
+      if(var_muestra == 1){
 
         print("Se utilizar\u00e1 la varianza muestral como estimador de la varianza poblacional")
         varianza <- readline(prompt="Introduce el valor de la varianza muestral: ")
@@ -90,7 +88,7 @@ muestra <- function(poblacion = c("normal","dicotomica"),
 
       tamano <- valor_critico^2 * (varianza / error_estimacion^2)
 
-      if(var_muestra == 1){ # normal, var desconocida y varianza muestral
+      if(varianza_pob != 1){ # normal, var desconocida y varianza muestral
 
         tamano <- 1 + valor_critico^2 * (varianza / error_estimacion^2)
 

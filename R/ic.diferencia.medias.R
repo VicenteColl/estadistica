@@ -48,9 +48,6 @@ ic.diferencia.medias <- function(x,
                                  confianza = 0.95){
 
 
-  source("./R/varianza.R")
-  source("./R/media.R")
-
   poblacion <- tolower(poblacion)
   poblacion <- match.arg(poblacion)
 

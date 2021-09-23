@@ -44,9 +44,6 @@ ic.proporcion <- function(x,
                           confianza = 0.95){
 
 
-  source("./R/desviacion.R")
-  source("./R/media.R")
-
   print("Intervalo de confianza de una proporción. El tamaño de la muestra es grande.")
 
   if(confianza >= 0 & confianza <=1){

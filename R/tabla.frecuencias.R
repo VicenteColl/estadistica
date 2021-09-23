@@ -1,11 +1,12 @@
 #' @title Tabla de frecuencias.
 #'
 #' @description Esta función presenta la distribución de frecuencias de una variable.
-#' @usage tabla.frecuencias(x, eliminar.na = TRUE)
+#' @usage tabla.frecuencias(x, eliminar.na = TRUE, exportar = TRUE)
 #'
-#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param x Conjunto de datos. Puede ser un vector o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.
 #' @param eliminar.na Valor lógico. Por defecto eliminar.na = TRUE. Si se quiere obtener la tabla de frecuencias con NAs, cambiar el argumento a FALSE.
-#'
+#' @param exportar Por defecto, los resultados se exportan a una hoja de cálculo Excel (exportar = TRUE).
+
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
@@ -26,7 +27,7 @@
 #' @import tidyverse
 #'
 #' @export
-tabla.frecuencias <- function(x, eliminar.na = TRUE){
+tabla.frecuencias <- function(x, eliminar.na = TRUE, exportar = TRUE){
 
   x <- as.data.frame(x)
 
@@ -65,10 +66,11 @@ tabla.frecuencias <- function(x, eliminar.na = TRUE){
 
   if(length(x) > 1){
     stop("Esta funcion solo puede contruir la tabla de frecuencias de una variable")
+    print("Para obtener la tabla de frecuencias de mas de una variable utiliza la funci\\u00f3n apply")
   }
 
   tabla <- x %>% dplyr::arrange(x) %>%
-    dplyr::group_by(.dots=y) %>%
+    dplyr::group_by_at(y) %>%   # en lugar de group_by(.dots=y)
     dplyr::count() %>%
     dplyr::ungroup()
 
@@ -83,7 +85,7 @@ tabla.frecuencias <- function(x, eliminar.na = TRUE){
     x <- drop_na(x)
 
     tabla <- x %>% dplyr::arrange(x) %>%
-      dplyr::group_by(.dots=y) %>%
+      dplyr::group_by_at(y) %>%
       dplyr::count() %>%
       dplyr::ungroup()
 
@@ -97,7 +99,7 @@ tabla.frecuencias <- function(x, eliminar.na = TRUE){
   } else {
 
     tabla <- x %>% dplyr::arrange(x) %>%
-      dplyr::group_by(.dots=y) %>%
+      dplyr::group_by_at(y) %>%
       dplyr::count() %>%
       dplyr::ungroup()
 
@@ -109,6 +111,14 @@ tabla.frecuencias <- function(x, eliminar.na = TRUE){
                     Fi = cumsum(fi))
 
   }
+
+  if (exportar) {
+      filename <- paste("Tabla de frecuencias de ", y, " (", Sys.time(), ").xlsx", sep = "")
+      filename <- gsub(" ", "_", filename)
+      filename <- gsub(":", ".", filename)
+    rio::export(tabla, file = filename)
+  }
+
 
   return(tabla)
 
