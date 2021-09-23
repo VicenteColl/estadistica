@@ -68,7 +68,7 @@ if(isFALSE(introducir)) {
     } else{
 
       warning("Para calcular el intervalo de confianza hay que seleccionar una variable")
-      stop("El conjunto de datos seleccionado tiene mas de 1 variables.")
+      stop("El conjunto de datos seleccionado tiene mas de 1 variable.")
 
     }
 
@@ -82,7 +82,7 @@ if(isFALSE(introducir)) {
 
       } else{
 
-        stop("Seleccion erronea de variable")
+        stop("Selecci\\u00f3n err\\u00f3nea de variable")
 
       }
     }
@@ -95,7 +95,7 @@ if(isFALSE(introducir)) {
 
       } else {
 
-        stop("El nombre de la variable no es valido")
+        stop("El nombre de la variable no es v\\u00e1lido")
 
       }
 
@@ -107,7 +107,7 @@ if(isFALSE(introducir)) {
   } else{
 
     warning("Para calcular el intervalo de confianza hay que seleccionar una variable")
-    stop("El conjunto de datos seleccionado tiene mas de 1 variables.")
+    stop("El conjunto de datos seleccionado tiene mas de 1 variable.")
 
   }
 
@@ -120,13 +120,13 @@ if(isFALSE(introducir)) {
 
   }
 
-  # tamaño de la muestra y grados libertad
+  # tama\\u00f1o de la muestra y grados libertad
   n <- nrow(x)
   gl <- n-1
 
   if(media_poblacion == "desconocida"){
 
-    varianza_muestral <- as.numeric(readline('Selecciona el valor que quieres utilizar? \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
+    varianza_muestral <- as.numeric(readline('Selecciona el valor que quieres utilizar: \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
     if(varianza_muestral == 1){
 
@@ -137,13 +137,13 @@ if(isFALSE(introducir)) {
       var_mu <- as.numeric(varianza(x, tipo = "cuasi"))
       n <- n-1
 
-      print("Este es el intervalo de confianza que generalmente calculan los softwares")
+      print("Este es el intervalo de confianza que generalmente calculan los softwares (SPSS, Excel, Stata, ...)")
 
     }
 
   } else{
 
-    print("La media poblacional no suele conocerse, este supuesto es teorico")
+    print("La media poblacional no suele conocerse, este supuesto es te\\u00f3rico")
 
     media <- readline(prompt = "Introducir el valor de la media poblacional: ")
     media <- as.numeric(media)
@@ -154,13 +154,13 @@ if(isFALSE(introducir)) {
 
 } else{   # aquí empieza introducir datos
 
-  n <- readline(prompt = "Introducir el tamaño de la muestra: ")
+  n <- readline(prompt = "Introducir el tama\\u00f1o de la muestra: ")
   n <- as.numeric(n)
   gl <- n-1
 
   if(media_poblacion == "desconocida"){
 
-    varianza_muestral <- as.numeric(readline('Selecciona el valor que quieres utilizar? \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
+    varianza_muestral <- as.numeric(readline('Selecciona el valor que quieres utilizar: \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
     if(varianza_muestral == 1){
 
@@ -174,13 +174,13 @@ if(isFALSE(introducir)) {
       var_mu <- as.numeric(var_mu)
       n <- n-1
 
-      print("Este es el intervalo de confianza que generalmente calculan los softwares")
+      print("Este es el intervalo de confianza que generalmente calculan los softwares (SPSS, Stata, Excel,...)")
 
     }
 
   } else{
 
-    print("La media poblacional no suele conocerse, este supuesto es teorico")
+    print("La media poblacional no suele conocerse, este supuesto es te\\u00f3rico")
 
     media <- readline(prompt = "Introducir el valor de la media poblacional: ")
     media <- as.numeric(media)
@@ -194,16 +194,16 @@ if(isFALSE(introducir)) {
 # calculo de los intervalos de confianza
 
 if(media_poblacion == "desconocida"){
-  # caso 1. Media poblacional desconocida, n pequeña
-  print("Intervalo de confianza para la varianza poblacional, supuesta desconocida la media poblacional. n pequeña")
+  # caso 1. Media poblacional desconocida, n peque\\u00f1a
+  print("Intervalo de confianza para la varianza poblacional, supuesta desconocida la media poblacional. n peque\\u00f1a")
 
   limite_inferior <- (n * var_mu) / qchisq(alfa_2,lower.tail = F, df= gl)
   limite_superior <- (n * var_mu) / qchisq(1-alfa_2, lower.tail = F, df= gl)
 
 } else{
 
-  # caso 2. Media poblacional conocida, n pequeña
-  print("Intervalo de confianza para la varianza poblacional, supuesta conocida la media poblacional. n pequeña")
+  # caso 2. Media poblacional conocida, n peque\\u00f1a
+  print("Intervalo de confianza para la varianza poblacional, supuesta conocida la media poblacional. n peque\\u00f1a")
 
   limite_inferior <- sumatorio / qchisq(alfa_2,lower.tail = F, df= gl+1)
   limite_superior <- sumatorio / qchisq(1-alfa_2, lower.tail = F, df= gl+1)

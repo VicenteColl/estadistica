@@ -41,3 +41,4 @@ importFrom("stats","addmargins","var","cov",
            "dnorm", "dt", "pnorm", "pt",
            "qchisq", "qf", "qnorm", "qt",
            "df", "pchisq", "pf")
+
