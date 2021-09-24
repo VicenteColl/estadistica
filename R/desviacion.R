@@ -11,19 +11,42 @@
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#' Universidad de Valencia (España)
+#'
 #' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#' Universidad de Valencia (España)
+#'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
 #' \emph{Economía Aplicada.}
-#' Universidad de Valencia (España)
+#'
 #' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #' Universidad de Valencia (España)
 #'
+#' @details
+#'
+#' La expresión de la desviación típica muestral es:
+#'
+#' \figure{desviacion.jpg}{options: width="35\%" heigth="35\%"}
+#'
+#' La desviación muestral es el estimador máximo verosímil de la desviación típica de una población normal
+#'
+#' La expresión de la cuasi-desviación típica muestral es:
+#'
+#' \figure{cuasidesviacion.jpg}{options: width="35\%" heigth="35\%"}
+#'
+#' La cuasidesviación típica muestral es un estimador insesgado de la desviación típica poblacional.
+#'
+#' @note
+#' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la desviación típica poblacional:
+#'
+#' \figure{desviacion_pob.jpg}{options: width="35\%" heigth="35\%"}
+#'
 #' @references
-#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
+#' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #'
 #' @import

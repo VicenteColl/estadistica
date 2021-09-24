@@ -15,7 +15,9 @@ momento.central(x, orden)
 Calcula los momentos centrales respecto de la media.
 }
 \references{
-Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
+
+Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).

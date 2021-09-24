@@ -17,14 +17,25 @@ media(x, variable = NULL, pesos = NULL)
 Calcula la media aritmética.
 }
 \details{
-Si se desea obtener la media a partir de una tabla estadística se utiliza la expresión:
+Si se obtiene la media (muestral) a partir de los datos brutos, como generalemente hacen los softwares:
 
-\figure{a.jpg}{options: width="25\%" alt="Figure: a.jpg" align="center"}
+\figure{media.jpg}{options: width="25\%" heigth="25\%"}
 
-En otro caso se utiliza la expresión:
+Si se desea obtener la media (muestral) a partir de una tabla estadística se utiliza la expresión:
+
+\figure{media2.jpg}{options: width="30\%" heigth="30\%"}
+}
+\note{
+Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la media poblacional:
+
+\figure{media_pob.jpg}{options: width="20\%" heigth="20\%"}
 }
 \references{
-Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
+
+Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+
+Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).

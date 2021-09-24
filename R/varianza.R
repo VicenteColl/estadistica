@@ -23,9 +23,31 @@
 #'
 #' Universidad de Valencia (España)
 #'
-#' @references
-#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#' @details
 #'
+#' La expresión de la varianza muestral es:
+#'
+#' \figure{varianza.jpg}{options: width="35\%" heigth="35\%"}
+#'
+#' La varianza muestral es el estimador máximo verosímil de la varianza de una población normal
+#'
+#' La expresión de la cuasi-varianza muestral es:
+#'
+#' \figure{cuasivarianza.jpg}{options: width="35\%" heigth="35\%"}
+#'
+#' La cuasivarianza muestral es un estimador insesgado de la varianza poblacional.
+#'
+#' @note
+#' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la varianza poblacional:
+#'
+#' \figure{varianza_pob.jpg}{options: width="35\%" heigth="35\%"}
+#'
+#' @references
+#' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
+#' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @import
 #'

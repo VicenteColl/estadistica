@@ -16,8 +16,24 @@ coeficiente.variacion(x, variable = NULL, pesos = NULL)
 \description{
 Calcula el coeficiente de variación de Pearson.
 }
+\details{
+El coeficiente de variación (muestral) se obtiene a partir de la siguiente expresión:
+
+\figure{coeficiente_variacion.jpg}{options: width="15\%" heigth="15\%"}
+
+donde S es la desviación típica muestral. También puede calcularse utilizando la cuasi-desviación típica (Sc).
+}
+\note{
+Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene el coeficiente de variación poblacional:
+
+\figure{coeficiente_variacion_pob.jpg}{options: width="15\%" heigth="15\%"}
+}
 \references{
-Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
+
+Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+
+Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
