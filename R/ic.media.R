@@ -271,7 +271,7 @@ if(isFALSE(introducir)) {
       if(n >= 30){
 
         print("El tama\u00f1o de la muestra es grande (n>30). Se puede estimar la varianza poblacional y considerar el intervalo de varianza poblacional conocida.")
-        aproximacion <- as.numeric(readline('\\u00bfQuieres utilizar la aproximacion de la t a la normal? \n 1. "S\u00ed" \n 2. "No" \n'))
+        aproximacion <- as.numeric(readline('\u00bfQuieres utilizar la aproximaci\uf003n de la t a la normal? \n 1. "S\u00ed" \n 2. "No" \n'))
 
         if(aproximacion == 1){  # aproximacion normal. Se estima sigma por S
           # caso 7. Se estima sigma por S y se estima el IC del caso 5
