@@ -44,7 +44,7 @@ ic.proporcion <- function(x,
                           confianza = 0.95){
 
 
-  print("Intervalo de confianza de una proporci\\u00f3n. El tama\\u00f1o de la muestra es grande.")
+  print("Intervalo de confianza de una proporci\u00f3n. El tama\u00f1o de la muestra es grande.")
 
   if(confianza >= 0 & confianza <=1){
 
@@ -87,7 +87,7 @@ if(isFALSE(introducir)) {
 
       } else{
 
-        stop("Selecci\u00f3\n err\\u00f3nea de variable")
+        stop("Selecci\u00fn err\u00f3nea de variable")
 
       }
     }
@@ -100,7 +100,7 @@ if(isFALSE(introducir)) {
 
       } else {
 
-        stop("El nombre de la variable no es v\\u00e1lido")
+        stop("El nombre de la variable no es v\u00e1lido")
 
       }
 
@@ -118,7 +118,7 @@ if(isFALSE(introducir)) {
 
   if(!all(x == 0 | x==1)){
 
-    print("Aplica a tus datos la condici\\u00f3n que debe cumplir la poblaci\\u00f3n para transfomar los datos en ceros (ausencia/no \\u00e9xito) y unos (presencia/\\u00e9xito)")
+    print("Aplica a tus datos la condici\u00f3n que debe cumplir la poblaci\u00f3n para transfomar los datos en ceros (ausencia/no \u00e9xito) y unos (presencia/\u00e9xito)")
     stop("Los valores en la muestra deben ser 0 y 1.")
 
   }
@@ -132,11 +132,11 @@ if(isFALSE(introducir)) {
 
   }
 
-  # tama\\u00f1o de la muestra
+  # tama\u00f1o de la muestra
   n <- nrow(x)
 
   if(n < 30){
-    stop("El tama\\u00f1o de la muestra es peque\\u00f1a, la aproximaci\\u00f3n a la normal no es buena.")
+    stop("El tama\u00f1o de la muestra es peque\u00f1a, la aproximaci\u00f3n a la normal no es buena.")
   }
 
   # media muestral
@@ -148,18 +148,18 @@ if(isFALSE(introducir)) {
   }
 
 
-} else{   # aqu\\u00ed empieza introducir datos
+} else{   # aqu\u00ed empieza introducir datos
 
-  n <- readline(prompt = "Introducir el tama\\u00f1o de la muestra: ")
+  n <- readline(prompt = "Introducir el tama\u00f1o de la muestra: ")
   n <- as.numeric(n)
 
   if(n < 30){
-    stop("El tama\\u00f1o de la muestra es peque\\u00f1a, la aproximaci\\u00f3n a la normal no es buena.")
+    stop("El tama\u00f1o de la muestra es peque\u00f1a, la aproximaci\u00f3n a la normal no es buena.")
   }
 
   if(isTRUE(p_muestral)){
 
-    p_mu <- readline(prompt = "Introducir el valor de la proporci\\u00f3n muestral: ")
+    p_mu <- readline(prompt = "Introducir el valor de la proporci\u00f3n muestral: ")
     p_mu <- as.numeric(p_mu)
 
   } else{
@@ -172,10 +172,10 @@ if(isFALSE(introducir)) {
 
   if(isFALSE(irrestricto)){
 
-    aproximacion <- as.numeric(readline('\\u00bfQuieres aproximar el valor de p por la proporci\\u00f3n muestral? \n 1. "S\\u00ed" \n 2. "No" \n'))
+    aproximacion <- as.numeric(readline('\u00bfQuieres aproximar el valor de p por la proporci\u00f3n muestral? \n 1. "S\u00ed" \n 2. "No" \n'))
     if(aproximacion == 1){
 
-      print("Como n es suficientemente grande, se aproxima el valor de p poblacional por su estimaci\\u00f3n puntual (p muestral)")
+      print("Como n es suficientemente grande, se aproxima el valor de p poblacional por su estimaci\u00f3n puntual (p muestral)")
 
       error_tipico <- sqrt((p_mu * (1-p_mu))/n)
       limite_inferior <- p_mu - valor_critico * error_tipico
@@ -183,8 +183,8 @@ if(isFALSE(introducir)) {
 
     } else{
 
-      print("Este criterio no tiene en cuenta el tama\\u00f1o de la muestra. Se obtendr\\u00e1 el intervalo de p a partir del c\\u00e1lculo de probabilidad del estad\\u00edstico")
-      print("El intervalo obtenido no es sim\\u00e9trico respecto a la proporci\\u00f3n muestral")
+      print("Este criterio no tiene en cuenta el tama\u00f1o de la muestra. Se obtendr\u00e1 el intervalo de p a partir del c\u00e1lculo de probabilidad del estad\u00edstico")
+      print("El intervalo obtenido no es sim\u00e9trico respecto a la proporci\u00f3n muestral")
       x <- n + valor_critico^2
       y <- -(2 * p_mu * n + valor_critico^2)
       z <- p_mu^2 * n
@@ -208,9 +208,9 @@ if(isFALSE(introducir)) {
 
   } else{
 
-    print("Intervalo para la proporci\\u00f3n adecuado si el muestreo es sin reemplazamiento y la poblaci\\u00f3n es finita")
+    print("Intervalo para la proporci\u00f3n adecuado si el muestreo es sin reemplazamiento y la poblaci\u00f3n es finita")
 
-    N <- readline(prompt= "Introduce el tama\\u00f1o (N) de la poblaci\\u00f3n: ")
+    N <- readline(prompt= "Introduce el tama\u00f1o (N) de la poblaci\u00f3n: ")
     N <- as.numeric(N)
 
     factor <- sqrt((N-n)/(N-1))

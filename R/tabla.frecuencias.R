@@ -61,12 +61,12 @@ tabla.frecuencias <- function(x, eliminar.na = TRUE, exportar = TRUE){
 
   if (!clase %in% c("numeric","integer","factor","logic")) {
     stop("No puede construirse la tabla de frecuencias, la variable que has\n
-         seleccionado es caracter")
+         seleccionado es car\u00e1cter")
   }
 
   if(length(x) > 1){
-    stop("Esta funcion solo puede contruir la tabla de frecuencias de una variable")
-    print("Para obtener la tabla de frecuencias de mas de una variable utiliza la funci\\u00f3n apply")
+    stop("Esta funci\u00f3n solo puede contruir la tabla de frecuencias de una variable")
+    print("Para obtener la tabla de frecuencias de mas de una variable utiliza la funci\u00f3n apply")
   }
 
   tabla <- x %>% dplyr::arrange(x) %>%

@@ -95,7 +95,7 @@ if(isFALSE(introducir)) {
 
       } else{
 
-        stop("Seleccion erronea de variable")
+        stop("Selecci\u00f3n err\u00f3nea de variable")
 
       }
     }
@@ -108,7 +108,7 @@ if(isFALSE(introducir)) {
 
       } else {
 
-        stop("El nombre de la variable no es valido")
+        stop("El nombre de la variable no es v\u00e1lido")
 
       }
 
@@ -132,7 +132,7 @@ if(isFALSE(introducir)) {
 
   }
 
-  # tamaños de la muestras
+  # tama\i00f1os de la muestras
   n1 <- length(x[1][!is.na(x[1])])
   n2 <- length(x[2][!is.na(x[2])])
   n <- c(n1,n2)
@@ -163,7 +163,7 @@ if(isFALSE(introducir)) {
 
   } else{
 
-    var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar? \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
+    var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar: \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
     if(var_muestra == 1){
 
@@ -181,14 +181,14 @@ if(isFALSE(introducir)) {
   }
 
 
-} else{   # aquí empieza introducir datos
+} else{   # aqu\u00ed empieza introducir datos
 
   n <- c()
   media <- c()
 
   for(i in 1:2){
 
-    n0 <- readline(prompt = paste("Introducir el tamaño de la muestra ",i,": ",sep=""))
+    n0 <- readline(prompt = paste("Introducir el tama\u00f1o de la muestra ",i,": ",sep=""))
     n0 <- as.numeric(n0)
 
     n <- c(n,n0)
@@ -228,7 +228,7 @@ if(isFALSE(introducir)) {
 
       var_mu <- c()
 
-      var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar? \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
+      var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar: \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
       for(i in 1:2){
 
@@ -286,13 +286,13 @@ if(isFALSE(introducir)) {
 
         if(all(n>=30)){ # muestras grandes
 
-          print("Si los tamañas muestrales son grandes se estima la varianza poblacional")
+          print("Si los tama\u00f1os muestrales son grandes se estima la varianza poblacional")
           valor_critico <- qnorm(alfa2,lower.tail = FALSE)
           error_tipico <- sqrt(var_mu1/n1 + var_mu2/n2)
 
-        } else{ # muestras pequeñas
+        } else{ # muestras peque\u00f1as
 
-          # caso 3. n1 y n2 son pequeñas
+          # caso 3. n1 y n2 son peque\u00f1as
 
           valor_critico <- qt(alfa2,n1+n2-2,lower.tail = FALSE)
 
@@ -334,7 +334,7 @@ if(isFALSE(introducir)) {
 
     }
 
-  } else{ # distribución es desconocida
+  } else{ # distribuci\u00f3n es desconocida
 
     if(var_pob == "conocida"){
 
@@ -343,14 +343,14 @@ if(isFALSE(introducir)) {
 
       if(n1 >= 30 & n2 >= 30){ # muestras grandes
 
-        # según libro de casas
+        # se\u00fan libro de casas
 
         valor_critico <- qnorm(alfa2,lower.tail = FALSE)
 
         if(isTRUE(iguales)){
 
           # caso 5
-          # error tipico igual al del caso 3_2 pero el valor crítico con normal
+          # error tipico igual al del caso 3_2 pero el valor cr\u00edtico con normal
           numerador <- var_mu1*(n1-1) + var_mu2*(n2-1)
           denominador <- n1+n2-2
 
@@ -364,9 +364,9 @@ if(isFALSE(introducir)) {
 
         }
 
-      } else{ #muestras pequeñas
+      } else{ #muestras peque\u00f1as
 
-        print("La distribución de probabilidad de la población y su varianza son desconocidas. Además, el tamaño de alguna muestra es pequeño (n<30)")
+        print("La distribuci\u00f3n de probabilidad de la poblaci\u00f3 y su varianza son desconocidas. Adem\u00e1s, el tama\u00f1o de alguna muestra es peque\u00f1o (n<30)")
         stop("Bajo estas condiciones no es posible estimar el intervalo de confianza")
 
 

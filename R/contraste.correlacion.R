@@ -49,9 +49,9 @@ contraste.correlacion <- function(x,
 
 
   print("Se asume que la variable bivariante (X,Y) se distribuye conjuntamente normal")
-  print("El contraste de independencia es equivalente a contrastar que el coeficiente de correlaci\\u00f3n es cero frente a la alternativa de que es distinto de cero")
+  print("El contraste de independencia es equivalente a contrastar que el coeficiente de correlaci\u00f3n es cero frente a la alternativa de que es distinto de cero")
 
-  warning("Actualmente solo se encuentra implementado el contraste bilateral de correlaci\\u00f3n")
+  warning("Actualmente solo se encuentra implementado el contraste bilateral de correlaci\u00f3n")
 
   tipo_contraste <- tolower(tipo_contraste)
   tipo_contraste <- match.arg(tipo_contraste)
@@ -59,7 +59,7 @@ contraste.correlacion <- function(x,
 
 if(is.null(hipotesis_nula) | !is.numeric(hipotesis_nula)){
 
-  stop("Tienes que introducir un valor para la hip\\u00f3tesis nula")
+  stop("Tienes que introducir un valor para la hip\u00f3tesis nula")
 
 } else{
 
@@ -83,7 +83,7 @@ if(alfa >= 0 & alfa <=1){
   valor_critico <- round(valor_critico,4)
 
 } else{
-  stop("El nivel de significaci\\u00f3n debe fijarse entre 0 y 1")
+  stop("El nivel de significaci\u00f3n debe fijarse entre 0 y 1")
 }
 
 
@@ -98,7 +98,7 @@ if(isFALSE(introducir)) {
       x <- x
     } else{
       warning("Para calcular el contraste hay que seleccionar 2 variables")
-      stop("El conjunto de datos seleccionado no tiene la dimensi\\u00f3n adecuada")
+      stop("El conjunto de datos seleccionado no tiene la dimensi\u00f3n adecuada")
     }
   } else{
 
@@ -107,14 +107,14 @@ if(isFALSE(introducir)) {
           if(all(variable <= length(x))){
             variable <- variable
           } else{
-            stop("Selecci\\u00f3n err\\u00f3nea de variable")
+            stop("Selecci\u00f3n err\u00f3nea de variable")
           }
         }
       if(is.character(variable)){
         if(all(variable %in% varnames)){
           variable = match(variable,varnames)
           } else {
-            stop("El nombre de la variable no es v\\u00e1lido")
+            stop("El nombre de la variable no es v\u00e1lido")
           }
         }
 
@@ -122,8 +122,8 @@ if(isFALSE(introducir)) {
       names(x) <- varnames[variable]
 
       } else{
-        warning("Para calcular el contraste de correlaci\\u00f3 hay que seleccionar dos variables")
-        stop("El conjunto de datos seleccionado parece ser no v\\u00e1lido")
+        warning("Para calcular el contraste de correlaci\u00f3 hay que seleccionar dos variables")
+        stop("El conjunto de datos seleccionado parece ser no v\u00e1lido")
       }
   }
 
@@ -133,24 +133,24 @@ if(isFALSE(introducir)) {
     stop("No puede calcularse el contraste porque la variable seleccionada no es cuantitativa")
   }
 
-  # tama\\u00f1o de la muestra
+  # tama\u00f1o de la muestra
   x <- na.omit(x)
   n <- nrow(x)
   correlacion <- as.numeric(correlacion(x))
 
-} else{   # aqu\\u00ed empieza introducir datos
+} else{   # aqu\u00ed empieza introducir datos
 
-  print("A continuaci\\u00f3n, vas a introducir los datos muestrales.")
+  print("A continuaciu00f3n, vas a introducir los datos muestrales.")
 
-  n <- readline(prompt = "Introducir el tama\\u00f1o de la muestra : ")
+  n <- readline(prompt = "Introducir el tama\u00f1o de la muestra : ")
   n <- as.numeric(n)
 
-  correlacion <- readline(prompt = "Introducir el valor del coeficiente de correlaci\\u00f3n muestral: ")
+  correlacion <- readline(prompt = "Introducir el valor del coeficiente de correlaci\u00f3n muestral: ")
   correlacion <- as.numeric(correlacion)
 
   if((correlacion < -1 | correlacion > 1)){
 
-    stop("El coeficiente de correlaci\\u00f3n debe estar comprendido entre -1 y 1.")
+    stop("El coeficiente de correlaci\u00f3n debe estar comprendido entre -1 y 1.")
 
   }
 
@@ -170,14 +170,14 @@ if(hipotesis_nula == 0){
 
     if((estadistico.prueba > - valor_critico & estadistico.prueba < valor_critico)){
 
-      print(paste("No se rechaza la hip\\u00f3tesis nula. La regi\\u00f3n de aceptaci\\u00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
-      print("El valor del estad\\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\\u00f3n de aceptaci\\u00f3n")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
 
     } else{
 
-      print(paste("Se rechaza la hip\\u00f3tesis nula. La regi\\u00f3n de aceptaci\\u00f3n viene dada por el intervalo [", -valor_critico," , ", valor_critico,"]",sep=""))
-      print("El valor del estad\\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\\u00f3n de aceptaci\\u00f3n")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ", valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -190,14 +190,14 @@ if(hipotesis_nula == 0){
 
     if((estadistico.prueba <= valor_critico)){
 
-      print(paste("No se rechaza la hip\\u00f3tesis nula. La regi\\u00f3n de aceptaci\\u00f3n viene dada por el intervalo [", -Inf," , ",valor_critico,"]",sep=""))
-      print("El valor del estad\\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\\u00f3n de aceptaci\\u00f3n")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -Inf," , ",valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
 
     } else{
 
-      print(paste("Se rechaza la hip\\u00f3tesis nula. La regi\\u00f3n de aceptaci\\u00f3n viene dada por el intervalo [", -Inf," , ", valor_critico,"]",sep=""))
-      print("El valor del estad\\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\\u00f3n de aceptaci\\u00f3n")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -Inf," , ", valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -211,14 +211,14 @@ if(hipotesis_nula == 0){
 
     if((estadistico.prueba >= -valor_critico)){
 
-      print(paste("No se rechaza la hip\u00f3\tesis nula. La regi\\u00f3n de aceptaci\\u00f3n viene dada por el intervalo [", -valor_critico," , ",Inf,"]",sep=""))
-      print("El valor del estad\\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\\u00f3n de aceptaci\\u00f3n")
+      print(paste("No se rechaza la hip\u00f3\tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ",Inf,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
 
     } else{
 
-      print(paste("Se rechaza la hip\\u00f3tesis nula. La regi\\u00f3n de aceptaci\\u00f3n viene dada por el intervalo [", -valor_critico," , ", Inf,"]",sep=""))
-      print("El valor del estad\\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\\u00f3n de aceptaci\\u00f3n")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ", Inf,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -243,14 +243,14 @@ if(hipotesis_nula == 0){
 
     if(estadistico.prueba > limite_inferior & estadistico.prueba < limite_superior){
 
-      print(paste("No se rechaza la hip\\u00f3tesis nula. La regi\\u00f3n de aceptaci\\u00f3n viene dada por el intervalo [", limite_inferior," , ",limite_superior,"]",sep=""))
-      print("El valor del estad\\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\\u00f3n de aceptaci\\u00f3n")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", limite_inferior," , ",limite_superior,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
 
     } else{
 
-      print(paste("Se rechaza la hip\\u00f3tesis nula. La regi\\u00f3n de aceptaci\\u00f3n viene dada por el intervalo [", limite_inferior," , ",limite_superior,"]",sep=""))
-      print("El valor del estad\\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\\u00f3n de aceptaci\\u00f3n")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", limite_inferior," , ",limite_superior,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -261,7 +261,7 @@ if(hipotesis_nula == 0){
 
   CH <- cbind(H0,estadistico.prueba,pvalor)
   CH <- as.data.frame(CH)
-  names(CH) <- c("Hip\\u00f3tesis nula", "estad\\u00edstico de prueba", "p-valor")
+  names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
   return(CH)

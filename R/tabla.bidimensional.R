@@ -73,7 +73,7 @@ tabla.bidimensional <- function(x,
   clase <- sapply(x, class)
 
   if (!all(clase %in% c("numeric","integer","factor","logic"))){
-    stop("No puede construirse la tabla de frecuencias, alguna variable seleccionada es car\\u00e1cter")
+    stop("No puede construirse la tabla de frecuencias, alguna variable seleccionada es car\u00e1cter")
   }
 
 
@@ -85,8 +85,8 @@ tabla.bidimensional <- function(x,
       tabla <- addmargins(tabla)
 
     } else{
-      print("Si quieres obtener la distribuci\\u00f3n de variable1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
-      tipo <- readline(prompt = "Distribuci\\u00f3n condicionada por filas (1) o por columnas (2): ")
+      print("Si quieres obtener la distribuci\u00f3n de variable1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
+      tipo <- readline(prompt = "Distribuci\u00f3n condicionada por filas (1) o por columnas (2): ")
       tipo = as.numeric(tipo)
 
       tabla2 <- x %>%
@@ -132,8 +132,8 @@ tabla.bidimensional <- function(x,
       tabla <- addmargins(tabla)
 
     } else{
-      print("Si quieres obtener la distribuci\\u00f3n de varible1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
-      tipo <- readline(prompt = "Distribuci\\u00f3n condicionada por filas (1) o por columnas (2): ")
+      print("Si quieres obtener la distribuci\u00f3n de varible1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
+      tipo <- readline(prompt = "Distribuci\u00f3n condicionada por filas (1) o por columnas (2): ")
       tipo = as.numeric(tipo)
 
       if(tipo == 1){

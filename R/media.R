@@ -57,7 +57,7 @@ media <- function(x, variable = NULL, pesos = NULL){
 
       } else{
 
-        stop("Selecci\\u00f3n err\\u00f3nea de variables")
+        stop("Selecci\u00f3n err\u00f3nea de variables")
 
       }
     }
@@ -67,7 +67,7 @@ media <- function(x, variable = NULL, pesos = NULL){
       if(all(variable %in% varnames)){
         variable = match(variable,varnames)
       } else {
-        stop("El nombre de la variable no es v\\u00e1lido")
+        stop("El nombre de la variable no es v\u00e1lido")
       }
     }
 
@@ -85,7 +85,7 @@ media <- function(x, variable = NULL, pesos = NULL){
 
     if((length(variable) | length(pesos)) > 1){
 
-      stop("Para calcular la media a partir de la distribuci\\u00fn de frecuencias solo puedes seleccionar una variable y unos pesos")
+      stop("Para calcular la media a partir de la distribuci\u00fn de frecuencias solo puedes seleccionar una variable y unos pesos")
 
     }
 
@@ -101,7 +101,7 @@ media <- function(x, variable = NULL, pesos = NULL){
       if(pesos %in% varnames){
         pesos = match(pesos,varnames)
       } else {
-        stop("El nombre de los pesos no es v\\u00e1lido")
+        stop("El nombre de los pesos no es v\u00e1lido")
       }
     }
 

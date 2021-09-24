@@ -59,7 +59,7 @@ if(isFALSE(introducir)) {
       x <- x
     } else{
       warning("Para calcular el intervalo de confianza hay que seleccionar 2 variables")
-      stop("El conjunto de datos seleccionado no tiene la dimension adecuada")
+      stop("El conjunto de datos seleccionado no tiene la dimensi\u00f3n adecuada")
     }
   } else{
 
@@ -68,14 +68,14 @@ if(isFALSE(introducir)) {
           if(all(variable <= length(x))){
             variable <- variable
           } else{
-            stop("Seleccion erronea de variable")
+            stop("Selecci\u00f3n err\u00f3nea de variable")
           }
         }
       if(is.character(variable)){
         if(all(variable %in% varnames)){
           variable = match(variable,varnames)
           } else {
-            stop("El nombre de la variable no es valido")
+            stop("El nombre de la variable no es v\u00e1lido")
           }
         }
 
@@ -83,8 +83,8 @@ if(isFALSE(introducir)) {
       names(x) <- varnames[variable]
 
       } else{
-        warning("Para calcular el intervalo de confianza de la razón de varianzas hay que seleccionar dos variables")
-        stop("El conjunto de datos seleccionado parece ser no valido")
+        warning("Para calcular el intervalo de confianza de la raz\u00f3n de varianzas hay que seleccionar dos variables")
+        stop("El conjunto de datos seleccionado parece ser no v\u00e1lido")
       }
   }
 
@@ -94,12 +94,12 @@ if(isFALSE(introducir)) {
     stop("No puede calcularse el intervalo de confianza porque la variable seleccionada no es cuantitativa")
   }
 
-  # tamaño de la muestra
+  # tama\u00f1o de la muestra
   n1 <- length(x[1][!is.na(x[1])])
   n2 <- length(x[2][!is.na(x[2])])
 
 
-  var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar? \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
+  var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar: \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
   if(var_muestra == 1){
     var_mu1 <- varianza(x[1])
@@ -115,17 +115,17 @@ if(isFALSE(introducir)) {
 
   }
 
-} else{   # aquí empieza introducir datos
+} else{   # aqu\u00ed empieza introducir datos
 
-  print("A continuacion, vas a introducir los datos de las muestras.")
+  print("A continuaci\u00f3n, vas a introducir los datos de las muestras.")
 
-  n1 <- readline(prompt = "Introducir el tamaño de la muestra 1: ")
+  n1 <- readline(prompt = "Introducir el tama\u00f1o de la muestra 1: ")
   n1 <- as.numeric(n1)
 
-  n2 <- readline(prompt = "Introducir el tamaño de la muestra 2: ")
+  n2 <- readline(prompt = "Introducir el tama\u00f1o de la muestra 2: ")
   n2 <- as.numeric(n2)
 
-  var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar? \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
+  var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar: \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
     if(var_muestra == 1){
 
@@ -163,7 +163,7 @@ if(var_muestra == 1){
 } else {
 
   # caso 1.2
-  print("Este es el intervalo de confianza que generalmente calculan los softwares")
+  print("Este es el intervalo de confianza que generalmente calculan los softwares (SPSS, Excel, etc.")
 
   limite_inferior <- (var_mu1/var_mu2) * 1/qf(alfa_2, df1= n1-1, df2 = n2-1, lower.tail = F)
   limite_superior <- (var_mu1/var_mu2) * 1/qf(1-alfa_2, df1= n1-1, df2 = n2-1,lower.tail = F)

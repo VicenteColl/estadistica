@@ -53,7 +53,7 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuas
 
       } else{
 
-        stop("Selecci\\u00f3n err\\u00f3nea de variables")
+        stop("Selecci\u00f3n err\u00f3nea de variables")
 
       }
     }
@@ -63,7 +63,7 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuas
       if(all(variable %in% varnames)){
         variable = match(variable,varnames)
       } else {
-        stop("El nombre de la variable no es v\\u00e1lido")
+        stop("El nombre de la variable no es v\u00e1lido")
       }
     }
 
@@ -81,7 +81,7 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuas
 
     if((length(variable) | length(pesos)) > 1){
 
-      stop("Para calcular la varianza a partir de la distribuci\\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
+      stop("Para calcular la varianza a partir de la distribuci\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
 
     }
 
@@ -97,7 +97,7 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuas
       if(pesos %in% varnames){
         pesos = match(pesos,varnames)
       } else {
-        stop("El nombre de los pesos no es v\\u00e1lido")
+        stop("El nombre de los pesos no es v\u00e1lido")
       }
     }
 

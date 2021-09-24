@@ -44,7 +44,7 @@ ic.diferencia.proporciones <- function(x,
 
 if(isFALSE(introducir)) {
 
-  print("En tus datos tiene que haber una variable de agrupación y una variable con éxitos(=1) y fracasos(=0)")
+  print("En tus datos tiene que haber una variable de agrupaci\u00f3n y una variable con \u00e9xitos(=1) y fracasos(=0)")
 
   if(is.null(variable)){
 
@@ -52,7 +52,7 @@ if(isFALSE(introducir)) {
 
       x <- data.frame(x)
 
-      agrupacion <- readline(prompt="Indica la posición (número de columna) de la variable de agrupación: ")
+      agrupacion <- readline(prompt="Indica la posici\u00f3n (n\u00famero de columna) de la variable de agrupaci\u00f3n: ")
       agrupacion <- as.numeric(agrupacion)
 
       x <- x %>%
@@ -68,10 +68,10 @@ if(isFALSE(introducir)) {
 
   } else if(length(x) > 2){
 
-    agrupacion <- readline(prompt="Indica la posición (número de columna) de la variable de agrupación: ")
+    agrupacion <- readline(prompt="Indica la posici\u00f3n (n\u00famero de columna) de la variable de agrupaci\u00f3n: ")
     agrupacion <- as.numeric(agrupacion)
 
-    exito <- readline(prompt="Indica la posición (número de columna) de la variable con éxitos (=1) y fracasos (=0): ")
+    exito <- readline(prompt="Indica la posici\u00f3n (n\u00famero de columna) de la variable con \u00e9xitos (=1) y fracasos (=0): ")
     exito <- as.numeric(exito)
 
     variable <- c(agrupacion,exito)
@@ -83,28 +83,28 @@ if(isFALSE(introducir)) {
 
   } else{
 
-    stop("Seleccion erronea de variables para calcular el IC")
+    stop("Selecci\u00f3n err\u00f3nea de variables para calcular el IC")
 
   }
 
 
   if(!all(x[,2] == 0 | x[,2]==1)){
 
-    print("Aplica a tus datos la condicion que debe cumplir la poblacion para transfomar los datos en ceros (ausencia/no exito) y unos (presencia/exito)")
+    print("Aplica a tus datos la condici\u00f3n que debe cumplir la poblaci\u00f3n para transfomar los datos en ceros (ausencia/no \u00e9xito) y unos (presencia/\u00e9xito)")
     stop("Los valores en la muestra deben ser 0 y 1.")
 
   }
 
   if(!length(unique(x[,1]))==2){
 
-    stop("La variable de agrupación no tiene dos categorías")
+    stop("La variable de agrupaci\u00f3n no tiene dos categor\u00edas")
 
   }
 
   df <- table(x)
 
 
-  # tamaño de la muestra
+  # tama\u00f1o de la muestra
   n <- apply(df,1,sum)
   n1 <- as.numeric(n[1])
   n2 <- as.numeric(n[2])
@@ -114,13 +114,13 @@ if(isFALSE(introducir)) {
   p_mu2 <- as.numeric(df[2,2]/n2)
 
 
-} else{   # aquí empieza introducir datos
+} else{   # aqu\u00ed empieza introducir datos
 
 
-  print("Primero vas a introducir los datos de la muestra 1 y a continuación introducirás los datos de la muestra 2")
-  print("Si los datos provienen de encuestas realizadas antes y después de una determinada acción, introduce primero los datos de la encuesta realizada después de dicha acción")
+  print("Primero vas a introducir los datos de la muestra 1 y a continuaci\u00fen introducir\u00e1s los datos de la muestra 2")
+  print("Si los datos provienen de encuestas realizadas antes y despu\u00e9s de una determinada acci\u00f3n, introduce primero los datos de la encuesta realizada despu\u00e9s de dicha acci\u00f3n")
 
-  n1 <- readline(prompt = "Introducir el tamaño de la muestra 1: ")
+  n1 <- readline(prompt = "Introducir el tama\u00f1o de la muestra 1: ")
   n1 <- as.numeric(n1)
 
   if(p_muestral[1] == 2){
@@ -128,11 +128,11 @@ if(isFALSE(introducir)) {
     p_mu1 <- 0.5
 
   } else{
-    p_mu1 <- readline(prompt = "Introducir el valor de la proporcion muestral 1: ")
+    p_mu1 <- readline(prompt = "Introducir el valor de la proporci\u00f3n muestral 1: ")
     p_mu1 <- as.numeric(p_mu1)
   }
 
-  n2 <- readline(prompt = "Introducir el tamaño de la muestra 2: ")
+  n2 <- readline(prompt = "Introducir el tama\u00f1o de la muestra 2: ")
   n2 <- as.numeric(n2)
 
   if(p_muestral[2] == 2){
@@ -140,7 +140,7 @@ if(isFALSE(introducir)) {
     p_mu2 <- 0.5
 
   } else{
-    p_mu2 <- readline(prompt = "Introducir el valor de la proporcion muestral 2: ")
+    p_mu2 <- readline(prompt = "Introducir el valor de la proporci\u00f3n muestral 2: ")
     p_mu2 <- as.numeric(p_mu2)
   }
 
