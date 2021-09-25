@@ -2,6 +2,8 @@
 #'
 #' @description Calcula la media aritmética.
 #'
+#' \figure{qr_media.png}{options: width="30\%" heigth="30\%"}
+#'
 #' @usage media(x, variable = NULL, pesos = NULL)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -27,16 +29,16 @@
 #'
 #' Si se obtiene la media (muestral) a partir de los datos brutos, como generalemente hacen los softwares:
 #'
-#' \figure{media.jpg}{options: width="25\%" heigth="25\%"}
+#' \figure{media.png}{options: width="25\%" heigth="25\%"}
 #'
 #' Si se desea obtener la media (muestral) a partir de una tabla estadística se utiliza la expresión:
 #'
-#' \figure{media2.jpg}{options: width="30\%" heigth="30\%"}
+#' \figure{media2.png}{options: width="30\%" heigth="30\%"}
 #'
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la media poblacional:
 #'
-#' \figure{media_pob.jpg}{options: width="20\%" heigth="20\%"}
+#' \figure{media_pob.png}{options: width="20\%" heigth="20\%"}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

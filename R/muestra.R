@@ -14,7 +14,36 @@
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \emph{Economía Aplicada.}
+#'
+#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
 #' Universidad de Valencia (España)
+
+#'
+#' @details
+#'
+#' El tamaño muestral para estimar la media poblacional se obtiene a partir de la siguiente expresión:
+#'
+#' \figure{tamano_media.png}{options: width="30\%" heigth="30\%"}
+#'
+#' y si el muestreo es irrestricto:
+#'
+#' El tamaño muestral para estimar la proporción de una característica se obtiene a partir de la expresión:
+#'
+#' \figure{tamano_proporcion.png}{options: width="30\%" heigth="30\%"}
+#'
+#' y si el muestreo es irrectricto:
+#'
+#' @note
+#' En el caso del tamaño muestral para la media: si la varianza poblacional no es conocida puede estimarse con la varianza muestral (o cuasivarianza muestral).
+#' En el caso del tamaño muestral para la proporción: si la proporción poblacional no es conocida, puede estimarse por la proporción muestral o considerar el caso más desfavorable (p=q=0.5)
 #'
 #' @references
 #' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.

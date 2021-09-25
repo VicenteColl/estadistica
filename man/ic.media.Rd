@@ -30,6 +30,31 @@ ic.media(x,
 \description{
 Calcula el intervalo de confianza de la media poblacional.
 }
+\details{
+(1) Si población desconocida, varianza población conocida y muestra grande:
+
+\figure{ic_media_desconocida_var_con.png}{options: width="50\%" heigth="50\%"}
+
+(2) Si población normal, varianza población conocida
+
+\figure{ic_media_var_con.png}{options: width="55\%" heigth="55\%"}
+
+(3) Si población normal, varianza población desconocida y muestra pequea
+
+Con la varianza muestral:
+
+\figure{ic_media_var_desc_muestral.png}{options: width="50\%" heigth="50\%"}
+
+Con la cuasivarianza muestral:
+
+\figure{ic_media_var_desc_cuasi.png}{options: width="50\%" heigth="50\%"}
+
+Nota: En ambos casos, el valor crítico sigue una distribución t con n-1 grados de libertad
+
+(4) Si población normal, varianza población desconocida y muestra grande:
+Puede utilizarse la aproximación a la normal. El intervalo se obtiene a partir de la expresión (2)
+estimando la varianza poblacional por la varianza (o cuasivarianza) muestral.
+}
 \references{
 Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 }
