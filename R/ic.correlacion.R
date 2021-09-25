@@ -27,6 +27,18 @@
 #'
 #' Universidad de Valencia (España)
 #'
+#' @details
+#'
+#' El intervalo para
+#'
+#' (1) \figure{ic_correlacion_1.png}{options: width="50\%" heigth="50\%"}
+#'
+#' es:
+#'
+#' (2) \figure{ic_correlacion_2.png}{options: width="50\%" heigth="50\%"}
+#'
+#' Igualando (1) al extremo inferior de (2) y al extremo superior de (2) se obtendrá el intervalo para la correlación.
+#'
 #' @references
 #' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 #'

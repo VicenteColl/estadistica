@@ -25,6 +25,13 @@ El valor 1 indica que se toma la proporción de la muestra, el valor 2 indica qu
 \description{
 Calcula el intervalo de confianza de la diferencia de dos proporciones.
 }
+\details{
+Se obtiene el intervalo:
+
+\figure{ic_dif_proporciones.png}{options: width="65\%" heigth="65\%"}
+
+Nota: Las proporciones muestrales del error típico son sustituidas por sus estimaciones máximo-verosímiles (proporciones muestrales).
+}
 \references{
 Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 }

@@ -24,6 +24,23 @@ ic.varianza(x,
 \description{
 Calcula el intervalo de confianza de la varianza poblacional.
 }
+\details{
+(1) Si la media poblacional es conocida:
+
+ \figure{ic_varianza_med_con.png}{options: width="50\%" heigth="50\%"}
+
+(2) Si la media poblacional es desconocida.
+
+Con la varianza muestral:
+
+\figure{ic_varianza_med_desc_muestra.png}{options: width="30\%" heigth="30\%"}
+
+Con la cuasivarianza muestral:
+
+\figure{ic_varianza_med_desc_cuasi.png}{options: width="30\%" heigth="30\%"}
+
+Nota: En todos los casos se obtiene el valor de la chi-dos con n grados de libertad que deja a su derecha una probabilidad de alfa y 1-alfa.
+}
 \references{
 Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 }

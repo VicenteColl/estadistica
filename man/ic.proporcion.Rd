@@ -27,6 +27,15 @@ ic.proporcion(x,
 \description{
 Calcula el intervalo de confianza de una proproción.
 }
+\details{
+(1) Para tamaños muestrales muy grandes:
+
+ \figure{ic_proporcion_3.png}{options: width="65\%" heigth="65\%"}
+
+(2) Para cualquier tamaño muestral puede obtenerse el intervalo \figure{ic_proporcion_1.png}{options: width="15\%" heigth="15\%"}, correspondiendo los valores a las raíces de:
+
+ \figure{ic_proporcion_2.png}{options: width="60\%" heigth="60\%"}
+}
 \references{
 Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 }

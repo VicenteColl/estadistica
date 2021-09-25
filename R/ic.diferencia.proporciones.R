@@ -29,6 +29,14 @@
 #'
 #' Universidad de Valencia (España)
 #'
+#' @details
+#'
+#' Se obtiene el intervalo:
+#'
+#' \figure{ic_dif_proporciones.png}{options: width="65\%" heigth="65\%"}
+#'
+#' Nota: Las proporciones muestrales del error típico son sustituidas por sus estimaciones máximo-verosímiles (proporciones muestrales).
+#'
 #' @references
 #' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 #'
