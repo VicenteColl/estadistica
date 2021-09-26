@@ -19,17 +19,17 @@ desviacion(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuasi"))
 Calcula la desviación típica.
 }
 \details{
-La expresión de la desviación típica muestral es:
+(1) La expresión de la de la desviación típica muestral es:
 
 \figure{desviacion.png}{options: width="40\%" heigth="40\%"}
 
-La desviación muestral es el estimador máximo verosímil de la desviación típica de una población normal
+La desviación típica muestral así definida es el estimador máximo verosímil de la desviación típica de una población normal
 
-La expresión de la cuasi-desviación típica muestral es:
+(2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
 
 \figure{cuasidesviacion.png}{options: width="40\%" heigth="40\%"}
 
-La cuasidesviación típica muestral es un estimador insesgado de la desviación típica poblacional.
+Nosotros llamamos a esta medida: cuasi-desviación típica muestral y es un estimador insesgado de la desviación típica poblacional.
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la desviación típica poblacional:

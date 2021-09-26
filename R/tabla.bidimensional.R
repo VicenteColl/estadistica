@@ -70,7 +70,7 @@ tabla.bidimensional <- function(x,
   }
 
   x <- x %>%
-    select(variable1,variable2)
+    select(all_of(c(variable1,variable2)))
 
   names(x) <- c("filas","columnas")
 
@@ -152,14 +152,14 @@ tabla.bidimensional <- function(x,
     }
   }
 
-  tabla <- as.matrix(tabla)
+  tabla <- as.data.frame.matrix(tabla)
 
 
   if (exportar) {
     filename <- paste("Tabla cruzada de ", variable[1]," y ", variable[2], " (", Sys.time(), ").xlsx", sep = "")
     filename <- gsub(" ", "_", filename)
     filename <- gsub(":", ".", filename)
-    rio::export(tabla, file = filename)
+    rio::export(tabla, row.names = TRUE, file = filename)
   }
 
   return(tabla)

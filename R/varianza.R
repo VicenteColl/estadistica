@@ -25,17 +25,17 @@
 #'
 #' @details
 #'
-#' La expresión de la varianza muestral es:
+#' (1) La expresión de la varianza muestral es:
 #'
 #' \figure{varianza.png}{options: width="35\%" heigth="35\%"}
 #'
-#' La varianza muestral es el estimador máximo verosímil de la varianza de una población normal
+#' La varianza muestral así definida es el estimador máximo verosímil de la varianza de una población normal
 #'
-#' La expresión de la cuasi-varianza muestral es:
+#' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
 #'
 #' \figure{cuasivarianza.png}{options: width="35\%" heigth="35\%"}
 #'
-#' La cuasivarianza muestral es un estimador insesgado de la varianza poblacional.
+#' Nosotros llamamos a esta medida: cuasi-varianza muestral y es un estimador insesgado de la varianza poblacional.
 #'
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la varianza poblacional:
