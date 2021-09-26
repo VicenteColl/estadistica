@@ -21,6 +21,7 @@ export(ic.proporcion)
 export(ic.razon.varianzas)
 export(ic.varianza)
 export(leer.datos)
+export(matriz.correlacion)
 export(media)
 export(mediana)
 export(mediana.int)
@@ -43,3 +44,4 @@ importFrom("stats","addmargins","var","cov",
            "dnorm", "dt", "pnorm", "pt",
            "qchisq", "qf", "qnorm", "qt",
            "df", "pchisq", "pf")
+

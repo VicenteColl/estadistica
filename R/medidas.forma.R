@@ -11,16 +11,19 @@
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#' Universidad de Valencia (España)
+#'
 #' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#' Universidad de Valencia (España)
+#'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
 #' \emph{Economía Aplicada.}
-#' Universidad de Valencia (España)
+#'
 #' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
 #' Universidad de Valencia (España)
+#'
+#' @seealso \code{\link{varianza}}, \code{\link{desviacion}},\code{\link{momento.central}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

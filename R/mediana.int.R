@@ -21,6 +21,8 @@
 #'
 #' Universidad de Valencia (Spain)
 #'
+#' @seealso \code{\link{media}}, \code{\link{mediana}}
+#'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
 #'

@@ -16,7 +16,7 @@ media(x, variable = NULL, pesos = NULL)
 \description{
 Calcula la media aritmética.
 
-\figure{qr_media.png}{options: width="30\%" heigth="30\%"}
+\figure{qr_media.png}{options: align= "center" width="30\%" heigth="30\%"}
 }
 \details{
 Si se obtiene la media (muestral) a partir de los datos brutos, como generalemente hacen los softwares:

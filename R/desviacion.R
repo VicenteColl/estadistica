@@ -41,6 +41,8 @@
 #'
 #' \figure{desviacion_pob.png}{options: width="40\%" heigth="40\%"}
 #'
+#'@seealso \code{\link{media}}, \code{\link{varianza}}
+#'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
 #'

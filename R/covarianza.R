@@ -3,7 +3,7 @@
 #' @description Calcula la covarianza.
 #' @usage covarianza(x,
 #' variable = NULL,
-#' tipo = C("muestral","cuasi"))
+#' tipo = c("muestral","cuasi"))
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
@@ -40,6 +40,8 @@
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la covarianza poblacional:
 #'
 #' \figure{covarianza_pob.png}{options: width="50\%" heigth="50\%"}
+#'
+#' @seealso \code{\link{varianza}}, \code{\link{desviacion}},\code{\link{matriz.var.covar}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
