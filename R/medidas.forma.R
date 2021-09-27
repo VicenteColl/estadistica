@@ -25,6 +25,31 @@
 #'
 #' @seealso \code{\link{varianza}}, \code{\link{desviacion}},\code{\link{momento.central}}
 #'
+#' @details
+#'
+#' El coeficiente de asimetría se obtiene a partir de la expresión:
+#'
+#' \figure{asimetria_muestra.png}{options: width="25\%" heigth="25\%"}
+#'
+#' y el coeficiente de curtosis:
+#'
+#' \figure{curtosis_muestra.png}{options: width="35\%" heigth="35\%"}
+#'
+#' @note
+#' (1) El coeficiente de asimetría poblacional es:
+#'
+#' \figure{asimetria_pob.png}{options: width="25\%" heigth="25\%"}
+#'
+#' (2) El coeficiente de curtosis poblacional es:
+#'
+#' \figure{curtosis_pob.png}{options: width="35\%" heigth="35\%"}
+#'
+#' (3) Si el argumento alternativa = TRUE, se obtienen los resultados de asimetría y curtosis que generalmente ofrecen softwares como: SPSS, Stata, SAS, Excel, etc.
+#'
+#' \figure{curtosis_soft.png}{options: width="120\%" heigth="120\%"}
+#'
+#' @seealso \code{\link{momento.central}},\code{\link{varianza}},\code{\link{desviacion}}
+#'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
 #'

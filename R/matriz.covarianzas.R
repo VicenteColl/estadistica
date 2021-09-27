@@ -1,13 +1,13 @@
-#' @title Covarianza.
+#' @title Matriz de varianzas y covarianzas.
 #'
-#' @description Calcula la covarianza.
-#' @usage covarianza(x,
+#' @description Obtiene la matriz de varianzas y covarianzas.
+#' @usage matriz.covar(x,
 #' variable = NULL,
 #' tipo = c("muestral","cuasi"))
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
-#' @param tipo Es un carácter. Por defecto de calcula la covarianza muestral (tipo = "muestral"). Si tipo = "cuasi", se calcula la cuasi-covarianza muestral.
+#' @param tipo Es un carácter. Por defecto de calcula la matriz de varianzas y covarianzas muestrales (tipo = "muestral"). Si tipo = "cuasi", se calcula la matriz de cuasi-varianzas y cuasi-covarianzas muestrales.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
@@ -26,22 +26,22 @@
 #'
 #' @details
 #'
-#' (1) La covarianza muestral se obtiene a partir de la siguiente expresión:
+#' (1) Se obtiene la matriz de varianzas y covarianzas muestrales:
 #'
-#' \figure{covarianza_muestra.png}{options: width="50\%" heigth="50\%"}
+#' \figure{matriz_var_cov_muestra.png}{options: width="50\%" heigth="50\%"}
 #'
-#' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la covarianza a partir de la expresión:
+#' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) facilitan la matriz de cuasi-varianzas y cuasi-covarianzas muestrales:
 #'
-#'\figure{covarianza_cuasi.png}{options: width="50\%" heigth="50\%"}
+#'\figure{matriz_var_cov_cuasi.png}{options: width="50\%" heigth="50\%"}
 #'
 #' Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
 #'
 #' @note
-#' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la covarianza poblacional:
+#' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de varianzas y covarianzas poblacional:
 #'
-#' \figure{covarianza_pob.png}{options: width="50\%" heigth="50\%"}
+#' \figure{matriz_var_cov_pob.png}{options: width="50\%" heigth="50\%"}
 #'
-#' @seealso \code{\link{varianza}}, \code{\link{desviacion}},\code{\link{matriz.covar}}
+#' @seealso \code{\link{varianza}}, \code{\link{desviacion}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -53,26 +53,18 @@
 #' @import dplyr
 #'
 #' @export
-covarianza <- function(x, variable = NULL, tipo = c("muestral","cuasi")){
+matriz.covar <- function(x, variable = NULL, tipo = c("muestral","cuasi")){
+
 
   tipo <- tolower(tipo)
   tipo <- match.arg(tipo)
 
   if(is.null(variable)){
 
-    if(length(x) == 2){
+    x <- data.frame(x)
+    varnames <- names(x)
 
-      x <- data.frame(x)
-      varnames <- names(x)
-
-    } else{
-
-      warning("Para obtener la matriz de varianzas-covarianzas utilizar la funcion matriz.var.covar()")
-      stop("El conjunto de datos seleccionado tiene mas de 2 variables.")
-
-    }
-
-  } else if(length(variable) == 2){
+  } else{
 
     if(is.numeric(variable)){
 
@@ -82,7 +74,7 @@ covarianza <- function(x, variable = NULL, tipo = c("muestral","cuasi")){
 
       } else{
 
-        stop("Seleccion errronea de variables")
+        stop("Selecci\u00f3n err\u00f3nea de variables")
 
       }
     }
@@ -90,33 +82,21 @@ covarianza <- function(x, variable = NULL, tipo = c("muestral","cuasi")){
     if(is.character(variable)){
 
       if(all(variable %in% varnames)){
-
         variable = match(variable,varnames)
-
       } else {
-
-        stop("El nombre de la variable no es valido")
-
+        stop("El nombre de la variable no es v\u00e1lido")
       }
-
     }
 
     x <- x[,variable] %>% as.data.frame()
     varnames <- names(x)
-
-  } else{
-
-    warning("Para obtener la matriz de correlacion utilizar la funcion matriz.cor")
-    stop("Para calcular la correlacion solo puedes seleccionar dos variables")
 
   }
 
   clase <- sapply(x, class)
 
   if (!all(clase %in% c("numeric","integer"))) {
-
-    stop("No puede calcularse la covarianza, alguna variable que has seleccionado no es cuantitativa")
-
+    stop("No puede calcularse la varianza, alguna variable que has seleccionado no es cuantitativa")
   }
 
   if(tipo == "muestral"){
@@ -124,20 +104,18 @@ covarianza <- function(x, variable = NULL, tipo = c("muestral","cuasi")){
     n <- nrow(x)
     factor = (n-1)/n
 
-    covarianza <- factor * cov(x[1],x[2], use ="everything")
-
-
   } else{
 
-    covarianza <- cov(x[1],x[2], use ="everything")
-
+    factor <- 1
   }
 
-  covarianza <- as.data.frame(covarianza)
+  matriz_covar <- factor * var(x, na.rm = TRUE) %>%
+    as.data.frame()
+  names(matriz_covar) <- varnames
+  row.names(matriz_covar) <- varnames
 
-  names(covarianza) <- paste("covarianza_",varnames[1],"_",varnames[2],sep="")
-  row.names(covarianza) <- NULL
-
-  return(covarianza)
+  return(matriz_covar)
 
 }
+
+

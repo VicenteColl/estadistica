@@ -1,37 +1,3 @@
-#' @title Mediana (función intermedia).
-#'
-#' @description Función intermedia para el cálculo de la mediana.
-#' @usage mediana.int(x, pesos = NULL)
-#'
-#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
-#' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
-#'
-#' @author
-#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
-#' \emph{Economía Aplicada.}
-#'
-#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' Universidad de Valencia (Spain)
-#'
-#' @seealso \code{\link{media}}, \code{\link{mediana}}
-#'
-#' @references
-#' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
-#'
-#' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
-#'
-#'
-#' @import tidyverse
-#'
-#' @export
 mediana.int <- function(x, pesos = NULL){
 
   x <- as.data.frame(x)

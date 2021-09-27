@@ -21,6 +21,19 @@
 #' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
+#' @details
+#'
+#' Los cuantiles se obtienen a partir de la siguiente regla de decisión:
+#'
+#' \figure{cuantiles.png}{options: width="85\%" heigth="85\%"}
+#'
+#' Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
+#'
+#' cuantiles: s=1,2,3 y k=4
+#' deciles: s= 1,2,...,9 y k=10
+#' percentiles: s=1,2,...,99 y k=100
+#'
+#' @seealso \code{\link{media}}, \code{\link{mediana}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

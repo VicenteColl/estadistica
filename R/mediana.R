@@ -22,7 +22,15 @@
 #'
 #'  Universidad de Valencia (España)
 #'
-#' @seealso \code{\link{media}}
+#' @details
+#'
+#' La mediana se obtiene a partir de la siguiente regla de decisión:
+#'
+#' \figure{mediana.png}{options: width="80\%" heigth="80\%"}
+#'
+#' donde: Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
+#'
+#' @seealso \code{\link{media}}, \code{\link{cuantiles}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

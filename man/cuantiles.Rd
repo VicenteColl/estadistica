@@ -18,12 +18,26 @@ cuantiles(x, variable = NULL, pesos = NULL, cortes = c(0.25,0.5,0.75))
 \description{
 Calcula los cuantiles.
 }
+\details{
+Los cuantiles se obtienen a partir de la siguiente regla de decisión:
+
+\figure{cuantiles.png}{options: width="85\%" heigth="85\%"}
+
+Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
+
+cuantiles: s=1,2,3 y k=4
+deciles: s= 1,2,...,9 y k=10
+percentiles: s=1,2,...,99 y k=100
+}
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
 
 Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+}
+\seealso{
+\code{\link{media}}, \code{\link{mediana}}
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).

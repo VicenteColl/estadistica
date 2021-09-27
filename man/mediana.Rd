@@ -16,6 +16,13 @@ mediana(x, variable = NULL, pesos = NULL)
 \description{
 Calcula la mediana.
 }
+\details{
+La mediana se obtiene a partir de la siguiente regla de decisión:
+
+\figure{mediana.png}{options: width="80\%" heigth="80\%"}
+
+donde: Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
+}
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
 
@@ -24,7 +31,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 }
 \seealso{
-\code{\link{media}}
+\code{\link{media}}, \code{\link{cuantiles}}
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
