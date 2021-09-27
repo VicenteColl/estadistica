@@ -139,7 +139,7 @@ if(isFALSE(introducir)) {
 
   }
 
-  # tamaños de la muestras
+  # tama\u00f1os de la muestras
   n1 <- length(x[1][!is.na(x[1])])
   n2 <- length(x[2][!is.na(x[2])])
   n <- c(n1,n2)
@@ -195,7 +195,7 @@ if(isFALSE(introducir)) {
 
   for(i in 1:2){
 
-    n0 <- readline(prompt = paste("Introducir el tamaño de la muestra ",i,": ",sep=""))
+    n0 <- readline(prompt = paste("Introducir el tama\u00f1o de la muestra ",i,": ",sep=""))
     n0 <- as.numeric(n0)
 
     n <- c(n,n0)
@@ -411,7 +411,7 @@ if(isFALSE(introducir)) {
           geom_vline(xintercept = 0, color = "black") +
           geom_vline(xintercept = -estadistico.prueba2, color = "blue", linetype = "dashed") +
           geom_vline(xintercept = estadistico.prueba2, color = "blue", linetype = "dashed") +
-          labs(title = paste("Distribución t con ", gl, " grados de libertad",sep=""), x = "", y = "") +
+          labs(title = paste("Distribuci\u00f3n t con ", gl, " grados de libertad",sep=""), x = "", y = "") +
           scale_y_continuous(breaks = NULL) +
           scale_x_continuous(breaks = c(-estadistico.prueba2,estadistico.prueba2,valor_critico,-valor_critico)) +
           theme(axis.text.x = element_text(angle = 45))
@@ -481,7 +481,7 @@ if(isFALSE(introducir)) {
           geom_area(stat = "function", fun = dt, args = list(df = gl), fill = "red", xlim = c(valor_critico, 4)) +
           geom_vline(xintercept = 0, color = "black") +
           geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-          labs(title = paste("Distribución t con ", gl, " grados de libertad",sep=""), x = "", y = "") +
+          labs(title = paste("Distribuci\u00f3n t con ", gl, " grados de libertad",sep=""), x = "", y = "") +
           scale_y_continuous(breaks = NULL) +
           scale_x_continuous(breaks = c(estadistico.prueba,valor_critico)) +
           theme(axis.text.x = element_text(angle = 45))
@@ -552,7 +552,7 @@ if(isFALSE(introducir)) {
           geom_area(stat = "function", fun = dt, args = list(df = gl), fill = "red", xlim = c(-3,valor_critico)) +
           geom_vline(xintercept = 0, color = "black") +
           geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-          labs(title = paste("Distribución t con ", gl, " grados de libertad",sep=""), x = "", y = "") +
+          labs(title = paste("Distribuci\u00f3n t con ", gl, " grados de libertad",sep=""), x = "", y = "") +
           scale_y_continuous(breaks = NULL) +
           scale_x_continuous(breaks = c(estadistico.prueba,valor_critico)) +
           theme(axis.text.x = element_text(angle = 45))
@@ -583,20 +583,20 @@ if(isFALSE(introducir)) {
 
   CH <- cbind(H0,estadistico.prueba,pvalor)
   CH <- as.data.frame(CH)
-  names(CH) <- c("Hipótesis nula", "estadístico de prueba", "p-valor")
+  names(CH) <- c("Hip\\u00f3tesis nula", "estad\\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
-  Imedia <- cbind(`límite inferior`=media_inf,`límite superior`=media_sup)
+  Imedia <- cbind(`l\\u00edmite inferior`=media_inf,`l\\u00edmite superior`=media_sup)
 
   if(isTRUE(grafico)){
 
     grafico <- list(plot,plot2)
 
-    return(list(`Estadístico`=CH,`Intervalo de la media muestral`= Imedia,`Gráficos`= grafico))
+    return(list(`Estad\\u00edstico`=CH,`Intervalo de la media muestral`= Imedia,`Gr\\u00e1ficos`= grafico))
 
   } else{
 
-    return(list(`Estadístico`=CH,`Intervalo de la media muestral`= Imedia))
+    return(list(`Estad\\u00edstico`=CH,`Intervalo de la media muestral`= Imedia))
 
   }
 }

@@ -64,6 +64,33 @@
 #'
 "startup"
 
+#' Data: Ejemplo de dos variables (ejem_bidi)
+#'
+#' Datos simulados. Muestra de 100 observaciones
+#' @usage data("ejem_bidi")
+#' @format Dataframe con 100 observaciones de 2 variables.
+#' \describe{
+#'   \item{x}{Toma valores de 0 a 5.}
+#'   \item{x}{Toma valores de 10 a 15}
+#' }
+#' @source Muestra simulada.
+#'
+#' @author
+#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \emph{Quantitative Methods for Measuring Culture (MC2). Applied Economics.}
+#'
+#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \emph{Economía Aplicada.}
+#'
+#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' Universidad de Valencia (España)
+#'
+"ejem_bidi"
 
 
 

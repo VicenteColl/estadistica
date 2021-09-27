@@ -1,6 +1,6 @@
 Package: estadistica
 Type: Package
-Title: Fundamentos de estad\\u00edstica descriptiva e inferencial
+Title: Fundamentos de estadistica descriptiva e inferencial
 Version: 0.1.0
 Author: Vicente Coll-Serrano, Olga Blasco-Blasco, Rosario Martínez Verdú, Cristina Pardo García
 Maintainer: Vicente Coll-Serrano <vicente.coll@uv.es>
@@ -11,4 +11,4 @@ LazyData: true
 RoxygenNote: 7.1.2
 Depends:
     R (>= 3.5.0)
-Imports: tidyverse, ggalt, dplyr, tidyr, ggplot2, rio, data.table, magrittr
+Imports: ggalt, tidyverse, dplyr, tidyr, ggplot2, rio, data.table, magrittr

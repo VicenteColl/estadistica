@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Coeficiente de variación.
 #'
 #' @description Calcula el coeficiente de variación de Pearson.
