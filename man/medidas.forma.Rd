@@ -4,7 +4,8 @@
 \alias{medidas.forma}
 \title{Medidas de forma}
 \usage{
-medidas.forma(x, variable = NULL, pesos = NULL, alternativa = FALSE)
+medidas.forma(x, variable = NULL, pesos = NULL,
+alternativa = FALSE, exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos, que puede estar formado por una o más variables.}
@@ -14,6 +15,8 @@ medidas.forma(x, variable = NULL, pesos = NULL, alternativa = FALSE)
 \item{pesos}{Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
 
 \item{alternativa}{Es un valor lógico. Si alternativa = TRUE el resultado de las medidas de forma muestra el coeficiente de asimetría y curtosis calculado según SPSS y EXCEL. Se facilita también los correspondientes errores típicos.}
+
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
 }
 \description{
 Calcula el coeficiente de asimetría y de curtosis de Fisher.
@@ -48,15 +51,10 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 }
 \seealso{
-\code{\link{varianza}}, \code{\link{desviacion}},\code{\link{momento.central}}
-
 \code{\link{momento.central}},\code{\link{varianza}},\code{\link{desviacion}}
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-
-\strong{Olga Blasco-Blasco} (\email{olga.blasco@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 \strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).
@@ -66,4 +64,5 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Universidad de Valencia (España)
+#'
 }

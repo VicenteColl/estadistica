@@ -4,14 +4,14 @@
 \alias{tabla.frecuencias}
 \title{Tabla de frecuencias.}
 \usage{
-tabla.frecuencias(x, eliminar.na = TRUE, exportar = TRUE)
+tabla.frecuencias(x, eliminar.na = TRUE, exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.}
 
 \item{eliminar.na}{Valor lógico. Por defecto eliminar.na = TRUE. Si se quiere obtener la tabla de frecuencias con NAs, cambiar el argumento a FALSE.}
 
-\item{exportar}{Por defecto, los resultados se exportan a una hoja de cálculo Excel (exportar = TRUE).}
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
 }
 \description{
 Esta función presenta la distribución de frecuencias de una variable.
@@ -26,14 +26,12 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-Universidad de Valencia (España)
-\strong{Olga Blasco-Blasco} (\email{olga.blasco@uv.es}).
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-Universidad de Valencia (España)
+
 \strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).
 \emph{Economía Aplicada.}
-Universidad de Valencia (España)
+
 \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+
 Universidad de Valencia (España)
 }

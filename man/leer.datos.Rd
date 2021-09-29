@@ -9,7 +9,7 @@ leer.datos(introducir = FALSE, pos = 1)
 \arguments{
 \item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), se abrirá una ventana para que el usuario seleccione el fichero de datos que quiere cargar. Si introducir = TRUE, el usuario introducirá él mismo los datos.}
 
-\item{pos}{Es un valor fijo utilizado para mostrar el dataframe del usuario en en Global Environment.}
+\item{pos}{Es un valor fijo utilizado para mostrar el dataframe del usuario en el Global Environment.}
 }
 \description{
 Carga un conjunto de datos.
@@ -20,11 +20,12 @@ Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probab
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-Universidad de Valencia (España)
-#' \strong{Rosario Martínez Verdú} (\email{Rosario.Martinez@uv.es}).
+
+\strong{Rosario Martínez Verdú} (\email{Rosario.Martinez@uv.es}).
 \emph{Economía Aplicada.}
-Universidad de Valencia (España)
-#' \strong{Cristina Pardo García} (\email{Cristina.Pardo-Garcia@uv.es}).
+
+\strong{Cristina Pardo García} (\email{Cristina.Pardo-Garcia@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+
 Universidad de Valencia (España)
 }

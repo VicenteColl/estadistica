@@ -26,9 +26,6 @@
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
 #' \emph{Economía Aplicada.}
 #'
@@ -38,7 +35,11 @@
 #' Universidad de Valencia (España)
 #'
 #' @references
-#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
+#' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @import dplyr ggplot2
 #'
@@ -60,7 +61,7 @@ tipo_contraste <- match.arg(tipo_contraste)
 
 if(is.null(hipotesis_nula) | !is.numeric(hipotesis_nula)){
 
-  stop("Tienes que introducir un valor para la hipotesis nula")
+  stop("Tienes que introducir un valor para la hip\u00f3tesis nula")
 
 } else{
 
@@ -104,7 +105,7 @@ if(isFALSE(introducir)) {
       names(x) <- varnames[variable]
 
       } else{
-        warning("Para calcular el contraste de la razón de varianzas hay que seleccionar dos variables")
+        warning("Para calcular el contraste de la raz\u00f3n de varianzas hay que seleccionar dos variables")
         stop("El conjunto de datos seleccionado parece ser no valido")
       }
   }
@@ -115,7 +116,7 @@ if(isFALSE(introducir)) {
     stop("No puede calcularse el contraste porque la variable seleccionada no es cuantitativa")
   }
 
-  # tamaño de la muestra
+  # tama\u00f1o de la muestra
   n1 <- length(x[1][!is.na(x[1])])
   n2 <- length(x[2][!is.na(x[2])])
 
@@ -136,14 +137,14 @@ if(isFALSE(introducir)) {
 
   }
 
-} else{   # aquí empieza introducir datos
+} else{   # aqu´\u00ed empieza introducir datos
 
   print("A continuacion, vas a introducir los datos de las muestras.")
 
-  n1 <- readline(prompt = "Introducir el tamaño de la muestra 1: ")
+  n1 <- readline(prompt = "Introducir el tama\u00f1o de la muestra 1: ")
   n1 <- as.numeric(n1)
 
-  n2 <- readline(prompt = "Introducir el tamaño de la muestra 2: ")
+  n2 <- readline(prompt = "Introducir el tama\u00f1o de la muestra 2: ")
   n2 <- as.numeric(n2)
 
   var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar? \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
@@ -222,13 +223,13 @@ if(tipo_contraste == "bilateral"){
 
   if(estadistico.prueba >= valor_critico1 & estadistico.prueba <=  valor_critico2){
 
-    print(paste("No se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", valor_critico1," , ",valor_critico2,"]",sep=""))
-    print("El valor del estadístico de prueba (o valor experimental) se encuentra dentro de la región de aceptación")
+    print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", valor_critico1," , ",valor_critico2,"]",sep=""))
+    print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
   } else{
 
-    print(paste("Se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", valor_critico1," , ",valor_critico2,"]",sep=""))
-    print("El valor del estadístico de prueba (o valor experimental) no se encuentra dentro de la región de aceptación")
+    print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", valor_critico1," , ",valor_critico2,"]",sep=""))
+    print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
   }
 
@@ -240,7 +241,7 @@ if(tipo_contraste == "bilateral"){
       geom_area(data=subset(data,x>valor_critico2),fill = "red") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-      labs(title = paste("Distribución F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
       scale_x_continuous(breaks = c(0L,estadistico.prueba,valor_critico1,valor_critico2)) +
       theme(axis.text.x = element_text(angle = 45))
@@ -253,13 +254,13 @@ if(tipo_contraste == "bilateral"){
 
   if(estadistico.prueba >= valor_critico){
 
-    print(paste("Se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", 0," , ",valor_critico,"]",sep=""))
-    print("El valor del estadístico de prueba (o valor experimental) no se encuentra dentro de la región de aceptación")
+    print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", 0," , ",valor_critico,"]",sep=""))
+    print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
   } else{
 
-    print(paste("No Se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", 0," , ",valor_critico,"]",sep=""))
-    print("El valor del estadístico de prueba (o valor experimental) se encuentra dentro de la región de aceptación")
+    print(paste("No Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", 0," , ",valor_critico,"]",sep=""))
+    print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
   }
 
@@ -270,7 +271,7 @@ if(tipo_contraste == "bilateral"){
       geom_area(data=subset(data,x>valor_critico),fill = "red") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-      labs(title = paste("Distribución F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
       scale_x_continuous(breaks = c(0L,estadistico.prueba,valor_critico)) +
       theme(axis.text.x = element_text(angle = 45))
@@ -283,13 +284,13 @@ if(tipo_contraste == "bilateral"){
 
   if(estadistico.prueba <= valor_critico){
 
-    print(paste("Se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", valor_critico," , ",Inf,"]",sep=""))
-    print("El valor del estadístico de prueba (o valor experimental) no se encuentra dentro de la región de aceptación")
+    print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", valor_critico," , ",Inf,"]",sep=""))
+    print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
   } else{
 
-    print(paste("No se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", valor_critico," , ",Inf,"]",sep=""))
-    print("El valor del estadístico de prueba (o valor experimental) se encuentra dentro de la región de aceptación")
+    print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", valor_critico," , ",Inf,"]",sep=""))
+    print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
   }
 
@@ -300,7 +301,7 @@ if(tipo_contraste == "bilateral"){
       geom_area(data=subset(data,x<valor_critico),fill = "red") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-      labs(title = paste("Distribución F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
       scale_x_continuous(breaks = c(0L,estadistico.prueba,valor_critico)) +
       theme(axis.text.x = element_text(angle = 45))
@@ -310,7 +311,7 @@ if(tipo_contraste == "bilateral"){
 
   CH <- cbind(H0,estadistico.prueba,pvalor)
   CH <- as.data.frame(CH)
-  names(CH) <- c("Hipótesis nula", "estadístico de prueba", "p-valor")
+  names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
   return(list(CH,plot))

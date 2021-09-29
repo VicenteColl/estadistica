@@ -3,17 +3,16 @@
 #' @description Obtiene la matriz de varianzas y covarianzas.
 #' @usage matriz.covar(x,
 #' variable = NULL,
-#' tipo = c("muestral","cuasi"))
+#' tipo = c("muestral","cuasi"),
+#' exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
 #' @param tipo Es un carácter. Por defecto de calcula la matriz de varianzas y covarianzas muestrales (tipo = "muestral"). Si tipo = "cuasi", se calcula la matriz de cuasi-varianzas y cuasi-covarianzas muestrales.
+#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
@@ -53,7 +52,9 @@
 #' @import dplyr
 #'
 #' @export
-matriz.covar <- function(x, variable = NULL, tipo = c("muestral","cuasi")){
+matriz.covar <- function(x, variable = NULL,
+                         tipo = c("muestral","cuasi"),
+                         exportar = FALSE){
 
 
   tipo <- tolower(tipo)
@@ -113,6 +114,13 @@ matriz.covar <- function(x, variable = NULL, tipo = c("muestral","cuasi")){
     as.data.frame()
   names(matriz_covar) <- varnames
   row.names(matriz_covar) <- varnames
+
+  if (exportar) {
+    filename <- paste("Matriz de covarianzas"," (", Sys.time(), ").xlsx", sep = "")
+    filename <- gsub(" ", "_", filename)
+    filename <- gsub(":", ".", filename)
+    rio::export(matriz_covar, row.names = TRUE, file = filename)
+  }
 
   return(matriz_covar)
 

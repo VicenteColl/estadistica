@@ -4,12 +4,14 @@
 \alias{matriz.correlacion}
 \title{Matriz de correlación.}
 \usage{
-matriz.correlacion(x, variable = NULL)
+matriz.correlacion(x, variable = NULL, exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
+
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
 }
 \description{
 Obtiene la matriz de correlación (de Pearson) entre 2 o más variables cuantitativas.
@@ -36,9 +38,6 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-
-\strong{Olga Blasco-Blasco} (\email{olga.blasco@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 \strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).

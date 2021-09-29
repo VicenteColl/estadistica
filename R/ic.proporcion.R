@@ -1,25 +1,20 @@
-#' @title Intervalo confinanza de una proporción.
+#' @title Intervalo confianza de una proporción.
 #'
-#' @description Calcula el intervalo de confianza de una proproción.
+#' @description Calcula el intervalo de confianza de una proporción.
 #' @usage ic.proporcion(x,
 #'                      variable = NULL,
 #'                      introducir = FALSE,
-#'                      p_muestral = TRUE,
 #'                      irrestricto = FALSE,
 #'                      confianza = 0.95)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
-#' @param p_muestral Es un valor lógico. Indica si se hace uso de la proporción muestral para estimar el intervalo de confianza (por defecto, p_muestral = TRUE). si p_muestral = FALSE, se considera p=q=0.5 (situación más desfavorable).
 #' @param irrestricto Es un valor lógico. Por defecto, irrectricto = FALSE. si se considera un muestreo irrectricto (extracción sin reemplazamiento), cambiar el argumento a irrestricto = TRUE.
 #' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
@@ -34,14 +29,18 @@
 #'
 #' (1) Para tamaños muestrales muy grandes:
 #'
-#'  \figure{ic_proporcion_3.png}{options: width="65\%" heigth="65\%"}
+#'  \figure{ic_proporcion_3.png}{options: width="80\%" heigth="80\%"}
 #'
 #' (2) Para cualquier tamaño muestral puede obtenerse el intervalo \figure{ic_proporcion_1.png}{options: width="15\%" heigth="15\%"}, correspondiendo los valores a las raíces de:
 #'
-#'  \figure{ic_proporcion_2.png}{options: width="60\%" heigth="60\%"}
+#'  \figure{ic_proporcion_2.png}{options: width="80\%" heigth="80\%"}
 #'
 #' @references
-#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
+#' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @import dplyr
 #'
@@ -49,7 +48,6 @@
 ic.proporcion <- function(x,
                           variable = NULL,
                           introducir = FALSE,
-                          p_muestral = TRUE,
                           irrestricto = FALSE,
                           confianza = 0.95){
 
@@ -151,12 +149,7 @@ if(isFALSE(introducir)) {
 
   # media muestral
 
-  if(isTRUE(p_muestral)){
     p_mu <- sum(x,na.rm=TRUE)/n
-  } else{
-    p_mu = 0.5
-  }
-
 
 } else{   # aqu\u00ed empieza introducir datos
 
@@ -167,15 +160,8 @@ if(isFALSE(introducir)) {
     stop("El tama\u00f1o de la muestra es peque\u00f1a, la aproximaci\u00f3n a la normal no es buena.")
   }
 
-  if(isTRUE(p_muestral)){
-
     p_mu <- readline(prompt = "Introducir el valor de la proporci\u00f3n muestral: ")
     p_mu <- as.numeric(p_mu)
-
-  } else{
-    p_mu <- 0.5
-  }
-
 
 }
 

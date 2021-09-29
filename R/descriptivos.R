@@ -1,18 +1,15 @@
 #' @title Resumen descriptivos.
 #'
 #' @description Calcula un resumen de los principales estadísticos descriptivos.
-#' @usage resumen.descriptivos(x, variable = NULL, pesos = NULL, exportar = TRUE)
+#' @usage resumen.descriptivos(x, variable = NULL, pesos = NULL, exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
-#' @param exportar Por defecto, los resultados se exportan a una hoja de cálculo Excel (exportar = TRUE).
+#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
@@ -33,7 +30,7 @@
 #' @import dplyr
 #'
 #' @export
-resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = TRUE){
+resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FALSE){
 
   options(scipen = 999)
 

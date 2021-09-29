@@ -34,13 +34,10 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 }
 \seealso{
-\code{\link{matriz.correlacion}}, \code{\link{covarianza}},\code{\link{matriz.var.covar}}
+\code{\link{matriz.correlacion}}, \code{\link{covarianza}},\code{\link{matriz.covar}}
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-
-\strong{Olga Blasco-Blasco} (\email{olga.blasco@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 \strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).

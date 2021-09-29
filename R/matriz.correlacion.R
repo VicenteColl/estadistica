@@ -1,16 +1,14 @@
 #' @title Matriz de correlación.
 #'
 #' @description Obtiene la matriz de correlación (de Pearson) entre 2 o más variables cuantitativas.
-#' @usage matriz.correlacion(x, variable = NULL)
+#' @usage matriz.correlacion(x, variable = NULL, exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
+#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
@@ -44,7 +42,7 @@
 #' @import dplyr
 #'
 #' @export
-matriz.correlacion <- function(x, variable = NULL){
+matriz.correlacion <- function(x, variable = NULL, exportar = FALSE){
 
   if(is.null(variable)){
 
@@ -91,6 +89,13 @@ matriz.correlacion <- function(x, variable = NULL){
     as.data.frame()
   names(matriz_cor) <- varnames
   row.names(matriz_cor) <- varnames
+
+  if (exportar) {
+    filename <- paste("Matriz de correlaci\u00f3n"," (", Sys.time(), ").xlsx", sep = "")
+    filename <- gsub(" ", "_", filename)
+    filename <- gsub(":", ".", filename)
+    rio::export(matriz_cor, row.names = TRUE, file = filename)
+  }
 
   return(matriz_cor)
 

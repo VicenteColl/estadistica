@@ -4,21 +4,15 @@
 #' @usage ic.diferencia.proporciones(x,
 #'                      variable = NULL,
 #'                      introducir = FALSE,
-#'                      p_muestral = c(1,1),
 #'                      confianza = 0.95)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
-#' @param p_muestral Es un vector de longitud 2 cuyo primer elemento hará referencia a qué valor se toma para la proporción de la muestra 1 y el segundo al de la muestra 2.
-#' El valor 1 indica que se toma la proporción de la muestra, el valor 2 indica que se toma el caso más desfavorable (p=q=0.5)
 #' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
@@ -38,7 +32,11 @@
 #' Nota: Las proporciones muestrales del error típico son sustituidas por sus estimaciones máximo-verosímiles (proporciones muestrales).
 #'
 #' @references
-#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
+#' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @import dplyr
 #'
@@ -46,7 +44,6 @@
 ic.diferencia.proporciones <- function(x,
                                        variable = NULL,
                                        introducir = FALSE,
-                                       p_muestral = c(1,1),
                                        confianza = 0.95){
 
 
@@ -131,26 +128,17 @@ if(isFALSE(introducir)) {
   n1 <- readline(prompt = "Introducir el tama\u00f1o de la muestra 1: ")
   n1 <- as.numeric(n1)
 
-  if(p_muestral[1] == 2){
 
-    p_mu1 <- 0.5
+  p_mu1 <- readline(prompt = "Introducir el valor de la proporci\u00f3n muestral 1: ")
+  p_mu1 <- as.numeric(p_mu1)
 
-  } else{
-    p_mu1 <- readline(prompt = "Introducir el valor de la proporci\u00f3n muestral 1: ")
-    p_mu1 <- as.numeric(p_mu1)
-  }
 
   n2 <- readline(prompt = "Introducir el tama\u00f1o de la muestra 2: ")
   n2 <- as.numeric(n2)
 
-  if(p_muestral[2] == 2){
+  p_mu2 <- readline(prompt = "Introducir el valor de la proporci\u00f3n muestral 2: ")
+  p_mu2 <- as.numeric(p_mu2)
 
-    p_mu2 <- 0.5
-
-  } else{
-    p_mu2 <- readline(prompt = "Introducir el valor de la proporci\u00f3n muestral 2: ")
-    p_mu2 <- as.numeric(p_mu2)
-  }
 
 }
 

@@ -26,14 +26,12 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-Universidad de Valencia (España)
-\strong{Olga Blasco-Blasco} (\email{olga.blasco@uv.es}).
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-Universidad de Valencia (España)
+
 \strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).
 \emph{Economía Aplicada.}
-Universidad de Valencia (España)
+
 \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+
 Universidad de Valencia (España)
 }

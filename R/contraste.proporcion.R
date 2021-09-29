@@ -7,7 +7,6 @@
 #'                        introducir = FALSE,
 #'                        hipotesis_nula = NULL,
 #'                        tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
-#'                        p_muestral = TRUE,
 #'                        alfa = 0.05,
 #'                        grafico = FALSE)
 #'
@@ -19,15 +18,11 @@
 #' Si tipo_contraste = "bilateral", se contraste la hipótesis nula igual un valor frente a la alternativa distinto de dicho valor.
 #' Si tipo_contraste = "cola derecha", se contrasta la hipótesis nula menor o igual a un valor frente a la alternativa mayor a dicho valor.
 #' Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o igual a un valor frente a la alternativa menos a dicho valor.
-#' @param p_muestral Es un valor lógico. Indica si se hace uso de la proporción muestral para estimar el intervalo de confianza (por defecto, p_muestral = TRUE). si p_muestral = FALSE, se considera p=q=0.5 (situación más desfavorable).
 #' @param alfa Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, alfa = 0.05 (5 por ciento)
 #' @param grafico Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
@@ -39,7 +34,11 @@
 #' Universidad de Valencia (España)
 #'
 #' @references
-#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
+#' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @import dplyr ggplot2
 #'
@@ -49,18 +48,15 @@ contraste.proporcion <- function(x,
                                  introducir = FALSE,
                                  hipotesis_nula = NULL,
                                  tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
-                                 p_muestral = TRUE,
                                  alfa = 0.05,
                                  grafico = FALSE){
-
-
 
   tipo_contraste <- tolower(tipo_contraste)
   tipo_contraste <- match.arg(tipo_contraste)
 
   if(is.null(hipotesis_nula)){
 
-    stop("Tienes que introducir un valor para la hipotesis nula")
+    stop("Tienes que introducir un valor para la hipo\u00f3tesis nula")
 
   }
 
@@ -79,13 +75,13 @@ contraste.proporcion <- function(x,
     valor_critico <- round(valor_critico,4)
 
   } else{
-    stop("El nivel de significacion debe fijarse entre 0 y 1")
+    stop("El nivel de significaci\u00f3n debe fijarse entre 0 y 1")
   }
 
   if(hipotesis_nula >= 0 & hipotesis_nula <=1){
     H0 <- hipotesis_nula
   }else{
-    stop("La hipotesis nula es una proporcion y por tanto tiene que fijarse entre 0 y 1")
+    stop("La hip\u00f3tesis nula es una proporci\u00f3n y por tanto tiene que fijarse entre 0 y 1")
   }
 
 
@@ -117,7 +113,7 @@ if(isFALSE(introducir)) {
 
       } else{
 
-        stop("Seleccion erronea de variable")
+        stop("Selecci\u00f3n err\u00f3nea de variable")
 
       }
     }
@@ -130,7 +126,7 @@ if(isFALSE(introducir)) {
 
       } else {
 
-        stop("El nombre de la variable no es valido")
+        stop("El nombre de la variable no es v\u00e1lido")
 
       }
 
@@ -148,7 +144,7 @@ if(isFALSE(introducir)) {
 
   if(!all(x == 0 | x==1)){
 
-    print("Aplica a tus datos la condicion que debe cumplir la poblacion para transfomar los datos en ceros (ausencia/no exito) y unos (presencia/exito)")
+    print("Aplica a tus datos la condici\u00f3n que debe cumplir la poblaci\u00f3n para transfomar los datos en ceros (ausencia/no \u00e9xito) y unos (presencia/\u00e9xito)")
     stop("Los valores en la muestra deben ser 0 y 1.")
 
   }
@@ -162,31 +158,20 @@ if(isFALSE(introducir)) {
 
   }
 
-  # tamaño de la muestra
+  # tama\u00f1o de la muestra
   n <- nrow(x)
 
   # media muestral
 
-  if(isTRUE(p_muestral)){
     p_mu <- sum(x,na.rm=TRUE)/n
-  } else{
-    p_mu = 0.5
-  }
 
+} else{   # aqu\u00ed empieza introducir datos
 
-} else{   # aquí empieza introducir datos
-
-  n <- readline(prompt = "Introducir el tamaño de la muestra: ")
+  n <- readline(prompt = "Introducir el tama\u00f1o de la muestra: ")
   n <- as.numeric(n)
-
-  if(isTRUE(p_muestral)){
 
     p_mu <- readline(prompt = "Introducir el valor de la proporcion muestral: ")
     p_mu <- as.numeric(p_mu)
-
-  } else{
-    p_mu <- 0.5
-  }
 
 }
 
@@ -204,13 +189,13 @@ if(isFALSE(introducir)) {
 
     if(estadistico.Z >= -valor_critico & estadistico.Z <=  valor_critico){
 
-      print(paste("No se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) se encuentra dentro de la región de aceptación")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     } else{
 
-      print(paste("Se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) no se encuentra dentro de la región de aceptación")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -235,13 +220,13 @@ if(isFALSE(introducir)) {
 
     if(estadistico.Z > valor_critico){
 
-      print(paste("Se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo ]-Inf , ", valor_critico,"]",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) no se encuentra dentro de la región de aceptación")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo ]-Inf , ", valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     } else{
 
-      print(paste("No se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo ]-Inf , ", valor_critico,"]",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) se encuentra dentro de la región de aceptación")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo ]-Inf , ", valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -264,13 +249,13 @@ if(isFALSE(introducir)) {
 
     if(estadistico.Z < valor_critico){
 
-      print(paste("Se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) no se encuentra dentro de la región de aceptación")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     } else{
 
-      print(paste("No se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) se encuentra dentro de la región de aceptación")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -289,10 +274,9 @@ if(isFALSE(introducir)) {
 
   }
 
-
   CH <- cbind(H0,estadistico.Z,pvalor)
   CH <- as.data.frame(CH)
-  names(CH) <- c("Hipótesis nula", "estadístico de prueba", "p-valor")
+  names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
   if(isTRUE(grafico)){
@@ -304,7 +288,6 @@ if(isFALSE(introducir)) {
     return(CH)
 
   }
-
 
 }
 

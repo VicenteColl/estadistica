@@ -2,12 +2,11 @@
 % Please edit documentation in R/ic.proporcion.R
 \name{ic.proporcion}
 \alias{ic.proporcion}
-\title{Intervalo confinanza de una proporción.}
+\title{Intervalo confianza de una proporción.}
 \usage{
 ic.proporcion(x,
                      variable = NULL,
                      introducir = FALSE,
-                     p_muestral = TRUE,
                      irrestricto = FALSE,
                      confianza = 0.95)
 }
@@ -18,32 +17,31 @@ ic.proporcion(x,
 
 \item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
 
-\item{p_muestral}{Es un valor lógico. Indica si se hace uso de la proporción muestral para estimar el intervalo de confianza (por defecto, p_muestral = TRUE). si p_muestral = FALSE, se considera p=q=0.5 (situación más desfavorable).}
-
 \item{irrestricto}{Es un valor lógico. Por defecto, irrectricto = FALSE. si se considera un muestreo irrectricto (extracción sin reemplazamiento), cambiar el argumento a irrestricto = TRUE.}
 
 \item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
 }
 \description{
-Calcula el intervalo de confianza de una proproción.
+Calcula el intervalo de confianza de una proporción.
 }
 \details{
 (1) Para tamaños muestrales muy grandes:
 
- \figure{ic_proporcion_3.png}{options: width="65\%" heigth="65\%"}
+ \figure{ic_proporcion_3.png}{options: width="80\%" heigth="80\%"}
 
 (2) Para cualquier tamaño muestral puede obtenerse el intervalo \figure{ic_proporcion_1.png}{options: width="15\%" heigth="15\%"}, correspondiendo los valores a las raíces de:
 
- \figure{ic_proporcion_2.png}{options: width="60\%" heigth="60\%"}
+ \figure{ic_proporcion_2.png}{options: width="80\%" heigth="80\%"}
 }
 \references{
-Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+
+Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+
+Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-
-\strong{Olga Blasco-Blasco} (\email{olga.blasco@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 \strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).

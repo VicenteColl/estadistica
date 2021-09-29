@@ -4,18 +4,15 @@
 #' @usage tabla.bidimensional(x,
 #'                            distribucion = c("cruzada","condicionada"),
 #'                            frecuencias = c("absolutas","relativas"),
-#'                            exportar = TRUE)
+#'                            exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).
 #' @param distribucion Es un caracter. Por defecto se obtien la tabla cruzada (distribucion = "cruzada"). Para obtener las distribuciones condicionadas cambiar el argumento: distribucion = "condicionada".
 #' @param frecuencias Es un carácter. Por defecto se obtienen las frecuencias absolutas ordinarias (frecuencias = "absolutas"). Para obtener las frecuencias relativas ordinarias cambiar el argumento: frecuencias = "relativas".
-#' @param exportar Por defecto, los resultados se exportan a una hoja de cálculo Excel (exportar = TRUE).
+#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
 
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
@@ -23,6 +20,7 @@
 #'
 #' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
 #' Universidad de Valencia (España)
 #'
 #' @references
@@ -39,7 +37,7 @@
 tabla.bidimensional <- function(x,
                                 distribucion = c("cruzada","condicionada"),
                                 frecuencias = c("absolutas","relativas"),
-                                exportar = TRUE){
+                                exportar = FALSE){
 
   distribucion <- tolower(distribucion)
   distribucion <- match.arg(distribucion)
@@ -89,8 +87,8 @@ tabla.bidimensional <- function(x,
       tabla <- addmargins(tabla)
 
     } else{
-      print("Si quieres obtener la distribuci\u00f3n de variable1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
-      tipo <- readline(prompt = "Distribuci\u00f3n condicionada por filas (1) o por columnas (2): ")
+      print("Si quieres obtener la distribuci\u00f3nes de variable1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
+      tipo <- readline(prompt = "Distribuci\u00f3nes condicionadas por filas (1) o por columnas (2): ")
       tipo = as.numeric(tipo)
 
       tabla2 <- x %>%
@@ -136,8 +134,8 @@ tabla.bidimensional <- function(x,
       tabla <- addmargins(tabla)
 
     } else{
-      print("Si quieres obtener la distribuci\u00f3n de varible1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
-      tipo <- readline(prompt = "Distribuci\u00f3n condicionada por filas (1) o por columnas (2): ")
+      print("Si quieres obtener la distribuci\u00f3nes de varible1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
+      tipo <- readline(prompt = "Distribuci\u00f3nes condicionadas por filas (1) o por columnas (2): ")
       tipo = as.numeric(tipo)
 
       if(tipo == 1){

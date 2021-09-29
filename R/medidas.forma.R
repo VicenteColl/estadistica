@@ -1,18 +1,17 @@
 #' @title Medidas de forma
 #'
 #' @description Calcula el coeficiente de asimetría y de curtosis de Fisher.
-#' @usage medidas.forma(x, variable = NULL, pesos = NULL, alternativa = FALSE)
+#' @usage medidas.forma(x, variable = NULL, pesos = NULL,
+#' alternativa = FALSE, exportar = FALSE)
 #'
 #' @param x Conjunto de datos, que puede estar formado por una o más variables.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #' @param alternativa Es un valor lógico. Si alternativa = TRUE el resultado de las medidas de forma muestra el coeficiente de asimetría y curtosis calculado según SPSS y EXCEL. Se facilita también los correspondientes errores típicos.
+#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
@@ -22,9 +21,7 @@
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Universidad de Valencia (España)
-#'
-#' @seealso \code{\link{varianza}}, \code{\link{desviacion}},\code{\link{momento.central}}
-#'
+#'#'
 #' @details
 #'
 #' El coeficiente de asimetría se obtiene a partir de la expresión:
@@ -60,7 +57,8 @@
 #' @import
 #'
 #' @export
-medidas.forma <- function(x, variable = NULL, pesos = NULL, alternativa = FALSE){
+medidas.forma <- function(x, variable = NULL, pesos = NULL,
+                          alternativa = FALSE, exportar = FALSE){
 
   x <- data.frame(x)
   varnames <- names(x)
@@ -207,6 +205,13 @@ medidas.forma <- function(x, variable = NULL, pesos = NULL, alternativa = FALSE)
   }
 
   row.names(forma) <- varnames
+
+  if (exportar) {
+    filename <- paste("Medidas de forma"," (", Sys.time(), ").xlsx", sep = "")
+    filename <- gsub(" ", "_", filename)
+    filename <- gsub(":", ".", filename)
+    rio::export(forma, row.names = TRUE, file = filename)
+  }
 
   return(forma)
 

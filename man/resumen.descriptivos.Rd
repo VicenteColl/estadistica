@@ -4,7 +4,7 @@
 \alias{resumen.descriptivos}
 \title{Resumen descriptivos.}
 \usage{
-resumen.descriptivos(x, variable = NULL, pesos = NULL, exportar = TRUE)
+resumen.descriptivos(x, variable = NULL, pesos = NULL, exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
@@ -13,7 +13,7 @@ resumen.descriptivos(x, variable = NULL, pesos = NULL, exportar = TRUE)
 
 \item{pesos}{Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
 
-\item{exportar}{Por defecto, los resultados se exportan a una hoja de cálculo Excel (exportar = TRUE).}
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
 }
 \description{
 Calcula un resumen de los principales estadísticos descriptivos.
@@ -27,9 +27,6 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-
-\strong{Olga Blasco-Blasco} (\email{olga.blasco@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 \strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).

@@ -1,18 +1,19 @@
 #' @title Cuantiles.
 #'
 #' @description Calcula los cuantiles.
-#' @usage cuantiles(x, variable = NULL, pesos = NULL, cortes = c(0.25,0.5,0.75))
+#' @usage cuantiles(x, variable = NULL,
+#' pesos = NULL,
+#' cortes = c(0.25,0.5,0.75),
+#' exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #' @param cortes Vector con los puntos de corte a calcular. Por defecto se calcula el primer, segundo y tercer cuartil.
+#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
@@ -45,7 +46,9 @@
 #' @import
 #'
 #' @export
-cuantiles <- function(x, variable = NULL, pesos = NULL, cortes = c(0.25,0.5,0.75)){
+cuantiles <- function(x, variable = NULL, pesos = NULL,
+                      cortes = c(0.25,0.5,0.75),
+                      exportar = FALSE){
 
   x <- data.frame(x)
   varnames <- names(x)
@@ -142,6 +145,13 @@ cuantiles <- function(x, variable = NULL, pesos = NULL, cortes = c(0.25,0.5,0.75
   cuantiles <- as.data.frame(cuantiles)
   names(cuantiles) <- paste("cuantiles_",varnames,sep="")
   row.names(cuantiles) <- paste(cortes*100,"%",sep="")
+
+  if (exportar) {
+    filename <- paste("Cuantiles"," (", Sys.time(), ").xlsx", sep = "")
+    filename <- gsub(" ", "_", filename)
+    filename <- gsub(":", ".", filename)
+    rio::export(cuantiles, row.names = TRUE, file = filename)
+  }
 
   return(cuantiles)
 

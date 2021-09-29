@@ -22,9 +22,6 @@
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
 #' \emph{Economía Aplicada.}
 #'
@@ -60,7 +57,11 @@
 #' estimando la varianza poblacional por la varianza (o cuasivarianza) muestral.
 #'
 #' @references
-#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
+#' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @importFrom ggalt geom_dumbbell
 #' @import dplyr ggalt ggplot2
@@ -297,7 +298,7 @@ if(isFALSE(introducir)) {
       if(n >= 30){
 
         print("El tama\u00f1o de la muestra es grande (n>30). Se puede estimar la varianza poblacional y considerar el intervalo de varianza poblacional conocida.")
-        aproximacion <- as.numeric(readline('\u00bfQuieres utilizar la aproximaci\uf003n de la t a la normal? \n 1. "S\u00ed" \n 2. "No" \n'))
+        aproximacion <- as.numeric(readline('\u00bfQuieres utilizar la aproximaci\u00f3n de la t a la normal? \n 1. "S\u00ed" \n 2. "No" \n'))
 
         if(aproximacion == 1){  # aproximacion normal. Se estima sigma por S
           # caso 7. Se estima sigma por S y se estima el IC del caso 5

@@ -9,7 +9,6 @@ contraste.diferencia.proporciones(x,
                 introducir = FALSE,
                 hipotesis_nula = 0,
                 tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
-                p_muestral = c(1,1),
                 alfa = 0.05,
                 grafico = FALSE)
 }
@@ -27,9 +26,6 @@ Si tipo_contraste = "bilateral", se contraste la hipótesis nula igual un valor 
 Si tipo_contraste = "cola derecha", se contrasta la hipótesis nula menor o igual a un valor frente a la alternativa mayor a dicho valor.
 Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o igual a un valor frente a la alternativa menos a dicho valor.}
 
-\item{p_muestral}{Es un vector de longitud 2 cuyo primer elemento hará referencia a qué valor se toma para la proporción de la muestra 1 y el segundo al de la muestra 2.
-El valor 1 indica que se toma la proporción de la muestra, el valor 2 indica que se toma el caso más desfavorable (p=q=0.5)}
-
 \item{alfa}{Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, alfa = 0.05 (5 por ciento)}
 
 \item{grafico}{Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.}
@@ -38,13 +34,14 @@ El valor 1 indica que se toma la proporción de la muestra, el valor 2 indica qu
 Realiza el contraste de hipótesis sobre la diferencia de dos proporciones.
 }
 \references{
-Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+
+Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+
+Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-
-\strong{Olga Blasco-Blasco} (\email{olga.blasco@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 \strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).

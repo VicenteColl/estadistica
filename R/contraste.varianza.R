@@ -27,9 +27,6 @@
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
 #' \emph{Economía Aplicada.}
 #'
@@ -39,7 +36,11 @@
 #' Universidad de Valencia (España)
 #'
 #' @references
-#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
+#' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @import dplyr ggplot2
 #'
@@ -63,7 +64,7 @@ tipo_contraste <- match.arg(tipo_contraste)
 
 if(is.null(hipotesis_nula) | !is.numeric(hipotesis_nula)){
 
-  stop("Tienes que introducir un valor para la hipotesis nula")
+  stop("Tienes que introducir un valor para la hip\u00f3tesis nula")
 
 } else{
   H0 <- hipotesis_nula
@@ -137,7 +138,7 @@ if(isFALSE(introducir)) {
 
   }
 
-  # tamaño de la muestra
+  # tama\u00f1o de la muestra
   n <- nrow(x)
 
   if(media_poblacion == "desconocida"){
@@ -175,7 +176,7 @@ if(isFALSE(introducir)) {
 } else{   # aquí empieza introducir datos
 
 
-  n <- readline(prompt = "Introducir el tamaño de la muestra: ")
+  n <- readline(prompt = "Introducir el tama\u00f1o de la muestra: ")
   n <- as.numeric(n)
 
   if(media_poblacion == "desconocida"){
@@ -259,13 +260,13 @@ df$y <-dchisq(df$x, gl)
 
     if(estadistico.prueba >= valor_critico_L & estadistico.prueba <= valor_critico_R){
 
-      print(paste("No se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", valor_critico_L," , ",valor_critico_R,"]",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) se encuentra dentro de la región de aceptación")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", valor_critico_L," , ",valor_critico_R,"]",sep=""))
+      print("El valor del estad\u00ed de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     } else{
 
-      print(paste("Se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", valor_critico_L," , ",valor_critico_R,"]",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) no se encuentra dentro de la región de aceptación")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", valor_critico_L," , ",valor_critico_R,"]",sep=""))
+      print("El valor del estad\u00ed de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -278,7 +279,7 @@ df$y <-dchisq(df$x, gl)
         geom_area(stat = "function", fun = dchisq, args = list(df = gl), fill = "red", xlim = c(valor_critico_R, percentil99)) +
         geom_vline(xintercept = 0, color = "black") +
         geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-        labs(title = paste("Distribución chi con ", gl, " grados de libertad",sep=""), x = "", y = "") +
+        labs(title = paste("Distribuci\u00f3n chi con ", gl, " grados de libertad",sep=""), x = "", y = "") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(0L,estadistico.prueba,valor_critico_L,valor_critico_R)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -294,13 +295,13 @@ df$y <-dchisq(df$x, gl)
 
     if(estadistico.prueba <=  valor_critico){
 
-      print(paste("No se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", 0 ," , ",valor_critico,"]",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) se encuentra dentro de la región de aceptación")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", 0 ," , ",valor_critico,"]",sep=""))
+      print("El valor del estad\u00ed de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     } else{
 
-      print(paste("Se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", 0," , ",valor_critico,"]",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) no se encuentra dentro de la región de aceptación")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", 0," , ",valor_critico,"]",sep=""))
+      print("El valor del estad\u00ed de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -312,7 +313,7 @@ df$y <-dchisq(df$x, gl)
         geom_area(stat = "function", fun = dchisq, args = list(df = gl), fill = "red", xlim = c(valor_critico,percentil99)) +
         geom_vline(xintercept = 0, color = "black") +
         geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-        labs(title = paste("Distribución chi con ", gl, " grados de libertad",sep=""), x = "", y = "") +
+        labs(title = paste("Distribuci\u00f3n chi con ", gl, " grados de libertad",sep=""), x = "", y = "") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(0L,estadistico.prueba,valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -327,13 +328,13 @@ df$y <-dchisq(df$x, gl)
 
     if(estadistico.prueba >= valor_critico){
 
-      print(paste("No se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", valor_critico," , ",Inf,"[",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) se encuentra dentro de la región de aceptación")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", valor_critico," , ",Inf,"[",sep=""))
+      print("El valor del estad\u00ed de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     } else{
 
-      print(paste("Se rechaza la hipotesis nula. La región de aceptación viene dada por el intervalo [", valor_critico," , ",Inf,"[",sep=""))
-      print("El valor del estadístico de prueba (o valor experimental) no se encuentra dentro de la región de aceptación")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", valor_critico," , ",Inf,"[",sep=""))
+      print("El valor del estad\u00ed de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -345,7 +346,7 @@ df$y <-dchisq(df$x, gl)
         geom_area(stat = "function", fun = dchisq, args = list(df = gl), fill = "red", xlim = c(0,valor_critico)) +
         geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
         geom_vline(xintercept = 0, color = "black") +
-        labs(title = paste("Distribución chi con ", gl, " grados de libertad",sep=""), x = "", y = "") +
+        labs(title = paste("Distribuci\u00f3n chi con ", gl, " grados de libertad",sep=""), x = "", y = "") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(0L,estadistico.prueba,valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -358,7 +359,7 @@ df$y <-dchisq(df$x, gl)
 
   CH <- cbind(H0,estadistico.prueba,pvalor)
   CH <- as.data.frame(CH)
-  names(CH) <- c("Hipótesis nula", "estadístico de prueba", "p valor")
+  names(CH) <- c("Hip\u00f3tesis nula", "estad\u00ed de prueba", "p valor")
   row.names(CH) <- NULL
 
   if(isTRUE(grafico)){

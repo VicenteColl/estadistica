@@ -7,7 +7,7 @@
 tabla.bidimensional(x,
                            distribucion = c("cruzada","condicionada"),
                            frecuencias = c("absolutas","relativas"),
-                           exportar = TRUE)
+                           exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).}
@@ -16,7 +16,7 @@ tabla.bidimensional(x,
 
 \item{frecuencias}{Es un carácter. Por defecto se obtienen las frecuencias absolutas ordinarias (frecuencias = "absolutas"). Para obtener las frecuencias relativas ordinarias cambiar el argumento: frecuencias = "relativas".}
 
-\item{exportar}{Por defecto, los resultados se exportan a una hoja de cálculo Excel (exportar = TRUE).}
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
 }
 \description{
 Calcula la tabla de frecuencias bidimensionales.
@@ -32,13 +32,11 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
-\strong{Olga Blasco-Blasco} (\email{olga.blasco@uv.es}).
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-
 \strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).
 \emph{Economía Aplicada.}
 
 \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+
 Universidad de Valencia (España)
 }

@@ -10,9 +10,6 @@
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
 #' \emph{Economía Aplicada.}
 #'
@@ -34,7 +31,7 @@
 #'
 #' \figure{correlacion_pob.png}{options: width="30\%" heigth="30\%"}
 #'
-#' @seealso \code{\link{matriz.correlacion}}, \code{\link{covarianza}},\code{\link{matriz.var.covar}}
+#' @seealso \code{\link{matriz.correlacion}}, \code{\link{covarianza}},\code{\link{matriz.covar}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

@@ -1,24 +1,22 @@
 #' @title Tabla de frecuencias.
 #'
 #' @description Esta función presenta la distribución de frecuencias de una variable.
-#' @usage tabla.frecuencias(x, eliminar.na = TRUE, exportar = TRUE)
+#' @usage tabla.frecuencias(x, eliminar.na = TRUE, exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.
 #' @param eliminar.na Valor lógico. Por defecto eliminar.na = TRUE. Si se quiere obtener la tabla de frecuencias con NAs, cambiar el argumento a FALSE.
-#' @param exportar Por defecto, los resultados se exportan a una hoja de cálculo Excel (exportar = TRUE).
+#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
 
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#' Universidad de Valencia (España)
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#' Universidad de Valencia (España)
+#'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
 #' \emph{Economía Aplicada.}
-#' Universidad de Valencia (España)
+#'
 #' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
 #' Universidad de Valencia (España)
 #'
 #' @references
@@ -31,7 +29,7 @@
 #' @import tidyverse
 #'
 #' @export
-tabla.frecuencias <- function(x, eliminar.na = TRUE, exportar = TRUE){
+tabla.frecuencias <- function(x, eliminar.na = TRUE, exportar = FALSE){
 
   x <- as.data.frame(x)
 

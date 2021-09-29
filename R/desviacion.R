@@ -12,9 +12,6 @@
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Olga Blasco-Blasco} (\email{olga.blasco@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
 #' \emph{Economía Aplicada.}
 #'
@@ -41,7 +38,7 @@
 #'
 #' \figure{desviacion_pob.png}{options: width="40\%" heigth="40\%"}
 #'
-#'@seealso \code{\link{media}}, \code{\link{varianza}}
+#'@seealso \code{\link{media}}, \code{\link{varianza}}, \code{\link{coeficiente.variacion}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

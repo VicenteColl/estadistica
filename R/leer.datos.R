@@ -4,17 +4,18 @@
 #' @usage leer.datos(introducir = FALSE, pos = 1)
 #'
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), se abrirá una ventana para que el usuario seleccione el fichero de datos que quiere cargar. Si introducir = TRUE, el usuario introducirá él mismo los datos.
-#' @param pos Es un valor fijo utilizado para mostrar el dataframe del usuario en en Global Environment.
+#' @param pos Es un valor fijo utilizado para mostrar el dataframe del usuario en el Global Environment.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#' Universidad de Valencia (España)
-#' #' \strong{Rosario Martínez Verdú} (\email{Rosario.Martinez@@uv.es}).
+#'
+#' \strong{Rosario Martínez Verdú} (\email{Rosario.Martinez@@uv.es}).
 #' \emph{Economía Aplicada.}
-#' Universidad de Valencia (España)
-#' #' \strong{Cristina Pardo García} (\email{Cristina.Pardo-Garcia@@uv.es}).
+#'
+#' \strong{Cristina Pardo García} (\email{Cristina.Pardo-Garcia@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
 #' Universidad de Valencia (España)
 #'
 #' @references
@@ -25,6 +26,9 @@
 #' @export
 leer.datos <- function(introducir = FALSE, pos=1){
 
+  if(pos!=1){
+    stop("No cambies el valor del argumento pos.")
+  }
 
   if(isFALSE(introducir)){
 
