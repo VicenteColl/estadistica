@@ -194,13 +194,14 @@ if(isFALSE(introducir)) {
       varianza_muestral <- readline(prompt = "Introducir el valor de la varianza muestral: ")
       varianza_muestral <- as.numeric(varianza_muestral)
       desv_mu <- sqrt(varianza_muestral)
-      n <- n-1
 
     } else{
 
       varianza_cuasi <- readline(prompt = "Introducir el valor de la cuasi-varianza muestral: ")
       varianza_cuasi <- as.numeric(varianza_cuasi)
       desv_mu <- sqrt(varianza_cuasi)
+      n <- n-1
+
     }
   }
 }

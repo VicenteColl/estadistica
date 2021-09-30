@@ -170,8 +170,8 @@ if(isFALSE(introducir)) {
   n <- readline(prompt = "Introducir el tama\u00f1o de la muestra: ")
   n <- as.numeric(n)
 
-    p_mu <- readline(prompt = "Introducir el valor de la proporcion muestral: ")
-    p_mu <- as.numeric(p_mu)
+  p_mu <- readline(prompt = "Introducir el valor de la proporcion muestral: ")
+  p_mu <- as.numeric(p_mu)
 
 }
 
@@ -180,12 +180,14 @@ if(isFALSE(introducir)) {
 
   estadistico.Z <- (p_mu - H0)/sqrt(H0*(1-H0)/n)
   estadistico.Z <- round(estadistico.Z,5)
-  error_tipico0 <- sqrt(H0*(1-H0)/n)
+  error_tipico <- sqrt(H0*(1-H0)/n)
 
   if(tipo_contraste == "bilateral"){
 
     estadistico.Z2 <- abs(estadistico.Z)
     pvalor <- 2*pnorm(estadistico.Z2,lower.tail=FALSE)
+    media_inf <- H0 - valor_critico * error_tipico
+    media_sup <- H0 + valor_critico * error_tipico
 
     if(estadistico.Z >= -valor_critico & estadistico.Z <=  valor_critico){
 
@@ -216,6 +218,8 @@ if(isFALSE(introducir)) {
 
   } else if(tipo_contraste == "cola derecha"){
 
+    media_inf <- -Inf
+    media_sup <- H0 + valor_critico * error_tipico
     pvalor <- pnorm(estadistico.Z,lower.tail=FALSE)
 
     if(estadistico.Z > valor_critico){
@@ -245,6 +249,8 @@ if(isFALSE(introducir)) {
 
   } else{
 
+    media_inf <- H0 - valor_critico * error_tipico
+    media_sup <- Inf
     pvalor <- pnorm(estadistico.Z,lower.tail=TRUE)
 
     if(estadistico.Z < valor_critico){
@@ -279,13 +285,16 @@ if(isFALSE(introducir)) {
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
+  Imedia <- cbind(`limite_inferior`=media_inf,`limite_superior`=media_sup)
+
+
   if(isTRUE(grafico)){
 
-    return(list(CH,plot))
+    return(list(`Estad\\u00edstico`=CH,`Intervalo de la proporci\\u00f3n muestral`= Imedia,`Gr\\u00e1ficos`= grafico))
 
   } else{
 
-    return(CH)
+    return(list(`Estad\\u00edstico`=CH,`Intervalo de la proporci\\u00f3n muestral`= Imedia))
 
   }
 
