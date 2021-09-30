@@ -35,7 +35,7 @@
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la media poblacional:
 #'
-#' \figure{media_pob.png}{options: width="20\%" heigth="20\%"}
+#' \figure{media_pob.png}{options: width="25\%" heigth="25\%"}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

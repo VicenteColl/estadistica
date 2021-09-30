@@ -28,14 +28,14 @@ Obtiene la matriz de varianzas y covarianzas.
 
 (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) facilitan la matriz de cuasi-varianzas y cuasi-covarianzas muestrales:
 
-\figure{matriz_var_cov_cuasi.png}{options: width="50\%" heigth="50\%"}
+\figure{matriz_var_cov_cuasi.png}{options: width="55\%" heigth="55\%"}
 
 Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de varianzas y covarianzas poblacional:
 
-\figure{matriz_var_cov_pob.png}{options: width="50\%" heigth="50\%"}
+\figure{matriz_var_cov_pob.png}{options: width="55\%" heigth="55\%"}
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

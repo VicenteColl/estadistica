@@ -28,7 +28,7 @@
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de correlació poblacional:
 #'
-#' \figure{matriz_correlacion_pob.png}{options: width="30\%" heigth="30\%"}
+#' \figure{matriz_correlacion_pob.png}{options: width="55\%" heigth="55\%"}
 #'
 #' @seealso \code{\link{correlacion}}, \code{\link{covarianza}},\code{\link{matriz.covar}}
 #'

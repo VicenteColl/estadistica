@@ -22,15 +22,15 @@ ic.correlacion(x,
 Calcula el intervalo de confianza para el coeficiente de correlación.
 }
 \details{
-El intervalo para
+(1) El intervalo para
 
-(1) \figure{ic_correlacion_1.png}{options: width="50\%" heigth="50\%"}
+\figure{ic_correlacion_1.png}{options: width="20\%" heigth="20\%"}
 
-es:
+(2) es:
 
-(2) \figure{ic_correlacion_2.png}{options: width="50\%" heigth="50\%"}
+\figure{ic_correlacion_2.png}{options: width="80\%" heigth="80\%"}
 
-Igualando (1) al extremo inferior de (2) y al extremo superior de (2) se obtendrá el intervalo para la correlación.
+Igualando la expresión en (1) al extremo inferior de (2) y al extremo superior de (2) se obtendrá el intervalo para la correlación.
 }
 \references{
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.

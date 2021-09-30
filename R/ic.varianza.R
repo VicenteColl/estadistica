@@ -39,7 +39,7 @@
 #'
 #' Con la cuasivarianza muestral:
 #'
-#' \figure{ic_varianza_med_desc_cuasi.png}{options: width="40\%" heigth="40\%"}
+#' \figure{ic_varianza_med_desc_cuasi.png}{options: width="50\%" heigth="50\%"}
 #'
 #' Nota: En todos los casos se obtiene el valor de la chi-dos con n grados de libertad que deja a su derecha una probabilidad de alfa y 1-alfa.
 #'
@@ -214,7 +214,7 @@ if(isFALSE(introducir)) {
 
 if(media_poblacion == "desconocida"){
   # caso 1. Media poblacional desconocida, n peque\u00f1a
-  print("Intervalo de confianza para la varianza poblacional, supuesta desconocida la media poblacional. n peque\u00f1a")
+  print("Intervalo de confianza para la varianza poblacional, supuesta desconocida la media poblacional.")
 
   limite_inferior <- (n * var_mu) / qchisq(alfa_2,lower.tail = F, df= gl)
   limite_superior <- (n * var_mu) / qchisq(1-alfa_2, lower.tail = F, df= gl)

@@ -30,8 +30,10 @@
 #'
 #' Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
 #'
-#' cuantiles: s=1,2,3 y k=4
+#' cuartiles: s=1,2,3 y k=4
+#'
 #' deciles: s= 1,2,...,9 y k=10
+#'
 #' percentiles: s=1,2,...,99 y k=100
 #'
 #' @seealso \code{\link{media}}, \code{\link{mediana}}
