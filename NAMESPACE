@@ -45,3 +45,4 @@ importFrom("stats","addmargins","var","cov",
            "df", "pchisq", "pf")
 
 
+

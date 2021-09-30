@@ -30,7 +30,7 @@ Los cuantiles se obtienen a partir de la siguiente regla de decisión:
 
 Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
 
-cuantiles: s=1,2,3 y k=4
+cuartiles: s=1,2,3 y k=4
 
 deciles: s= 1,2,...,9 y k=10
 
