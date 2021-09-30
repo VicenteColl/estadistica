@@ -11,7 +11,7 @@
 #'                 confianza = 0.95)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
-#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
+#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere a dos variables, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables.
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
 #' @param poblacion Es un carácter. Indica la distribución de probabilidad de la población. Por defecto poblacion = "normal". Si la distribución de la población es desconocida, cambiar el argumento a poblacion = "desconocida".
 #' @param var_pob Es un carácter. Indica si la varianza poblacional es conocida (por defecto, var_pob = "conocida") o desconocida. En este último caso debería cambiarse el argumento a var_pob = "desconocida".
@@ -320,16 +320,30 @@ if(isFALSE(introducir)) {
 
       } else {  # varianzas poblaciones desconocidas y distintas
 
-        # caso 4 (solo con cuasivarianza muestral)
-        # varianzas poblacionales desconocidas y distintas (cuasivarianza muestral)
-        print("Este es el intervalo que generalmente calculan los softwares (SPSS, Excel, etc.)")
+        if(var_muestra == 1){
+          # caso 4.1
+          # varianzas poblacionales desconocidas y distintas (varianza muestral)
+          numerador <- (var_mu1/(n1-1) + var_mu2/(n2-1))^2
+          denominador <- ((var_mu1/(n1-1))^2/(n1+1))+((var_mu2/(n2-1))^2/(n2+1))
+          gl <- (numerador / denominador)-2
+          gl <- ceiling(gl)
+          valor_critico <- qt(alfa2,gl,lower.tail = FALSE)
+          error_tipico <- sqrt((var_mu1/(n1-1))+(var_mu2/(n2-1)))
 
-        numerador <- (var_mu1/n1 + var_mu2/n2)^2
-        denominador <- ((var_mu1/n1)^2/(n1-1))+((var_mu2/n2)^2/(n2-1))
-        gl <- numerador / denominador
-        gl <- ceiling(gl)
-        valor_critico <- qt(alfa2,gl,lower.tail = FALSE)
-        error_tipico <- sqrt((var_mu1/n1)+(var_mu2/n2))
+
+
+        } else{
+          # caso 4.2
+          # varianzas poblacionales desconocidas y distintas (cuasivarianza muestral)
+          print("Este es el intervalo que generalmente calculan los softwares (SPSS, Excel, etc.)")
+          numerador <- (var_mu1/n1 + var_mu2/n2)^2
+          denominador <- ((var_mu1/n1)^2/(n1-1))+((var_mu2/n2)^2/(n2-1))
+          gl <- numerador / denominador
+          gl <- ceiling(gl)
+          valor_critico <- qt(alfa2,gl,lower.tail = FALSE)
+          error_tipico <- sqrt((var_mu1/n1)+(var_mu2/n2))
+
+        }
 
       }
 

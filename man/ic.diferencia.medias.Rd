@@ -15,7 +15,7 @@ ic.diferencia.medias(x,
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere a dos variables, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables.}
 
 \item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
 

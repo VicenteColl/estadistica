@@ -32,15 +32,15 @@
 #'
 #' @details
 #'
-#' (1) Si población desconocida, varianza población conocida y muestra grande:
+#' (1) Si población desconocida, varianza poblacial conocida y muestra pequeña:
 #'
 #' \figure{ic_media_desconocida_var_con.png}{options: width="50\%" heigth="50\%"}
 #'
-#' (2) Si población normal, varianza población conocida
+#' (2) Si población normal, varianza poblacional conocida (muestra pequeña y grande)
 #'
 #' \figure{ic_media_var_con.png}{options: width="55\%" heigth="55\%"}
 #'
-#' (3) Si población normal, varianza población desconocida y muestra pequea
+#' (3) Si población normal, varianza poblacional desconocida y muestra pequeña
 #'
 #' Con la varianza muestral:
 #'
@@ -52,7 +52,7 @@
 #'
 #' Nota: En ambos casos, el valor crítico sigue una distribución t con n-1 grados de libertad
 #'
-#' (4) Si población normal, varianza población desconocida y muestra grande:
+#' (4) Si población normal, varianza poblacional desconocida y muestra grande:
 #' Puede utilizarse la aproximación a la normal. El intervalo se obtiene a partir de la expresión (2)
 #' estimando la varianza poblacional por la varianza (o cuasivarianza) muestral.
 #'
