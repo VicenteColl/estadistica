@@ -2,8 +2,6 @@
 #'
 #' @description Calcula la media aritmética.
 #'
-#' \figure{qr_media.png}{options: align= "center" width="30\%" heigth="30\%"}
-#'
 #' @usage media(x, variable = NULL, pesos = NULL)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.

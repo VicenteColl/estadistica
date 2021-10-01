@@ -20,6 +20,8 @@ ic.diferencia.proporciones(x,
 }
 \description{
 Calcula el intervalo de confianza de la diferencia de dos proporciones.
+
+\figure{qr_ic_diferencia_medias.png}{options: align= "center" width="25\%" heigth="25\%"}
 }
 \details{
 Se obtiene el intervalo:

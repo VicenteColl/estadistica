@@ -1,6 +1,9 @@
 #' @title Intervalo confianza para la varianza.
 #'
 #' @description Calcula el intervalo de confianza de la varianza poblacional.
+#'
+#' \figure{qr_ic_varianza.png}{options: "center" width="25\%" heigth="25\%"}
+#'
 #' @usage ic.varianza(x,
 #'            variable = NULL,
 #'            introducir = FALSE,

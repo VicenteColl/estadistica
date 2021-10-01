@@ -23,6 +23,8 @@ ic.varianza(x,
 }
 \description{
 Calcula el intervalo de confianza de la varianza poblacional.
+
+\figure{qr_ic_varianza.png}{options: "center" width="25\%" heigth="25\%"}
 }
 \details{
 (1) Si la media poblacional es conocida:
