@@ -36,12 +36,36 @@ Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o ig
 \description{
 Realiza el contraste de hipótesis sobre la media poblacional.
 }
+\details{
+(1) Si la varianza poblacional es conocida, el estadístico Z es:
+
+\figure{c_media_var_con.png}{options: width="30\%" heigth="30\%"}
+
+y se distribuye como una N(0,1)
+
+Si la varianza poblacional es desconocida pero la muesta es grande, puede utilizarse la varianza (o cuasi-varianza) muestral.
+
+(2) Si la varianza poblacional es desconocida, el estadístico T es:
+
+(2.1) usando la varianza muestral
+
+\figure{c_media_var_desc_muestra.png}{options: width="30\%" heigth="30\%"}
+
+(2.2) usando la cuasi-varianza muestral
+
+\figure{c_media_var_desc_cuasi.png}{options: width="30\%" heigth="30\%"}
+
+Nota: en ambos casos el estadístico T se distrubuye como un t con n-1 grados de libertad.
+}
 \references{
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
 Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+}
+\seealso{
+\code{\link{ic.media}}
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).

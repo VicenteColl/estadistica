@@ -35,6 +35,28 @@
 #'
 #' Universidad de Valencia (España)
 #'
+#' @details
+#'
+#' (1) Si la media poblacional es conocida, el estadístico chi-dos es:
+#'
+#' (1.1) utilizando la varianza muestral:
+#'
+#' \figure{c_var_muestra.png}{options: width="30\%" heigth="30\%"}
+#'
+#' (1.2) utilizando la cuasi-varianza muestral:
+#'
+#' \figure{c_var_muestra.png}{options: width="30\%" heigth="30\%"}
+#'
+#' (2) Si la media poblacional es conocida.
+#'
+#' (2.1) utilizando la varianza muestral:
+#'
+#' \figure{c_var_media_con_muestra.png}{options: width="60\%" heigth="60\%"}
+#'
+#'  Nota: En todos los casos el estadístico chi-dos se distrubuye con n-1 grados de libertad.
+#'
+#' @seealso \code{\link{ic.varianza}}
+#'
 #' @references
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'

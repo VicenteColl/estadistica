@@ -36,12 +36,34 @@ Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o ig
 \description{
 Realiza el contraste de hipótesis sobre la varianza poblacional.
 }
+\details{
+(1) Si la media poblacional es conocida, el estadístico chi-dos es:
+
+(1.1) utilizando la varianza muestral:
+
+\figure{c_var_muestra.png}{options: width="30\%" heigth="30\%"}
+
+(1.2) utilizando la cuasi-varianza muestral:
+
+\figure{c_var_muestra.png}{options: width="30\%" heigth="30\%"}
+
+(2) Si la media poblacional es conocida.
+
+(2.1) utilizando la varianza muestral:
+
+\figure{c_var_media_con_muestra.png}{options: width="60\%" heigth="60\%"}
+
+ Nota: En todos los casos el estadístico chi-dos se distrubuye con n-1 grados de libertad.
+}
 \references{
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
 Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+}
+\seealso{
+\code{\link{ic.varianza}}
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).

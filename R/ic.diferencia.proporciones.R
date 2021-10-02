@@ -2,7 +2,7 @@
 #'
 #' @description Calcula el intervalo de confianza de la diferencia de dos proporciones.
 #'
-#' \figure{qr_ic_diferencia_medias.png}{options: align= "center" width="25\%" heigth="25\%"}
+#' \figure{qr_ic.diferencia.proporciones.png}{options: align= "center" width="25\%" heigth="25\%"}
 #'
 #' @usage ic.diferencia.proporciones(x,
 #'                      variable = NULL,
