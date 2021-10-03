@@ -2,7 +2,7 @@
 #'
 #' @description Calcula el tamaño muestral para estimar la media de una población normal o la proporcion p de una población.
 #'
-#' \figure{qr_muestra_1.png}{options: "center" width="25\%" heigth="25\%"}     \figure{qr_muestra_2.png}{options: "center" width="25\%" heigth="25\%"}
+#' \figure{qr_muestra_1.png}{options: width="25\%" heigth="25\%"}     \figure{qr_muestra_2.png}{options: width="25\%" heigth="25\%"}
 #'
 #' @usage muestra(poblacion = c("normal","dicotomica"),
 #'                error_estimacion = NULL,
@@ -29,18 +29,27 @@
 #'
 #' @details
 #'
-#' El tamaño muestral para estimar la media poblacional se obtiene a partir de la siguiente expresión:
+#' (1) El tamaño muestral para estimar la media poblacional se obtiene a partir de la siguiente expresión:
 #'
 #' \figure{tamano_media.png}{options: width="30\%" heigth="30\%"}
 #'
 #' y si el muestreo es irrestricto:
 #'
-#' El tamaño muestral para estimar la proporción de una característica se obtiene a partir de la expresión:
+#' \figure{tamano_media_irrestricto.png}{options: width="60\%" heigth="60\%"}
 #'
-#' \figure{tamano_proporcion.png}{options: width="30\%" heigth="30\%"}
+#' Nota: si la varianza poblacional no es conocida puede estimarse a través de la varianza (o cuasi-varianza) muestral.
+#'
+#' (2) El tamaño muestral para estimar la proporción de una característica se obtiene a partir de la expresión:
+#'
+#' \figure{tamano_proporcion.png}{options: width="35\%" heigth="35\%"}
 #'
 #' y si el muestreo es irrectricto:
 #'
+#' \figure{tamano_proporcion_irrestricto.png}{options: width="65\%" heigth="65\%"}
+#'
+#' Nota: puede estimarse la proporción poblacional por la proporción muestral o, en caso
+#' de no disponer de información, suponer el caso más desfavorable: p=q=0.5
+
 #' @note
 #' En el caso del tamaño muestral para la media: si la varianza poblacional no es conocida puede estimarse con la varianza muestral (o cuasivarianza muestral).
 #' En el caso del tamaño muestral para la proporción: si la proporción poblacional no es conocida, puede estimarse por la proporción muestral o considerar el caso más desfavorable (p=q=0.5)
