@@ -1,6 +1,9 @@
 #' @title Intervalo confianza para la razón (cociente) de varianzas.
 #'
 #' @description Calcula el intervalo de confianza para la razón (o cociente) de varianzas.
+#'
+#' \figure{qr_ic.razon.varianzas.png}{options: "center" width="25\%" heigth="25\%"}
+#'
 #' @usage ic.razon.varianzas(x, variable = NULL, introducir = FALSE, confianza = 0.95)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.

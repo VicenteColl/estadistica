@@ -1,6 +1,9 @@
 #' @title Tamaño de la muestra.
 #'
 #' @description Calcula el tamaño muestral para estimar la media de una población normal o la proporcion p de una población.
+#'
+#' \figure{qr_muestra_1.png}{options: "center" width="25\%" heigth="25\%"}     \figure{qr_muestra_2.png}{options: "center" width="25\%" heigth="25\%"}
+#'
 #' @usage muestra(poblacion = c("normal","dicotomica"),
 #'                error_estimacion = NULL,
 #'                confianza = 0.95,

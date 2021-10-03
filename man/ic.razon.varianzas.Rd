@@ -17,6 +17,8 @@ ic.razon.varianzas(x, variable = NULL, introducir = FALSE, confianza = 0.95)
 }
 \description{
 Calcula el intervalo de confianza para la razón (o cociente) de varianzas.
+
+\figure{qr_ic.razon.varianzas.png}{options: "center" width="25\%" heigth="25\%"}
 }
 \references{
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
