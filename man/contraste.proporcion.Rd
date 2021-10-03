@@ -33,12 +33,20 @@ Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o ig
 \description{
 Realiza el contraste de hipótesis sobre la proporción poblacional.
 }
+\details{
+En este caso el estadístico Z del contraste es:
+
+\figure{c_proporcion.png}{options: width="40\%" heigth="40\%"}
+}
 \references{
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
 Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+}
+\seealso{
+\code{\link{ic.proporcion}}
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).

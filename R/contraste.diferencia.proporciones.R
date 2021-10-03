@@ -33,6 +33,24 @@
 #'
 #' Universidad de Valencia (España)
 #'
+#' @details
+#'
+#' El estadístico Z del contraste, que se distribuye N(0,1), es:
+#'
+#' (1) Si se consideran las proporciones muestrales:
+#'
+#' \figure{c_dif_pro_muestra.png}{options: width="60\%" heigth="60\%"}
+#'
+#' (2) si se estima p como media ponderada de las proporciones muestrales, la ponderación es:
+#'
+#' \figure{c_pro_ponderacion.png}{options: width="50\%" heigth="50\%"}
+#'
+#' y el estadístico resulta:
+#'
+#' \figure{c_dif_pro_pond.png}{options: width="60\%" heigth="60\%"}
+#'
+#' @seealso \code{\link{ic.diferencia.proporciones}}
+#'
 #' @references
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'

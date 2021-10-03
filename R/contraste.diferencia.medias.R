@@ -37,6 +37,8 @@
 #'
 #' Universidad de Valencia (España)
 #'
+#' @seealso \code{\link{ic.diferencia.medias}}
+#'
 #' @references
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'

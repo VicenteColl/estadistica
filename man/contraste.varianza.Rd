@@ -45,7 +45,7 @@ Realiza el contraste de hipótesis sobre la varianza poblacional.
 
 (1.2) utilizando la cuasi-varianza muestral:
 
-\figure{c_var_muestra.png}{options: width="30\%" heigth="30\%"}
+\figure{c_var_cuasi.png}{options: width="30\%" heigth="30\%"}
 
 (2) Si la media poblacional es conocida.
 

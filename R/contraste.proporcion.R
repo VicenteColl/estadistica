@@ -33,6 +33,14 @@
 #'
 #' Universidad de Valencia (España)
 #'
+#' @details
+#'
+#' En este caso el estadístico Z del contraste es:
+#'
+#' \figure{c_proporcion.png}{options: width="40\%" heigth="40\%"}
+#'
+#' @seealso \code{\link{ic.proporcion}}
+#'
 #' @references
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'

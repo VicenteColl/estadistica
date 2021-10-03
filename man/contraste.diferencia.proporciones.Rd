@@ -33,12 +33,30 @@ Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o ig
 \description{
 Realiza el contraste de hipótesis sobre la diferencia de dos proporciones.
 }
+\details{
+El estadístico Z del contraste, que se distribuye N(0,1), es:
+
+(1) Si se consideran las proporciones muestrales:
+
+\figure{c_dif_pro_muestra.png}{options: width="60\%" heigth="60\%"}
+
+(2) si se estima p como media ponderada de las proporciones muestrales, la ponderación es:
+
+\figure{c_pro_ponderacion.png}{options: width="30\%" heigth="30\%"}
+
+y el estadístico resulta:
+
+\figure{c_dif_pro_pond.png}{options: width="60\%" heigth="60\%"}
+}
 \references{
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
 Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+}
+\seealso{
+\code{\link{ic.diferencia.proporciones}}
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).

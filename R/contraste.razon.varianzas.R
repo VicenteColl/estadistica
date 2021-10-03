@@ -34,6 +34,20 @@
 #'
 #' Universidad de Valencia (España)
 #'
+#' @details
+#'
+#' El estadístico F es:
+#'
+#' (1) Si utilizamos la varianza muestral:
+#'
+#' \figure{c_razon_var_muestra.png}{options: width="60\%" heigth="60\%"}
+#'
+#' (2) si utilizamos la cuasi-varianza muestral:
+#'
+#' \figure{c_razon_var_cuasi.png}{options: width="25\%" heigth="25\%"}
+#'
+#' @seealso \code{\link{ic.razon.varianzas}}
+#'
 #' @references
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'
@@ -314,6 +328,15 @@ if(tipo_contraste == "bilateral"){
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
-  return(list(CH,plot))
+  if(isTRUE(grafico)){
+
+    return(list(CH,plot))
+
+  } else{
+
+    return(CH)
+
+  }
+
 
 }
