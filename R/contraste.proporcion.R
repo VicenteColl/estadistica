@@ -285,7 +285,7 @@ if(isFALSE(introducir)) {
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
-  Imedia <- cbind(`limite_inferior`=media_inf,`limite_superior`=media_sup)
+  Imedia <- cbind(`l\\u00edmite_inferior`=media_inf,`l\\u00edmite_superior`=media_sup)
 
 
   if(isTRUE(grafico)){

@@ -584,7 +584,7 @@ if(isFALSE(introducir)) {
 
   CH <- cbind(H0,estadistico.prueba,pvalor)
   CH <- as.data.frame(CH)
-  names(CH) <- c("Hip\\u00f3tesis nula", "estad\\u00edstico de prueba", "p-valor")
+  names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
   Imedia <- cbind(`l\\u00edmite inferior`=media_inf,`l\\u00edmite superior`=media_sup)

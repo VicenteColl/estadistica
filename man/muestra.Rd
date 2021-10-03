@@ -21,7 +21,7 @@ muestra(poblacion = c("normal","dicotomica"),
 \description{
 Calcula el tamaño muestral para estimar la media de una población normal o la proporcion p de una población.
 
-\figure{qr_muestra_1.png}{options: width="25\%" heigth="25\%" alt="ej1.proporción"}     \figure{qr_muestra_2.png}{options: width="25\%" heigth="25\%" alt="ej1.proporción"}
+\figure{qr_muestra_1.png}{options: width="25\%" heigth="25\%"}     \figure{qr_muestra_2.png}{options: width="25\%" heigth="25\%"}
 }
 \details{
 (1) El tamaño muestral para estimar la media poblacional se obtiene a partir de la siguiente expresión:

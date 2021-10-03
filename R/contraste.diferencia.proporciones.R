@@ -177,13 +177,22 @@ contraste.diferencia.proporciones <- function(x,
 
 
   # calculo de los contrastes
+
+  est_proporcion <- as.numeric(readline('Selecciona el valor que quieres utilizar para el error t\u00edpico bajo la H0: \n 1. "Estimar p como media ponderada de las proporciones muestrales" \n 2. "Utilizar las proporciones muestrales" \n'))
+
   # estadistico de prueba
   dif_p <- p_mu1 - p_mu2
 
+  if(est_proporcion == 1){
 
-  #error_tipico <- sqrt((p_mu1 * (1-p_mu1))/n1 + (p_mu2 * (1-p_mu2))/n2)
-  est_p <- (n1*p_mu1 + n1*p_mu2)/(n1+n2)
-  error_tipico <- sqrt(((n1+n2)/(n1*n2)) * est_p * (1-est_p))
+    est_p <- ((n1*p_mu1) + (n2*p_mu2))/(n1+n2)
+    error_tipico <- sqrt(((n1+n2)/(n1*n2)) * est_p * (1-est_p))
+
+  } else{
+
+    error_tipico <- sqrt((p_mu1 * (1-p_mu1))/n1 + (p_mu2 * (1-p_mu2))/n2)
+
+  }
 
   estadistico.Z <- (dif_p - H0)/error_tipico
   estadistico.Z <- round(estadistico.Z,5)

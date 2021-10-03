@@ -516,7 +516,7 @@ if(tipo_contraste == "cola izquierda"){
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
-  Imedia <- cbind(`limite_inferior`=media_inf,`limite_superior`=media_sup)
+  Imedia <- cbind(`\\u00edmite_inferior`=media_inf,`l\\u00edmite_superior`=media_sup)
 
 
   if(isTRUE(grafico)){
