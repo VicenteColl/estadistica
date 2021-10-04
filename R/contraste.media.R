@@ -272,9 +272,12 @@ if(alfa >= 0 & alfa <=1){
 
     if(var_pob == "conocida"){
 
+      aproximacion <- 0
+
       error_tipico <-  desv_pob / sqrt(n)
 
       estadistico.prueba <- (media - H0) / (desv_pob / sqrt(n))
+
 
     }
 
@@ -300,8 +303,9 @@ if(alfa >= 0 & alfa <=1){
         estadistico.prueba <- (media - H0) / (desv_mu / sqrt(n))
 
       }
+    }
 
-    } else{
+    if(var_pob == "desconocida" & (n<30)) {
 
       error_tipico <-  desv_mu / sqrt(n) #definido como n-1 en var muestra y n en causi
 
@@ -318,7 +322,7 @@ if(tipo_contraste == "bilateral"){
   media_inf <- H0 - valor_critico * error_tipico
   media_sup <- H0 + valor_critico * error_tipico
 
-  if(var_pob == "conocida"){
+  if(var_pob == "conocida" | aproximacion == 1){
 
     pvalor <- 2 * pnorm(estadistico.prueba2,lower.tail=FALSE)
 
@@ -394,7 +398,7 @@ if(tipo_contraste == "cola derecha"){
   media_inf <- -Inf
   media_sup <- H0 + valor_critico * error_tipico
 
-  if(var_pob == "conocida"){
+  if(var_pob == "conocida" | aproximacion == 1){
 
     pvalor <- pnorm(estadistico.prueba,lower.tail=FALSE)
 
@@ -466,7 +470,7 @@ if(tipo_contraste == "cola izquierda"){
   media_inf <- H0 - valor_critico * error_tipico
   media_sup <- Inf
 
-  if(var_pob == "conocida"){
+  if(var_pob == "conocida" | aproximacion == 1){
 
     pvalor <- pnorm(estadistico.prueba,lower.tail=TRUE)
 
