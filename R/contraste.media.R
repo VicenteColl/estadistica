@@ -78,7 +78,6 @@ contraste.media <- function(x,
                             alfa = 0.05,
                             grafico = FALSE){
 
-
 var_pob <- tolower(var_pob)
 var_pob <- match.arg(var_pob)
 
@@ -218,13 +217,14 @@ if(isFALSE(introducir)) {
       varianza_muestral <- readline(prompt = "Introducir el valor de la varianza muestral: ")
       varianza_muestral <- as.numeric(varianza_muestral)
       desv_mu <- sqrt(varianza_muestral)
+      n <- n-1
 
     } else{
 
       varianza_cuasi <- readline(prompt = "Introducir el valor de la cuasi-varianza muestral: ")
       varianza_cuasi <- as.numeric(varianza_cuasi)
       desv_mu <- sqrt(varianza_cuasi)
-      n <- n-1
+      n <- n
 
     }
   }
@@ -276,13 +276,38 @@ if(alfa >= 0 & alfa <=1){
 
       estadistico.prueba <- (media - H0) / (desv_pob / sqrt(n))
 
+    }
+
+    if(var_pob == "desconocida" & (n>30)) {
+
+      aproximacion <- as.numeric(readline(prompt = '\u00bfQuieres utilizar la aproximación de la t a la normal?: \n 1. "S\u00ed" \n 2. "No, usar la t" \n'))
+
+      if(aproximacion == 1){
+
+        if(var_muestra == 1){
+
+          n <- n + 1
+        }
+
+        error_tipico <-  desv_mu / sqrt(n)
+
+        estadistico.prueba <- (media - H0) / (desv_mu / sqrt(n))
+
+      } else {
+
+        error_tipico <-  desv_mu / sqrt(n) #definido como n-1 en var muestra y n en causi
+
+        estadistico.prueba <- (media - H0) / (desv_mu / sqrt(n))
+
+      }
+
     } else{
 
-      error_tipico <-  desv_mu / sqrt(n)
+      error_tipico <-  desv_mu / sqrt(n) #definido como n-1 en var muestra y n en causi
 
       estadistico.prueba <- (media - H0) / (desv_mu / sqrt(n))
 
-    }
+      }
 
   estadistico.prueba <- as.numeric(estadistico.prueba)
 
@@ -516,18 +541,18 @@ if(tipo_contraste == "cola izquierda"){
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
-  Imedia <- cbind(`\\u00edmite_inferior`=media_inf,`l\\u00edmite_superior`=media_sup)
+  Imedia <- cbind(`limite_inferior`=media_inf,`limite_superior`=media_sup)
 
 
   if(isTRUE(grafico)){
 
     grafico <- list(plot,plot2)
 
-    return(list(`Estad\\u00edstico`=CH,`Intervalo de la media muestral`= Imedia,`Gr\\u00e1ficos`= grafico))
+    return(list(`Estadistico`=CH,`Intervalo de la media muestral`= Imedia,`Graficos`= grafico))
 
   } else{
 
-    return(list(`Estad\\u00edstico`=CH,`Intervalo de la media muestral`= Imedia))
+    return(list(`Estadistico`=CH,`Intervalo de la media muestral`= Imedia))
 
   }
 

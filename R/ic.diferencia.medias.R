@@ -320,7 +320,15 @@ if(isFALSE(introducir)) {
 
       } else {  # varianzas poblaciones desconocidas y distintas
 
-        if(var_muestra == 1){
+        if(all(n>=30)){ # muestras grandes
+
+          print("Si los tama\u00f1os muestrales son grandes se estima la varianza poblacional")
+          valor_critico <- qnorm(alfa2,lower.tail = FALSE)
+          error_tipico <- sqrt(var_mu1/n1 + var_mu2/n2)
+
+        } else{ # muestras pequenas
+
+          if(var_muestra == 1){
           # caso 4.1
           # varianzas poblacionales desconocidas y distintas (varianza muestral)
           numerador <- (var_mu1/(n1-1) + var_mu2/(n2-1))^2
@@ -329,8 +337,6 @@ if(isFALSE(introducir)) {
           gl <- ceiling(gl)
           valor_critico <- qt(alfa2,gl,lower.tail = FALSE)
           error_tipico <- sqrt((var_mu1/(n1-1))+(var_mu2/(n2-1)))
-
-
 
         } else{
           # caso 4.2
@@ -343,10 +349,9 @@ if(isFALSE(introducir)) {
           valor_critico <- qt(alfa2,gl,lower.tail = FALSE)
           error_tipico <- sqrt((var_mu1/n1)+(var_mu2/n2))
 
+          }
         }
-
       }
-
     }
 
   } else{ # distribuci\u00f3n es desconocida

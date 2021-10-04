@@ -2,7 +2,7 @@ Package: estadistica
 Type: Package
 Title: Fundamentos de estadistica descriptiva e inferencial
 Version: 0.1.0
-Author: Vicente Coll-Serrano, Olga Blasco-Blasco, Rosario Martínez Verdú, Cristina Pardo García
+Author: Vicente Coll-Serrano, Rosario Martínez Verdú, Cristina Pardo García
 Maintainer: Vicente Coll-Serrano <vicente.coll@uv.es>
 Description: Este paquete contiene las funciones para poder seguir un curso de estadística básica.
 License: GPL

@@ -30,12 +30,22 @@ Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o ig
 \description{
 Realiza el contraste de hipótesis sobre el coeficiente de correlación.
 }
+\details{
+El estadístico del contraste es:
+
+\figure{c_correlacion.png}{options: width="30\%" heigth="30\%"}
+
+que se distribuye como una t con n-2 grados de libertad.
+}
 \references{
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
 Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+}
+\seealso{
+\code{\link{ic.correlacion}}
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).

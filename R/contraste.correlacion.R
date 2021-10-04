@@ -31,6 +31,16 @@
 #'
 #' Universidad de Valencia (España)
 #'
+#' @details
+#'
+#' El estadístico del contraste es:
+#'
+#' \figure{c_correlacion.png}{options: width="30\%" heigth="30\%"}
+#'
+#' que se distribuye como una t con n-2 grados de libertad.
+#'
+#' @seealso \code{\link{ic.correlacion}}
+#'
 #' @references
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'
@@ -52,7 +62,7 @@ contraste.correlacion <- function(x,
   print("Se asume que la variable bivariante (X,Y) se distribuye conjuntamente normal")
   print("El contraste de independencia es equivalente a contrastar que el coeficiente de correlaci\u00f3n es cero frente a la alternativa de que es distinto de cero")
 
-  warning("Actualmente solo se encuentra implementado el contraste bilateral de correlaci\u00f3n")
+  warning("Actualmente solo se encuentra implementado el contraste de incorrelaci\u00f3n")
 
   tipo_contraste <- tolower(tipo_contraste)
   tipo_contraste <- match.arg(tipo_contraste)
@@ -141,7 +151,7 @@ if(isFALSE(introducir)) {
 
 } else{   # aqu\u00ed empieza introducir datos
 
-  print("A continuaciu00f3n, vas a introducir los datos muestrales.")
+  print("A continuaci\u00f3n, vas a introducir los datos muestrales.")
 
   n <- readline(prompt = "Introducir el tama\u00f1o de la muestra : ")
   n <- as.numeric(n)

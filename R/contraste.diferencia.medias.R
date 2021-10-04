@@ -191,7 +191,7 @@ if(isFALSE(introducir)) {
   }
 
 
-} else{   # aqu\\uf00ed empieza introducir datos
+} else{   # aqu\uf00ed empieza introducir datos
 
   n <- c()
   media <- c()
@@ -428,13 +428,13 @@ if(isFALSE(introducir)) {
 
     if(estadistico.prueba >= -valor_critico & estadistico.prueba <=  valor_critico){
 
-      print(paste("No se rechaza la hip\\u00f3tesis nula. La regi\\uf00f3n de aceptaci\\uf00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
-      print("El valor del estad\\uf00edstico de prueba (o valor experimental) se encuentra dentro de la regi\\uf00f3n de aceptaci\\uf00f3n")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\uf00f3n de aceptaci\uf00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
+      print("El valor del estad\uf00edstico de prueba (o valor experimental) se encuentra dentro de la regi\uf00f3n de aceptaci\uf00f3n")
 
     } else{
 
-      print(paste("Se rechaza la hipotesis nula. La regi\\uf00f3n de aceptaci\\uf00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
-      print("El valor del estad\\uf00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\\uf00f3n de aceptaci\\uf00f3n")
+      print(paste("Se rechaza la hipotesis nula. La regi\uf00f3n de aceptaci\uf00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
+      print("El valor del estad\uf00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\uf00f3n de aceptaci\uf00f3n")
 
     }
 
@@ -499,13 +499,13 @@ if(isFALSE(introducir)) {
 
     if(estadistico.prueba > valor_critico){
 
-      print(paste("Se rechaza la hipotesis nula. La regi\\uf00f3n de aceptaci\\uf00f3n viene dada por el intervalo ]-Inf , ", valor_critico,"]",sep=""))
-      print("El valor del estad\\uf00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\\uf00f3n de aceptaci\\uf00f3n")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo ]-Inf , ", valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     } else{
 
-      print(paste("No se rechaza la hipotesis nula. La regi\\uf00f3n de aceptaci\\uf00f3n viene dada por el intervalo ]-Inf , ", valor_critico,"]",sep=""))
-      print("El valor del estad\\uf00edstico de prueba (o valor experimental) se encuentra dentro de la regi\\uf00f3n de aceptaci\\uf00f3n")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo ]-Inf , ", valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -565,19 +565,17 @@ if(isFALSE(introducir)) {
 
       }
 
-
-
     }
 
     if(estadistico.prueba < valor_critico){
 
-      print(paste("Se rechaza la hipotesis nula. La regi\\uf00f3n de aceptaci\\uf00f3n viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
-      print("El valor del estad\\uf00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\\uf00f3n de aceptaci\\uf00f3n")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\uf00f3n de aceptaci\uf00f3n viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
+      print("El valor del estad\uf00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\uf00f3n de aceptaci\uf00f3n")
 
     } else{
 
-      print(paste("No se rechaza la hipotesis nula. La regi\\uf00f3n de aceptaci\\uf00f3n viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
-      print("El valor del estad\\uf00edstico de prueba (o valor experimental) se encuentra dentro de la regi\\uf00f3n de aceptaci\\uf00f3n")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\uf00f3n de aceptaci\uf00f3n viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
+      print("El valor del estad\uf00edstico de prueba (o valor experimental) se encuentra dentro de la regi\uf00f3n de aceptaci\uf00f3n")
 
     }
 
@@ -589,17 +587,17 @@ if(isFALSE(introducir)) {
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
-  Imedia <- cbind(`l\\u00edmite inferior`=media_inf,`l\\u00edmite superior`=media_sup)
+  Imedia <- cbind(`limite inferior`=media_inf,`limite superior`=media_sup)
 
   if(isTRUE(grafico)){
 
     grafico <- list(plot,plot2)
 
-    return(list(`Estad\\u00edstico`=CH,`Intervalo de la media muestral`= Imedia,`Gr\\u00e1ficos`= grafico))
+    return(list(`Estadistico`=CH,`Intervalo de la media muestral`= Imedia,`Graficos`= grafico))
 
   } else{
 
-    return(list(`Estad\\u00edstico`=CH,`Intervalo de la media muestral`= Imedia))
+    return(list(`Estadistico`=CH,`Intervalo de la media muestral`= Imedia))
 
   }
 }
