@@ -42,7 +42,7 @@ El estadístico Z del contraste, que se distribuye N(0,1), es:
 
 (2) si se estima p como media ponderada de las proporciones muestrales, la ponderación es:
 
-\figure{c_pro_ponderacion.png}{options: width="30\%" heigth="30\%"}
+\figure{c_pro_ponderacion.png}{options: width="50\%" heigth="50\%"}
 
 y el estadístico resulta:
 

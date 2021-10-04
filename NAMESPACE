@@ -33,6 +33,8 @@ export(tabla.bidimensional)
 export(tabla.frecuencias)
 export(varianza)
 import(ggalt)
+import(grid)
+import(tidyverse)
 import("dplyr")
 import("tidyr")
 #importFrom("ggalt","geom_dumbbell")
@@ -43,7 +45,3 @@ importFrom("stats","addmargins","var","cov",
            "dnorm", "dt", "pnorm", "pt",
            "qchisq", "qf", "qnorm", "qt",
            "df", "pchisq", "pf")
-
-
-
-

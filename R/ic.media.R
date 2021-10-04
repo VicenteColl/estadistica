@@ -64,7 +64,7 @@
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @importFrom ggalt geom_dumbbell
-#' @import dplyr ggalt ggplot2
+#' @import dplyr ggalt ggplot2 grid
 #'
 #' @export
 ic.media <- function(x,
@@ -352,8 +352,20 @@ if(isFALSE(introducir)) {
 
   if(poblacion == "normal" & var_pob == "desconocida" & n<30){
 
-    intervalo <- data.frame(ic = "intervalo confianza",inferior=limite_inferior,media=media,superior=limite_superior)
-    plot <- ggplot(data = intervalo) +
+    plot11 <- ggplot(NULL, aes(c(-4,4))) +
+      geom_area(stat = "function", fun = dt, args = list(df = n-1), fill = "darkgreen", xlim = c(-valor_critico, valor_critico)) +
+      geom_area(stat = "function", fun = dt, args = list(df = n-1), fill = "white", xlim = c(-valor_critico - 1, -valor_critico)) +
+      geom_area(stat = "function", fun = dt, args = list(df = n-1), fill = "white", xlim = c(valor_critico, valor_critico + 1)) +
+      labs(title = paste("Distribuci\u00f3n t con ", n-1, " grados de libertad",sep=""), x = "", y = "") +
+      scale_y_continuous(breaks = NULL) +
+      scale_x_continuous(breaks = c(-valor_critico,valor_critico)) +
+      theme(axis.text.x = element_text(angle = 45)) +
+      geom_point(aes(x= -valor_critico , y=0), color = "red", size = 3) +
+      geom_point(aes(x= valor_critico , y=0), color = "blue", size = 3)
+
+
+    intervalo <- data.frame(ic = "ic",inferior=limite_inferior,media=media,superior=limite_superior)
+    plot12 <- ggplot(data = intervalo) +
       ggalt::geom_dumbbell(aes(y = ic,
                         x = inferior,
                         xend = superior),
@@ -383,6 +395,9 @@ if(isFALSE(introducir)) {
       geom_text(color="black", size=3, vjust=2.5,
                 aes(y = ic, x=media, label=media)) +
       tema_blanco
+
+    plot <- grid.draw(rbind(ggplotGrob(plot11), ggplotGrob(plot12), size = "first"))
+
 
   } else if(poblacion == "desconocida" & var_pob == "conocida" & n<30) {
 
