@@ -276,9 +276,16 @@ if(isFALSE(introducir)) {
 
 }
 
+
 # calculo contrastes
 
   dif_medias <- media1 - media2
+
+  if (n1 > 30 & n2 > 30){
+    tamano <- "grande"
+  } else {
+    tamano <- "pequeno"
+  }
 
   if(var_pob == "conocida"){
 
@@ -287,50 +294,69 @@ if(isFALSE(introducir)) {
 
   } else{ # var poblacionales desconocidas
 
-    if(isFALSE(iguales)){ # varianzas distintas
+    if(tamano == "grande"){
 
-      #caso 3
-      numerador <- (var_mu1/n1 + var_mu2/n2)^2
-      denominador <- ((var_mu1/n1)^2/(n1-1))+((var_mu2/n2)^2/(n2-1))
-      gl <- numerador / denominador
-      gl <- ceiling(gl)
+      print("Como los tama\u00f1os muestrales son grandes, se aproximan las varianzas poblacionales por las varianzas (o cuasi-varianzas) muestrales")
+      error_tipico <- sqrt(var_mu1/n1 + var_mu2/n2)
 
-      error_tipico <- sqrt((var_mu1/n1)+(var_mu2/n2))
+    } else{
 
-    } else{ # varianzas iguales
+      if(isFALSE(iguales)){ # varianzas desconocidas y distintas
 
-      gl <- n1+n2-2
+        if(var_muestra == 1){
 
-      if(var_muestra == 1){
+          # varianzas poblacionales desconocidas y distintas (varianza muestral)
+          numerador <- (var_mu1/(n1-1) + var_mu2/(n2-1))^2
+          denominador <- ((var_mu1/(n1-1))^2/(n1+1))+((var_mu2/(n2-1))^2/(n2+1))
+          gl <- (numerador / denominador)-2
+          gl <- ceiling(gl)
+          error_tipico <- sqrt((var_mu1/(n1-1))+(var_mu2/(n2-1)))
 
-        # caso 2_1 con varianza muestral
-        numerador <- sqrt(n1+n2) * sqrt(n1*var_mu1 + n2*var_mu2)
-        denominador <- sqrt(n1*n2) * sqrt(n1+n2-2)
+        } else{
 
-        error_tipico <- numerador/denominador
+          # varianzas poblacionales desconocidas y distintas (cuasivarianza muestral)
+          print("Este es el contraste que generalmente calculan los softwares (SPSS, Excel, etc.)")
+          numerador <- (var_mu1/n1 + var_mu2/n2)^2
+          denominador <- ((var_mu1/n1)^2/(n1-1))+((var_mu2/n2)^2/(n2-1))
+          gl <- numerador / denominador
+          gl <- ceiling(gl)
+          error_tipico <- sqrt((var_mu1/n1)+(var_mu2/n2))
 
-      } else{   # comprobado con la cuasi
+        }
 
-        # caso 2_2 con cuasivarianza muestral
+      } else{ # varianzas desconocida pero iguales
 
-        print("Este es el intervalo que generalmente calculan los softwares (SPSS, Excel, etc.)")
-        numerador <- var_mu1*(n1-1) + var_mu2*(n2-1)
-        denominador <- n1+n2-2
+        gl <- n1+n2-2
 
-        error_tipico <- sqrt(numerador/denominador)*sqrt((n1+n2)/(n1*n2))
+        if(var_muestra == 1){
+
+          # caso 2_1 con varianza muestral
+          numerador <- sqrt(n1+n2) * sqrt(n1*var_mu1 + n2*var_mu2)
+          denominador <- sqrt(n1*n2) * sqrt(n1+n2-2)
+
+          error_tipico <- numerador/denominador
+
+        } else{   # comprobado con la cuasi
+
+          # caso 2_2 con cuasivarianza muestral
+
+          print("Este es el contraste que generalmente calculan los softwares (SPSS, Excel, etc.)")
+          numerador <- var_mu1*(n1-1) + var_mu2*(n2-1)
+          denominador <- n1+n2-2
+
+          error_tipico <- sqrt(numerador/denominador)*sqrt((n1+n2)/(n1*n2))
+
+        }
 
       }
-
-
     }
-
   }
 
   estadistico.prueba <- (dif_medias - H0)/error_tipico
 
   if(alfa >= 0 & alfa <=1){
 
-    if(var_pob == "conocida"){
+    if(var_pob == "conocida" | (var_pob == "desconocida" & tamano == "grande")){
 
       if(tipo_contraste == "bilateral"){
         valor_critico <- qnorm(alfa/2,lower.tail = F)
@@ -369,7 +395,7 @@ if(isFALSE(introducir)) {
     media_inf <- H0 - valor_critico * error_tipico
     media_sup <- H0 + valor_critico * error_tipico
 
-    if(var_pob == "conocida"){
+    if(var_pob == "conocida" | (var_pob == "desconocida" & tamano == "grande")){
 
       pvalor <- 2 * pnorm(estadistico.prueba2,lower.tail=FALSE)
 
@@ -428,13 +454,13 @@ if(isFALSE(introducir)) {
 
     if(estadistico.prueba >= -valor_critico & estadistico.prueba <=  valor_critico){
 
-      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\uf00f3n de aceptaci\uf00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
-      print("El valor del estad\uf00edstico de prueba (o valor experimental) se encuentra dentro de la regi\uf00f3n de aceptaci\uf00f3n")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     } else{
 
-      print(paste("Se rechaza la hipotesis nula. La regi\uf00f3n de aceptaci\uf00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
-      print("El valor del estad\uf00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\uf00f3n de aceptaci\uf00f3n")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -445,7 +471,7 @@ if(isFALSE(introducir)) {
     media_inf <- -Inf
     media_sup <- H0 + valor_critico * error_tipico
 
-    if(var_pob == "conocida"){
+    if(var_pob == "conocida" | (var_pob == "desconocida" & tamano == "grande")){
 
       pvalor <- pnorm(estadistico.prueba,lower.tail=FALSE)
 
@@ -517,7 +543,7 @@ if(isFALSE(introducir)) {
     media_inf <- H0 - valor_critico * error_tipico
     media_sup <- Inf
 
-    if(var_pob == "conocida"){
+    if(var_pob == "conocida" | (var_pob == "desconocida" & tamano == "grande")){
 
       pvalor <- pnorm(estadistico.prueba,lower.tail=TRUE)
 
@@ -569,13 +595,13 @@ if(isFALSE(introducir)) {
 
     if(estadistico.prueba < valor_critico){
 
-      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\uf00f3n de aceptaci\uf00f3n viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
-      print("El valor del estad\uf00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\uf00f3n de aceptaci\uf00f3n")
+      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     } else{
 
-      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\uf00f3n de aceptaci\uf00f3n viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
-      print("El valor del estad\uf00edstico de prueba (o valor experimental) se encuentra dentro de la regi\uf00f3n de aceptaci\uf00f3n")
+      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [ ",valor_critico," , inf[",sep=""))
+      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -593,11 +619,11 @@ if(isFALSE(introducir)) {
 
     grafico <- list(plot,plot2)
 
-    return(list(`Estadistico`=CH,`Intervalo de la media muestral`= Imedia,`Graficos`= grafico))
+    return(list(`Estadistico`=CH,`Intervalo de la diferencia de medias muestrales`= Imedia,`Graficos`= grafico))
 
   } else{
 
-    return(list(`Estadistico`=CH,`Intervalo de la media muestral`= Imedia))
+    return(list(`Estadistico`=CH,`Intervalo de la diferencia de medias muestrales`= Imedia))
 
   }
 }
