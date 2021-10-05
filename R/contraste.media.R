@@ -164,7 +164,8 @@ if(isFALSE(introducir)) {
   }
 
   # tama\u00f1o de la muestra
-  n <- nrow(x)
+  n1 <- nrow(x)
+  n <- n1
   gl <- n-1
 
   # media muestral
@@ -197,7 +198,8 @@ if(isFALSE(introducir)) {
 } else{   # aqu\u00ed empieza introducir datos
 
   n <- readline(prompt = "Introducir el tama\u00f1o de la muestra: ")
-  n <- as.numeric(n)
+  n1 <- as.numeric(n)
+  n <- n1
   gl <- n-1
 
   media <- readline(prompt = "Introducir el valor de la media muestral: ")
@@ -224,45 +226,9 @@ if(isFALSE(introducir)) {
       varianza_cuasi <- readline(prompt = "Introducir el valor de la cuasi-varianza muestral: ")
       varianza_cuasi <- as.numeric(varianza_cuasi)
       desv_mu <- sqrt(varianza_cuasi)
-      n <- n
 
     }
   }
-}
-
-
-if(alfa >= 0 & alfa <=1){
-
-  if(var_pob == "conocida"){
-
-    if(tipo_contraste == "bilateral"){
-      valor_critico <- qnorm(alfa/2,lower.tail = F)
-    }
-    if(tipo_contraste == "cola izquierda"){
-      valor_critico <- qnorm(alfa,lower.tail = T)
-    }
-    if(tipo_contraste == "cola derecha"){
-      valor_critico <- qnorm(alfa,lower.tail = F)
-    }
-
-  } else{
-
-    if(tipo_contraste == "bilateral"){
-      valor_critico <- qt(alfa/2,gl,lower.tail = F)
-    }
-    if(tipo_contraste == "cola izquierda"){
-      valor_critico <- qt(alfa,gl,lower.tail = T)
-    }
-    if(tipo_contraste == "cola derecha"){
-      valor_critico <- qt(alfa,gl,lower.tail = F)
-    }
-
-  }
-
-  valor_critico <- round(valor_critico,4)
-
-} else{
-  stop("El nivel de significaci\u00f3n debe fijarse entre 0 y 1")
 }
 
 
@@ -274,10 +240,7 @@ if(alfa >= 0 & alfa <=1){
 
       aproximacion <- 0
 
-      error_tipico <-  desv_pob / sqrt(n)
-
-      estadistico.prueba <- (media - H0) / (desv_pob / sqrt(n))
-
+      error_tipico <-  desv_pob / sqrt(n1)
 
     }
 
@@ -287,33 +250,62 @@ if(alfa >= 0 & alfa <=1){
 
       if(aproximacion == 1){
 
-        if(var_muestra == 1){
-
-          n <- n + 1
-        }
-
-        error_tipico <-  desv_mu / sqrt(n)
-
-        estadistico.prueba <- (media - H0) / (desv_mu / sqrt(n))
+        error_tipico <-  desv_mu / sqrt(n1)
 
       } else {
 
         error_tipico <-  desv_mu / sqrt(n) #definido como n-1 en var muestra y n en causi
 
-        estadistico.prueba <- (media - H0) / (desv_mu / sqrt(n))
-
       }
     }
 
-    if(var_pob == "desconocida" & (n<30)) {
+    if(var_pob == "desconocida" & (n<=30)) {
 
+      aproximacion <- 0
       error_tipico <-  desv_mu / sqrt(n) #definido como n-1 en var muestra y n en causi
 
-      estadistico.prueba <- (media - H0) / (desv_mu / sqrt(n))
+    }
 
+  estadistico.prueba <- (media - H0) / error_tipico
+  estadistico.prueba <- as.numeric(estadistico.prueba)
+
+
+  if(alfa >= 0 & alfa <=1){
+
+    if(var_pob == "conocida" | aproximacion == 1){
+
+      if(tipo_contraste == "bilateral"){
+        valor_critico <- qnorm(alfa/2,lower.tail = F)
+      }
+      if(tipo_contraste == "cola izquierda"){
+        valor_critico <- qnorm(alfa,lower.tail = T)
+      }
+      if(tipo_contraste == "cola derecha"){
+        valor_critico <- qnorm(alfa,lower.tail = F)
       }
 
-  estadistico.prueba <- as.numeric(estadistico.prueba)
+    } else{
+
+      if(tipo_contraste == "bilateral"){
+        valor_critico <- qt(alfa/2,gl,lower.tail = F)
+      }
+      if(tipo_contraste == "cola izquierda"){
+        valor_critico <- qt(alfa,gl,lower.tail = T)
+      }
+      if(tipo_contraste == "cola derecha"){
+        valor_critico <- qt(alfa,gl,lower.tail = F)
+      }
+
+    }
+
+    valor_critico <- round(valor_critico,4)
+
+  } else{
+
+    stop("El nivel de significaci\u00f3n debe fijarse entre 0 y 1")
+
+  }
+
 
 
 if(tipo_contraste == "bilateral"){
