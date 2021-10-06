@@ -2,6 +2,8 @@
 #'
 #' @description Calcula el intervalo de confianza de la media poblacional.
 #'
+#' \figure{qr_ic.media.png}{options: "center" width="25\%" heigth="25\%"}
+#'
 #' @usage ic.media(x,
 #'                 variable = NULL,
 #'                 introducir = FALSE,

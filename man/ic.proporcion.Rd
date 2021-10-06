@@ -23,6 +23,8 @@ ic.proporcion(x,
 }
 \description{
 Calcula el intervalo de confianza de una proporción.
+
+\figure{qr_ic.proporcion.png}{options: "center" width="25\%" heigth="25\%"}
 }
 \details{
 (1) Para tamaños muestrales muy grandes:

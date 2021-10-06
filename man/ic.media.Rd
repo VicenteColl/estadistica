@@ -29,6 +29,8 @@ ic.media(x,
 }
 \description{
 Calcula el intervalo de confianza de la media poblacional.
+
+\figure{qr_ic.media.png}{options: "center" width="25\%" heigth="25\%"}
 }
 \details{
 (1) Si población desconocida, varianza poblacial conocida y muestra pequeña:
