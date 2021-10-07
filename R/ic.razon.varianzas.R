@@ -139,8 +139,8 @@ if(isFALSE(introducir)) {
       var_mu2 <- readline("Introduce el valor de la varianza muestral 2: ")
       var_mu2 <- as.numeric(var_mu2)
 
-      numerador <- n2 * (n1-1) * var_mu2
-      denominador <- (n2-1) * n1 * var_mu1
+      numerador <- n1 * (n2-1) * var_mu1
+      denominador <- (n1-1) * n2 * var_mu2
 
     } else{
 
@@ -161,16 +161,16 @@ if(isFALSE(introducir)) {
 if(var_muestra == 1){
 
   # caso 1.1
-  limite_inferior <- (numerador / denominador) * qf(1-alfa_2, df1= n1-1, df2 = n2-1,lower.tail = F)
-  limite_superior <- (numerador / denominador) * qf(alfa_2, df1= n1-1, df2 = n2-1, lower.tail = F)
+  limite_inferior <- (numerador / denominador) * qf(1-alfa_2, df1= n2-1, df2 = n1-1,lower.tail = F)
+  limite_superior <- (numerador / denominador) * qf(alfa_2, df1= n2-1, df2 = n1-1, lower.tail = F)
 
 } else {
 
   # caso 1.2
   print("Este es el intervalo de confianza que generalmente calculan los softwares (SPSS, Excel, etc.")
 
-  limite_inferior <- (var_mu1/var_mu2) * 1/qf(alfa_2, df1= n1-1, df2 = n2-1, lower.tail = F)
-  limite_superior <- (var_mu1/var_mu2) * 1/qf(1-alfa_2, df1= n1-1, df2 = n2-1,lower.tail = F)
+  limite_inferior <- (var_mu1/var_mu2) * qf(1-alfa_2, df1= n2-1, df2 = n1-1, lower.tail = F)
+  limite_superior <- (var_mu1/var_mu2) * qf(alfa_2, df1= n2-1, df2 = n1-1,lower.tail = F)
 
 }
 
