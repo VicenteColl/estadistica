@@ -8,7 +8,7 @@ contraste.correlacion(x,
                 variable = NULL,
                 introducir = FALSE,
                 hipotesis_nula = 0,
-                tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
+                tipo_contraste = "bilateral",
                 alfa = 0.05)
 }
 \arguments{

@@ -29,6 +29,8 @@ ic.diferencia.medias(x,
 }
 \description{
 Calcula el intervalo de confianza de la diferencia de medias poblacionales.
+
+\figure{qr_ic.diferencia.medias.png}{options: "center" width="25\%" heigth="25\%"}
 }
 \references{
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.

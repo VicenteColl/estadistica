@@ -10,7 +10,7 @@ contraste.diferencia.medias(x,
                        var_pob = c("conocida","desconocida"),
                        iguales = FALSE,
                        hipotesis_nula = 0,
-                       tipo_contraste =  c("bilateral","cola derecha","cola izquierda"),
+                       tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
                        alfa = 0.05,
                        grafico = FALSE)
 }

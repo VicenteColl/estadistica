@@ -8,7 +8,7 @@
 #'                        var_pob = c("conocida","desconocida"),
 #'                        iguales = FALSE,
 #'                        hipotesis_nula = 0,
-#'                        tipo_contraste =  c("bilateral","cola derecha","cola izquierda"),
+#'                        tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
 #'                        alfa = 0.05,
 #'                        grafico = FALSE)
 #'
@@ -299,7 +299,7 @@ if(isFALSE(introducir)) {
       print("Como los tama\u00f1os muestrales son grandes, se aproximan las varianzas poblacionales por las varianzas (o cuasi-varianzas) muestrales")
       error_tipico <- sqrt(var_mu1/n1 + var_mu2/n2)
 
-    } else{
+    } else{  # tama\u00f1os muestrales peque\u00f1os
 
       if(isFALSE(iguales)){ # varianzas desconocidas y distintas
 

@@ -228,8 +228,8 @@ if(isFALSE(introducir)) {
 
     print("La media poblacional no suele conocerse, este supuesto es teorico")
 
-    media <- readline(prompt = "Introducir el valor de la media poblacional: ")
-    media <- as.numeric(media)
+    #media <- readline(prompt = "Introducir el valor de la media poblacional: ")
+    #media <- as.numeric(media)
     sumatorio <- readline(prompt = "Introducir el valor de la suma cuadratica de las desviaciones de los valores muestrales respecto a la media poblacional: ")
     sumatorio <- as.numeric(sumatorio)
 
@@ -381,7 +381,7 @@ df$y <-dchisq(df$x, gl)
 
   CH <- cbind(H0,estadistico.prueba,pvalor)
   CH <- as.data.frame(CH)
-  names(CH) <- c("Hip\u00f3tesis nula", "estad\u00ed de prueba", "p valor")
+  names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p valor")
   row.names(CH) <- NULL
 
   if(isTRUE(grafico)){

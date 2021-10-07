@@ -6,7 +6,7 @@
 #'                 variable = NULL,
 #'                 introducir = FALSE,
 #'                 hipotesis_nula = 0,
-#'                 tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
+#'                 tipo_contraste = "bilateral",
 #'                 alfa = 0.05)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -55,14 +55,13 @@ contraste.correlacion <- function(x,
                                   variable = NULL,
                                   introducir = FALSE,
                                   hipotesis_nula = 0,
-                                  tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
+                                  tipo_contraste = "bilateral",
                                   alfa = 0.05){
 
 
-  print("Se asume que la variable bivariante (X,Y) se distribuye conjuntamente normal")
-  print("El contraste de independencia es equivalente a contrastar que el coeficiente de correlaci\u00f3n es cero frente a la alternativa de que es distinto de cero")
+  cat("Se asume que la variable bivariante (X,Y) se distribuye conjuntamente normal\n")
 
-  warning("Actualmente solo se encuentra implementado el contraste de incorrelaci\u00f3n")
+  warning("Actualmente solo se encuentra implementado el contraste bilateral")
 
   tipo_contraste <- tolower(tipo_contraste)
   tipo_contraste <- match.arg(tipo_contraste)
@@ -77,6 +76,12 @@ if(is.null(hipotesis_nula) | !is.numeric(hipotesis_nula)){
   H0 <- hipotesis_nula
 
 }
+
+  if(H0 < -1 | H0 > 1){
+
+    stop("El coeficiente de correlaci\u00f3n debe estar comprendido entre -1 y 1.")
+
+  }
 
 
 if(alfa >= 0 & alfa <=1){
@@ -170,6 +175,8 @@ if(isFALSE(introducir)) {
 
 if(hipotesis_nula == 0){
 
+  print("El contraste de independencia es equivalente a contrastar que el coeficiente de correlaci\u00f3n es cero frente a la alternativa de que es distinto de cero")
+
   estadistico.prueba <- sqrt((correlacion^2 * (n - 2)) / (1 - correlacion^2))
 
   if(tipo_contraste == "bilateral"){
@@ -181,93 +188,45 @@ if(hipotesis_nula == 0){
 
     if((estadistico.prueba > - valor_critico & estadistico.prueba < valor_critico)){
 
-      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ",valor_critico,"]",sep=""))
-      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
+      cat(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada\npor el intervalo [", -valor_critico," , ",valor_critico,"]\n",sep=""))
+      cat("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n\n")
 
 
     } else{
 
-      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ", valor_critico,"]",sep=""))
-      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
+      cat(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada\npor el intervalo [", -valor_critico," , ", valor_critico,"]\n",sep=""))
+      cat("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n\n")
 
     }
-
-  } else if(tipo_contraste == "cola derecha"){
-
-    valor_critico <- round(qt(alfa,n-2,lower.tail=FALSE),4)
-
-    pvalor <- pt(estadistico.prueba, n-2,lower.tail=FALSE)
-
-
-    if((estadistico.prueba <= valor_critico)){
-
-      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -Inf," , ",valor_critico,"]",sep=""))
-      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
-
-
-    } else{
-
-      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -Inf," , ", valor_critico,"]",sep=""))
-      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
-
-    }
-
-
-  } else{
-
-    valor_critico <- round(qt(alfa,n-2,lower.tail=FALSE),4)
-
-    pvalor <- pt(estadistico.prueba, n-2,lower.tail=FALSE)
-
-
-    if((estadistico.prueba >= -valor_critico)){
-
-      print(paste("No se rechaza la hip\u00f3\tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ",Inf,"]",sep=""))
-      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
-
-
-    } else{
-
-      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", -valor_critico," , ", Inf,"]",sep=""))
-      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
-
-    }
-
-
 
   }
 
+  } else{
 
-} else{
+    print("Vas a realizar un contraste bilateal de correlaci\u00f3n")
 
+    estadistico.prueba <- 0.5*log((1+correlacion)/(1-correlacion))
 
-  estadistico.prueba <- 0.5*log((1+correlacion)/(1-correlacion))
-
-  limite_inferior <- round(0.5 * log((1+H0)/(1-H0)) - valor_critico * sqrt(1/(n - 3)),5)
-  limite_superior <- round(0.5 * log((1+H0)/(1-H0)) + valor_critico * sqrt(1/(n - 3)),5)
-
-
-  if(tipo_contraste == "bilateral"){
+    limite_inferior <- round(0.5 * log((1+H0)/(1-H0)) - valor_critico * sqrt(1/(n - 3)),5)
+    limite_superior <- round(0.5 * log((1+H0)/(1-H0)) + valor_critico * sqrt(1/(n - 3)),5)
 
     pvalor <- 2 * pnorm(estadistico.prueba,lower.tail=FALSE)
 
 
     if(estadistico.prueba > limite_inferior & estadistico.prueba < limite_superior){
 
-      print(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", limite_inferior," , ",limite_superior,"]",sep=""))
-      print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
+      cat(paste("No se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada\npor el intervalo [", limite_inferior," , ",limite_superior,"]\n",sep=""))
+      cat("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n\n")
 
 
     } else{
 
-      print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", limite_inferior," , ",limite_superior,"]",sep=""))
-      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
+      cat(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada\npor el intervalo [", limite_inferior," , ",limite_superior,"]\n",sep=""))
+      cat("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n\n")
 
     }
 
   }
-
-}
 
 
   CH <- cbind(H0,estadistico.prueba,pvalor)

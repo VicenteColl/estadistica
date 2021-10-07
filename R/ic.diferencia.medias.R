@@ -2,6 +2,8 @@
 #'
 #' @description Calcula el intervalo de confianza de la diferencia de medias poblacionales.
 #'
+#' \figure{qr_ic.diferencia.medias.png}{options: "center" width="25\%" heigth="25\%"}
+#'
 #' @usage ic.diferencia.medias(x,
 #'                 variable = NULL,
 #'                 introducir = FALSE,
