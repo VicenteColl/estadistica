@@ -351,21 +351,21 @@ if(isFALSE(introducir)) {
       scale_x_continuous(breaks = c(-valor_critico,valor_critico)) +
       theme(axis.text.x = element_text(angle = 45)) +
       geom_point(aes(x= -valor_critico , y=0), color = "red", size = 3) +
-      geom_point(aes(x= valor_critico , y=0), color = "blue", size = 3) +
-      tema_blanco()
+      geom_point(aes(x= valor_critico , y=0), color = "blue", size = 3)
 
 
     intervalo <- data.frame(ic = round(c(inferior=limite_inferior,media,superior=limite_superior),4),y=c(0,0,0))
 
     plot12 <- ggplot(intervalo,aes(x= ic,y)) +
-      geom_line(aes(group = y))+
+      geom_line(aes(group = y), color = "grey",size = 3)+
       geom_point(aes(color=ic), size=3,show.legend = FALSE) +
       geom_text(aes(label = ic), size = 2.5, vjust=2) +
-      labs(y="") +
       scale_y_continuous(expand=c(0,0)) +
       scale_color_gradientn(colours=c("red","darkgreen","blue"))+
-      tema_blanco(axis.ticks.x = element_blank(),
-            axis.text.x = element_blank())
+      labs(y="",x="Intervalo de confianza") +
+      tema_blanco
+
+
 
     plot <- grid.draw(rbind(ggplotGrob(plot11), ggplotGrob(plot12), size = "first"))
 

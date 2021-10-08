@@ -6,7 +6,9 @@ tema_blanco <- theme(
   legend.background = element_blank(), # get rid of legend bg
   legend.box.background = element_blank(), # get rid of legend panel bg
   legend.key = element_blank(), # get rid of key legend fill, and of the surrounding
-  axis.line.x = element_line(colour = "black"), # adding a black line for x and y axis
+  axis.line.x = element_blank(),
+  axis.ticks.x=element_blank(),
+  axis.text.x=element_blank(),
   axis.line.y = element_blank(),
   axis.text.y=element_blank(),
   legend.title = element_blank()
