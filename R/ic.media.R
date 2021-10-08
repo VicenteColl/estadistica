@@ -66,7 +66,7 @@
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @importFrom ggalt geom_dumbbell
-#' @import dplyr ggalt ggplot2 grid
+#' @import dplyr ggplot2 grid
 #'
 #' @export
 ic.media <- function(x,
@@ -339,18 +339,6 @@ if(isFALSE(introducir)) {
       tamano <- "peque\u00f1a"
     }
 
-  tema_blanco <- theme(
-    panel.background = element_rect(fill = "transparent"), # bg of the panel
-    plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
-    panel.grid.major = element_blank(), # get rid of major grid
-    panel.grid.minor = element_blank(), # get rid of minor grid
-    legend.background = element_rect(fill = "transparent"), # get rid of legend bg
-    legend.box.background = element_rect(fill = "transparent"), # get rid of legend panel bg
-    legend.key = element_rect(fill = "transparent", colour = NA), # get rid of key legend fill, and of the surrounding
-    axis.line.x = element_line(colour = "black"), # adding a black line for x and y axis
-    axis.line.y = element_blank()
-  )
-
 
   if(poblacion == "normal" & var_pob == "desconocida" & n<30){
 
@@ -363,40 +351,21 @@ if(isFALSE(introducir)) {
       scale_x_continuous(breaks = c(-valor_critico,valor_critico)) +
       theme(axis.text.x = element_text(angle = 45)) +
       geom_point(aes(x= -valor_critico , y=0), color = "red", size = 3) +
-      geom_point(aes(x= valor_critico , y=0), color = "blue", size = 3)
+      geom_point(aes(x= valor_critico , y=0), color = "blue", size = 3) +
+      tema_blanco()
 
 
-    intervalo <- data.frame(ic = "ic",inferior=limite_inferior,media=media,superior=limite_superior)
-    plot12 <- ggplot(data = intervalo) +
-      ggalt::geom_dumbbell(aes(y = ic,
-                        x = inferior,
-                        xend = superior),
-                    size = 1.5,
-                    color="#b2b2b2",
-                    size_x=3,
-                    size_xend = 3,
-                    colour_x = "red",
-                    colour_xend = "blue")  +
-      ggalt::geom_dumbbell(aes(y = ic,
-                        x = media,
-                        xend = media),
-                    size = 1.5,
-                    size_x=3,
-                    colour_x = "darkgreen") +
-      labs(y="",x="") +
-      geom_text(aes(y = ic, x=inferior, label=round(inferior,4)),
-                color="black", size=3, vjust=2.5) +
-      geom_text(aes(y = ic, x=superior, label=round(superior,4)),
-                color="black", size=3, vjust=2.5) +
-      geom_text(color="black", size=3, vjust=-2.5, hjust = +0.1,
-                aes(y = ic, x=inferior, label="limite inferior"))+
-      geom_text(aes(y = ic, x=superior, label="limite superior"),
-                color="black", size=3, vjust=-2.5, hjust=+0.85) +
-      geom_text(aes(y = ic, x=media, label="media"),
-                color="black", size=3, vjust=-2.5) +
-      geom_text(color="black", size=3, vjust=2.5,
-                aes(y = ic, x=media, label=media)) +
-      tema_blanco
+    intervalo <- data.frame(ic = round(c(inferior=limite_inferior,media,superior=limite_superior),4),y=c(0,0,0))
+
+    plot12 <- ggplot(intervalo,aes(x= ic,y)) +
+      geom_line(aes(group = y))+
+      geom_point(aes(color=ic), size=3,show.legend = FALSE) +
+      geom_text(aes(label = ic), size = 2.5, vjust=2) +
+      labs(y="") +
+      scale_y_continuous(expand=c(0,0)) +
+      scale_color_gradientn(colours=c("red","darkgreen","blue"))+
+      tema_blanco(axis.ticks.x = element_blank(),
+            axis.text.x = element_blank())
 
     plot <- grid.draw(rbind(ggplotGrob(plot11), ggplotGrob(plot12), size = "first"))
 

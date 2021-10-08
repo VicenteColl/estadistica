@@ -23,6 +23,24 @@
 #'
 #' Universidad de Valencia (España)
 #'
+#' @details
+#'
+#' Se calcula el intervalo de confianza para el cociente entre la varianza poblacional de la muestra 1 y la de la muestra 2, es decir:
+#'
+#' \figure{ic_cociente_var.png}{options: width="10\%" heigth="10\%"}
+#'
+#' Los intervalos que se obtienen son, supuesta desconocida la media poblacional:
+#'
+#' (1) si se trabaja con las varianzas muestrales
+#'
+#' \figure{ic_cociente_var_muestra.png}{options: width="110\%" heigth="110\%"}
+#'
+#' (2) si se trabaja con las cuasi-varianzas muestrales
+#'
+#' \figure{ic_cociente_var_cuasi.png}{options: width="80\%" heigth="80\%"}
+#'
+#' Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerador y (n1-1) en el denominador.
+#'
 #' @references
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'

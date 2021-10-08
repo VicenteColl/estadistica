@@ -34,15 +34,21 @@ Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o ig
 Realiza el contraste de hipótesis sobre la razón de dos varianzas poblacionales.
 }
 \details{
+La hipótesis nula que se considera en este contraste es:
+
+\figure{contraste_cociente_var.png}{options: width="30\%" heigth="30\%"}
+
 El estadístico F es:
 
-(1) Si utilizamos la varianza muestral:
+(1) Si trabajamos con la varianza muestral:
 
-\figure{c_razon_var_muestra.png}{options: width="60\%" heigth="60\%"}
+\figure{contraste_cociente_var_muestra.png}{options: width="50\%" heigth="50\%"}
 
-(2) si utilizamos la cuasi-varianza muestral:
+(2) si trabajamos con la cuasi-varianza muestral:
 
-\figure{c_razon_var_cuasi.png}{options: width="25\%" heigth="25\%"}
+\figure{contraste_cociente_var_cuasi.png}{options: width="25\%" heigth="25\%"}
+
+Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerado y (n1-1) en el denominador.
 }
 \references{
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.

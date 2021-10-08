@@ -246,7 +246,7 @@ if(isFALSE(introducir)) {
 
     if(var_pob == "desconocida" & (n>30)) {
 
-      aproximacion <- as.numeric(readline(prompt = '\u00bfQuieres utilizar la aproximación de la t a la normal?: \n 1. "S\u00ed" \n 2. "No, usar la t" \n'))
+      aproximacion <- as.numeric(readline(prompt = 'Quieres utilizar la aproximaci\u00f3n de la t a la normal?: \n 1. "S\u00ed" \n 2. "No, usar la t" \n'))
 
       if(aproximacion == 1){
 
@@ -525,8 +525,6 @@ if(tipo_contraste == "cola izquierda"){
     print("El valor del estad\u00edstico de prueba (o valor experimental) se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
   }
-
-
 
   }
 
