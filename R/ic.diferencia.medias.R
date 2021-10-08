@@ -141,8 +141,8 @@ if(isFALSE(introducir)) {
   n <- c(n1,n2)
 
   # medias muestrales
-  media1 <- media(x[1])
-  media2 <- media(x[2])
+  media1 <- as.numeric(media(x[1]))
+  media2 <- as.numeric(media(x[2]))
 
 
   if(var_pob == "conocida"){
@@ -170,14 +170,14 @@ if(isFALSE(introducir)) {
 
     if(var_muestra == 1){
 
-      var_mu1 = varianza(x[1])
-      var_mu2 = varianza(x[2])
+      var_mu1 = as.numeric(varianza(x[1]))
+      var_mu2 = as.numeric(varianza(x[2]))
 
 
     } else{
 
-      var_mu1 <- varianza(x[1],tipo="cuasi")
-      var_mu2 <- varianza(x[2],tipo="cuasi")
+      var_mu1 <- as.numeric(varianza(x[1],tipo="cuasi"))
+      var_mu2 <- as.numeric(varianza(x[2],tipo="cuasi"))
 
     }
 

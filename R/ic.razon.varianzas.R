@@ -124,16 +124,16 @@ if(isFALSE(introducir)) {
   var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar: \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
   if(var_muestra == 1){
-    var_mu1 <- varianza(x[1])
-    var_mu2 <- varianza(x[2])
+    var_mu1 <- as.numeric(varianza(x[1]))
+    var_mu2 <- as.numeric(varianza(x[2]))
 
     numerador <- n2 * (n1-1) * var_mu2
     denominador <- (n2-1) * n1 * var_mu1
 
   } else{
 
-    var_mu1 <- varianza(x[1], tipo = "cuasi")
-    var_mu2 <- varianza(x[2], tipo = "cuasi")
+    var_mu1 <- as.numeric(varianza(x[1], tipo = "cuasi"))
+    var_mu2 <- as.numeric(varianza(x[2], tipo = "cuasi"))
 
   }
 

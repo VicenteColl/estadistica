@@ -115,7 +115,7 @@ if(isFALSE(introducir)) {
   # tama\u00f1o de la muestra
   x <- na.omit(x)
   n <- nrow(x)
-  correlacion <- correlacion(x)
+  correlacion <- as.numeric(correlacion(x))
 
 } else{   # aqu\u00ed empieza introducir datos
 

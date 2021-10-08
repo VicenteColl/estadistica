@@ -165,7 +165,7 @@ if(isFALSE(introducir)) {
   n <- nrow(x)
 
   # media muestral
-  media <- media(x)
+  media <- as.numeric(media(x))
 
   if(var_pob == "conocida"){
 
@@ -179,11 +179,11 @@ if(isFALSE(introducir)) {
 
       if(var_muestra == 1){
 
-        desv_mu = desviacion(x)
+        desv_mu = as.numeric(desviacion(x))
 
       } else{
 
-        desv_mu <- desviacion(x,tipo="cuasi")
+        desv_mu <- as.numeric(desviacion(x,tipo="cuasi"))
       }
 
   }
