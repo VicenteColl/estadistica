@@ -2,9 +2,9 @@
 #'
 #' @description Calcula la tabla de frecuencias bidimensionales.
 #' @usage tabla.bidimensional(x,
-#'                            distribucion = c("cruzada","condicionada"),
-#'                            frecuencias = c("absolutas","relativas"),
-#'                            exportar = FALSE)
+#' distribucion = c("cruzada","condicionada"),
+#' frecuencias = c("absolutas","relativas"),
+#' exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).
 #' @param distribucion Es un caracter. Por defecto se obtien la tabla cruzada (distribucion = "cruzada"). Para obtener las distribuciones condicionadas cambiar el argumento: distribucion = "condicionada".

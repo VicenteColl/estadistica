@@ -5,10 +5,10 @@
 \title{Intervalo confianza de una proporción.}
 \usage{
 ic.proporcion(x,
-                     variable = NULL,
-                     introducir = FALSE,
-                     irrestricto = FALSE,
-                     confianza = 0.95)
+variable = NULL,
+introducir = FALSE,
+irrestricto = FALSE,
+confianza = 0.95)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
@@ -36,11 +36,13 @@ Calcula el intervalo de confianza de una proporción.
  \figure{ic_proporcion_2.png}{options: width="80\%" heigth="80\%"}
 }
 \references{
+Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
-Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
-
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+
+Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
@@ -52,5 +54,5 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
-Universidad de Valencia (España)
+FAcultad de Economía. Universidad de Valencia (España)
 }

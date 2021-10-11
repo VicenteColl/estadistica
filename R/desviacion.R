@@ -1,7 +1,10 @@
 #' @title Desviación típica.
 #'
 #' @description Calcula la desviación típica.
-#' @usage desviacion(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuasi"))
+#' @usage desviacion(x,
+#' variable = NULL,
+#' pesos = NULL,
+#' tipo = c("muestral","cuasi"))
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.

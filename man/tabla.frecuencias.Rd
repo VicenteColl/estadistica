@@ -4,7 +4,9 @@
 \alias{tabla.frecuencias}
 \title{Tabla de frecuencias.}
 \usage{
-tabla.frecuencias(x, eliminar.na = TRUE, exportar = FALSE)
+tabla.frecuencias(x,
+eliminar.na = TRUE,
+exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.}

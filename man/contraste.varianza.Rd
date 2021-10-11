@@ -5,13 +5,13 @@
 \title{Contraste de hipótesis sobre la varianza.}
 \usage{
 contraste.varianza(x,
-                       variable = NULL,
-                       introducir = FALSE,
-                       media_poblacion = c("desconocida","conocida"),
-                       hipotesis_nula = NULL,
-                       tipo_contraste =  c("bilateral","cola derecha","cola izquierda"),
-                       alfa = 0.05,
-                       grafico = FALSE)
+variable = NULL,
+introducir = FALSE,
+media_poblacion = c("desconocida","conocida"),
+hipotesis_nula = NULL,
+tipo_contraste =  c("bilateral","cola derecha","cola izquierda"),
+alfa = 0.05,
+grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
@@ -56,11 +56,13 @@ Realiza el contraste de hipótesis sobre la varianza poblacional.
  Nota: En todos los casos el estadístico chi-dos se distrubuye con n-1 grados de libertad.
 }
 \references{
+Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
-Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
-
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+
+Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 }
 \seealso{
 \code{\link{ic.varianza}}
@@ -75,5 +77,5 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
-Universidad de Valencia (España)
+Facultad de Economía. Universidad de Valencia (España)
 }

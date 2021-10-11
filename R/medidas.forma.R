@@ -1,8 +1,11 @@
 #' @title Medidas de forma
 #'
 #' @description Calcula el coeficiente de asimetría y de curtosis de Fisher.
-#' @usage medidas.forma(x, variable = NULL, pesos = NULL,
-#' alternativa = FALSE, exportar = FALSE)
+#' @usage medidas.forma(x,
+#' variable = NULL,
+#' pesos = NULL,
+#' alternativa = FALSE,
+#' exportar = FALSE)
 #'
 #' @param x Conjunto de datos, que puede estar formado por una o más variables.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.

@@ -5,12 +5,12 @@
 \title{Contraste de hipótesis sobre la razón de varianzas.}
 \usage{
 contraste.razon.varianzas(x,
-                variable = NULL,
-                introducir = FALSE,
-                hipotesis_nula = 1,
-                tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
-                alfa = 0.05,
-                grafico = FALSE)
+variable = NULL,
+introducir = FALSE,
+hipotesis_nula = 1,
+tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
+alfa = 0.05,
+grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
@@ -51,11 +51,13 @@ El estadístico F es:
 Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerado y (n1-1) en el denominador.
 }
 \references{
+Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
-Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
-
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+
+Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 }
 \seealso{
 \code{\link{ic.razon.varianzas}}
@@ -70,5 +72,5 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
-Universidad de Valencia (España)
+Facultad de Economía. Universidad de Valencia (España)
 }

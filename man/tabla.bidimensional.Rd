@@ -5,9 +5,9 @@
 \title{Tabla doble entrada.}
 \usage{
 tabla.bidimensional(x,
-                           distribucion = c("cruzada","condicionada"),
-                           frecuencias = c("absolutas","relativas"),
-                           exportar = FALSE)
+distribucion = c("cruzada","condicionada"),
+frecuencias = c("absolutas","relativas"),
+exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).}

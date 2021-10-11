@@ -3,9 +3,9 @@
 #' @description Calcula el intervalo de confianza para el coeficiente de correlación.
 #'
 #' @usage ic.correlacion(x,
-#'                 variable = NULL,
-#'                 introducir = FALSE,
-#'                 confianza = 0.95)
+#' variable = NULL,
+#' introducir = FALSE,
+#' confianza = 0.95)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
@@ -22,7 +22,7 @@
 #' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' Universidad de Valencia (España)
+#' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @details
 #'
@@ -37,11 +37,13 @@
 #' Igualando la expresión en (1) al extremo inferior de (2) y al extremo superior de (2) se obtendrá el intervalo para la correlación.
 #'
 #' @references
+#' Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+#'
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'
-#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
-#'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 #'
 #' @import dplyr
 #'

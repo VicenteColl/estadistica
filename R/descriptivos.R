@@ -1,7 +1,10 @@
 #' @title Resumen descriptivos.
 #'
 #' @description Calcula un resumen de los principales estadísticos descriptivos.
-#' @usage resumen.descriptivos(x, variable = NULL, pesos = NULL, exportar = FALSE)
+#' @usage resumen.descriptivos(x,
+#' variable = NULL,
+#' pesos = NULL,
+#' exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.

@@ -5,12 +5,12 @@
 #' \figure{qr_ic.diferencia.medias.png}{options: "center" width="25\%" heigth="25\%"}
 #'
 #' @usage ic.diferencia.medias(x,
-#'                 variable = NULL,
-#'                 introducir = FALSE,
-#'                 poblacion = c("normal","desconocida"),
-#'                 var_pob = c("conocida","desconocida"),
-#'                 iguales = FALSE,
-#'                 confianza = 0.95)
+#' variable = NULL,
+#' introducir = FALSE,
+#' poblacion = c("normal","desconocida"),
+#' var_pob = c("conocida","desconocida"),
+#' iguales = FALSE,
+#' confianza = 0.95)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere a dos variables, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables.
@@ -30,16 +30,18 @@
 #' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' Universidad de Valencia (España)
+#' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @references
-#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+#' Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 #'
-#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
-#' @import dplyr ggplot2 ggalt
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
+#' @import dplyr ggplot2
 #'
 #' @export
 ic.diferencia.medias <- function(x,

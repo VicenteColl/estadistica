@@ -27,7 +27,7 @@
 #' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' Universidad de Valencia (España)
+#' Facultad de Economia. Universidad de Valencia (España)
 #'
 #' @details
 #'
@@ -202,7 +202,7 @@ if(isFALSE(introducir)) {
     } else {
 
       # caso 1.2
-      print("Este es el intervalo de confianza que generalmente calculan los softwares (SPSS, Excel, etc.")
+      print("Este es el intervalo de confianza que generalmente calculan los softwares (SPSS, Excel, Stata, etc.)")
 
       limite_inferior <- (var_mu1/var_mu2) * valor_critico1
       limite_superior <- (var_mu1/var_mu2) * valor_critico2
@@ -214,7 +214,7 @@ if(isFALSE(introducir)) {
 
     if(var_muestra == 1){
 
-      stop("Lo sentimos, este caso aún no está implementado")
+      stop("Lo sentimos, este caso a\u00fan no est\u00e1 implementado")
 
     } else {
 
@@ -258,7 +258,7 @@ if(isFALSE(introducir)) {
       labs(y="",x="Intervalo de confianza") +
       tema_blanco
 
-    plot <- grid.draw(rbind(ggplotGrob(plot1), ggplotGrob(plot2), size = "last"))
+    plot <- grid::grid.draw(rbind(ggplotGrob(plot1), ggplotGrob(plot2), size = "last"))
 
   }
 

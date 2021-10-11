@@ -4,7 +4,11 @@
 \alias{ic.razon.varianzas}
 \title{Intervalo confianza para la razón (cociente) de varianzas.}
 \usage{
-ic.razon.varianzas(x, variable = NULL, introducir = FALSE, confianza = 0.95)
+ic.razon.varianzas(x, variable = NULL,
+introducir = FALSE,
+media_pob = c("desconocida","conocida"),
+confianza = 0.95,
+grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
@@ -13,7 +17,11 @@ ic.razon.varianzas(x, variable = NULL, introducir = FALSE, confianza = 0.95)
 
 \item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
 
+\item{media_pob}{Es un carácter. Por defecto se supone que la media poblacional es desconocida (media_pob="desconocida")}
+
 \item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
+
+\item{grafico}{Es un valor lógico. Si grafico=TRUE se representa el intervalo de confianza estimado}
 }
 \description{
 Calcula el intervalo de confianza para la razón (o cociente) de varianzas.
@@ -38,11 +46,13 @@ Los intervalos que se obtienen son, supuesta desconocida la media poblacional:
 Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerador y (n1-1) en el denominador.
 }
 \references{
+Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
-Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
-
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+
+Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 }
 \author{
 \strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
@@ -54,5 +64,5 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
-Universidad de Valencia (España)
+Facultad de Economia. Universidad de Valencia (España)
 }
