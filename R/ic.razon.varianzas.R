@@ -4,12 +4,18 @@
 #'
 #' \figure{qr_ic.razon.varianzas.png}{options: "center" width="25\%" heigth="25\%"}
 #'
-#' @usage ic.razon.varianzas(x, variable = NULL, introducir = FALSE, confianza = 0.95)
+#' @usage ic.razon.varianzas(x, variable = NULL,
+#' introducir = FALSE,
+#' media_pob = c("desconocida","conocida"),
+#' confianza = 0.95,
+#' grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
+#' @param media_pob Es un carácter. Por defecto se supone que la media poblacional es desconocida (media_pob="desconocida")
 #' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
+#' @param grafico Es un valor lógico. Si grafico=TRUE se representa el intervalo de confianza estimado
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
@@ -42,21 +48,27 @@
 #' Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerador y (n1-1) en el denominador.
 #'
 #' @references
-#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+#' Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 #'
-#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
-#' @import dplyr
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
+#' @import dplyr ggplot2 grid
 #'
 #' @export
 ic.razon.varianzas <- function(x,
                                variable = NULL,
                                introducir = FALSE,
-                               confianza = 0.95){
+                               media_pob = c("desconocida","conocida"),
+                               confianza = 0.95,
+                               grafico = FALSE){
 
-print("Se calcula el intervalo de confianza para el cociente de varianzas supuestas desconocidas las medias poblacionales")
+
+  media_pob <- tolower(media_pob)
+  media_pob <- match.arg(media_pob)
 
 if(confianza >= 0 & confianza <=1){
 
@@ -68,7 +80,6 @@ if(confianza >= 0 & confianza <=1){
   stop("El nivel de confianza debe fijarse entre 0 y 1")
 
 }
-
 
 if(isFALSE(introducir)) {
 
@@ -174,29 +185,95 @@ if(isFALSE(introducir)) {
 
 # calculo del intervalo de confianza
 
+  valor_critico1 <- qf(1-alfa_2, df1= n2-1, df2 = n1-1, lower.tail = F)
+  valor_critico2 <- qf(alfa_2, df1= n2-1, df2 = n1-1, lower.tail = F)
 # IC del cociente de varianzas con medias desconocidas
 
-if(var_muestra == 1){
+  if(media_pob == "desconocida"){
 
-  # caso 1.1
-  limite_inferior <- (numerador / denominador) * qf(1-alfa_2, df1= n2-1, df2 = n1-1,lower.tail = F)
-  limite_superior <- (numerador / denominador) * qf(alfa_2, df1= n2-1, df2 = n1-1, lower.tail = F)
+    print("Se calcula el intervalo de confianza para el cociente de varianzas supuestas desconocidas las medias poblacionales")
 
-} else {
+    if(var_muestra == 1){
 
-  # caso 1.2
-  print("Este es el intervalo de confianza que generalmente calculan los softwares (SPSS, Excel, etc.")
+      # caso 1.1
+      limite_inferior <- (numerador / denominador) * valor_critico1
+      limite_superior <- (numerador / denominador) * valor_critico2
 
-  limite_inferior <- (var_mu1/var_mu2) * qf(1-alfa_2, df1= n2-1, df2 = n1-1, lower.tail = F)
-  limite_superior <- (var_mu1/var_mu2) * qf(alfa_2, df1= n2-1, df2 = n1-1,lower.tail = F)
+    } else {
 
-}
+      # caso 1.2
+      print("Este es el intervalo de confianza que generalmente calculan los softwares (SPSS, Excel, etc.")
 
+      limite_inferior <- (var_mu1/var_mu2) * valor_critico1
+      limite_superior <- (var_mu1/var_mu2) * valor_critico2
+
+    }
+
+  } else {
+    # las medias poblacionales conocidas
+
+    if(var_muestra == 1){
+
+      stop("Lo sentimos, este caso aún no está implementado")
+
+    } else {
+
+      factor1 <- (n1-1)/n1
+      factor2 <- (n2-1)/n2
+
+      limite_inferior <- ((factor1*var_mu1)/(factor2*var_mu2)) * valor_critico1
+      limite_superior <- ((factor1*var_mu1)/(factor2*var_mu2))  * valor_critico2
+
+    }
+
+  }
+
+  if(grafico){
+
+    percentil99 <- qf(.9999, df1= n2-1, df2 = n1-1)
+
+    data <- data.frame(x=seq(from = 0, to = percentil99, percentil99/200))
+    data$y <-df(data$x, df1= n2-1, df2 = n1-1)
+
+    plot1 <- ggplot(data, aes(x,y)) +
+      geom_area(fill="darkgreen") +
+      geom_area(data=subset(data,x<valor_critico1), fill = "grey") +
+      geom_area(data=subset(data,x>valor_critico2),fill = "grey") +
+      geom_vline(xintercept = 0L, color = "black") +
+      labs(title = paste("Distribuci\u00f3n F con ", n2-1, " y ",n1-1," grados de libertad",sep=""), x = "", y = "") +
+      scale_y_continuous(breaks = NULL) +
+      scale_x_continuous(breaks = c(round(0L,0),round(valor_critico1,3),round(valor_critico2,3))) +
+      theme(axis.text.x = element_text(angle = 45)) +
+      geom_point(aes(x= valor_critico1 , y=0), color = "red", size = 3) +
+      geom_point(aes(x= valor_critico2 , y=0), color = "blue", size = 3)
+
+    intervalo <- data.frame(ic = round(c(inferior=limite_inferior,superior=limite_superior),4),y=c(0,0))
+
+    plot2 <- ggplot(intervalo,aes(x= ic,y)) +
+      geom_line(aes(group = y), color = "grey",size = 3)+
+      geom_point(aes(color=ic), size=3,show.legend = FALSE) +
+      geom_text(aes(label = ic), size = 2.5, vjust=2) +
+      scale_y_continuous(expand=c(0,0)) +
+      scale_color_gradientn(colours=c("red","blue"))+
+      labs(y="",x="Intervalo de confianza") +
+      tema_blanco
+
+    plot <- grid.draw(rbind(ggplotGrob(plot1), ggplotGrob(plot2), size = "last"))
+
+  }
 
   IC <- cbind(limite_inferior,limite_superior)
   IC <- as.data.frame(IC)
   row.names(IC) <- NULL
 
-  return(IC)
+  if(grafico){
+
+    return(list(IC,plot))
+
+  } else{
+
+    return(IC)
+
+  }
 
 }
