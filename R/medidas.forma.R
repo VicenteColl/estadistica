@@ -164,13 +164,17 @@ medidas.forma <- function(x, variable = NULL, pesos = NULL,
         mutate(media = as.numeric(media(x,variable=1,pesos=2)),
                     sumatorio3 = (variable2-media)^3*pesos,
                     sumatorio4 = (variable2-media)^4*pesos) %>%
-        summarize(asimetria = sum(sumatorio3)/(sum(pesos)*desv.x^3),
+        summarize(momento3 = sum(sumatorio3)/sum(pesos),
+                  momento4 = sum(sumatorio4)/sum(pesos),
+                  asimetria = sum(sumatorio3)/(sum(pesos)*desv.x^3),
                   curtosis = sum(sumatorio4)/(sum(pesos)*desv.x^4))
 
-    N <- sum(forma$pesos)
+    N <- sum(x[2])
 
-    asimetria <- forma[1]
-    curtosis <- forma[2]
+    asimetria <- forma[3]
+    curtosis <- forma[4]
+    momento3 <- as.numeric(forma[1])
+    momento4 <- as.numeric(forma[2])
 
     varnames <- varnames[1]
 
