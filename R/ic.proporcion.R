@@ -8,7 +8,8 @@
 #' variable = NULL,
 #' introducir = FALSE,
 #' irrestricto = FALSE,
-#' confianza = 0.95)
+#' confianza = 0.95,
+#' grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
@@ -54,7 +55,8 @@ ic.proporcion <- function(x,
                           variable = NULL,
                           introducir = FALSE,
                           irrestricto = FALSE,
-                          confianza = 0.95){
+                          confianza = 0.95,
+                          grafico = FALSE){
 
 
   print("Intervalo de confianza de una proporci\u00f3n. El tama\u00f1o de la muestra es grande.")
@@ -174,6 +176,7 @@ if(isFALSE(introducir)) {
   if(isFALSE(irrestricto)){
 
     aproximacion <- as.numeric(readline('\u00bfQuieres aproximar el valor de p por la proporci\u00f3n muestral? \n 1. "S\u00ed" \n 2. "No" \n'))
+
     if(aproximacion == 1){
 
       print("Como n es suficientemente grande, se aproxima el valor de p poblacional por su estimaci\u00f3n puntual (p muestral)")
@@ -183,6 +186,8 @@ if(isFALSE(introducir)) {
       limite_superior <- p_mu + valor_critico * error_tipico
 
     } else{
+
+      aproximacion  <- 2
 
       print("Este criterio no tiene en cuenta el tama\u00f1o de la muestra. Se obtendr\u00e1 el intervalo de p a partir del c\u00e1lculo de probabilidad del estad\u00edstico")
       print("El intervalo obtenido no es sim\u00e9trico respecto a la proporci\u00f3n muestral")
@@ -210,14 +215,48 @@ if(isFALSE(introducir)) {
   } else{
 
     print("Intervalo para la proporci\u00f3n adecuado si el muestreo es sin reemplazamiento y la poblaci\u00f3n es finita")
-
+    aproximacion <- 0
     N <- readline(prompt= "Introduce el tama\u00f1o (N) de la poblaci\u00f3n: ")
     N <- as.numeric(N)
 
     factor <- sqrt((N-n)/(N-1))
-    error_tipico <- sqrt((p_mu * (1-p_mu))/n)
-    limite_inferior <- p_mu - valor_critico * error_tipico * factor
-    limite_superior <- p_mu + valor_critico * error_tipico * factor
+    error_tipico <- sqrt((p_mu * (1-p_mu))/n) * factor
+    limite_inferior <- p_mu - valor_critico * error_tipico
+    limite_superior <- p_mu + valor_critico * error_tipico
+
+  }
+
+  if(grafico){
+
+    if(aproximacion == 2){
+
+      intervalo <- data.frame(ic = round(c(inferior=limite_inferior,p_mu = p_mu, superior=limite_superior),4),y=c(0,0,0))
+
+      plot <- ggplot(intervalo,aes(x= ic,y)) +
+        geom_line(aes(group = y), color = "grey",size = 3)+
+        geom_point(aes(color=ic), size=3,show.legend = FALSE) +
+        geom_text(aes(label = ic), size = 2.5, vjust=2) +
+        scale_y_continuous(expand=c(0,0)) +
+        scale_color_gradientn(colours=c("red","darkgreen","blue"))+
+        labs(y="",x="Intervalo de confianza de la proporci\u00f3n") +
+        tema_blanco
+
+    } else{
+
+      seq <- seq(-4,4,length=1000) * error_tipico + p_mu
+      seq <- as.data.frame(seq)
+
+      plot <- ggplot(seq, aes(seq)) +
+        stat_function(fun = dnorm, args = list(mean = p_mu, sd = error_tipico)) +
+        geom_area(stat = "function", fun = dnorm, args = list(mean = p_mu, sd = error_tipico), fill = "darkgreen", xlim = c(limite_inferior,limite_superior)) +
+        labs(x = "", y = "",title = paste("Intervalo de confianza de la proporci\u00f3n\n(NC=",confianza*100,"%)")) +
+        scale_y_continuous(breaks = NULL) +
+        scale_x_continuous(breaks = round(c(limite_inferior,p_mu,limite_superior),4)) +
+        tema_blanco +
+        theme(axis.text.x = element_text(angle = 45)) +
+        theme(axis.line.x = element_line(color = "black") )
+
+    }
 
   }
 
@@ -226,7 +265,15 @@ if(isFALSE(introducir)) {
   IC <- as.data.frame(IC)
   row.names(IC) <- NULL
 
-  return(IC)
+  if(grafico){
+
+    return(list(IC,plot))
+
+  } else{
+
+    return(IC)
+
+  }
 
 }
 
