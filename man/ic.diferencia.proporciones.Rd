@@ -7,7 +7,8 @@
 ic.diferencia.proporciones(x,
 variable = NULL,
 introducir = FALSE,
-confianza = 0.95)
+confianza = 0.95,
+grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
@@ -17,6 +18,8 @@ confianza = 0.95)
 \item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
 
 \item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
+
+\item{grafico}{Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.#'}
 }
 \description{
 Calcula el intervalo de confianza de la diferencia de dos proporciones.

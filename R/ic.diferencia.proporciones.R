@@ -7,12 +7,14 @@
 #' @usage ic.diferencia.proporciones(x,
 #' variable = NULL,
 #' introducir = FALSE,
-#' confianza = 0.95)
+#' confianza = 0.95,
+#' grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
 #' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
+#' @param grafico Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.#'
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
@@ -47,7 +49,8 @@
 ic.diferencia.proporciones <- function(x,
                                        variable = NULL,
                                        introducir = FALSE,
-                                       confianza = 0.95){
+                                       confianza = 0.95,
+                                       grafico = FALSE){
 
 
 if(isFALSE(introducir)) {
@@ -175,11 +178,36 @@ if(isFALSE(introducir)) {
   }
 
 
+  if(grafico){
+
+      seq <- seq(-4,4,length=1000) * error_tipico + (p_mu1 - p_mu2)
+      seq <- as.data.frame(seq)
+
+      plot <- ggplot(seq, aes(seq)) +
+        stat_function(fun = dnorm, args = list(mean = (p_mu1 - p_mu2), sd = error_tipico)) +
+        geom_area(stat = "function", fun = dnorm, args = list(mean = (p_mu1 - p_mu2), sd = error_tipico), fill = "darkgreen", xlim = c(limite_inferior,limite_superior)) +
+        labs(x = "", y = "",title = paste("Intervalo de confianza de la diferencia de proporci\u00f3nes\n(NC=",confianza*100,"%)")) +
+        scale_y_continuous(breaks = NULL) +
+        scale_x_continuous(breaks = round(c(limite_inferior,(p_mu1 - p_mu2),limite_superior),4)) +
+        tema_blanco +
+        theme(axis.text.x = element_text(angle = 45)) +
+        theme(axis.line.x = element_line(color = "black") )
+
+  }
+
   IC <- cbind(limite_inferior,limite_superior)
   IC <- as.data.frame(IC)
   row.names(IC) <- NULL
 
-  return(IC)
+  if(grafico){
+
+    return(list(IC,plot))
+
+  } else{
+
+    return(IC)
+
+  }
 
 }
 
