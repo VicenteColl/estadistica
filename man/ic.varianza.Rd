@@ -21,6 +21,8 @@ grafico = FALSE)
 \item{media_poblacion}{Es un carácter. Indica si la media de la población es desconocida (por defecto, media_poblacion = "desconocida") o conocida (en este caso, cambiar media_poblacion = "conocida").}
 
 \item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
+
+\item{grafico}{Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.}
 }
 \description{
 Calcula el intervalo de confianza de la varianza poblacional.

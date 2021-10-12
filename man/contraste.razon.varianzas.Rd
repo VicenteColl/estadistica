@@ -28,7 +28,7 @@ Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o ig
 
 \item{alfa}{Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, alfa = 0.05 (5 por ciento)}
 
-\item{grafico}{Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.}
+\item{grafico}{Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.}
 }
 \description{
 Realiza el contraste de hipótesis sobre la razón de dos varianzas poblacionales.
