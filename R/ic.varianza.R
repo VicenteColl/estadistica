@@ -8,7 +8,8 @@
 #' variable = NULL,
 #' introducir = FALSE,
 #' media_poblacion = c("desconocida","conocida"),
-#' confianza = 0.95)
+#' confianza = 0.95,
+#' grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
@@ -62,7 +63,8 @@ ic.varianza <- function(x,
                         variable = NULL,
                         introducir = FALSE,
                         media_poblacion = c("desconocida","conocida"),
-                        confianza = 0.95){
+                        confianza = 0.95,
+                        grafico = FALSE){
 
   media_poblacion <- tolower(media_poblacion)
   media_poblacion <- match.arg(media_poblacion)
@@ -221,24 +223,74 @@ if(media_poblacion == "desconocida"){
   # caso 1. Media poblacional desconocida, n peque\u00f1a
   print("Intervalo de confianza para la varianza poblacional, supuesta desconocida la media poblacional.")
 
-  limite_inferior <- (n * var_mu) / qchisq(alfa_2,lower.tail = F, df= gl)
-  limite_superior <- (n * var_mu) / qchisq(1-alfa_2, lower.tail = F, df= gl)
+  valor_critico1 <- qchisq(alfa_2,lower.tail = F, df= gl)
+  valor_critico2 <- qchisq(1-alfa_2, lower.tail = F, df= gl)
+
+  limite_inferior <- (n * var_mu) / valor_critico1
+  limite_superior <- (n * var_mu) / valor_critico2
 
 } else{
 
   # caso 2. Media poblacional conocida, n peque\u00f1a
   print("Intervalo de confianza para la varianza poblacional, supuesta conocida la media poblacional. n peque\u00f1a")
+  gl <- gl +1
+  valor_critico1 <- qchisq(alfa_2,lower.tail = F, df= gl)
+  valor_critico2 <- qchisq(1-alfa_2, lower.tail = F, df= gl)
 
-  limite_inferior <- sumatorio / qchisq(alfa_2,lower.tail = F, df= gl+1)
-  limite_superior <- sumatorio / qchisq(1-alfa_2, lower.tail = F, df= gl+1)
+  limite_inferior <- sumatorio / valor_critico1
+  limite_superior <- sumatorio / valor_critico2
 
 }
+
+  if(grafico){
+
+    percentil99 <- qchisq(.9999, gl)
+
+    df <- data.frame(x=seq(from = 0, to = percentil99, percentil99/200))
+    df$y <-dchisq(df$x, gl)
+
+    plot1 <- ggplot(df) +
+      geom_path(aes(x,y))+
+      geom_area(stat = "function", fun = dchisq, args = list(df = gl), fill = "darkgreen", xlim = c(valor_critico2, valor_critico1)) +
+      geom_area(stat = "function", fun = dchisq, args = list(df = gl), fill = "grey", xlim = c(0, valor_critico2)) +
+      geom_area(stat = "function", fun = dchisq, args = list(df = gl), fill = "grey", xlim = c(valor_critico1, percentil99)) +
+      geom_vline(xintercept = 0, color = "black") +
+      labs(title = paste("Distribuci\u00f3n chi con ", gl, " grados de libertad",sep=""), x = "", y = "") +
+      scale_y_continuous(breaks = NULL) +
+      scale_x_continuous(breaks = c(0L,round(valor_critico2,4),round(valor_critico1,4))) +
+      theme(axis.text.x = element_text(angle = 45))+
+      geom_point(aes(x= valor_critico2 , y=0), color = "orange4", size = 3) +
+      geom_point(aes(x= valor_critico1 , y=0), color = "lightblue4", size = 3)
+
+    intervalo <- data.frame(ic = round(c(inferior=limite_inferior,superior=limite_superior),4),y=c(0,0))
+
+    plot2 <- ggplot(intervalo,aes(x= ic,y)) +
+      geom_line(aes(group = y), color = "grey",size = 3)+
+      geom_point(aes(color=ic), size=3,show.legend = FALSE) +
+      geom_text(aes(label = ic), size = 2.5, vjust=2) +
+      scale_y_continuous(expand=c(0,0)) +
+      scale_color_gradientn(colours=c("red","blue"))+
+      labs(y="",x="Intervalo de confianza") +
+      tema_blanco
+
+    plot <- grid::grid.draw(rbind(ggplotGrob(plot1), ggplotGrob(plot2), size = "last"))
+
+  }
 
 
   IC <- cbind(limite_inferior,limite_superior)
   IC <- as.data.frame(IC)
   row.names(IC) <- NULL
 
-  return(IC)
+  if(grafico){
+
+    return(list(IC,plot))
+
+  } else{
+
+    return(IC)
+
+  }
+
 
 }
