@@ -132,6 +132,8 @@ if(isFALSE(introducir)) {
 
   }
 
+  x <- na.omit(x)
+
   if(!all(x == 0 | x==1)){
 
     print("Aplica a tus datos la condici\u00f3n que debe cumplir la poblaci\u00f3n para transfomar los datos en ceros (ausencia/no \u00e9xito) y unos (presencia/\u00e9xito)")
@@ -139,7 +141,6 @@ if(isFALSE(introducir)) {
 
   }
 
-  x <- na.omit(x)
   clase <- sapply(x, class)
 
   if (!clase %in% c("numeric","integer")) {
@@ -157,7 +158,7 @@ if(isFALSE(introducir)) {
 
   # media muestral
 
-    p_mu <- sum(x,na.rm=TRUE)/n
+    p_mu <- round(sum(x,na.rm=TRUE)/n,4)
 
 } else{   # aqu\u00ed empieza introducir datos
 
