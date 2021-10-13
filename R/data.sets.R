@@ -83,5 +83,51 @@
 #'
 "ejem_bidi"
 
+#' Datos simulados de dos muestras tomadas en periodos de tiempo distintos. La muestra 1 es tomada en enero y la muestra 2 en junio.
+#' @usage data("diseno1")
+#' @format Dataframe en formato ancho con 620 observaciones. La pregunta realizada es: ¿Sabe que Valencia es la capital mundial del diseño 2022?
+#' \describe{
+#'   \item{muestra1}{0: No sabe, 1: Sí Sabe}
+#'   \item{muestra2}{0: No sabe, 1: Sí sabe}
+#' }
+#' @source Muestra simulada.
+#'
+#' @author
+#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \emph{Quantitative Methods for Measuring Culture (MC2). Applied Economics.}
+#'
+#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \emph{Economía Aplicada.}
+#'
+#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' Universidad de Valencia (España)
+#'
+"diseno1"
+
+
+#' Datos simulados de dos muestras tomadas en periodos de tiempo distintos. La muestra 1 es tomada en enero y la muestra 2 en junio.
+#' @usage data("diseno2")
+#' @format Dataframe en formato largo con 1085 observaciones. La pregunta realizada es: ¿Sabe que Valencia es la capital mundial del diseño 2022?
+#' \describe{
+#'   \item{muestra}{Toma dos valores: Muestra1 y Muestra2}
+#'   \item{resultado}{0: No sabe, 1: Sí sabe}
+#' }
+#' @source Muestra simulada.
+#'
+#' @author
+#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \emph{Quantitative Methods for Measuring Culture (MC2). Applied Economics.}
+#'
+#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \emph{Economía Aplicada.}
+#'
+#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
+#' Universidad de Valencia (España)
+#'
+"diseno2"
 
 

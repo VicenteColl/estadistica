@@ -37,11 +37,13 @@
 #' Nota: Las proporciones muestrales del error típico son sustituidas por sus estimaciones máximo-verosímiles (proporciones muestrales).
 #'
 #' @references
+#' Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+#'
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'
-#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
-#'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 #'
 #' @import dplyr
 #'
@@ -55,74 +57,95 @@ ic.diferencia.proporciones <- function(x,
 
 if(isFALSE(introducir)) {
 
-  print("En tus datos tiene que haber una variable de agrupaci\u00f3n y una variable con \u00e9xitos(=1) y fracasos(=0)")
+  x <- data.frame(x)
+  varnames <- names(x)
 
   if(is.null(variable)){
 
     if(length(x) == 2){
 
-      x <- data.frame(x)
-
-      agrupacion <- readline(prompt="Indica la posici\u00f3n (n\u00famero de columna) de la variable de agrupaci\u00f3n: ")
-      agrupacion <- as.numeric(agrupacion)
-
-      x <- x %>%
-        select(all_of(agrupacion),everything())
-      x <- na.omit(x)
-
+      x <- x
 
     } else{
 
-      stop("El conjunto de datos seleccionado no tiene 2 variables.")
+      warning("Para calcular el intervalo de confianza hay que seleccionar dos variables")
+      stop("El conjunto de datos seleccionado tiene mas de 2 variables.")
 
     }
 
-  } else if(length(x) > 2){
+  } else if(length(variable) == 2){
 
-    agrupacion <- readline(prompt="Indica la posici\u00f3n (n\u00famero de columna) de la variable de agrupaci\u00f3n: ")
-    agrupacion <- as.numeric(agrupacion)
+    if(is.numeric(variable)){
 
-    exito <- readline(prompt="Indica la posici\u00f3n (n\u00famero de columna) de la variable con \u00e9xitos (=1) y fracasos (=0): ")
-    exito <- as.numeric(exito)
+      if(all(variable <= length(x))){
 
-    variable <- c(agrupacion,exito)
+        variable <- variable
+
+      } else{
+
+        stop("Selecci\u00f3n err\u00f3nea de variables")
+
+      }
+    }
+
+    if(is.character(variable)){
+
+      if(all(variable %in% varnames)){
+
+        variable = match(variable,varnames)
+
+      } else {
+
+        stop("El nombre de la variable no es v\u00e1lido")
+
+      }
+
+    }
 
     x <- x[,variable] %>% as.data.frame()
-    varnames <- names(x)
-    x <- na.omit(x)
-
+    names(x) <- varnames[variable]
 
   } else{
 
-    stop("Selecci\u00f3n err\u00f3nea de variables para calcular el IC")
+    warning("Para calcular el intervalo de confianza hay que seleccionar dos variables")
+    stop("El conjunto de datos seleccionado no es adecuado.")
 
   }
 
+  clase <- sapply(x, class)
 
-  if(!all(x[,2] == 0 | x[,2]==1)){
+  if (!all(clase %in% c("numeric","integer"))) {
+
+    stop("No puede calcularse el intervalo de confianza porque las variables seleccionadas no son cuantitativas")
+
+  }
+
+  x1 <- na.omit(x[1])
+  x2 <- na.omit(x[2])
+
+
+  if(!all((x1 == 0) | x1 ==1)){
 
     print("Aplica a tus datos la condici\u00f3n que debe cumplir la poblaci\u00f3n para transfomar los datos en ceros (ausencia/no \u00e9xito) y unos (presencia/\u00e9xito)")
     stop("Los valores en la muestra deben ser 0 y 1.")
 
   }
 
-  if(!length(unique(x[,1]))==2){
+  if(!all((x2 == 0) | x2 ==1)){
 
-    stop("La variable de agrupaci\u00f3n no tiene dos categor\u00edas")
+    print("Aplica a tus datos la condici\u00f3n que debe cumplir la poblaci\u00f3n para transfomar los datos en ceros (ausencia/no \u00e9xito) y unos (presencia/\u00e9xito)")
+    stop("Los valores en la muestra deben ser 0 y 1.")
 
   }
 
-  df <- table(x)
-
 
   # tama\u00f1o de la muestra
-  n <- apply(df,1,sum)
-  n1 <- as.numeric(n[1])
-  n2 <- as.numeric(n[2])
+  n1 <- nrow(x1)
+  n2 <- nrow(x2)
 
   # media muestral
-  p_mu1 <- as.numeric(df[1,2]/n1)
-  p_mu2 <- as.numeric(df[2,2]/n2)
+  p_mu1 <- round(sum(x1)/n1,6)
+  p_mu2 <- round(sum(x2)/n2,6)
 
 
 } else{   # aqu\u00ed empieza introducir datos
@@ -186,7 +209,7 @@ if(isFALSE(introducir)) {
       plot <- ggplot(seq, aes(seq)) +
         stat_function(fun = dnorm, args = list(mean = (p_mu1 - p_mu2), sd = error_tipico)) +
         geom_area(stat = "function", fun = dnorm, args = list(mean = (p_mu1 - p_mu2), sd = error_tipico), fill = "darkgreen", xlim = c(limite_inferior,limite_superior)) +
-        labs(x = "", y = "",title = paste("Intervalo de confianza de la diferencia de proporci\u00f3nes\n(NC=",confianza*100,"%)")) +
+        labs(x = "", y = "",title = paste("Intervalo de confianza de la diferencia de proporciones\n(NC=",confianza*100,"%)")) +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = round(c(limite_inferior,(p_mu1 - p_mu2),limite_superior),4)) +
         tema_blanco +
