@@ -135,11 +135,9 @@ if(isFALSE(introducir)) {
   var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar: \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
   if(var_muestra == 1){
+
     var_mu1 <- as.numeric(varianza(x[1]))
     var_mu2 <- as.numeric(varianza(x[2]))
-
-    numerador <- n2 * (n1-1) * var_mu2
-    denominador <- (n2-1) * n1 * var_mu1
 
   } else{
 
@@ -168,9 +166,6 @@ if(isFALSE(introducir)) {
       var_mu2 <- readline("Introduce el valor de la varianza muestral 2: ")
       var_mu2 <- as.numeric(var_mu2)
 
-      numerador <- n1 * (n2-1) * var_mu1
-      denominador <- (n1-1) * n2 * var_mu2
-
     } else{
 
       var_mu1 <- readline("Introduce el valor de la cuasivarianza muestral 1: ")
@@ -185,19 +180,21 @@ if(isFALSE(introducir)) {
 
 # calculo del intervalo de confianza
 
-  valor_critico1 <- qf(1-alfa_2, df1= n2-1, df2 = n1-1, lower.tail = F)
-  valor_critico2 <- qf(alfa_2, df1= n2-1, df2 = n1-1, lower.tail = F)
-# IC del cociente de varianzas con medias desconocidas
+  # IC del cociente de varianzas con medias desconocidas
 
   if(media_pob == "desconocida"){
 
     print("Se calcula el intervalo de confianza para el cociente de varianzas supuestas desconocidas las medias poblacionales")
 
+    valor_critico1 <- qf(1-alfa_2, df1= n2-1, df2 = n1-1, lower.tail = F)
+    valor_critico2 <- qf(alfa_2, df1= n2-1, df2 = n1-1, lower.tail = F)
+
     if(var_muestra == 1){
 
       # caso 1.1
-      limite_inferior <- (numerador / denominador) * valor_critico1
-      limite_superior <- (numerador / denominador) * valor_critico2
+
+      limite_inferior <- (n1/(n1-1))*((n2-1)/n2)*(var_mu1/var_mu2) * valor_critico1
+      limite_superior <- (n1/(n1-1))*((n2-1)/n2)*(var_mu1/var_mu2) * valor_critico2
 
     } else {
 
@@ -211,6 +208,9 @@ if(isFALSE(introducir)) {
 
   } else {
     # las medias poblacionales conocidas
+
+    valor_critico1 <- qf(1-alfa_2, df1= n1, df2 = n2, lower.tail = F)
+    valor_critico2 <- qf(alfa_2, df1= n1, df2 = n2, lower.tail = F)
 
     if(var_muestra == 1){
 
@@ -230,37 +230,37 @@ if(isFALSE(introducir)) {
 
   if(grafico){
 
-    percentil99 <- qf(.9999, df1= n2-1, df2 = n1-1)
+      percentil99 <- qf(.9999, df1= n2-1, df2 = n1-1)
 
-    data <- data.frame(x=seq(from = 0, to = percentil99, percentil99/200))
-    data$y <-df(data$x, df1= n2-1, df2 = n1-1)
+      data <- data.frame(x=seq(from = 0, to = percentil99, percentil99/200))
+      data$y <-df(data$x, df1= n2-1, df2 = n1-1)
 
-    plot1 <- ggplot(data, aes(x,y)) +
-      geom_area(fill="darkgreen") +
-      geom_area(data=subset(data,x<valor_critico1), fill = "grey") +
-      geom_area(data=subset(data,x>valor_critico2),fill = "grey") +
-      geom_vline(xintercept = 0L, color = "black") +
-      labs(title = paste("Distribuci\u00f3n F con ", n2-1, " y ",n1-1," grados de libertad",sep=""), x = "", y = "") +
-      scale_y_continuous(breaks = NULL) +
-      scale_x_continuous(breaks = c(round(0L,0),round(valor_critico1,3),round(valor_critico2,3))) +
-      theme(axis.text.x = element_text(angle = 45)) +
-      geom_point(aes(x= valor_critico1 , y=0), color = "red", size = 3) +
-      geom_point(aes(x= valor_critico2 , y=0), color = "blue", size = 3)
+      plot1 <- ggplot(data, aes(x,y)) +
+        geom_area(fill="darkgreen") +
+        geom_area(data=subset(data,x<valor_critico1), fill = "grey") +
+        geom_area(data=subset(data,x>valor_critico2),fill = "grey") +
+        geom_vline(xintercept = 0L, color = "black") +
+        labs(title = paste("Distribuci\u00f3n F con ", n2-1, " y ",n1-1," grados de libertad",sep=""), x = "", y = "") +
+        scale_y_continuous(breaks = NULL) +
+        scale_x_continuous(breaks = c(round(0L,0),round(valor_critico1,3),round(valor_critico2,3))) +
+        theme(axis.text.x = element_text(angle = 45)) +
+        geom_point(aes(x= valor_critico1 , y=0), color = "red", size = 3) +
+        geom_point(aes(x= valor_critico2 , y=0), color = "blue", size = 3)
 
-    intervalo <- data.frame(ic = round(c(inferior=limite_inferior,superior=limite_superior),4),y=c(0,0))
+      intervalo <- data.frame(ic = round(c(inferior=limite_inferior,superior=limite_superior),4),y=c(0,0))
 
-    plot2 <- ggplot(intervalo,aes(x= ic,y)) +
-      geom_line(aes(group = y), color = "grey",size = 3)+
-      geom_point(aes(color=ic), size=3,show.legend = FALSE) +
-      geom_text(aes(label = ic), size = 2.5, vjust=2) +
-      scale_y_continuous(expand=c(0,0)) +
-      scale_color_gradientn(colours=c("red","blue"))+
-      labs(y="",x="Intervalo de confianza") +
-      tema_blanco
+      plot2 <- ggplot(intervalo,aes(x= ic,y)) +
+        geom_line(aes(group = y), color = "grey",size = 3)+
+        geom_point(aes(color=ic), size=3,show.legend = FALSE) +
+        geom_text(aes(label = ic), size = 2.5, vjust=2) +
+        scale_y_continuous(expand=c(0,0)) +
+        scale_color_gradientn(colours=c("red","blue"))+
+        labs(y="",x="Intervalo de confianza del cociente de varianzas") +
+        tema_blanco
 
-    plot <- grid::grid.draw(rbind(ggplotGrob(plot1), ggplotGrob(plot2), size = "last"))
+      plot <- grid::grid.draw(rbind(ggplotGrob(plot1), ggplotGrob(plot2), size = "last"))
 
-  }
+    }
 
   IC <- cbind(limite_inferior,limite_superior)
   IC <- as.data.frame(IC)

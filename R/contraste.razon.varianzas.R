@@ -146,11 +146,9 @@ if(isFALSE(introducir)) {
   var_muestra <- as.numeric(readline('Selecciona el valor que quieres utilizar? \n 1. "Varianza muestral" \n 2. "Cuasivarianza muestral" \n'))
 
   if(var_muestra == 1){
+
     var_mu1 <- as.numeric(varianza(x[1]))
     var_mu2 <- as.numeric(varianza(x[2]))
-
-    numerador <- n2 * (n1-1) * var_mu2
-    denominador <- (n2-1) * n1 * var_mu1
 
   } else{
 
@@ -159,7 +157,7 @@ if(isFALSE(introducir)) {
 
   }
 
-} else{   # aqu´\u00ed empieza introducir datos
+} else{   # aqu\u00ed empieza introducir datos
 
   print("A continuacion, vas a introducir los datos de las muestras.")
 
@@ -179,9 +177,6 @@ if(isFALSE(introducir)) {
       var_mu2 <- readline("Introduce el valor de la varianza muestral 2: ")
       var_mu2 <- as.numeric(var_mu2)
 
-      numerador <- n2 * (n1-1) * var_mu2
-      denominador <- (n2-1) * n1 * var_mu1
-
     } else{
 
       var_mu1 <- readline("Introduce el valor de la cuasivarianza muestral 1: ")
@@ -197,14 +192,19 @@ if(isFALSE(introducir)) {
 if(alfa >= 0 & alfa <=1){
 
   if(tipo_contraste == "bilateral"){
+
     valor_critico1 <- round(qf(alfa/2, df1= n1-1, df2 = n2-1,lower.tail = T),4)
     valor_critico2 <- round(qf(alfa/2, df1= n1-1, df2 = n2-1,lower.tail = F),4)
 
   }
+
   if(tipo_contraste == "cola izquierda"){
+
     valor_critico <- round(qf(alfa, df1= n1-1, df2 = n2-1,lower.tail = T),4)
   }
+
   if(tipo_contraste == "cola derecha"){
+
     valor_critico <- round(qf(alfa, df1= n1-1, df2 = n2-1,lower.tail = F),4)
   }
 
@@ -234,14 +234,14 @@ if(var_muestra == 1){
 
 }
 
-percentil99 <- qf(.9999, df1= n2-1, df2 = n1-1)
+percentil99 <- qf(.9999, df1= n1-1, df2 = n2-1)
 
 data <- data.frame(x=seq(from = 0, to = percentil99, percentil99/200))
-data$y <-df(data$x, df1= n2-1, df2 = n1-1)
+data$y <-df(data$x, df1= n1-1, df2 = n2-1)
 
 if(tipo_contraste == "bilateral"){
 
-  pvalor <- 2 * min(pf(estadistico.prueba, df1= n2-1, df2 = n1-1,lower.tail = F), pf(estadistico.prueba, df1= n2-1, df2 = n1-1,lower.tail = T))
+  pvalor <- 2 * min(pf(estadistico.prueba, df1= n1-1, df2 = n2-1,lower.tail = F), pf(estadistico.prueba, df1= n2-1, df2 = n1-1,lower.tail = T))
 
   if(estadistico.prueba >= valor_critico1 & estadistico.prueba <=  valor_critico2){
 
@@ -263,16 +263,16 @@ if(tipo_contraste == "bilateral"){
       geom_area(data=subset(data,x>valor_critico2),fill = "red") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-      labs(title = paste("Distribuci\u00f3n F con ", n2-1, " y ",n1-1," grados de libertad",sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
-      scale_x_continuous(breaks = c(0L,estadistico.prueba,valor_critico1,valor_critico2)) +
+      scale_x_continuous(breaks = round(c(0L,estadistico.prueba,valor_critico1,valor_critico2),4)) +
       theme(axis.text.x = element_text(angle = 45))
   }
 
 
 } else if(tipo_contraste == "cola derecha"){
 
-  pvalor <- pf(estadistico.prueba, df1= n2-1, df2 = n1-1,lower.tail = F)
+  pvalor <- pf(estadistico.prueba, df1= n1-1, df2 = n2-1,lower.tail = F)
 
   if(estadistico.prueba >= valor_critico){
 
@@ -293,16 +293,16 @@ if(tipo_contraste == "bilateral"){
       geom_area(data=subset(data,x>valor_critico),fill = "red") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-      labs(title = paste("Distribuci\u00f3n F con ", n2-1, " y ",n1-1," grados de libertad",sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
-      scale_x_continuous(breaks = c(0L,estadistico.prueba,valor_critico)) +
+      scale_x_continuous(breaks = round(c(0L,estadistico.prueba,valor_critico),4)) +
       theme(axis.text.x = element_text(angle = 45))
   }
 
 
 } else{
 
-  pvalor <- pf(estadistico.prueba, df1= n2-1, df2 = n1-1,lower.tail = T)
+  pvalor <- pf(estadistico.prueba, df1= n1-1, df2 = n2-1,lower.tail = T)
 
   if(estadistico.prueba <= valor_critico){
 
@@ -323,9 +323,9 @@ if(tipo_contraste == "bilateral"){
       geom_area(data=subset(data,x<valor_critico),fill = "red") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-      labs(title = paste("Distribuci\u00f3n F con ", n2-1, " y ",n1-1," grados de libertad",sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
-      scale_x_continuous(breaks = c(0L,estadistico.prueba,valor_critico)) +
+      scale_x_continuous(breaks = round(c(0L,estadistico.prueba,valor_critico),4)) +
       theme(axis.text.x = element_text(angle = 45))
   }
 

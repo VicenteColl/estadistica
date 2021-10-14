@@ -63,7 +63,6 @@ contraste.correlacion <- function(x,
 
   cat("Se asume que la variable bivariante (X,Y) se distribuye conjuntamente normal\n")
 
-  warning("Actualmente solo se encuentra implementado el contraste bilateral")
 
   tipo_contraste <- tolower(tipo_contraste)
   tipo_contraste <- match.arg(tipo_contraste)
@@ -181,11 +180,9 @@ if(hipotesis_nula == 0){
 
   estadistico.prueba <- sqrt((correlacion^2 * (n - 2)) / (1 - correlacion^2))
 
-  if(tipo_contraste == "bilateral"){
+  valor_critico <- round(qt(alfa/2,n-2,lower.tail=FALSE),4)
 
-    valor_critico <- round(qt(alfa/2,n-2,lower.tail=FALSE),4)
-
-    pvalor <- 2 * pt(estadistico.prueba, n-2,lower.tail=FALSE)
+  pvalor <- 2 * pt(estadistico.prueba, n-2,lower.tail=FALSE)
 
 
     if((estadistico.prueba > - valor_critico & estadistico.prueba < valor_critico)){
@@ -201,11 +198,10 @@ if(hipotesis_nula == 0){
 
     }
 
-  }
-
   } else{
 
     print("Vas a realizar un contraste bilateal de correlaci\u00f3n")
+    warning("Actualmente solo se encuentra implementado el contraste bilateral")
 
     estadistico.prueba <- 0.5*log((1+correlacion)/(1-correlacion))
 
