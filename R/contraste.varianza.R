@@ -187,7 +187,7 @@ if(isFALSE(introducir)) {
     }
   } else{
 
-    print("La media poblacional no suele conocerse, este supuesto es teorico")
+    print("La media poblacional no suele conocerse, este supuesto es te\u00f3rico")
 
     media <- readline(prompt = "Introducir el valor de la media poblacional: ")
     media <- as.numeric(media)
@@ -228,11 +228,11 @@ if(isFALSE(introducir)) {
 
   } else{
 
-    print("La media poblacional no suele conocerse, este supuesto es teorico")
+    print("La media poblacional no suele conocerse, este supuesto es te\u00f3rico")
 
     #media <- readline(prompt = "Introducir el valor de la media poblacional: ")
     #media <- as.numeric(media)
-    sumatorio <- readline(prompt = "Introducir el valor de la suma cuadratica de las desviaciones de los valores muestrales respecto a la media poblacional: ")
+    sumatorio <- readline(prompt = "Introducir el valor de la suma cuadr\u00e1tica de las desviaciones de los\nvalores muestrales respecto a la media poblacional: ")
     sumatorio <- as.numeric(sumatorio)
 
   }
@@ -266,6 +266,8 @@ if(media_poblacion == "desconocida"){
   estadistico.prueba <- n * var_mu / H0
 
 } else{
+
+  var_muestra <- 1
 
   estadistico.prueba <- sumatorio / H0
 
@@ -325,7 +327,7 @@ df$y <-dchisq(df$x, gl)
     } else{
 
       print(paste("Se rechaza la hip\u00f3tesis nula. La regi\u00f3n de aceptaci\u00f3n viene dada por el intervalo [", 0," , ",valor_critico,"]",sep=""))
-      print("El valor del estad\u00ed de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
+      print("El valor del estad\u00edstico de prueba (o valor experimental) no se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n")
 
     }
 
@@ -386,13 +388,32 @@ df$y <-dchisq(df$x, gl)
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p valor")
   row.names(CH) <- NULL
 
-  if(isTRUE(grafico)){
+  Ivarianza <- cbind(`limite_inferior`=limite_inf,`limite_superior`=limite_sup)
 
-    return(list(CH,plot))
+
+  if(grafico){
+
+    if(var_muestra == 1){
+
+      return(list(`Estadistico`=CH,`Intervalo de la varianza muestral`= Ivarianza,`Graficos`= plot))
+
+    } else {
+
+      return(list(`Estadistico`=CH,`Intervalo de la cuasi-varianza muestral`= Ivarianza,`Graficos`= plot))
+
+    }
 
   } else{
 
-    return(CH)
+    if(var_muestra == 1){
+
+      return(list(`Estadistico`=CH,`Intervalo de la varianza muestral`= Ivarianza))
+
+    } else {
+
+      return(list(`Estadistico`=CH,`Intervalo de la cuasi-varianza muestral`= Ivarianza))
+
+    }
 
   }
 

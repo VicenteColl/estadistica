@@ -215,7 +215,6 @@ contraste.diferencia.proporciones <- function(x,
 
 }
 
-
   # calculo de los contrastes
 
   est_proporcion <- as.numeric(readline('Selecciona el valor que quieres utilizar para el error t\u00edpico bajo la H0: \n 1. "Estimar p como media ponderada de las proporciones muestrales" \n 2. "Utilizar las proporciones muestrales" \n'))
@@ -241,6 +240,8 @@ contraste.diferencia.proporciones <- function(x,
 
     estadistico.Z2 <- abs(estadistico.Z)
     pvalor <- 2*pnorm(estadistico.Z2,lower.tail=FALSE)
+    media_inf <- H0 - valor_critico * error_tipico
+    media_sup <- H0 + valor_critico * error_tipico
 
     if(estadistico.Z >= -valor_critico & estadistico.Z <=  valor_critico){
 
@@ -270,6 +271,8 @@ contraste.diferencia.proporciones <- function(x,
 
   } else if(tipo_contraste == "cola derecha"){
 
+    media_inf <- -Inf
+    media_sup <- H0 + valor_critico * error_tipico
     pvalor <- pnorm(estadistico.Z,lower.tail=FALSE)
 
 
@@ -299,6 +302,8 @@ contraste.diferencia.proporciones <- function(x,
 
   } else{
 
+    media_inf <- H0 + valor_critico * error_tipico # valor critico negativo
+    media_sup <- Inf
     pvalor <- pnorm(estadistico.Z,lower.tail=TRUE)
 
 
@@ -334,13 +339,16 @@ contraste.diferencia.proporciones <- function(x,
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
-  if(isTRUE(grafico)){
+  Idifpro <- cbind(`limite_inferior`=media_inf,`limite_superior`=media_sup)
 
-    return(list(CH,plot))
+
+  if(grafico){
+
+    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral`= Idifpro,`Graficos`= plot))
 
   } else{
 
-    return(CH)
+    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral`= Idifpro))
 
   }
 

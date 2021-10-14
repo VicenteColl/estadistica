@@ -259,7 +259,7 @@ if(isFALSE(introducir)) {
 
   } else{
 
-    media_inf <- H0 - valor_critico * error_tipico
+    media_inf <- H0 + valor_critico * error_tipico # valor critico negativo
     media_sup <- Inf
     pvalor <- pnorm(estadistico.Z,lower.tail=TRUE)
 
@@ -295,16 +295,16 @@ if(isFALSE(introducir)) {
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
-  Imedia <- cbind(`l\\u00edmite_inferior`=media_inf,`l\\u00edmite_superior`=media_sup)
+  Iproporcion <- cbind(`limite_inferior`=media_inf,`limite_superior`=media_sup)
 
 
-  if(isTRUE(grafico)){
+  if(grafico){
 
-    return(list(`Estad\\u00edstico`=CH,`Intervalo de la proporci\\u00f3n muestral`= Imedia,`Gr\\u00e1ficos`= grafico))
+    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral`= Iproporcion,`Graficos`= plot))
 
   } else{
 
-    return(list(`Estad\\u00edstico`=CH,`Intervalo de la proporci\\u00f3n muestral`= Imedia))
+    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral`= Iproporcion))
 
   }
 

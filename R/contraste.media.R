@@ -461,7 +461,7 @@ if(tipo_contraste == "cola derecha"){
 
 if(tipo_contraste == "cola izquierda"){
 
-  media_inf <- H0 - valor_critico * error_tipico
+  media_inf <- H0 + valor_critico * error_tipico # valor critico negativo
   media_sup <- Inf
 
   if(var_pob == "conocida" | aproximacion == 1){
@@ -542,9 +542,9 @@ if(tipo_contraste == "cola izquierda"){
 
   if(isTRUE(grafico)){
 
-    grafico <- list(plot,plot2)
+    plots <- list(plot,plot2)
 
-    return(list(`Estadistico`=CH,`Intervalo de la media muestral`= Imedia,`Graficos`= grafico))
+    return(list(`Estadistico`=CH,`Intervalo de la media muestral`= Imedia,`Graficos`= plots))
 
   } else{
 

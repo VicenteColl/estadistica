@@ -542,7 +542,7 @@ if(isFALSE(introducir)) {
 
   if(tipo_contraste == "cola izquierda"){
 
-    media_inf <- H0 - valor_critico * error_tipico
+    media_inf <- H0 + valor_critico * error_tipico # valor critico negativo
     media_sup <- Inf
 
     if(var_pob == "conocida" | (var_pob == "desconocida" & tamano == "grande")){
