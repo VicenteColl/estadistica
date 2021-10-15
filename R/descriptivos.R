@@ -156,8 +156,8 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
 
   num_modas <-nrow(valor_moda)
 
-  row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviacion tipica",
-                          "coef_variacion","asimetria","curtosis",paste("moda ",seq(1:num_modas),sep=""))
+  row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
+                          "coef.variaci\u00f3n","asimetr\u00eda","curtosis",paste("moda ",seq(1:num_modas),sep=""))
 
   if (exportar) {
     filename <- paste("Resumen descriptivos basicos"," (", Sys.time(), ").xlsx", sep = "")

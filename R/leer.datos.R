@@ -46,6 +46,8 @@ leer.datos <- function(introducir = FALSE, pos=1){
     numero_var <- as.numeric(numero_var)
 
     print("Cuando termines de introducir tus datos pulsa ENTER")
+    print("NO UTILICES ESPACIOS EN BLANCO EN LOS NOMBRES DE VARIABLES O DATAFRAME. SI NECESITAS SEPARAR PALABRAS UTILIZA . o _")
+
 
     if(numero_var == 1){
 

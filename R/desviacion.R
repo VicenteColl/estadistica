@@ -9,7 +9,7 @@
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
-#' @param tipo Es un carácter. Por defecto de calcula la varianza muestral (tipo = "muestral"). Si tipo = "cuasi", se calcula la cuasivarianza muestral.
+#' @param tipo Es un carácter. Por defecto de calcula la desviación típica muestral (tipo = "muestral"). Si tipo = "cuasi", se calcula la cuasi-desviación típica muestral.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).

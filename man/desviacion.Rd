@@ -16,7 +16,7 @@ tipo = c("muestral","cuasi"))
 
 \item{pesos}{Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
 
-\item{tipo}{Es un carácter. Por defecto de calcula la varianza muestral (tipo = "muestral"). Si tipo = "cuasi", se calcula la cuasivarianza muestral.}
+\item{tipo}{Es un carácter. Por defecto de calcula la desviación típica muestral (tipo = "muestral"). Si tipo = "cuasi", se calcula la cuasi-desviación típica muestral.}
 }
 \description{
 Calcula la desviación típica.
