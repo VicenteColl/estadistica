@@ -11,4 +11,4 @@ LazyData: true
 RoxygenNote: 7.1.2
 Depends:
     R (>= 3.5.0)
-Imports: tidyverse, dplyr, tidyr, ggplot2, rio, data.table, magrittr, grid
+Imports: tidyverse, dplyr, tidyr, ggplot2, rio, data.table, magrittr, grid, shiny
