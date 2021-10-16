@@ -29,6 +29,7 @@ export(medidas.forma)
 export(moda)
 export(momento.central)
 export(muestra)
+export(nivel.confianza)
 export(resumen.descriptivos)
 export(tabla.bidimensional)
 export(tabla.frecuencias)
@@ -44,5 +45,3 @@ importFrom("stats","addmargins","var","cov",
            "qchisq", "qf", "qnorm", "qt",
            "df", "pchisq", "pf")
 import(tidyverse)
-
-
