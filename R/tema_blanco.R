@@ -10,6 +10,7 @@ tema_blanco <- theme(
   axis.ticks.x=element_blank(),
   axis.text.x=element_blank(),
   axis.line.y = element_blank(),
+  axis.ticks.y=element_blank(),
   axis.text.y=element_blank(),
   legend.title = element_blank()
 )
