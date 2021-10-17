@@ -85,7 +85,7 @@ server <- function(input, output, session) {
 
   output$plot.binomial <- renderPlot({
     barplot(dbinom(0:10,input$n,input$p), names.arg = c(0:10),
-            xlim = c(0, 13), ylim=c(0, 1),
+            xlim = c(0, 15), ylim=c(0, 1),
             main = "Distribuci\u00f3n Binomial. X~Bi(n, p)",
             xlab ="x", ylab = "P(x)",
             col = "orange",
