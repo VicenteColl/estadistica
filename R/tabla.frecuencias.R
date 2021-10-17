@@ -83,30 +83,35 @@ tabla.frecuencias <- function(x,
 
     # tabla de frecuencias de valores agrupados
 
-    print("La variable presenta muchos valores distintos (mas de 20) y se agrupar\u00e1n en intervalos.")
+    print("La variable presenta muchos valores distintos (mas de 20)")
+    agrupar <- as.numeric(readline('\u00bfQuieres agrupar los valores en intervalos?: \n 1. "S\u00ed, agrupar en intervalos." \n 2. "No, usar los valores sin agrupar." \n'))
 
-    clase <- sapply(x, class)
+    if(agrupar == 1){
+      clase <- sapply(x, class)
 
-    if(clase %in% c("factor","character","logic")){
-      stop("La variable no es cuantitativa, no puede representarse el histograma")
+      if(clase %in% c("factor","character","logic")){
+        stop("La variable no es cuantitativa, no puede representarse el histograma")
+      }
+
+      if(nrow(x)<=100){
+        intervalos <- ceiling(sqrt(nrow(x)))
+      } else {
+        intervalos <- ceiling(log(nrow(x))/log(2) + 1)
+      }
+
+      amplitud <- (max(x)-min(x))/intervalos
+
+      x$cut <- cut(x[,1], seq(min(x[,1]),max(x[,1]),amplitud),
+                   include.lowest = TRUE,
+                   dig.lab = 8)
+
+      x <- x[2]
+      names(x) <- y
+
     }
 
-    if(nrow(x)<=100){
-      intervalos <- ceiling(sqrt(nrow(x)))
-    } else {
-      intervalos <- ceiling(log(nrow(x))/log(2) + 1)
+
     }
-
-    amplitud <- (max(x)-min(x))/intervalos
-
-    x$cut <- cut(x[,1], seq(min(x[,1]),max(x[,1]),amplitud),
-                 include.lowest = TRUE,
-                 dig.lab = 8)
-
-    x <- x[2]
-    names(x) <- y
-
-  }
 
   # tabla de frecuencias
 
@@ -166,7 +171,7 @@ tabla.frecuencias <- function(x,
 
     df <- cbind(tabla[1],tabla[2],tabla[4],tabla[3],tabla[5])
 
-    if(valores_distintos > 20){
+    if(agrupar == 1){
 
       marca_clase <- function(cut_label) {
         mean(as.numeric(unlist(strsplit(gsub("\\(|\\)|\\[|\\]", "", as.character(cut_label)), ","))))
@@ -175,7 +180,7 @@ tabla.frecuencias <- function(x,
       df$marca <- sapply(df[,1], marca_clase)
       variables <- names(df)
 
-      print("La variable presenta muchos valores distintos (mas de 20) y se representar\u00e1 mediante un histograma")
+      print("Los valores han sido agrupados en intervalos y se representar\u00e1n mediante un histograma")
 
       plot <- ggplot(df, aes_string(x=variables[1], y = variables[2])) +
         geom_bar(stat = "identity", width = 1,
@@ -190,7 +195,7 @@ tabla.frecuencias <- function(x,
 
     } else {
 
-      print("El diagrama de barras puede ser una buena representaci\u00f3n gr\u00e1fica si la variable no presenta muchos distintos valores (aconsejable como m\u00e1ximo 10)")
+      print("El diagrama de barras puede ser una buena representaci\u00f3n gr\u00e1fica si la variable no presenta muchos distintos valores (aconsejable como m\u00e1ximo 10-15)")
 
       variables <- names(df)
 

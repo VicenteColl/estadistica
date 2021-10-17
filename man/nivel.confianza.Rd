@@ -19,9 +19,9 @@ replicar = TRUE)
 
 \item{max.pob}{Es un valor numérico que indica el valor máximo poblacional. Por defecto max.pob = 45000}
 
-\item{muestras}{Es un valor numérico entre 50 y 2000 que indica el número de muestras que se extraen sin reemplazamiento de la población. Por defecto muestras = 200}
+\item{muestras}{Es un valor numérico entre 50 y 10000 que indica el número de muestras que se extraen sin reemplazamiento de la población. Por defecto muestras = 200}
 
-\item{n}{Es un valor numérico entre 25 y 500 que indica el tamaño de la muestra. Por defecto n = 100.sumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
+\item{n}{Es un valor numérico entre 25 y 2000 que indica el tamaño de la muestra. Por defecto n = 100.sumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
 
 \item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
 

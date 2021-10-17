@@ -13,8 +13,8 @@
 #'
 #' @param min.pob Es un valor numérico que indica el valor mínimo poblacional. Por defecto min.pob = 2000
 #' @param max.pob Es un valor numérico que indica el valor máximo poblacional. Por defecto max.pob = 45000
-#' @param muestras Es un valor numérico entre 50 y 2000 que indica el número de muestras que se extraen sin reemplazamiento de la población. Por defecto muestras = 200
-#' @param n Es un valor numérico entre 25 y 500 que indica el tamaño de la muestra. Por defecto n = 100.sumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
+#' @param muestras Es un valor numérico entre 50 y 10000 que indica el número de muestras que se extraen sin reemplazamiento de la población. Por defecto muestras = 200
+#' @param n Es un valor numérico entre 25 y 2000 que indica el tamaño de la muestra. Por defecto n = 100.sumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
 #' @param grafico Si grafico = TRUE se representan los intervalos de confianza de las muestras seleccionadas y la media poblacional.
 #' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
@@ -72,14 +72,14 @@ media_poblacional <- mean(poblacion)
 
 # datos muestrales
 
-if(muestras < 50 | muestras > 2000){
+if(muestras < 50 | muestras > 10000){
 
-  stop("Elige un n\u00famero de muestras entre 50 y 2000")
+  stop("Elige un n\u00famero de muestras entre 50 y 10000")
 }
 
-if(n < 25 | n > 500){
+if(n < 25 | n > 2000){
 
-  stop("Elige un tama\u00f1o para la muestra de entre 50 y 500")
+  stop("Elige un tama\u00f1o para la muestra de entre 50 y 2000")
 }
 
 muestra_select <- c()
@@ -136,36 +136,43 @@ if(grafico){
       pivot_longer(cols= c(2,3))
   }
 
+  interactivo <- as.numeric(readline('\u00bfQuieres hacer el gr\u00e1fico interactivo?: \n 1. "S\u00ed." \n 2. "No." \n'))
 
-  plot <-  ggplot(df, aes(x= value, y= muestra)) +
-    geom_line(aes(group = muestra), color = "grey") +
-    geom_point(size=1, aes(color = color)) +
-    geom_vline(aes(xintercept = media_poblacional), color = "darkred",size=1) +
-    geom_text(aes(x=media_poblacional, label ="media poblaci\u00f3n", y = muestras),
-              color = "darkred", hjust = -0.05, vjust=-0.5, size = 3) +
-    geom_text(aes(x=media_poblacional, label=round(media_poblacional,2), y=0), hjust= -0.10, vjust = 1.2, size = 3, color="darkred") +
-    scale_color_identity() +
-    labs(title = paste("Intervalos de confianza de un total de ",muestras," muestras",sep=""),
-         y="Numero de muestra",
-         x=paste("El ",round(porcentaje.intervalos *100,2),"% de los intervalos de confianza\ncalculados contienen el valor de la media poblacional",sep=""))
+    plot <-  ggplot(df, aes(x=value, y=muestra)) +
+      geom_line(aes(group = muestra), color = "grey") +
+      geom_point(size=1, color = df$color) +
+      geom_vline(aes(xintercept = media_poblacional), color = "darkred",size=1) +
+      geom_text(aes(x=media_poblacional, label ="media poblaci\u00f3n", y = muestras),
+                color = "darkred", hjust = -0.05, vjust=-0.5, size = 3) +
+      geom_text(aes(x=media_poblacional, label=round(media_poblacional,2), y=0), hjust= -0.10, vjust = 1.2, size = 3, color="darkred") +
+      scale_color_identity() +
+      labs(title = paste("Intervalos de confianza de un total de ",muestras," muestras",sep=""),
+           y="N\u00famero de muestra",
+           x=paste("El ",round(porcentaje.intervalos *100,2),"% de los intervalos de confianza\ncalculados contienen el valor de la media poblacional",sep=""))
 
-}
+    if(interactivo == 1){
 
-if (exportar) {
-  filename <- paste("Intervalos de confianza"," (", Sys.time(), ").xlsx", sep = "")
-  filename <- gsub(" ", "_", filename)
-  filename <- gsub(":", ".", filename)
-  rio::export(resultados_muestrales, row.names = TRUE, file = filename)
-}
+      plot <- plotly::ggplotly(plot, tooltip=c("y","x"))
 
-if(grafico){
-
-  return(list(resultados_muestrales, porcentaje.intervalos,plot))
-
-} else{
-
-  return(list(resultados_muestrales, porcentaje.intervalos))
+    }
 
 }
+
+  if (exportar) {
+    filename <- paste("Intervalos de confianza"," (", Sys.time(), ").xlsx", sep = "")
+    filename <- gsub(" ", "_", filename)
+    filename <- gsub(":", ".", filename)
+    rio::export(resultados_muestrales, row.names = TRUE, file = filename)
+  }
+
+  if(grafico){
+
+    return(list(resultados_muestrales, porcentaje.intervalos,plot))
+
+  } else{
+
+    return(list(resultados_muestrales, porcentaje.intervalos))
+
+  }
 
 }

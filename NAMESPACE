@@ -38,10 +38,12 @@ import("dplyr")
 import("tidyr")
 import("ggplot2")
 import("shiny")
+importFrom("plotly","ggplotly")
 importFrom("data.table","rbindlist")
 importFrom("stats","addmargins","var","cov",
            "cor","sd","na.omit","dchisq",
            "dnorm", "dt", "pnorm", "pt",
            "qchisq", "qf", "qnorm", "qt",
            "df", "pchisq", "pf")
-import(tidyverse)
+
+
