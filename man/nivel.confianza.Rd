@@ -34,6 +34,9 @@ replicar = TRUE)
 \description{
 Esta función simula una población de tamaño 100,000 de la que se extraen diversas muestras y construye los correspondientes intervalos de confianzas. El objetivo es transmitir el concepto de nivel de confianza.
 }
+\note{
+Si se seleccionan 10000 muestras de tamaño 2000, el tiempo estimado de ejecución es de 9 minutos.
+}
 \references{
 Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 

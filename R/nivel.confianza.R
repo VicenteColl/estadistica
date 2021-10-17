@@ -34,6 +34,8 @@
 #'
 #' @seealso \code{\link{ic.media}}
 #'
+#' @note Si se seleccionan 10000 muestras de tamaño 2000, el tiempo estimado de ejecución es de 9 minutos.
+#'
 #' @references
 #' Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 #'
@@ -166,6 +168,9 @@ if(grafico){
   }
 
   if(grafico){
+    if(muestras >200){
+      print("Como el n\u00famero de muestras es grande, se seleccionar\u00e1n aleatoriamente 200 muestras para representarlas en el gr\u00e1fico")
+    }
 
     return(list(resultados_muestrales, porcentaje.intervalos,plot))
 
