@@ -125,8 +125,6 @@ server <- function(input, output, session) {
          col = "red")
   })
 
-
-
 }
 
 # shiny app --------------------------------------------------------------------
