@@ -1,7 +1,7 @@
 
 ui <- dashboardPage(
 
-  skin = "yellow", #color del header
+  skin = "yellow",
 
   dashboardHeader(title = "Distribuciones de probabilidad",
                   titleWidth = 300),
