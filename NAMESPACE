@@ -13,6 +13,7 @@ export(covarianza)
 export(cuantiles)
 export(desviacion)
 export(distribucion.normal)
+export(distribuciones.probabilidad)
 export(ic.correlacion)
 export(ic.diferencia.medias)
 export(ic.diferencia.proporciones)
@@ -38,6 +39,7 @@ import("dplyr")
 import("tidyr")
 import("ggplot2")
 import("shiny")
+import("shinydashboard")
 importFrom("plotly","ggplotly")
 importFrom("data.table","rbindlist")
 importFrom("stats","addmargins","var","cov",
@@ -45,4 +47,3 @@ importFrom("stats","addmargins","var","cov",
            "dnorm", "dt", "pnorm", "pt",
            "qchisq", "qf", "qnorm", "qt",
            "df", "pchisq", "pf")
-
