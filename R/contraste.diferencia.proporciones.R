@@ -263,7 +263,7 @@ contraste.diferencia.proporciones <- function(x,
         geom_area(stat = "function", fun = dnorm, fill = "red", xlim = c(valor_critico, 4)) +
         geom_vline(xintercept = -estadistico.Z2, linetype = "dashed") +
         geom_vline(xintercept = estadistico.Z2, linetype = "dashed") +
-        labs(x = "z", y = "") +
+        labs(x = "", y = "",title="Intervalo de la diferencia de proporciones muestrales\n(supuesta H0 cierta)") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(estadistico.Z2,-estadistico.Z2,-valor_critico,valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -294,7 +294,7 @@ contraste.diferencia.proporciones <- function(x,
         geom_area(stat = "function", fun = dnorm, fill = "darkgreen", xlim = c(-4,valor_critico)) +
         geom_area(stat = "function", fun = dnorm, fill = "red", xlim = c(valor_critico, 4)) +
         geom_vline(xintercept = estadistico.Z, linetype = "dashed") +
-        labs(x = "z", y = "") +
+        labs(x = "", y = "",title="Intervalo de la diferencia de proporciones muestrales\n(supuesta H0 cierta)") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(estadistico.Z,valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -325,7 +325,7 @@ contraste.diferencia.proporciones <- function(x,
         geom_area(stat = "function", fun = dnorm, fill = "red", xlim = c(-4, -valor_critico)) +
         geom_area(stat = "function", fun = dnorm, fill = "darkgreen", xlim = c(-valor_critico, 4)) +
         geom_vline(xintercept = estadistico.Z, linetype = "dashed") +
-        labs(x = "z", y = "") +
+        labs(x = "", y = "",title="Intervalo de la diferencia de proporciones muestrales\n(supuesta H0 cierta)") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(estadistico.Z,-valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))

@@ -420,7 +420,7 @@ if(isFALSE(introducir)) {
           geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "darkgreen", xlim = c(media_inf, media_sup)) +
           geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "red", xlim = c(media_sup, df[2,1])) +
           geom_vline(xintercept = dif_medias, linetype = "dashed") +
-          labs(x = "", y = "",title="Intervalo de la diferencia de medias muestrales") +
+          labs(x = "", y = "",title="Intervalo de la diferencia de medias muestrales\n(supuesta H0 cierta)") +
           scale_y_continuous(breaks = NULL) +
           scale_x_continuous(breaks = c(media_inf,dif_medias,media_sup)) +
           theme(axis.text.x = element_text(angle = 45))
@@ -493,7 +493,7 @@ if(isFALSE(introducir)) {
           geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "darkgreen", xlim = c(df[1,1], media_sup)) +
           geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "red", xlim = c(media_sup, df[2,1])) +
           geom_vline(xintercept = dif_medias, linetype = "dashed") +
-          labs(x = "", y = "",title="Intervalo de la diferencia de medias muestrales") +
+          labs(x = "", y = "",title="Intervalo de la diferencia de medias muestrales\n(supuesta H0 cierta)") +
           scale_y_continuous(breaks = NULL) +
           scale_x_continuous(breaks = c(dif_medias,media_sup)) +
           theme(axis.text.x = element_text(angle = 45))
@@ -565,7 +565,7 @@ if(isFALSE(introducir)) {
           geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "red", xlim = c(df[1,1], media_inf)) +
           geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "darkgreen", xlim = c(media_inf, df[2,1])) +
           geom_vline(xintercept = dif_medias, linetype = "dashed") +
-          labs(x = "", y = "",title="Intervalo de la diferencia de medias muestrales") +
+          labs(x = "", y = "",title="Intervalo de la diferencia de medias muestrales\n(supuesta H0 cierta)") +
           scale_y_continuous(breaks = NULL) +
           scale_x_continuous(breaks = c(media_inf,dif_medias)) +
           theme(axis.text.x = element_text(angle = 45))

@@ -339,7 +339,7 @@ if(tipo_contraste == "bilateral"){
         geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "darkgreen", xlim = c(media_inf, media_sup)) +
         geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "red", xlim = c(media_sup, df[2,1])) +
         geom_vline(xintercept = media, linetype = "dashed") +
-        labs(x = "", y = "",title="Intervalo de la media muestral") +
+        labs(x = "", y = "",title="Intervalo de la media muestral\n(supuesta H0 cierta)") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(media_inf,media,media_sup)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -412,7 +412,7 @@ if(tipo_contraste == "cola derecha"){
         geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "darkgreen", xlim = c(df[1,1], media_sup)) +
         geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "red", xlim = c(media_sup, df[2,1])) +
         geom_vline(xintercept = media, linetype = "dashed") +
-        labs(x = "", y = "",title="Intervalo de la media muestral") +
+        labs(x = "", y = "",title="Intervalo de la media muestral\n(supuesta HO cierta)") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(media,media_sup)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -484,7 +484,7 @@ if(tipo_contraste == "cola izquierda"){
           geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "red", xlim = c(df[1,1], media_inf)) +
           geom_area(stat = "function", fun = dnorm, args= list(mean = H0, sd = error_tipico), fill = "darkgreen", xlim = c(media_inf, df[2,1])) +
           geom_vline(xintercept = media, linetype = "dashed") +
-          labs(x = "", y = "",title="Intervalo de la media muestral") +
+          labs(x = "", y = "",title="Intervalo de la media muestral\n(supuesta H0 cierta)") +
           scale_y_continuous(breaks = NULL) +
           scale_x_continuous(breaks = c(media_inf,media)) +
           theme(axis.text.x = element_text(angle = 45))

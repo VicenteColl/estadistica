@@ -219,7 +219,7 @@ if(isFALSE(introducir)) {
         geom_area(stat = "function", fun = dnorm, fill = "red", xlim = c(valor_critico, 3)) +
         geom_vline(xintercept = -estadistico.Z2, linetype = "dashed") +
         geom_vline(xintercept = estadistico.Z2, linetype = "dashed") +
-        labs(x = "z", y = "") +
+        labs(x = "", y = "",title="Intervalo de la proporci\u00f3 muestral\n(supuesta H0 cierta)") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(estadistico.Z2,-estadistico.Z2,-valor_critico,valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -250,7 +250,7 @@ if(isFALSE(introducir)) {
         geom_area(stat = "function", fun = dnorm, fill = "darkgreen", xlim = c(-3L,valor_critico)) +
         geom_area(stat = "function", fun = dnorm, fill = "red", xlim = c(valor_critico, 3L)) +
         geom_vline(xintercept = estadistico.Z, linetype = "dashed") +
-        labs(x = "z", y = "") +
+        labs(x = "", y = "",title="Intervalo de la proporci\u00f3 muestral\n(supuesta H0 cierta)") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(estadistico.Z,valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -281,7 +281,7 @@ if(isFALSE(introducir)) {
         geom_area(stat = "function", fun = dnorm, fill = "red", xlim = c(-3L, valor_critico)) +
         geom_area(stat = "function", fun = dnorm, fill = "darkgreen", xlim = c(valor_critico, 3L)) +
         geom_vline(xintercept = estadistico.Z, linetype = "dashed") +
-        labs(x = "z", y = "") +
+        labs(x = "", y = "",title="Intervalo de la proporci\u00f3 muestral\n(supuesta H0 cierta)") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(estadistico.Z,valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))
