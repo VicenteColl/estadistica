@@ -344,11 +344,11 @@ contraste.diferencia.proporciones <- function(x,
 
   if(grafico){
 
-    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral`= Idifpro,`Graficos`= plot))
+    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral (supuesta H0 cierta)`= Idifpro,`Graficos`= plot))
 
   } else{
 
-    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral`= Idifpro))
+    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral (supuesta H0 cierta)`= Idifpro))
 
   }
 

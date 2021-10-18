@@ -5,8 +5,8 @@
 \alias{nivel.confianza}
 \title{Nivel de confianza.}
 \usage{
-nivel.confianza(min.pob,
-max.pob,
+nivel.confianza(min.pob = 2000,
+max.pob = 45000,
 muestras = 200,
 n = 100,
 confianza = 0.95,

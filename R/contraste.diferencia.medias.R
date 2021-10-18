@@ -621,11 +621,11 @@ if(isFALSE(introducir)) {
 
     grafico <- list(plot,plot2)
 
-    return(list(`Estadistico`=CH,`Intervalo de la diferencia de medias muestrales`= Imedia,`Graficos`= grafico))
+    return(list(`Estadistico`=CH,`Intervalo de la diferencia de medias muestrales (supuesta H0 cierta)`= Imedia,`Graficos`= grafico))
 
   } else{
 
-    return(list(`Estadistico`=CH,`Intervalo de la diferencia de medias muestrales`= Imedia))
+    return(list(`Estadistico`=CH,`Intervalo de la diferencia de medias muestrales (supuesta H0 cierta)`= Imedia))
 
   }
 }

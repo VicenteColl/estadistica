@@ -544,11 +544,11 @@ if(tipo_contraste == "cola izquierda"){
 
     plots <- list(plot,plot2)
 
-    return(list(`Estadistico`=CH,`Intervalo de la media muestral`= Imedia,`Graficos`= plots))
+    return(list(`Estadistico`=CH,`Intervalo de la media muestral (supuesta H0 cierta)`= Imedia,`Graficos`= plots))
 
   } else{
 
-    return(list(`Estadistico`=CH,`Intervalo de la media muestral`= Imedia))
+    return(list(`Estadistico`=CH,`Intervalo de la media muestral (supuesta H0 cierta)`= Imedia))
 
   }
 

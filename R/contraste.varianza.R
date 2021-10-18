@@ -395,11 +395,11 @@ df$y <-dchisq(df$x, gl)
 
     if(var_muestra == 1){
 
-      return(list(`Estadistico`=CH,`Intervalo de la varianza muestral`= Ivarianza,`Graficos`= plot))
+      return(list(`Estadistico`=CH,`Intervalo de la varianza muestral (supuesta H0 cierta)`= Ivarianza,`Graficos`= plot))
 
     } else {
 
-      return(list(`Estadistico`=CH,`Intervalo de la cuasi-varianza muestral`= Ivarianza,`Graficos`= plot))
+      return(list(`Estadistico`=CH,`Intervalo de la cuasi-varianza muestral (supuesta H0 cierta)`= Ivarianza,`Graficos`= plot))
 
     }
 
@@ -407,11 +407,11 @@ df$y <-dchisq(df$x, gl)
 
     if(var_muestra == 1){
 
-      return(list(`Estadistico`=CH,`Intervalo de la varianza muestral`= Ivarianza))
+      return(list(`Estadistico`=CH,`Intervalo de la varianza muestral (supuesta H0 cierta)`= Ivarianza))
 
     } else {
 
-      return(list(`Estadistico`=CH,`Intervalo de la cuasi-varianza muestral`= Ivarianza))
+      return(list(`Estadistico`=CH,`Intervalo de la cuasi-varianza muestral (supuesta H0 cierta)`= Ivarianza))
 
     }
 

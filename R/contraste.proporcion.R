@@ -300,11 +300,11 @@ if(isFALSE(introducir)) {
 
   if(grafico){
 
-    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral`= Iproporcion,`Graficos`= plot))
+    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral (supuesta H0 cierta)`= Iproporcion,`Graficos`= plot))
 
   } else{
 
-    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral`= Iproporcion))
+    return(list(`Estadistico`=CH,`Intervalo de la proporcion muestral (supuesta H0 cierta)`= Iproporcion))
 
   }
 
