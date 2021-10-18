@@ -8,6 +8,7 @@ export(contraste.media)
 export(contraste.proporcion)
 export(contraste.razon.varianzas)
 export(contraste.varianza)
+export(convergencia.varianza)
 export(correlacion)
 export(covarianza)
 export(cuantiles)
@@ -41,9 +42,11 @@ import("ggplot2")
 import("shiny")
 import("shinydashboard")
 importFrom("plotly","ggplotly")
+importFrom("plotly","animation_opts")
 importFrom("data.table","rbindlist")
 importFrom("stats","addmargins","var","cov",
            "cor","sd","na.omit","dchisq",
            "dnorm", "dt", "pnorm", "pt",
            "qchisq", "qf", "qnorm", "qt",
            "df", "pchisq", "pf")
+import("tidyverse")
