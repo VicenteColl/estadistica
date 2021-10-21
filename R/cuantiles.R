@@ -1,10 +1,11 @@
 #' @title Cuantiles.
 #'
 #' @description Calcula los cuantiles.
-#' @usage cuantiles(x, variable = NULL,
-#' pesos = NULL,
-#' cortes = c(0.25,0.5,0.75),
-#' exportar = FALSE)
+#' @usage cuantiles(x,
+#'                  variable = NULL,
+#'                  pesos = NULL,
+#'                  cortes = c(0.25,0.5,0.75),
+#'                  exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.

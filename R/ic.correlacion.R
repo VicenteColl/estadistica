@@ -3,9 +3,9 @@
 #' @description Calcula el intervalo de confianza para el coeficiente de correlación.
 #'
 #' @usage ic.correlacion(x,
-#' variable = NULL,
-#' introducir = FALSE,
-#' confianza = 0.95)
+#'                       variable = NULL,
+#'                       introducir = FALSE,
+#'                       confianza = 0.95)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.

@@ -2,9 +2,9 @@
 #'
 #' @description Calcula un resumen de los principales estadísticos descriptivos.
 #' @usage resumen.descriptivos(x,
-#' variable = NULL,
-#' pesos = NULL,
-#' exportar = FALSE)
+#'                             variable = NULL,
+#'                             pesos = NULL,
+#'                             exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
@@ -123,6 +123,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     valor_varianza <- varianza(x)
     valor_desviacion <- desviacion(x)
     valor_coef_variacion <- coeficiente.variacion(x)
+    ric <- cuantiles(x, cortes = 0.75) - cuantiles(x, cortes = 0.25)
     valor_forma <- as.data.frame(t(medidas.forma(x)))
     valor_moda <- as.data.frame(t(apply(x,2,moda)))
 
@@ -135,6 +136,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     valor_varianza <- varianza(x,variable=1,pesos=2)
     valor_desviacion <- desviacion(x,variable=1,pesos=2)
     valor_coef_variacion <- coeficiente.variacion(x,variable=1,pesos=2)
+    ric <- cuantiles(x,variable=1,pesos=2, cortes = 0.75) - cuantiles(x,variable=1,pesos=2, cortes = 0.25)
     valor_forma <- as.data.frame(t(medidas.forma(x,variable=1,pesos=2)))
     valor_moda <- as.data.frame(moda(x,variable=1,pesos=2))
 
@@ -147,6 +149,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
                                         valor_varianza,
                                         valor_desviacion,
                                         valor_coef_variacion,
+                                        ric,
                                         valor_forma,
                                         valor_moda),
                                    use.names = FALSE)
@@ -157,7 +160,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
   num_modas <-nrow(valor_moda)
 
   row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
-                          "coef.variaci\u00f3n","asimetr\u00eda","curtosis",paste("moda ",seq(1:num_modas),sep=""))
+                          "coef.variaci\u00f3n","RIC","asimetr\u00eda","curtosis",paste("moda ",seq(1:num_modas),sep=""))
 
   if (exportar) {
     filename <- paste("Resumen descriptivos basicos"," (", Sys.time(), ").xlsx", sep = "")

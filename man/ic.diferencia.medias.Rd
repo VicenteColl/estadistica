@@ -5,12 +5,12 @@
 \title{Intervalo confianza para la diferencia de medias.}
 \usage{
 ic.diferencia.medias(x,
-variable = NULL,
-introducir = FALSE,
-poblacion = c("normal","desconocida"),
-var_pob = c("conocida","desconocida"),
-iguales = FALSE,
-confianza = 0.95)
+                     variable = NULL,
+                     introducir = FALSE,
+                     poblacion = c("normal","desconocida"),
+                     var_pob = c("conocida","desconocida"),
+                     iguales = FALSE,
+                     confianza = 0.95)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

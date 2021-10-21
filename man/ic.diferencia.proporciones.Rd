@@ -5,10 +5,10 @@
 \title{Intervalo confianza para la diferencia de dos proporciones.}
 \usage{
 ic.diferencia.proporciones(x,
-variable = NULL,
-introducir = FALSE,
-confianza = 0.95,
-grafico = FALSE)
+                     variable = NULL,
+                     introducir = FALSE,
+                     confianza = 0.95,
+                     grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

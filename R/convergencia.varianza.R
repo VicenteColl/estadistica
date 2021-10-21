@@ -21,7 +21,7 @@
 #' @export
 convergencia.varianza <- function() {
 
-  cat("Al tratarse de un gr\u00edfico din\u00e1mico llevar\u00e1 unos segundos generarlo.\n\n")
+  cat("Al tratarse de un gr\u00e1fico din\u00e1mico llevar\u00e1 unos segundos generarlo.\n\n")
   cat("Para visualizarlo bien haz clic sobre el Zoom")
   sumatorio <- 1500
 

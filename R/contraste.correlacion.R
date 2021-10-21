@@ -3,11 +3,11 @@
 #' @description Realiza el contraste de hipótesis sobre el coeficiente de correlación.
 #'
 #' @usage contraste.correlacion(x,
-#' variable = NULL,
-#' introducir = FALSE,
-#' hipotesis_nula = 0,
-#' tipo_contraste = "bilateral",
-#' alfa = 0.05)
+#'                       variable = NULL,
+#'                       introducir = FALSE,
+#'                       hipotesis_nula = 0,
+#'                       tipo_contraste = "bilateral",
+#'                       alfa = 0.05)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.

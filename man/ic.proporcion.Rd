@@ -5,11 +5,11 @@
 \title{Intervalo confianza de una proporción.}
 \usage{
 ic.proporcion(x,
-variable = NULL,
-introducir = FALSE,
-irrestricto = FALSE,
-confianza = 0.95,
-grafico = FALSE)
+                     variable = NULL,
+                     introducir = FALSE,
+                     irrestricto = FALSE,
+                     confianza = 0.95,
+                     grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

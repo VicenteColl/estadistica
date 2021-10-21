@@ -84,7 +84,7 @@ ui <- dashboardPage(
                            tags$p(strong("Autores:"),br(),
                                   "Vicente Coll: vcoll@uv.es",br(),
                                   "Cristina Pardo: crispar4@uv.es",br(),
-                                  "Rosario Martínez: rosario.martinez@uv.es"),
+                                  "Rosario Martínez: rmartine@uv.es"),
                            style = "
       * {
     margin: 0;

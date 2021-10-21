@@ -5,11 +5,11 @@
 \title{Contraste de hipótesis de correlación}
 \usage{
 contraste.correlacion(x,
-variable = NULL,
-introducir = FALSE,
-hipotesis_nula = 0,
-tipo_contraste = "bilateral",
-alfa = 0.05)
+                      variable = NULL,
+                      introducir = FALSE,
+                      hipotesis_nula = 0,
+                      tipo_contraste = "bilateral",
+                      alfa = 0.05)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

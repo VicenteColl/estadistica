@@ -2,9 +2,9 @@
 #'
 #' @description Obtiene la matriz de varianzas y covarianzas.
 #' @usage matriz.covar(x,
-#' variable = NULL,
-#' tipo = c("muestral","cuasi"),
-#' exportar = FALSE)
+#'                     variable = NULL,
+#'                     tipo = c("muestral","cuasi"),
+#'                     exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.

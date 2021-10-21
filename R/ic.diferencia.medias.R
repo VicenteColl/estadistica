@@ -5,12 +5,12 @@
 #' \figure{qr_ic.diferencia.medias.png}{options: "center" width="25\%" heigth="25\%"}
 #'
 #' @usage ic.diferencia.medias(x,
-#' variable = NULL,
-#' introducir = FALSE,
-#' poblacion = c("normal","desconocida"),
-#' var_pob = c("conocida","desconocida"),
-#' iguales = FALSE,
-#' confianza = 0.95)
+#'                      variable = NULL,
+#'                      introducir = FALSE,
+#'                      poblacion = c("normal","desconocida"),
+#'                      var_pob = c("conocida","desconocida"),
+#'                      iguales = FALSE,
+#'                      confianza = 0.95)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere a dos variables, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables.

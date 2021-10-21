@@ -5,9 +5,9 @@
 \title{Resumen descriptivos.}
 \usage{
 resumen.descriptivos(x,
-variable = NULL,
-pesos = NULL,
-exportar = FALSE)
+                            variable = NULL,
+                            pesos = NULL,
+                            exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

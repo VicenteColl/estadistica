@@ -5,12 +5,12 @@
 #' \figure{qr_ic.media.png}{options: "center" width="25\%" heigth="25\%"}
 #'
 #' @usage ic.media(x,
-#' variable = NULL,
-#' introducir = FALSE,
-#' poblacion = c("normal","desconocida"),
-#' var_pob = c("conocida","desconocida"),
-#' confianza = 0.95,
-#' grafico = FALSE)
+#'                 variable = NULL,
+#'                 introducir = FALSE,
+#'                 poblacion = c("normal","desconocida"),
+#'                 var_pob = c("conocida","desconocida"),
+#'                 confianza = 0.95,
+#'                 grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
