@@ -1,19 +1,41 @@
 library(shiny)
 library(shinydashboard)
 
+jscode <- "shinyjs.closeWindow = function() { window.close(); }"
+
+
 ui <- dashboardPage(
 
   skin = "yellow",
 
   dashboardHeader(title = "Distribuciones de probabilidad",
-                  titleWidth = 300),
+
+                  titleWidth = 300,
+
+  tags$li(a(href = 'https://www.youtube.com/channel/UCSE44FyVr87BEFshZAi4voQ',
+            target = '_blank',
+            img(src = 'e_R_logoB_web.jpg',
+                title = 'Canal youtube:\nLa magia de estadistica', height = "30px"),
+            style = "padding-top:10px; padding-bottom:10px;"),
+          class = "dropdown"),
+
+  tags$li(a(href="JavaScript:window.close()",
+            title = "Cerrar",
+            icon("power-off")),
+          class = "dropdown"),
+
+  dropdownMenuOutput("messageMenu")
+),
 
   # sidebar ----
   dashboardSidebar(
-    sidebarMenu(id = "sidebarid",
-                menuItem("Binomial", tabName = "Binomial"),
+    sidebarMenu(#id = "sidebarid",
+                id = "tabName",
+                menuItem("Binomial",
+                         tabName = "Binomial"),
+                startExpanded = FALSE,
                 conditionalPanel(
-                  'input.sidebarid == "Binomial"',
+                  'input.tabName == "Binomial"',
                   sliderInput("n", label = "n:",
                               min = 1, max = 10, value = 5, step = 1),
 
@@ -21,14 +43,16 @@ ui <- dashboardPage(
                               min = 0.1, max = 0.9, value = 0.5, step = 0.1)),
 
                 menuItem("Poisson", tabName = "Poisson"),
+                startExpanded = FALSE,
                 conditionalPanel(
-                  'input.sidebarid == "Poisson"',
+                  'input.tabName == "Poisson"',
                   sliderInput("lambda", label = "lambda:",
                               min = 0.1, max = 10, value = 2, step = 0.1)),
 
                 menuItem("Uniforme", tabName = "Uniforme"),
+                startExpanded = TRUE,
                 conditionalPanel(
-                  'input.sidebarid == "Uniforme"',
+                  'input.tabName == "Uniforme"',
                   sliderInput("min", label = "min:",
                               min = 0, max = 10, value = 2, step = 1),
 
@@ -36,19 +60,57 @@ ui <- dashboardPage(
                               min = 0, max = 10, value = 6, step = 1)),
 
                 menuItem("Exponencial", tabName = "Exponencial"),
+                startExpanded = TRUE,
                 conditionalPanel(
-                  'input.sidebarid == "Exponencial"',
+                  'input.tabName == "Exponencial"',
                   sliderInput("rate", label = "lambda:",
                               min = 0.1, max = 8, value = 2, step = 0.1)),
 
                 menuItem("Normal", tabName = "Normal"),
+                startExpanded = TRUE,
                 conditionalPanel(
-                  'input.sidebarid == "Normal"',
+                  'input.tabName == "Normal"',
                   sliderInput("mean", label = "media:",
                               min = -5, max = 5, value = 0, step = 1),
 
                   sliderInput("sd", label = "desviacion típica:",
-                              min = 0.1, max = 5, value = 1, step = 0.1))
+                              min = 0.1, max = 5, value = 1, step = 0.1)),
+
+                menuItem("Acerca de...",
+                         tabName = "Acerca de",
+                         icon = icon("users"),
+                         startExpanded = TRUE,
+                         tags$footer(
+                           tags$p(strong("Autores:"),br(),
+                                  "Vicente Coll: vcoll@uv.es",br(),
+                                  "Cristina Pardo: crispar4@uv.es",br(),
+                                  "Rosario Martínez: rosario.martinez@uv.es"),
+                           style = "
+      * {
+    margin: 0;
+  }
+  html, body {
+    height: 50%;
+  }
+  .wrapper {
+    min-height: 100%;
+    height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+    height: 100%;
+    margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
+  }
+  .footer, .push {
+    height: -155px; /* .push must be the same height as .footer */
+  }
+
+  /*
+
+  Sticky Footer by Ryan Fait
+  http://ryanfait.com/
+
+  */"
+                         )
+                )
+
     )
   ),
 
