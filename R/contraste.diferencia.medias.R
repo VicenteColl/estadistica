@@ -26,13 +26,13 @@
 #' @param grafico Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.
 #'
 #' @author
-#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \strong{Vicente Coll-Serrano}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \strong{Cristina Pardo García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
@@ -48,6 +48,7 @@
 #'
 #' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 #'
+#' @importFrom stats pnorm na.omit dnorm pt qt dt
 #' @import dplyr ggplot2
 #'
 #' @export

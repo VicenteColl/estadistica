@@ -4,17 +4,16 @@
 #' @usage convergencia.varianza()
 #'
 #' @author
-#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \strong{Vicente Coll-Serrano}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \strong{Cristina Pardo García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
-#'
 #'
 #' @import dplyr ggplot2
 #'
@@ -23,7 +22,7 @@ convergencia.varianza <- function() {
 
   cat("Al tratarse de un gr\u00e1fico din\u00e1mico llevar\u00e1 unos segundos generarlo.\n\n")
   cat("Para visualizarlo bien haz clic sobre el Zoom")
-  sumatorio <- 1500
+  sumatorio <- sample(1000:2000,1)
 
   df <- data.frame(id = 1:100, n = sumatorio/(2:101),n_1 = sumatorio/(1:100))
 

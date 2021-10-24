@@ -15,17 +15,16 @@
 #' @param irrestricto Es un valor lógico que indica si se considera un muestreo aleatorio simple (por defecto, FALSE) o sin reemplazamiento (TRUE).
 #'
 #' @author
-#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \strong{Vicente Coll-Serrano}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \strong{Cristina Pardo García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' Universidad de Valencia (España)
-
+#' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @details
 #'
@@ -57,8 +56,9 @@
 #' @references
 #' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 #'
+#' @importFrom stats qt pt qnorm pnorm
 #'
-#' @import
+#' @import dplyr
 #'
 #' @export
 muestra <- function(poblacion = c("normal","dicotomica"),

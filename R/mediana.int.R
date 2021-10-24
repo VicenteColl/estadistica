@@ -10,7 +10,7 @@ mediana.int <- function(x, pesos = NULL){
 
   if(is.null(pesos)){
 
-    x <- drop_na(x)
+    x <- tidyr::drop_na(x)
     y <- names(x)
     names(x) <- "x"
 

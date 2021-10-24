@@ -14,17 +14,17 @@
 #' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
 #'
 #' @author
-#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \strong{Vicente Coll-Serrano}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \strong{Cristina Pardo García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' Universidad de Valencia (España)
-#'#'
+#' Facultad de Economía. Universidad de Valencia (España)
+#'
 #' @details
 #'
 #' El coeficiente de asimetría se obtiene a partir de la expresión:
@@ -57,7 +57,6 @@
 #'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
-#' @import
 #'
 #' @export
 medidas.forma <- function(x, variable = NULL, pesos = NULL,

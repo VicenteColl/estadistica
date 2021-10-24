@@ -13,19 +13,21 @@ leer.datos(introducir = FALSE, pos = 1)
 }
 \description{
 Carga un conjunto de datos.
+
+\figure{qr_leer_datos.png}{options: "center" width="25\%" heigth="25\%"}
 }
 \references{
 Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 }
 \author{
-\strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
+\strong{Vicente Coll-Serrano}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
-\strong{Rosario Martínez Verdú} (\email{Rosario.Martinez@uv.es}).
+\strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García} (\email{Cristina.Pardo-Garcia@uv.es}).
+\strong{Cristina Pardo García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
-Universidad de Valencia (España)
+Facultad de Economía. Universidad de Valencia (España)
 }

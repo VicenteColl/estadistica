@@ -46,8 +46,6 @@
 #'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
-#' @import
-#'
 #' @export
 cuantiles <- function(x, variable = NULL, pesos = NULL,
                       cortes = c(0.25,0.5,0.75),

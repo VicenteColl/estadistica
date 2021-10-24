@@ -2,9 +2,9 @@
 #'
 #' @description Calcula la varianza.
 #' @usage varianza(x,
-#' variable = NULL,
-#' pesos = NULL,
-#' tipo = c("muestral","cuasi"))
+#'                 variable = NULL,
+#'                 pesos = NULL,
+#'                 tipo = c("muestral","cuasi"))
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
@@ -12,16 +12,16 @@
 #' @param tipo Es un carácter. Por defecto de calcula la varianza muestral (tipo = "muestral"). Si tipo = "cuasi", se calcula la cuasivarianza muestral.
 #'
 #' @author
-#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \strong{Vicente Coll-Serrano}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
+#' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
+#' \strong{Cristina Pardo García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' Universidad de Valencia (España)
+#' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @details
 #'
@@ -51,7 +51,7 @@
 #'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
-#' @import
+#' @importFrom stats var
 #'
 #' @export
 varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuasi")){

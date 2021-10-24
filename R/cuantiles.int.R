@@ -11,7 +11,7 @@ cuantiles.int <- function(x, pesos = NULL, cortes = 0.5){
 
   if(is.null(pesos)){
 
-    x <- drop_na(x)
+    x <- tidyr::drop_na(x)
     #y <- names(x)
     #names(x) <- varnames
 

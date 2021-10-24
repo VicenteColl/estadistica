@@ -1,7 +1,7 @@
 library(shiny)
 library(shinydashboard)
 
-jscode <- "shinyjs.closeWindow = function() { window.close(); }"
+#jscode <- "shinyjs.closeWindow = function() { window.close(); }"
 
 
 ui <- dashboardPage(
@@ -19,7 +19,7 @@ ui <- dashboardPage(
             style = "padding-top:10px; padding-bottom:10px;"),
           class = "dropdown"),
 
-  tags$li(a(href="JavaScript:window.close()",
+  tags$li(a(href = "window.close()",
             title = "Cerrar",
             icon("power-off")),
           class = "dropdown"),
@@ -82,9 +82,11 @@ ui <- dashboardPage(
                          startExpanded = TRUE,
                          tags$footer(
                            tags$p(strong("Autores:"),br(),
-                                  "Vicente Coll: vcoll@uv.es",br(),
-                                  "Cristina Pardo: crispar4@uv.es",br(),
-                                  "Rosario Martínez: rmartine@uv.es"),
+                                  "Vicente Coll-Serrano",br(),
+                                  "Cristina Pardo García",br(),
+                                  "Rosario Martínez Verdú",br(),
+                                  "email: estadisTIC@uv.es"),
+
                            style = "
       * {
     margin: 0;

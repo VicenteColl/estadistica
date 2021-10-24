@@ -1,28 +1,33 @@
 #' @title Leer datos.
 #'
 #' @description Carga un conjunto de datos.
+#'
+#' \figure{qr_leer_datos.png}{options: "center" width="25\%" heigth="25\%"}
+#'
 #' @usage leer.datos(introducir = FALSE, pos = 1)
 #'
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), se abrirá una ventana para que el usuario seleccione el fichero de datos que quiere cargar. Si introducir = TRUE, el usuario introducirá él mismo los datos.
 #' @param pos Es un valor fijo utilizado para mostrar el dataframe del usuario en el Global Environment.
 #'
 #' @author
-#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
+#' \strong{Vicente Coll-Serrano}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' \strong{Rosario Martínez Verdú} (\email{Rosario.Martinez@@uv.es}).
+#' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García} (\email{Cristina.Pardo-Garcia@@uv.es}).
+#' \strong{Cristina Pardo García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
-#' Universidad de Valencia (España)
+#' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @references
 #' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 #'
-#' @import
-#'
+#' @importFrom stats na.omit
+
+#' @import dplyr
+
 #' @export
 leer.datos <- function(introducir = FALSE, pos=1){
 
