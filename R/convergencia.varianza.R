@@ -3,6 +3,8 @@
 #' @description Gráfico dinámico que ilustra la convergencia de la varianza y cuasi-varianza muestral a medida que aumenta el tamaño muestral.
 #' @usage convergencia.varianza()
 #'
+#' @return Devuelve un gráfico que es un objeto de la clase \code{plotly} y \code{htmlwidget}.
+#'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
@@ -10,7 +12,7 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García}.
+#' \strong{Cristina Pardo-García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)

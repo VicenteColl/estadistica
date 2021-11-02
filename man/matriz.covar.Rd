@@ -5,18 +5,21 @@
 \title{Matriz de varianzas y covarianzas.}
 \usage{
 matriz.covar(x,
-                    variable = NULL,
-                    tipo = c("muestral","cuasi"),
-                    exportar = FALSE)
+              variable = NULL,
+              tipo = c("muestral","cuasi"),
+              exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
 
-\item{tipo}{Es un carácter. Por defecto de calcula la matriz de varianzas y covarianzas muestrales (tipo = "muestral"). Si tipo = "cuasi", se calcula la matriz de cuasi-varianzas y cuasi-covarianzas muestrales.}
+\item{tipo}{Es un carácter. Por defecto de calcula la matriz de varianzas y covarianzas muestrales (\code{tipo = "muestral"}). Si \code{tipo = "cuasi"}, se calcula la matriz de cuasi-varianzas y cuasi-covarianzas muestrales.}
 
-\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).}
+}
+\value{
+La función devuelve la matriz de varianzas-covarianzas (muestrales, por defecto) de las variables seleccionadas en un \code{data.frame}.
 }
 \description{
 Obtiene la matriz de varianzas y covarianzas.
@@ -24,18 +27,27 @@ Obtiene la matriz de varianzas y covarianzas.
 \details{
 (1) Se obtiene la matriz de varianzas y covarianzas muestrales:
 
-\figure{matriz_var_cov_muestra.png}{options: width="50\%" heigth="50\%"}
+\if{html}{\figure{matrizvarcovmuestra.png}{options: width="50\%" alt="Figure: matrizvarcovmuestra.png"}}
+\if{latex}{\figure{matrizvarcovmuestra.png}{options: scale=.5}}
 
 (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) facilitan la matriz de cuasi-varianzas y cuasi-covarianzas muestrales:
 
-\figure{matriz_var_cov_cuasi.png}{options: width="55\%" heigth="55\%"}
+\if{html}{\figure{matrizvarcovcuasi.png}{options: width="55\%" alt="Figure: matrizvarcovcuasi.png"}}
+\if{latex}{\figure{matrizvarcovcuasi.png}{options: scale=.55}}
 
 Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de varianzas y covarianzas poblacional:
 
-\figure{matriz_var_cov_pob.png}{options: width="55\%" heigth="55\%"}
+\if{html}{\figure{matrizvarcovpob.png}{options: width="55\%" alt="Figure: matrizvarcovpob.png"}}
+\if{latex}{\figure{matrizvarcovpob.png}{options: scale=.55}}
+}
+\examples{
+
+matriz_covarianzas1 <- matriz.covar(startup)
+matriz_covarianzas2 <- matriz.covar(startup, tipo= "cuasi")
+
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -54,7 +66,7 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

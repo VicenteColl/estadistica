@@ -7,9 +7,11 @@
 #'                          exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.
-#' @param eliminar.na Valor lógico. Por defecto eliminar.na = TRUE. Si se quiere obtener la tabla de frecuencias con NAs, cambiar el argumento a FALSE.
-#' @param grafico Si grafico = TRUE, representa el histograma o el gráfico de barras de la variable seleccionada.
-#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
+#' @param eliminar.na Valor lógico. Por defecto \code{eliminar.na = TRUE}. Si se quiere obtener la tabla de frecuencias con NAs, cambiar el argumento a \code{eliminar.na = FALSE}.
+#' @param grafico Si \code{grafico = TRUE}, representa el histograma o el gráfico de barras de la variable seleccionada.
+#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).
+#'
+#' @return Devuelve la tabla de frecuencias como una \code{tibble}. Si \code{grafico = TRUE}, se devuelve en una lista la tabla de frecuencias y su representación gráfica.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -18,7 +20,7 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García}.
+#' \strong{Cristina Pardo-García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)

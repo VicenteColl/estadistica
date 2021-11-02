@@ -2,21 +2,24 @@
 #'
 #' @description Calcula el intervalo de confianza de la varianza poblacional.
 #'
-#' \figure{qr_ic_varianza.png}{options: "center" width="25\%" heigth="25\%"}
+#' \if{html}{\figure{qricvarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qricvarianza.png}{options: scale=.25}}
 #'
 #' @usage ic.varianza(x,
-#'              variable = NULL,
-#'              introducir = FALSE,
-#'              media_poblacion = c("desconocida","conocida"),
-#'              confianza = 0.95,
-#'              grafico = FALSE)
+#'            variable = NULL,
+#'            introducir = FALSE,
+#'            media_poblacion = c("desconocida","conocida"),
+#'            confianza = 0.95,
+#'            grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
-#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
-#' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
-#' @param media_poblacion Es un carácter. Indica si la media de la población es desconocida (por defecto, media_poblacion = "desconocida") o conocida (en este caso, cambiar media_poblacion = "conocida").
-#' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
-#' @param grafico Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.
+#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
+#' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
+#' @param media_poblacion Es un carácter. Indica si la media de la población es desconocida (por defecto, \code{media_poblacion = "desconocida"}) o conocida (en este caso, cambiar \code{media_poblacion = "conocida"}).
+#' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, \code{confianza = 0.95} (95 por ciento)
+#' @param grafico Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a \code{grafico = TRUE}. Nota: Esta opción no está implementada para todos los casos.
+#'
+#' @return Devuelve el intervalo de confianza de la varianza poblacional en un objeto de tipo \code{data.frame}. Si \code{grafico = T} devuelve una \code{list} con el intervalo de confianza y su representación gráfica.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -25,7 +28,7 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García}.
+#' \strong{Cristina Pardo-García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
@@ -34,22 +37,25 @@
 #'
 #' (1) Si la media poblacional es conocida:
 #'
-#'  \figure{ic_varianza_med_con.png}{options: width="50\%" heigth="50\%"}
+#' \if{html}{\figure{icvarianzamedcon.png}{options: width="50\%" alt="Figure: icvarianzamedcon.png"}}
+#' \if{latex}{\figure{icvarianzamedcon.png}{options: scale=.5}}
 #'
 #' (2) Si la media poblacional es desconocida.
 #'
 #' Con la varianza muestral:
 #'
-#' \figure{ic_varianza_med_desc_muestra.png}{options: width="30\%" heigth="30\%"}
+#' \if{html}{\figure{icvarianzameddescmuestra.png}{options: width="30\%" alt="Figure: icvarianzameddescmuestra.png"}}
+#' \if{latex}{\figure{icvarianzameddescmuestra.png}{options: scale=.3}}
 #'
 #' Con la cuasivarianza muestral:
 #'
-#' \figure{ic_varianza_med_desc_cuasi.png}{options: width="50\%" heigth="50\%"}
+#' \if{html}{\figure{icvarianzameddesccuasi.png}{options: width="50\%" alt="Figure: icvarianzameddesccuasi.png"}}
+#' \if{latex}{\figure{icvarianzameddesccuasi.png}{options: scale=.5}}
 #'
 #' Nota: En todos los casos se obtiene el valor de la chi-dos con n grados de libertad que deja a su derecha una probabilidad de alfa y 1-alfa.
 #'
 #' @references
-#' Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+#' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 #'
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'

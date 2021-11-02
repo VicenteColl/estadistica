@@ -12,24 +12,27 @@ nivel.confianza(min.pob = 2000,
                        confianza = 0.95,
                        grafico = TRUE,
                        exportar = FALSE,
-                       replicar = TRUE)
+                       replicar = FALSE)
 }
 \arguments{
-\item{min.pob}{Es un valor numérico que indica el valor mínimo poblacional. Por defecto min.pob = 2000}
+\item{min.pob}{Es un valor numérico que indica el valor mínimo poblacional. Por defecto \code{min.pob = 2000}}
 
-\item{max.pob}{Es un valor numérico que indica el valor máximo poblacional. Por defecto max.pob = 45000}
+\item{max.pob}{Es un valor numérico que indica el valor máximo poblacional. Por defecto \code{max.pob = 45000}}
 
-\item{muestras}{Es un valor numérico entre 50 y 10000 que indica el número de muestras que se extraen sin reemplazamiento de la población. Por defecto muestras = 200}
+\item{muestras}{Es un valor numérico entre 50 y 10000 que indica el número de muestras que se extraen sin reemplazamiento de la población. Por defecto \code{muestras = 200}}
 
-\item{n}{Es un valor numérico entre 25 y 2000 que indica el tamaño de la muestra. Por defecto n = 100.sumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
+\item{n}{Es un valor numérico entre 25 y 2000 que indica el tamaño de la muestra. Por defecto \code{n = 100}}
 
-\item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
+\item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, \code{confianza = 0.95} (95 por ciento)}
 
-\item{grafico}{Si grafico = TRUE se representan los intervalos de confianza de las muestras seleccionadas y la media poblacional.}
+\item{grafico}{Si \code{grafico = TRUE} se representan los intervalos de confianza de las muestras seleccionadas y la media poblacional.}
 
-\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).}
 
-\item{replicar}{Es un valor lógico. Si replicar=TRUE se fija una semilla para que los resultados sean reproducibles. Si replicar=FALSE los resultados serán aleatorios y cambiarán en cada realización.}
+\item{replicar}{Es un valor lógico. Si \code{replicar = TRUE} el usuario fijará una semilla para que los resultados sean reproducibles. Si \code{replicar = FALSE} los resultados serán aleatorios y cambiarán en cada realización.}
+}
+\value{
+Esta función devuelve un gráfico como un objeto de la clase \code{list}. La lista contiene los valores simulados para las muestras, el porcentaje de intervalos que contienen la media poblacional y su representación gráfica.
 }
 \description{
 Esta función simula una población de tamaño 100,000 de la que se extraen diversas muestras y construye los correspondientes intervalos de confianzas. El objetivo es transmitir el concepto de nivel de confianza.
@@ -56,7 +59,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

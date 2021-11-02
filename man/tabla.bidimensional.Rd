@@ -5,18 +5,21 @@
 \title{Tabla doble entrada.}
 \usage{
 tabla.bidimensional(x,
-                  distribucion = c("cruzada","condicionada"),
-                  frecuencias = c("absolutas","relativas"),
-                  exportar = FALSE)
+             distribucion = c("cruzada","condicionada"),
+             frecuencias = c("absolutas","relativas"),
+             exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).}
 
-\item{distribucion}{Es un caracter. Por defecto se obtien la tabla cruzada (distribucion = "cruzada"). Para obtener las distribuciones condicionadas cambiar el argumento: distribucion = "condicionada".}
+\item{distribucion}{Es un caracter. Por defecto se obtien la tabla cruzada (\code{distribucion = "cruzada"}). Para obtener las distribuciones condicionadas cambiar a \code{distribucion = "condicionada"}.}
 
-\item{frecuencias}{Es un carácter. Por defecto se obtienen las frecuencias absolutas ordinarias (frecuencias = "absolutas"). Para obtener las frecuencias relativas ordinarias cambiar el argumento: frecuencias = "relativas".}
+\item{frecuencias}{Es un carácter. Por defecto se obtienen las frecuencias absolutas ordinarias (\code{frecuencias = "absolutas"}). Para obtener las frecuencias relativas ordinarias cambiar a \code{frecuencias = "relativas"}.}
 
-\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).}
+}
+\value{
+Devuelve la tabla cruzada de las dos variables seleccionadas en un \code{data.frame}
 }
 \description{
 Calcula la tabla de frecuencias bidimensionales.
@@ -35,7 +38,7 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

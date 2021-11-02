@@ -2,7 +2,8 @@
 #'
 #' @description Calcula el intervalo de confianza de la diferencia de medias poblacionales.
 #'
-#' \figure{qr_ic.diferencia.medias.png}{options: "center" width="25\%" heigth="25\%"}
+#' \if{html}{\figure{qricdiferenciamedias.png}{options: width="25\%" alt="qricdiferenciamedias.png"}}
+#' \if{latex}{\figure{qricdiferenciamedias.png}{options: scale=.25}}
 #'
 #' @usage ic.diferencia.medias(x,
 #'                      variable = NULL,
@@ -13,12 +14,14 @@
 #'                      confianza = 0.95)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
-#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere a dos variables, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables.
-#' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
-#' @param poblacion Es un carácter. Indica la distribución de probabilidad de la población. Por defecto poblacion = "normal". Si la distribución de la población es desconocida, cambiar el argumento a poblacion = "desconocida".
-#' @param var_pob Es un carácter. Indica si la varianza poblacional es conocida (por defecto, var_pob = "conocida") o desconocida. En este último caso debería cambiarse el argumento a var_pob = "desconocida".
-#' @param iguales Por defecto se considera que las varianzas poblacionales son distintas (iguales = FALSE). En el supuesto de varianzas poblacionales iguales cambiar el argumento a iguales = TRUE
-#' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
+#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere a dos variables, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables.
+#' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
+#' @param poblacion Es un carácter. Indica la distribución de probabilidad de la población. Por defecto \code{poblacion = "normal"}. Si la distribución de la población es desconocida, cambiar a \code{poblacion = "desconocida"}.
+#' @param var_pob Es un carácter. Indica si la varianza poblacional es conocida (por defecto, \code{var_pob = "conocida"}) o desconocida. En este último caso debería cambiarse el argumento a \code{var_pob = "desconocida"}.
+#' @param iguales Por defecto se considera que las varianzas poblacionales son distintas (\code{iguales = FALSE}). En el supuesto de varianzas poblacionales iguales cambiar el argumento a \code{iguales = TRUE}.
+#' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, \code{confianza = 0.95} (95 por ciento)
+#'
+#' @return Devuelve el intervalo de confianza de la diferencia de medias poblacionales en un objeto de tipo \code{data.frame}.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -27,13 +30,13 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García}.
+#' \strong{Cristina Pardo-García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @references
-#' Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+#' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 #'
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'

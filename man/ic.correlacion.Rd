@@ -5,18 +5,21 @@
 \title{Intervalo confianza para el coeficiente de correlación}
 \usage{
 ic.correlacion(x,
-                      variable = NULL,
-                      introducir = FALSE,
-                      confianza = 0.95)
+          variable = NULL,
+          introducir = FALSE,
+          confianza = 0.95)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
-\item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
+\item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
 
-\item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
+\item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, \code{confianza = 0.95} (95 por ciento)}
+}
+\value{
+Devuelve el intervalo de confianza de la correlación lineal en un objeto de tipo \code{data.frame}
 }
 \description{
 Calcula el intervalo de confianza para el coeficiente de correlación.
@@ -24,16 +27,18 @@ Calcula el intervalo de confianza para el coeficiente de correlación.
 \details{
 (1) El intervalo para
 
-\figure{ic_correlacion_1.png}{options: width="20\%" heigth="20\%"}
+\if{html}{\figure{iccorrelacion1.png}{options: width="20\%" alt="iccorrelacion1.png"}}
+\if{latex}{\figure{iccorrelacion1.png}{options: scale=.2}}
 
 (2) es:
 
-\figure{ic_correlacion_2.png}{options: width="80\%" heigth="80\%"}
+\if{html}{\figure{iccorrelacion2.png}{options: width="80\%" alt="Figure: iccorrelacion2.png"}}
+\if{latex}{\figure{iccorrelacion2.png}{options: scale=.8}}
 
 Igualando la expresión en (1) al extremo inferior de (2) y al extremo superior de (2) se obtendrá el intervalo para la correlación.
 }
 \references{
-Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
@@ -48,7 +53,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

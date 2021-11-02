@@ -6,6 +6,9 @@
 \usage{
 distribucion.normal()
 }
+\value{
+No devuelve un valor, es una aplicación shiny.
+}
 \description{
 Aplicación interactiva para comparar dos distribuciones normales.
 }
@@ -16,7 +19,7 @@ Aplicación interactiva para comparar dos distribuciones normales.
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

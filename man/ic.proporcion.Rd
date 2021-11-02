@@ -5,41 +5,52 @@
 \title{Intervalo confianza de una proporción.}
 \usage{
 ic.proporcion(x,
-                     variable = NULL,
-                     introducir = FALSE,
-                     irrestricto = FALSE,
-                     confianza = 0.95,
-                     grafico = FALSE)
+          variable = NULL,
+          introducir = FALSE,
+          irrestricto = FALSE,
+          confianza = 0.95,
+          grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
-\item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
+\item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
 
 \item{irrestricto}{Es un valor lógico. Por defecto, irrectricto = FALSE. si se considera un muestreo irrectricto (extracción sin reemplazamiento), cambiar el argumento a irrestricto = TRUE.}
 
-\item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
+\item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, \code{confianza = 0.95} (95 por ciento)}
 
-\item{grafico}{Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.#'}
+\item{grafico}{Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a \code{grafico = TRUE}. Nota: Esta opción no está implementada para todos los casos.}
+}
+\value{
+Devuelve el intervalo de confianza de la proporción poblacional en un objeto de tipo \code{data.frame}. Si \code{grafico = T} devuelve una \code{list} con el intervalo de confianza y su representación gráfica.
 }
 \description{
 Calcula el intervalo de confianza de una proporción.
 
-\figure{qr_ic.proporcion.png}{options: "center" width="25\%" heigth="25\%"}
+\if{html}{\figure{qricproporcion.png}{options: width="25\%" alt="Figure: qricproporcion.png"}}
+\if{latex}{\figure{qricproporcion.png}{options: scale=.25}}
 }
 \details{
 (1) Para tamaños muestrales muy grandes:
 
- \figure{ic_proporcion_3.png}{options: width="80\%" heigth="80\%"}
+\if{html}{\figure{icproporcion3.png}{options: width="80\%" alt="Figure: "icproporcion3.png"}}
+\if{latex}{\figure{icproporcion3.png}{options: scale=.8}}
 
-(2) Para cualquier tamaño muestral puede obtenerse el intervalo \figure{ic_proporcion_1.png}{options: width="15\%" heigth="15\%"}, correspondiendo los valores a las raíces de:
+(2) Para cualquier tamaño muestral puede obtenerse el intervalo:
 
- \figure{ic_proporcion_2.png}{options: width="80\%" heigth="80\%"}
+\if{html}{\figure{icproporcion1.png}{options: width="15\%" alt="Figure: icproporcion2.png"}}
+\if{latex}{\figure{icproporcion1.png}{options: scale=.15}}
+
+correspondiendo los valores a las raíces de:
+
+\if{html}{\figure{icproporcion2.png}{options: width="80\%" alt="Figure: icproporcion2.png"}}
+\if{latex}{\figure{icproporcion2.png}{options: scale=.8}}
 }
 \references{
-Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
@@ -54,7 +65,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

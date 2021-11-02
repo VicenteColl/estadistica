@@ -2,12 +2,14 @@
 #'
 #' @description Calcula la covarianza.
 #' @usage covarianza(x,
-#'                   variable = NULL,
-#'                   tipo = c("muestral","cuasi"))
+#'          variable = NULL,
+#'          tipo = c("muestral","cuasi"))
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
 #' @param tipo Es un carácter. Por defecto de calcula la covarianza muestral (tipo = "muestral"). Si tipo = "cuasi", se calcula la cuasi-covarianza muestral.
+#'
+#' @return Esta función devuelve la covarianza en un objeto de la clase \code{data.frame}.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -25,19 +27,22 @@
 #'
 #' (1) La covarianza muestral se obtiene a partir de la siguiente expresión:
 #'
-#' \figure{covarianza_muestra.png}{options: width="50\%" heigth="50\%"}
+#' \if{html}{\figure{covarianzamuestra.png}{options: width="50\%" alt="Figure: covarianzamuestra.png"}}
+#' \if{latex}{\figure{covarianzamuestra.png}{options: scale=.5}}
 #'
 #' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la covarianza a partir de la expresión:
 #'
-#'\figure{covarianza_cuasi.png}{options: width="50\%" heigth="50\%"}
+#' \if{html}{\figure{covarianzacuasi.png}{options: width="50\%" alt="Figure: covarianzacuasi.png"}}
+#' \if{latex}{\figure{covarianzacuasi.png}{options: scale=.5}}
 #'
 #' Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
 #'
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la covarianza poblacional:
 #'
-#' \figure{covarianza_pob.png}{options: width="50\%" heigth="50\%"}
-#'
+#' \if{html}{\figure{covarianzapob.png}{options: width="50\%" alt="Figure: covarianzapob.png"}}
+#' \if{latex}{\figure{covarianzapob.png}{options: scale=.5}}
+
 #' @seealso \code{\link{varianza}}, \code{\link{desviacion}},\code{\link{matriz.covar}}
 #'
 #' @references

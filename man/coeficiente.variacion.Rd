@@ -5,7 +5,10 @@
 \alias{coeficiente.variacion}
 \title{Coeficiente de variación.}
 \usage{
-coeficiente.variacion(x, variable = NULL, pesos = NULL)
+coeficiente.variacion(x,
+                   variable = NULL,
+                   pesos = NULL,
+                   tipo = c("muestral","cuasi"))
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
@@ -13,6 +16,11 @@ coeficiente.variacion(x, variable = NULL, pesos = NULL)
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
 \item{pesos}{Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
+
+\item{tipo}{Es un carácter. Por defecto calcula la desviación típica muestral (\code{tipo = "muestral"}). Si \code{tipo = "cuasi"}, se calcula la cuasi-desviación típica muestral.}
+}
+\value{
+Esta función devuelve el valor del coeficiente de variación en un objeto de la clase \code{data.frame}. Por defecto, el coeficiente de variación se calcula utilizando la desviación típica muestral.
 }
 \description{
 Calcula el coeficiente de variación de Pearson.
@@ -20,14 +28,22 @@ Calcula el coeficiente de variación de Pearson.
 \details{
 El coeficiente de variación (muestral) se obtiene a partir de la siguiente expresión:
 
-\figure{coeficiente_variacion.png}{options: width="20\%" heigth="20\%"}
+\if{html}{\figure{coeficientevariacion.png}{options: width="20\%" alt="Figure: coeficientevariacion.png"}}
+\if{latex}{\figure{coeficientevariacion.png}{options: scale=.2}}
 
 donde S es la desviación típica muestral. También puede calcularse utilizando la cuasi-desviación típica (Sc).
 }
 \note{
-Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene el coeficiente de variación poblacional:
+Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N), se obtiene el coeficiente de variación poblacional:
 
-\figure{coeficiente_variacion_pob.png}{options: width="20\%" heigth="20\%"}
+\if{html}{\figure{coeficientevariacionpob.png}{options: width="20\%" alt="Figure: coeficientevariacionpob.png"}}
+\if{latex}{\figure{coeficientevariacionpob.png}{options: scale=.2}}
+}
+\examples{
+
+variacion1 <- coeficiente.variacion(startup[1])
+variacion2 <- coeficiente.variacion(startup)
+
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -43,7 +59,7 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

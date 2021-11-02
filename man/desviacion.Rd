@@ -5,18 +5,21 @@
 \title{Desviación típica.}
 \usage{
 desviacion(x,
-                  variable = NULL,
-                  pesos = NULL,
-                  tipo = c("muestral","cuasi"))
+         variable = NULL,
+         pesos = NULL,
+         tipo = c("muestral","cuasi"))
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
 \item{pesos}{Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
 
-\item{tipo}{Es un carácter. Por defecto de calcula la desviación típica muestral (tipo = "muestral"). Si tipo = "cuasi", se calcula la cuasi-desviación típica muestral.}
+\item{tipo}{Es un carácter. Por defecto de calcula la desviación típica muestral (\code{tipo = "muestral"}). Si \code{tipo = "cuasi"}, se calcula la cuasi-desviación típica muestral.}
+}
+\value{
+Esta función devuelve un objeto de la clase \code{data.frame}. Si \code{tipo="muestral"}, devuelve la desviación típica muestral. Si \code{tipo="cuasi"}, devuelve la cuasi-desviación típica muestral.
 }
 \description{
 Calcula la desviación típica.
@@ -24,20 +27,30 @@ Calcula la desviación típica.
 \details{
 (1) La expresión de la de la desviación típica muestral es:
 
-\figure{desviacion.png}{options: width="40\%" heigth="40\%"}
+\if{html}{\figure{desviacion.png}{options: width="40\%"}}
+\if{latex}{\figure{desviacion.png}{options: scale=.4}}
 
 La desviación típica muestral así definida es el estimador máximo verosímil de la desviación típica de una población normal
 
 (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
 
-\figure{cuasidesviacion.png}{options: width="40\%" heigth="40\%"}
+\if{html}{\figure{cuasidesviacion.png}{options: width="40\%"}}
+\if{latex}{\figure{cuasidesviacion.png}{options: scale=.4}}
 
 Nosotros llamamos a esta medida: cuasi-desviación típica muestral y es un estimador insesgado de la desviación típica poblacional.
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la desviación típica poblacional:
 
-\figure{desviacion_pob.png}{options: width="40\%" heigth="40\%"}
+\if{html}{\figure{desviacionpob.png}{options: width="40\%"}}
+\if{latex}{\figure{desviacionpob.png}{options: scale=.4}}
+}
+\examples{
+
+desviacion1 <- desviacion(startup[1])
+desviaciona2 <- desviacion(startup,variable=1)
+desviacion3 <- desviacion(startup,variable=1, tipo="cuasi")
+
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -56,7 +69,7 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

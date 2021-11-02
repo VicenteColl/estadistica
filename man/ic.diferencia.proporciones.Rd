@@ -24,17 +24,19 @@ ic.diferencia.proporciones(x,
 \description{
 Calcula el intervalo de confianza de la diferencia de dos proporciones.
 
-\figure{qr_ic.diferencia.proporciones.png}{options: align= "center" width="25\%" heigth="25\%"}
+\if{html}{\figure{qricdiferenciaproporciones.png}{options: width="25\%" alt="qricdiferenciaproporciones.png"}}
+\if{latex}{\figure{qricdiferenciaproporciones.png}{options: scale=.25}}
 }
 \details{
 Se obtiene el intervalo:
 
-\figure{ic_dif_proporciones.png}{options: width="65\%" heigth="65\%"}
+\if{html}{\figure{icdifproporciones.png}{options: width="65\%" alt="icdifproporciones.png"}}
+\if{latex}{\figure{icdifproporciones.png}{options: scale=.65}}
 
 Nota: Las proporciones muestrales del error típico son sustituidas por sus estimaciones máximo-verosímiles (proporciones muestrales).
 }
 \references{
-Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
@@ -49,7 +51,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

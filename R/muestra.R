@@ -2,17 +2,23 @@
 #'
 #' @description Calcula el tamaño muestral para estimar la media de una población normal o la proporcion p de una población.
 #'
-#' \figure{qr_muestra_1.png}{options: width="25\%" heigth="25\%"}     \figure{qr_muestra_2.png}{options: width="25\%" heigth="25\%"}
+#' \if{html}{\figure{qrmuestra1.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
+#' \if{latex}{\figure{qrmuestra1.png}{options: scale=.25}}
+#'
+#' \if{html}{\figure{qrmuestra2.png}{options: width="25\%" alt="Figure: qrmuestra2.png"}}
+#' \if{latex}{\figure{qrmuestra2.png}{options: scale=.25}}
 #'
 #' @usage muestra(poblacion = c("normal","dicotomica"),
 #'                error_estimacion = NULL,
 #'                confianza = 0.95,
 #'                irrestricto = FALSE)
 #'
-#' @param poblacion Texto, si es "normal" (por defecto) calcula el tamaño muestral que permita estimar la media de una población normal, si "dicotomica" para estimar la proporción p de una población.
+#' @param poblacion Texto, si \code{poblacion = "normal"} (por defecto), calcula el tamaño muestral que permita estimar la media de una población normal. Si \code{poblacion = "dicotomica"}, para estimar la proporción p de una población.
 #' @param error_estimacion Es un valor que establece el error de estimación. Es la semiamplitud (mitad de la precisión) del intervalo de confianza. Esta aproximación solo es válida en distribuciones simétricas (normal o t-student).
-#' @param confianza Es un valor entre 0 y 1 que indica el nivel de confianza. Por defecto el valor es 0.95
-#' @param irrestricto Es un valor lógico que indica si se considera un muestreo aleatorio simple (por defecto, FALSE) o sin reemplazamiento (TRUE).
+#' @param confianza Es un valor entre 0 y 1 que indica el nivel de confianza. Por defecto, \code{confianza = 0.95} (95 por ciento).
+#' @param irrestricto Es un valor lógico que indica si se considera un muestreo aleatorio simple (por defecto, \code{irrestricto = FALSE}) o sin reemplazamiento (\code{irrestricto = TRUE}).
+#'
+#' @return Devuelve el tamaño de la muesta en un objeto de tipo \code{data.frame}.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -21,7 +27,7 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García}.
+#' \strong{Cristina Pardo-García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
@@ -30,21 +36,25 @@
 #'
 #' (1) El tamaño muestral para estimar la media poblacional se obtiene a partir de la siguiente expresión:
 #'
-#' \figure{tamano_media.png}{options: width="30\%" heigth="30\%"}
+#' \if{html}{\figure{tamanomedia.png}{options: width="30\%" alt="Figure: tamanomedia.png"}}
+#' \if{latex}{\figure{tamanomedia.png}{options: scale=.3}}
 #'
 #' y si el muestreo es irrestricto:
 #'
-#' \figure{tamano_media_irrestricto.png}{options: width="60\%" heigth="60\%"}
+#' \if{html}{\figure{tamanomediairrestricto.png}{options: width="60\%" alt="tamanomediairrestricto.png"}}
+#' \if{latex}{\figure{tamanomediairrestricto.png}{options: scale=.6}}
 #'
 #' Nota: si la varianza poblacional no es conocida puede estimarse a través de la varianza (o cuasi-varianza) muestral.
 #'
 #' (2) El tamaño muestral para estimar la proporción de una característica se obtiene a partir de la expresión:
 #'
-#' \figure{tamano_proporcion.png}{options: width="35\%" heigth="35\%"}
+#' \if{html}{\figure{tamanoproporcion.png}{options: width="35\%" alt="Figure: tamanoproporcion.png"}}
+#' \if{latex}{\figure{tamanoproporcion.png}{options: scale=.35}}
 #'
 #' y si el muestreo es irrectricto:
 #'
-#' \figure{tamano_proporcion_irrestricto.png}{options: width="65\%" heigth="65\%"}
+#' \if{html}{\figure{tamanoproporcionirrestricto.png}{options: width="65\%" alt="Figure: tamanoproporcionirrestricto.png"}}
+#' \if{latex}{\figure{tamanoproporcionirrestricto.png}{options: scale=.65}}
 #'
 #' Nota: puede estimarse la proporción poblacional por la proporción muestral o, en caso
 #' de no disponer de información, suponer el caso más desfavorable: p=q=0.5
@@ -54,7 +64,13 @@
 #' En el caso del tamaño muestral para la proporción: si la proporción poblacional no es conocida, puede estimarse por la proporción muestral o considerar el caso más desfavorable (p=q=0.5)
 #'
 #' @references
-#' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
+#' Casas José M. (1997) Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+#'
+#' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
+#'
+#' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
+#'
+#' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 #'
 #' @importFrom stats qt pt qnorm pnorm
 #'

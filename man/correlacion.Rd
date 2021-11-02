@@ -9,7 +9,10 @@ correlacion(x, variable = NULL)
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
+}
+\value{
+Esta función devuelve el valor del coeficiente de correlación lineal en un objeto de la clase \code{data.frame}.
 }
 \description{
 Calcula el coeficiente de correlación de Pearson.
@@ -17,14 +20,22 @@ Calcula el coeficiente de correlación de Pearson.
 \details{
 El coeficiente de correlación muestral se obtiene a partir de la siguiente expresión:
 
-\figure{correlacion.png}{options: width="50\%" heigth="50\%"}
+\if{html}{\figure{correlacion.png}{options: width="50\%" alt="Figure: correlacion.png"}}
+\if{latex}{\figure{correlacion.png}{options: scale=.5}}
 
 Por su construcción, el valor del coeficiente de correlación muestral es el mismo tanto si se calcula a partir de la covarianza y desviaciones típicas muestrales como si se hace a partir de la cuasi-covarianza y cuasi-desviaciones típicas muestrales.
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene el coeficiente de correlació poblacional:
 
-\figure{correlacion_pob.png}{options: width="30\%" heigth="30\%"}
+\if{html}{\figure{correlacionpob.png}{options: width="30\%" alt="Figure: correlacionpob.png"}}
+\if{latex}{\figure{correlacionpob.png}{options: scale=.3}}
+}
+\examples{
+
+correlacion1 <- correlacion(startup[,c(1,3)])
+correlacion2 <- correlacion(startup,variable=c(1,3))
+
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -43,7 +54,7 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

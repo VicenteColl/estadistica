@@ -13,13 +13,16 @@ cuantiles(x,
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
 \item{pesos}{Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
 
 \item{cortes}{Vector con los puntos de corte a calcular. Por defecto se calcula el primer, segundo y tercer cuartil.}
 
-\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).}
+}
+\value{
+Si \code{pesos = NULL}, la función devuelve los cuantiles de todas las variables seleccionadas en un objeto de tipo \code{data.frame}. En caso contrario, devuelve los cuantiles de la variable para la que se ha facilitado la distribución de frecuencias.
 }
 \description{
 Calcula los cuantiles.
@@ -27,7 +30,8 @@ Calcula los cuantiles.
 \details{
 Los cuantiles se obtienen a partir de la siguiente regla de decisión:
 
-\figure{cuantiles.png}{options: width="85\%" heigth="85\%"}
+\if{html}{\figure{cuantiles.png}{options: width="85\%" alt="Figure: cuantiles.png"}}
+\if{latex}{\figure{cuantiles.png}{options: scale=.85}}
 
 Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
 
@@ -36,6 +40,13 @@ cuartiles: s=1,2,3 y k=4
 deciles: s= 1,2,...,9 y k=10
 
 percentiles: s=1,2,...,99 y k=100
+}
+\examples{
+
+cuantiles1 <- cuantiles(startup[1])
+cuantiles2 <- cuantiles(startup,variable=1,cortes=seq(0.1,0.9,0.1))
+cuantiles3 <- cuantiles(salarios2018,variable=7,pesos=10 )
+
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -54,6 +65,6 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García} (\email{cristina.pardo-garcia@uv.es}).
+\strong{Cristina Pardo-García} (\email{cristina.pardo-garcia@uv.es}).
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 }

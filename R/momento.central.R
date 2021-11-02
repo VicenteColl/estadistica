@@ -6,6 +6,8 @@
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param orden Es un valor numérico que representa el orden del momento central (orden = {1,2,3,4,...})
 #'
+#' @return Devuelve el valor de momento central de orden seleccionado
+#'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
@@ -13,7 +15,7 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García}.
+#' \strong{Cristina Pardo-García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
@@ -32,7 +34,7 @@ momento.central <- function(x, orden){
 
   if(!is.integer(orden)){
 
-    stop("El orden del momento central debe ser un valor num\\u00e9rico entero")
+    stop("El orden del momento central debe ser un valor num\u00e9rico entero")
 
   }
 
@@ -41,7 +43,7 @@ momento.central <- function(x, orden){
 
   if(length(x) > 1){
 
-    stop("Esta funci\\u00f3n solo funciona para una variable y parece que tus datos tienen varias variables")
+    stop("Esta funci\u00f3n solo funciona para una variable y parece que tus datos tienen varias variables")
 
   }
 

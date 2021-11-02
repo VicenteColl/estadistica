@@ -27,24 +27,35 @@ Calcula el coeficiente de asimetría y de curtosis de Fisher.
 \details{
 El coeficiente de asimetría se obtiene a partir de la expresión:
 
-\figure{asimetria_muestra.png}{options: width="25\%" heigth="25\%"}
+\if{html}{\figure{asimetriamuestra.png}{options: width="25\%" alt="Figure: asimetriamuestra.png"}}
+\if{latex}{\figure{asimetriamuestra.png}{options: scale=.25}}
 
 y el coeficiente de curtosis:
 
-\figure{curtosis_muestra.png}{options: width="35\%" heigth="35\%"}
+\if{html}{\figure{curtosismuestra.png}{options: width="35\%" alt="Figure: curtosismuestra.png"}}
+\if{latex}{\figure{curtosismuestra.png}{options: scale=.35}}
 }
 \note{
 (1) El coeficiente de asimetría poblacional es:
 
-\figure{asimetria_pob.png}{options: width="25\%" heigth="25\%"}
+\if{html}{\figure{asimetriapob.png}{options: width="25\%" alt="Figure: asimetriapob.png"}}
+\if{latex}{\figure{asimetriapob.png}{options: scale=.25}}
 
 (2) El coeficiente de curtosis poblacional es:
 
-\figure{curtosis_pob.png}{options: width="35\%" heigth="35\%"}
+\if{html}{\figure{curtosispob.png}{options: width="35\%" alt="Figure: curtosispob.png"}}
+\if{latex}{\figure{curtosispob.png}{options: scale=.35}}
 
 (3) Si el argumento alternativa = TRUE, se obtienen los resultados de asimetría y curtosis que generalmente ofrecen softwares como: SPSS, Stata, SAS, Excel, etc.
 
-\figure{curtosis_soft.png}{options: width="120\%" heigth="120\%"}
+\if{html}{\figure{curtosissoft.png}{options: width="120\%" alt="Figure: curtosissoft.png"}}
+\if{latex}{\figure{curtosissoft.png}{options: scale=1.2}}
+}
+\examples{
+
+forma <- medidas.forma(startup)
+forma2 <- medidas.forma(startup, alternativa= TRUE)
+
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -63,7 +74,7 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

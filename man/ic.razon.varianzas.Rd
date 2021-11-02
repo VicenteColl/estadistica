@@ -5,49 +5,56 @@
 \title{Intervalo confianza para la razón (cociente) de varianzas.}
 \usage{
 ic.razon.varianzas(x,
-                   variable = NULL,
-                   introducir = FALSE,
-                   media_pob = c("desconocida","conocida"),
-                   confianza = 0.95,
-                   grafico = FALSE)
+                variable = NULL,
+                introducir = FALSE,
+                media_pob = c("desconocida","conocida"),
+                confianza = 0.95,
+                grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere a dos variables, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables.}
 
-\item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
+\item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
 
-\item{media_pob}{Es un carácter. Por defecto se supone que la media poblacional es desconocida (media_pob="desconocida")}
+\item{media_pob}{Es un carácter. Por defecto se supone que la media poblacional es desconocida (\code{media_pob="desconocida"})}
 
-\item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
+\item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, \code{confianza = 0.95} (95 por ciento)}
 
-\item{grafico}{Es un valor lógico. Si grafico=TRUE se representa el intervalo de confianza estimado}
+\item{grafico}{Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a \code{grafico = TRUE}. Nota: Esta opción no está implementada para todos los casos.}
+}
+\value{
+Devuelve el intervalo del cociente de varianzas poblacionales en un objeto de tipo \code{data.frame}. Si \code{grafico = T} devuelve una \code{list} con el intervalo de confianza y su representación gráfica.
 }
 \description{
 Calcula el intervalo de confianza para la razón (o cociente) de varianzas.
 
-\figure{qr_ic.razon.varianzas.png}{options: "center" width="25\%" heigth="25\%"}
+\if{html}{\figure{qricrazonvarianzas.png}{options: width="25\%" alt="Figure: qricrazonvarianzas.png"}}
+\if{latex}{\figure{qricrazonvarianzas.png}{options: scale=.25}}
 }
 \details{
 Se calcula el intervalo de confianza para el cociente entre la varianza poblacional de la muestra 1 y la de la muestra 2, es decir:
 
-\figure{ic_cociente_var.png}{options: width="10\%" heigth="10\%"}
+\if{html}{\figure{iccocientevar.png}{options: width="10\%" alt="Figure: iccocientevar.png"}}
+\if{latex}{\figure{iccocientevar.png}{options: scale=.1}}
 
 Los intervalos que se obtienen son, supuesta desconocida la media poblacional:
 
 (1) si se trabaja con las varianzas muestrales
 
-\figure{ic_cociente_var_muestra.png}{options: width="110\%" heigth="110\%"}
+\if{html}{\figure{iccocientevarmuestra.png}{options: width="110\%" alt="Figure: iccocientevarmuestra.png"}}
+\if{latex}{\figure{iccocientevarmuestra.png}{options: scale=1.1}}
 
 (2) si se trabaja con las cuasi-varianzas muestrales
 
-\figure{ic_cociente_var_cuasi.png}{options: width="80\%" heigth="80\%"}
+\if{html}{\figure{iccocientevarcuasi.png}{options: width="80\%" alt="Figure: iccocientevarcuasi.png"}}
+\if{latex}{\figure{iccocientevarcuasi.png}{options: scale=.8}}
 
 Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerador y (n1-1) en el denominador.
 }
 \references{
-Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
@@ -62,7 +69,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

@@ -16,22 +16,25 @@ contraste.media(x,
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
-\item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
+\item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
 
-\item{var_pob}{Es un carácter. Indica si la varianza poblacional es conocida (por defecto, var_pob = "conocida") o desconocida. En este último caso debería cambiarse el argumento a var_pob = "desconocida".}
+\item{var_pob}{Es un carácter. Indica si la varianza poblacional es conocida (por defecto, \code{var_pob = "conocida"}) o desconocida. En este último caso debería cambiarse el argumento a \code{var_pob = "desconocida"}.}
 
 \item{hipotesis_nula}{Es un valor numérico.}
 
-\item{tipo_contraste}{Es un carácter. Indica el tipo de contraste a realizar. Por defecto, tipo_contraste = "bilateral".
-Si tipo_contraste = "bilateral", se contraste la hipótesis nula igual un valor frente a la alternativa distinto de dicho valor.
-Si tipo_contraste = "cola derecha", se contrasta la hipótesis nula menor o igual a un valor frente a la alternativa mayor a dicho valor.
-Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o igual a un valor frente a la alternativa menos a dicho valor.}
+\item{tipo_contraste}{Es un carácter. Indica el tipo de contraste a realizar. Por defecto, \code{tipo_contraste = "bilateral"}.
+Si \code{tipo_contraste = "bilateral"}, se contraste la hipótesis nula igual un valor frente a la alternativa distinto de dicho valor.
+Si \code{tipo_contraste = "cola derecha"}, se contrasta la hipótesis nula menor o igual a un valor frente a la alternativa mayor a dicho valor.
+Si \code{tipo_contraste = "cola izquierda"}, se contrasta la hipótesis nula mayor o igual a un valor frente a la alternativa menos a dicho valor.}
 
-\item{alfa}{Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, alfa = 0.05 (5 por ciento)}
+\item{alfa}{Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, \code{alfa = 0.05} (5 por ciento)}
 
-\item{grafico}{Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.}
+\item{grafico}{Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a \code{grafico = TRUE}. Nota: Esta opción no está implementada para todos los casos.}
+}
+\value{
+La función devuelve un objeto de la clase \code{list}. La lista contendrá información sobre: la hipótesis nula contrastada, el estadístico de prueba, el p-valor y  el intervalo de confianza para la media muestral supuesta cierta la hipótesis nula. Si \code{grafico=TRUE} se incluirá una representación gráfica de la región de aceptación-rechazo con los valores críticos y otra gráfica con el intervalo para la media muestral (supesta cierta H0).
 }
 \description{
 Realiza el contraste de hipótesis sobre la media poblacional.
@@ -39,7 +42,8 @@ Realiza el contraste de hipótesis sobre la media poblacional.
 \details{
 (1) Si la varianza poblacional es conocida, el estadístico Z es:
 
-\figure{c_media_var_con.png}{options: width="30\%" heigth="30\%"}
+\if{html}{\figure{cmediavarcon.png}{options: width="30\%" alt="Figure: cmediavarcon.png"}}
+\if{latex}{\figure{cmediavarcon.png}{options: scale=.3}}
 
 y se distribuye como una N(0,1)
 
@@ -49,16 +53,18 @@ Si la varianza poblacional es desconocida pero la muesta es grande, puede utiliz
 
 (2.1) usando la varianza muestral
 
-\figure{c_media_var_desc_muestra.png}{options: width="30\%" heigth="30\%"}
+\if{html}{\figure{cmediavardescmuestra.png}{options: width="30\%" alt="Figure: cmediavardescmuestra.png"}}
+\if{latex}{\figure{cmediavardescmuestra.png}{options: scale=.3}}
 
 (2.2) usando la cuasi-varianza muestral
 
-\figure{c_media_var_desc_cuasi.png}{options: width="30\%" heigth="30\%"}
+\if{html}{\figure{cmediavardesccuasi.png}{options: width="30\%" alt="Figure: cmediavardesccuasi.png"}}
+\if{latex}{\figure{cmediavardesccuasi.png}{options: scale=.3}}
 
 Nota: en ambos casos el estadístico T se distrubuye como un t con n-1 grados de libertad.
 }
 \references{
-Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
@@ -76,7 +82,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

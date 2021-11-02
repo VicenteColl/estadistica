@@ -9,16 +9,18 @@
 #'                        confianza = 0.95,
 #'                        grafico = TRUE,
 #'                        exportar = FALSE,
-#'                        replicar = TRUE)
+#'                        replicar = FALSE)
 #'
-#' @param min.pob Es un valor numérico que indica el valor mínimo poblacional. Por defecto min.pob = 2000
-#' @param max.pob Es un valor numérico que indica el valor máximo poblacional. Por defecto max.pob = 45000
-#' @param muestras Es un valor numérico entre 50 y 10000 que indica el número de muestras que se extraen sin reemplazamiento de la población. Por defecto muestras = 200
-#' @param n Es un valor numérico entre 25 y 2000 que indica el tamaño de la muestra. Por defecto n = 100.sumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
-#' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)
-#' @param grafico Si grafico = TRUE se representan los intervalos de confianza de las muestras seleccionadas y la media poblacional.
-#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
-#' @param replicar Es un valor lógico. Si replicar=TRUE se fija una semilla para que los resultados sean reproducibles. Si replicar=FALSE los resultados serán aleatorios y cambiarán en cada realización.
+#' @param min.pob Es un valor numérico que indica el valor mínimo poblacional. Por defecto \code{min.pob = 2000}
+#' @param max.pob Es un valor numérico que indica el valor máximo poblacional. Por defecto \code{max.pob = 45000}
+#' @param muestras Es un valor numérico entre 50 y 10000 que indica el número de muestras que se extraen sin reemplazamiento de la población. Por defecto \code{muestras = 200}
+#' @param n Es un valor numérico entre 25 y 2000 que indica el tamaño de la muestra. Por defecto \code{n = 100}
+#' @param confianza Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, \code{confianza = 0.95} (95 por ciento)
+#' @param grafico Si \code{grafico = TRUE} se representan los intervalos de confianza de las muestras seleccionadas y la media poblacional.
+#' @param exportar Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).
+#' @param replicar Es un valor lógico. Si \code{replicar = TRUE} el usuario fijará una semilla para que los resultados sean reproducibles. Si \code{replicar = FALSE} los resultados serán aleatorios y cambiarán en cada realización.
+#'
+#' @return Esta función devuelve un gráfico como un objeto de la clase \code{list}. La lista contiene los valores simulados para las muestras, el porcentaje de intervalos que contienen la media poblacional y su representación gráfica.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -27,7 +29,7 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García}.
+#' \strong{Cristina Pardo-García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
@@ -56,11 +58,13 @@ nivel.confianza <- function(min.pob = 2000,
                             confianza = 0.95,
                             grafico = TRUE,
                             exportar = FALSE,
-                            replicar = TRUE){
+                            replicar = FALSE){
 
-  if(replicar){
+  if(isTRUE(replicar)){
 
-    set.seed(123456)
+    semilla <- as.numeric(readline(prompt = "Introducir un valor para fijar la semilla: "))
+
+    set.seed(semilla)
 
   }
 

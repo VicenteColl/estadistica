@@ -11,6 +11,9 @@ momento.central(x, orden)
 
 \item{orden}{Es un valor numérico que representa el orden del momento central (orden = {1,2,3,4,...})}
 }
+\value{
+Devuelve el valor de momento central de orden seleccionado
+}
 \description{
 Calcula los momentos centrales respecto de la media.
 }
@@ -26,7 +29,7 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

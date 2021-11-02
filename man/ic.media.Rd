@@ -5,51 +5,59 @@
 \title{Intervalo confianza para la media.}
 \usage{
 ic.media(x,
-                variable = NULL,
-                introducir = FALSE,
-                poblacion = c("normal","desconocida"),
-                var_pob = c("conocida","desconocida"),
-                confianza = 0.95,
-                grafico = FALSE)
+          variable = NULL,
+          introducir = FALSE,
+          poblacion = c("normal","desconocida"),
+          var_pob = c("conocida","desconocida"),
+          confianza = 0.95,
+          grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
-\item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
+\item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
 
-\item{poblacion}{Es un carácter. Indica la distribución de probabilidad de la población. Por defecto poblacion = "normal". Si la distribución de la población es desconocida, cambiar el argumento a poblacion = "desconocida".}
+\item{poblacion}{Es un carácter. Indica la distribución de probabilidad de la población. Por defecto \code{poblacion = "normal"}. Si la distribución de la población es desconocida, cambiar a \code{poblacion = "desconocida"}.}
 
-\item{var_pob}{Es un carácter. Indica si la varianza poblacional es conocida (por defecto, var_pob = "conocida") o desconocida. En este último caso debería cambiarse el argumento a var_pob = "desconocida".}
+\item{var_pob}{Es un carácter. Indica si la varianza poblacional es conocida (por defecto, \code{var_pob = "conocida"}) o desconocida. En este último caso debería cambiarse el argumento a \code{var_pob = "desconocida"}.}
 
-\item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, confianza = 0.95 (95 por ciento)}
+\item{confianza}{Es un valor numérico entre 0 y 1. Indica el nivel de confianza. Por defecto, \code{confianza = 0.95} (95 por ciento)}
 
-\item{grafico}{Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.}
+\item{grafico}{Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del intervalo de confianza obtenido, cambiar el argumento a \code{grafico = TRUE}. Nota: Esta opción no está implementada para todos los casos.}
+}
+\value{
+Devuelve el intervalo de confianza de la media poblacional en un objeto de tipo \code{data.frame}. Si \code{grafico = T} devuelve una \code{list} con el intervalo de confianza y su representación gráfica.
 }
 \description{
 Calcula el intervalo de confianza de la media poblacional.
 
-\figure{qr_ic.media.png}{options: "center" width="25\%" heigth="25\%"}
+\if{html}{\figure{qricmedia.png}{options: width="25\%" alt="Figure: qricmedia.png"}}
+\if{latex}{\figure{qricmedia.png}{options: scale=.25}}
 }
 \details{
 (1) Si población desconocida, varianza poblacial conocida y muestra pequeña:
 
-\figure{ic_media_desconocida_var_con.png}{options: width="50\%" heigth="50\%"}
+\if{html}{\figure{icmediadesconocidavarcon.png}{options: width="50\%" alt="Figure: icmediadesconocidavarcon.png"}}
+\if{latex}{\figure{icmediadesconocidavarcon.png}{options: scale=.5}}
 
 (2) Si población normal, varianza poblacional conocida (muestra pequeña y grande)
 
-\figure{ic_media_var_con.png}{options: width="55\%" heigth="55\%"}
+\if{html}{\figure{icmediavarcon.png}{options: width="55\%" alt="Figure: icmediavarcon.png"}}
+\if{latex}{\figure{icmediavarcon.png}{options: scale=.55}}
 
 (3) Si población normal, varianza poblacional desconocida y muestra pequeña
 
 Con la varianza muestral:
 
-\figure{ic_media_var_desc_muestral.png}{options: width="50\%" heigth="50\%"}
+\if{html}{\figure{icmediavardescmuestral.png}{options: width="50\%" alt="Figure: icmediavardescmuestral.png"}}
+\if{latex}{\figure{icmediavardescmuestral.png}{options: scale=.5}}
 
 Con la cuasivarianza muestral:
 
-\figure{ic_media_var_desc_cuasi.png}{options: width="50\%" heigth="50\%"}
+\if{html}{\figure{icmediavardesccuasi.png}{options: width="50\%" alt="Figure: icmediavardesccuasi.png"}}
+\if{latex}{\figure{icmediavardesccuasi.png}{options: scale=.5}}
 
 Nota: En ambos casos, el valor crítico sigue una distribución t con n-1 grados de libertad
 
@@ -58,7 +66,7 @@ Puede utilizarse la aproximación a la normal. El intervalo se obtiene a partir 
 estimando la varianza poblacional por la varianza (o cuasivarianza) muestral.
 }
 \references{
-Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
@@ -73,7 +81,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

@@ -11,15 +11,17 @@
 #'                  grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
-#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
-#' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
+#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere solo a dos variables, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables.
+#' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.
 #' @param hipotesis_nula Es un valor numérico. Por defecto el valor está fijado en cero.
-#' @param tipo_contraste Es un carácter. Indica el tipo de contraste a realizar. Por defecto, tipo_contraste = "bilateral".
-#' Si tipo_contraste = "bilateral", se contraste la hipótesis nula igual un valor frente a la alternativa distinto de dicho valor.
-#' Si tipo_contraste = "cola derecha", se contrasta la hipótesis nula menor o igual a un valor frente a la alternativa mayor a dicho valor.
-#' Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o igual a un valor frente a la alternativa menos a dicho valor.
-#' @param alfa Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, alfa = 0.05 (5 por ciento)
-#' @param grafico Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.
+#' @param tipo_contraste Es un carácter. Indica el tipo de contraste a realizar. Por defecto, \code{tipo_contraste = "bilateral"}.
+#'        Si \code{tipo_contraste = "bilateral"}, se contraste la hipótesis nula igual un valor frente a la alternativa distinto de dicho valor.
+#'        Si \code{tipo_contraste = "cola derecha"}, se contrasta la hipótesis nula menor o igual a un valor frente a la alternativa mayor a dicho valor.
+#'        Si \code{tipo_contraste = "cola izquierda"}, se contrasta la hipótesis nula mayor o igual a un valor frente a la alternativa menos a dicho valor.
+#' @param alfa Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, \code{alfa = 0.05} (5 por ciento)
+#' @param grafico Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a \code{grafico = TRUE}. Nota: Esta opción no está implementada para todos los casos.
+#'
+#' @return La función devuelve un objeto de la clase \code{list}. La lista contendrá información sobre: la hipótesis nula contrastada, el estadístico de prueba, el p-valor  el intervalo de confianza para la diferencia de proporciones muestrales supuesta cierta la hipótesis nula. Si \code{grafico=TRUE} se incluirá una representación gráfica de la región de aceptación-rechazo.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -28,7 +30,7 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García}.
+#' \strong{Cristina Pardo-García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
@@ -39,20 +41,23 @@
 #'
 #' (1) Si se consideran las proporciones muestrales:
 #'
-#' \figure{c_dif_pro_muestra.png}{options: width="60\%" heigth="60\%"}
+#' \if{html}{\figure{cdifpromuestra.png}{options: width="60\%" alt="Figure: cdifpromuestra.png"}}
+#' \if{latex}{\figure{cdifpromuestra.png}{options: scale=.6}}
 #'
 #' (2) si se estima p como media ponderada de las proporciones muestrales, la ponderación es:
 #'
-#' \figure{c_pro_ponderacion.png}{options: width="50\%" heigth="50\%"}
+#' \if{html}{\figure{cproponderacion.png}{options: width="50\%" alt="Figure: cproponderacion.png"}}
+#' \if{latex}{\figure{cproponderacion.png}{options: scale=.5}}
 #'
 #' y el estadístico resulta:
 #'
-#' \figure{c_dif_pro_pond.png}{options: width="60\%" heigth="60\%"}
+#' \if{html}{\figure{cdifpropond.png}{options: width="60\%" alt="Figure: cdifpropond.png"}}
+#' \if{latex}{\figure{cdifpropond.png}{options: scale=.6}}
 #'
 #' @seealso \code{\link{ic.diferencia.proporciones}}
 #'
 #' @references
-#' Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+#' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 #'
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 #'
@@ -264,7 +269,7 @@ contraste.diferencia.proporciones <- function(x,
         geom_area(stat = "function", fun = dnorm, fill = "red", xlim = c(valor_critico, 4)) +
         geom_vline(xintercept = -estadistico.Z2, linetype = "dashed") +
         geom_vline(xintercept = estadistico.Z2, linetype = "dashed") +
-        labs(x = "", y = "",title="Intervalo de la diferencia de proporciones muestrales\n(supuesta H0 cierta)") +
+        labs(x = "", y = "",title="Regi\u00f3n de aceptaci\u00f3n-rechazo para\nla diferencia de proporciones") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(estadistico.Z2,-estadistico.Z2,-valor_critico,valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -295,7 +300,7 @@ contraste.diferencia.proporciones <- function(x,
         geom_area(stat = "function", fun = dnorm, fill = "darkgreen", xlim = c(-4,valor_critico)) +
         geom_area(stat = "function", fun = dnorm, fill = "red", xlim = c(valor_critico, 4)) +
         geom_vline(xintercept = estadistico.Z, linetype = "dashed") +
-        labs(x = "", y = "",title="Intervalo de la diferencia de proporciones muestrales\n(supuesta H0 cierta)") +
+        labs(x = "", y = "",title="Regi\u00f3n de aceptaci\u00f3n-rechazo para\nla diferencia de proporciones") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(estadistico.Z,valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))
@@ -326,7 +331,7 @@ contraste.diferencia.proporciones <- function(x,
         geom_area(stat = "function", fun = dnorm, fill = "red", xlim = c(-4, -valor_critico)) +
         geom_area(stat = "function", fun = dnorm, fill = "darkgreen", xlim = c(-valor_critico, 4)) +
         geom_vline(xintercept = estadistico.Z, linetype = "dashed") +
-        labs(x = "", y = "",title="Intervalo de la diferencia de proporciones muestrales\n(supuesta H0 cierta)") +
+        labs(x = "", y = "",title="Regi\u00f3n de aceptaci\u00f3n-rechazo para\nla diferencia de proporciones") +
         scale_y_continuous(breaks = NULL) +
         scale_x_continuous(breaks = c(estadistico.Z,-valor_critico)) +
         theme(axis.text.x = element_text(angle = 45))

@@ -29,15 +29,15 @@ data("salarios2018")
 Datos del Instituto Nacional de Estadística. Hay un total de 216,726 observaciones de 10 variables seleccionadas. Los datos han sido tratados siguiendo las instrucciones que el INE adjunta con los microdatos.
 }
 \author{
-\strong{Vicente Coll-Serrano} (\email{vicente.coll@uv.es}).
+\strong{Vicente Coll-Serrano}.
 \emph{Quantitative Methods for Measuring Culture (MC2). Applied Economics.}
 
-\strong{Rosario Martínez Verdú} (\email{rosario.martinez@uv.es}).
+\strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García} (\email{cristina.pardo-garcia@uv.es}).
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
-Universidad de Valencia (España)
+Facultad de Economía. Universidad de Valencia (España)
 }
 \keyword{datasets}

@@ -2,12 +2,15 @@
 #'
 #' @description Carga un conjunto de datos.
 #'
-#' \figure{qr_leer_datos.png}{options: "center" width="25\%" heigth="25\%"}
+#' \if{html}{\figure{qrleerdatos.png}{options: width="25\%" alt="Figure: qrleerdatos.png"}}
+#' \if{latex}{\figure{qrleerdatos.png}{options: scale=.25}}
 #'
 #' @usage leer.datos(introducir = FALSE, pos = 1)
 #'
-#' @param introducir Valor lógico. Si introducir = FALSE (por defecto), se abrirá una ventana para que el usuario seleccione el fichero de datos que quiere cargar. Si introducir = TRUE, el usuario introducirá él mismo los datos.
+#' @param introducir Valor lógico. Si \code{introducir = } (por defecto), se abrirá una ventana para que el usuario seleccione el fichero de datos que quiere cargar. Si \code{introducir = TRUE}, el usuario introducirá él mismo los datos.
 #' @param pos Es un valor fijo utilizado para mostrar el dataframe del usuario en el Global Environment.
+#'
+#' @return Al finalizar el proceso de lectura de datos se mostrará el dataframe cargado en el environment.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -16,7 +19,7 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo García}.
+#' \strong{Cristina Pardo-García}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
@@ -25,9 +28,9 @@
 #' Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.
 #'
 #' @importFrom stats na.omit
-
+#'
 #' @import dplyr
-
+#'
 #' @export
 leer.datos <- function(introducir = FALSE, pos=1){
 

@@ -12,11 +12,14 @@ tabla.frecuencias(x,
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.}
 
-\item{eliminar.na}{Valor lógico. Por defecto eliminar.na = TRUE. Si se quiere obtener la tabla de frecuencias con NAs, cambiar el argumento a FALSE.}
+\item{eliminar.na}{Valor lógico. Por defecto \code{eliminar.na = TRUE}. Si se quiere obtener la tabla de frecuencias con NAs, cambiar el argumento a \code{eliminar.na = FALSE}.}
 
-\item{grafico}{Si grafico = TRUE, representa el histograma o el gráfico de barras de la variable seleccionada.}
+\item{grafico}{Si \code{grafico = TRUE}, representa el histograma o el gráfico de barras de la variable seleccionada.}
 
-\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).}
+}
+\value{
+Devuelve la tabla de frecuencias como una \code{tibble}. Si \code{grafico = TRUE}, se devuelve en una lista la tabla de frecuencias y su representación gráfica.
 }
 \description{
 Esta función presenta la distribución de frecuencias de una variable.
@@ -35,7 +38,7 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

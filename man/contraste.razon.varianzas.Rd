@@ -15,20 +15,23 @@ contraste.razon.varianzas(x,
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere solo a dos variables, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables.}
 
-\item{introducir}{Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
+\item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.}
 
 \item{hipotesis_nula}{Es un valor numérico. Por defecto el valor está fijado a 1, es decir, igualdad de varianzas.}
 
-\item{tipo_contraste}{Es un carácter. Indica el tipo de contraste a realizar. Por defecto, tipo_contraste = "bilateral".
-Si tipo_contraste = "bilateral", se contraste la hipótesis nula igual un valor frente a la alternativa distinto de dicho valor.
-Si tipo_contraste = "cola derecha", se contrasta la hipótesis nula menor o igual a un valor frente a la alternativa mayor a dicho valor.
-Si tipo_contraste = "cola izquierda", se contrasta la hipótesis nula mayor o igual a un valor frente a la alternativa menos a dicho valor.}
+\item{tipo_contraste}{Es un carácter. Indica el tipo de contraste a realizar. Por defecto, \code{tipo_contraste = "bilateral"}.
+Si \code{tipo_contraste = "bilateral"}, se contraste la hipótesis nula igual un valor frente a la alternativa distinto de dicho valor.
+Si \code{tipo_contraste = "cola derecha"}, se contrasta la hipótesis nula menor o igual a un valor frente a la alternativa mayor a dicho valor.
+Si \code{tipo_contraste = "cola izquierda"}, se contrasta la hipótesis nula mayor o igual a un valor frente a la alternativa menos a dicho valor.}
 
-\item{alfa}{Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, alfa = 0.05 (5 por ciento)}
+\item{alfa}{Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, \code{alfa = 0.05} (5 por ciento)}
 
-\item{grafico}{Es un valor lógico. Por defecto grafico = FALSE. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a grafico = TRUE. Nota: Esta opción no está implementada para todos los casos.}
+\item{grafico}{Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a \code{grafico = TRUE}. Nota: Esta opción no está implementada para todos los casos.}
+}
+\value{
+La función devuelve un objeto de la clase \code{list}. La lista contendrá información sobre: la hipótesis nula contrastada, el estadístico de prueba, el p-valor y  el intervalo de confianza para la media muestral supuesta cierta la hipótesis nula. Si \code{grafico=TRUE} se incluirá una representación gráfica de la región de aceptación-rechazo con los valores críticos.
 }
 \description{
 Realiza el contraste de hipótesis sobre la razón de dos varianzas poblacionales.
@@ -36,22 +39,27 @@ Realiza el contraste de hipótesis sobre la razón de dos varianzas poblacionale
 \details{
 La hipótesis nula que se considera en este contraste es:
 
-\figure{contraste_cociente_var.png}{options: width="30\%" heigth="30\%"}
+\if{html}{\figure{contrastecocientevar.png}{options: width="30\%" alt="Figure: contrastecocientevar.png"}}
+\if{latex}{\figure{contrastecocientevar.png}{options: scale=.3}}
 
 El estadístico F es:
 
 (1) Si trabajamos con la varianza muestral:
 
-\figure{contraste_cociente_var_muestra.png}{options: width="50\%" heigth="50\%"}
+
+\if{html}{\figure{contrastecocientevarmuestra.png}{options: width="50\%" alt="Figure: contrastecocientevarmuestra.png"}}
+\if{latex}{\figure{contrastecocientevarmuestra.png}{options: scale=.5}}
 
 (2) si trabajamos con la cuasi-varianza muestral:
 
-\figure{contraste_cociente_var_cuasi.png}{options: width="25\%" heigth="25\%"}
 
-Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerado y (n1-1) en el denominador.
+\if{html}{\figure{contrastecocientevarcuasi.png}{options: width="25\%" alt="Figure: contrastecocientevarcuasi.png"}}
+\if{latex}{\figure{contrastecocientevarcuasi.png}{options: scale=.25}}
+
+Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerador y (n1-1) en el denominador.
 }
 \references{
-Casas José M. () Inferencia estadística. Editoral: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
+Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 
 Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
 
@@ -69,7 +77,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)

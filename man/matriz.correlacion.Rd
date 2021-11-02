@@ -9,9 +9,12 @@ matriz.correlacion(x, variable = NULL, exportar = FALSE)
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
 
-\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).}
+\item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).}
+}
+\value{
+La función devuelve la matriz de correlación lineal de las variables seleccionadas en un \code{data.frame}.
 }
 \description{
 Obtiene la matriz de correlación (de Pearson) entre 2 o más variables cuantitativas.
@@ -19,12 +22,20 @@ Obtiene la matriz de correlación (de Pearson) entre 2 o más variables cuantita
 \details{
 Se obtiene la matriz de correlación muestral:
 
-\figure{matriz_correlacion.png}{options: width="50\%" heigth="50\%"}
+\if{html}{\figure{matrizcorrelacion.png}{options: width="50\%" alt="Figure: matrizcorrelacion.png"}}
+\if{latex}{\figure{matrizcorrelacion.png}{options: scale=.5}}
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de correlació poblacional:
 
-\figure{matriz_correlacion_pob.png}{options: width="55\%" heigth="55\%"}
+\if{html}{\figure{matrizcorrelacionpob.png}{options: width="55\%" alt="Figure: matrizcorrelacionpob.png"}}
+\if{latex}{\figure{matrizcorrelacionpob.png}{options: scale=.55}}
+}
+\examples{
+
+matriz_cor <- matriz.correlacion(startup)
+
+
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -43,7 +54,7 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo García}.
+\strong{Cristina Pardo-García}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)
