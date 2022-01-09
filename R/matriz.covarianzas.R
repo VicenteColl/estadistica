@@ -71,10 +71,15 @@ matriz.covar <- function(x, variable = NULL,
   tipo <- tolower(tipo)
   tipo <- match.arg(tipo)
 
+  x <- data.frame(x)
+  varnames <- names(x)
+
   if(is.null(variable)){
 
-    x <- data.frame(x)
-    varnames <- names(x)
+    varcuan <-  names(x[unlist(lapply(x, is.numeric))])
+    seleccion = match(varcuan,varnames)
+    x <- x[seleccion]
+    varnames <- varcuan
 
   } else{
 
@@ -108,7 +113,7 @@ matriz.covar <- function(x, variable = NULL,
   clase <- sapply(x, class)
 
   if (!all(clase %in% c("numeric","integer"))) {
-    stop("No puede calcularse la varianza, alguna variable que has seleccionado no es cuantitativa")
+    stop("No puede calcularse la matriz de varianzas-covarianzas, alguna variable que has seleccionado no es cuantitativa")
   }
 
   if(tipo == "muestral"){

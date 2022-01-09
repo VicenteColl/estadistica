@@ -55,16 +55,20 @@
 #' @export
 correlacion <- function(x, variable = NULL){
 
+  x <- data.frame(x)
+  varnames <- names(x)
+
+
   if(is.null(variable)){
 
     if(length(x) == 2){
 
-      x <- data.frame(x)
-      varnames <- names(x)
+      x <- x
 
     } else{
 
-      warning("Para obtener la matriz de varianzas-covarianzas utilizar la funcion matriz.var.covar()")
+
+      warning("Para obtener la matriz de correlaci\u00f3n utilizar la funcion matriz.correlacion()")
       stop("El conjunto de datos seleccionado tiene mas de 2 variables.")
 
     }
@@ -79,7 +83,7 @@ correlacion <- function(x, variable = NULL){
 
         } else{
 
-          stop("Seleccion errronea de variables")
+          stop("Selecci\u00f3n err\u00f3nea de variables")
 
           }
       }
@@ -92,7 +96,7 @@ correlacion <- function(x, variable = NULL){
 
           } else {
 
-            stop("El nombre de la variable no es valido")
+            stop("El nombre de la variable no es v\u00e1lido")
 
           }
 
@@ -103,8 +107,8 @@ correlacion <- function(x, variable = NULL){
 
     } else{
 
-      warning("Para obtener la matriz de correlacion utilizar la funcion matriz.cor")
-      stop("Para calcular la correlacion solo puedes seleccionar dos variables")
+      warning("Para obtener la matriz de correlaci\u00f3n utilizar la funci\u00f3n matriz.cor()")
+      stop("Para calcular la correlaci\u00f3n solo puedes seleccionar dos variables")
 
     }
 
@@ -112,7 +116,7 @@ correlacion <- function(x, variable = NULL){
 
   if (!all(clase %in% c("numeric","integer"))) {
 
-    stop("No puede calcularse la correlacion, alguna variable que has seleccionado no es cuantitativa")
+    stop("No puede calcularse la correlaci\u00f3n, alguna variable que has seleccionado no es cuantitativa")
 
     }
 

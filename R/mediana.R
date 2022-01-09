@@ -50,10 +50,15 @@
 #' @export
 mediana <- function(x, variable = NULL, pesos = NULL){
 
+  x <- data.frame(x)
+  varnames <- names(x)
+
   if(is.null(variable)){
 
-    x <- data.frame(x)
-    varnames <- names(x)
+    varcuan <-  names(x[unlist(lapply(x, is.numeric))])
+    seleccion = match(varcuan,varnames)
+    x <- x[seleccion]
+    varnames <- varcuan
 
   } else{
 

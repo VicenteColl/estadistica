@@ -4,4 +4,9 @@ utils::globalVariables(c("ni", "fi", "sumatorio", "variable2",
                          "y","var_muestra","media_x","sumatorio3","sumatorio4",
                          "ic","inferior","superior", "color","varianza.muestral",
                          "media.muestral","incluido","value",
-                         "grupo","grupo2"))
+                         "grupo","grupo2","vx","vy","coeficiente.determinacion",
+                         "varianza.regresion","valores.teoricos","errores",
+                         "obs","sc.observados","sc.teoricos","errores2","suma.cuadrados.total",
+                         "suma.cuadrados.errores","suma.cuadrados.regresion","varianza.residual",
+                         "varianza.residuos","influencia","puntos.influyentes","error.norm",
+                         "X","momento"))

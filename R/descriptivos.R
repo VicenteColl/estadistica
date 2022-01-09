@@ -51,7 +51,10 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
 
   if(is.null(variable)){
 
-    x <- x
+    varcuan <-  names(x[,unlist(lapply(x, is.numeric))])
+    seleccion = match(varcuan,varnames)
+    x <- x[seleccion]
+    varnames <- varcuan
 
   } else{
 
@@ -169,7 +172,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
   num_modas <-nrow(valor_moda)
 
   row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
-                          "coef.variaci\u00f3n","RIC","asimetr\u00eda","curtosis",paste("moda ",seq(1:num_modas),sep=""))
+                          "coef.variaci\u00f3n","RIC","asimetr\u00eda","curtosis","moda")
 
   if (exportar) {
     filename <- paste("Resumen descriptivos basicos"," (", Sys.time(), ").xlsx", sep = "")

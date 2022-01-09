@@ -54,10 +54,15 @@
 #' @export
 matriz.correlacion <- function(x, variable = NULL, exportar = FALSE){
 
+  x <- data.frame(x)
+  varnames <- names(x)
+
   if(is.null(variable)){
 
-    x <- data.frame(x)
-    varnames <- names(x)
+    varcuan <-  names(x[unlist(lapply(x, is.numeric))])
+    seleccion = match(varcuan,varnames)
+    x <- x[seleccion]
+    varnames <- varcuan
 
   } else{
 
@@ -69,7 +74,7 @@ matriz.correlacion <- function(x, variable = NULL, exportar = FALSE){
 
       } else{
 
-        stop("Seleccion errronea de variables")
+        stop("Selecci\u00f3n err\u00f3nea de variables")
 
       }
     }
@@ -79,7 +84,7 @@ matriz.correlacion <- function(x, variable = NULL, exportar = FALSE){
       if(all(variable %in% varnames)){
         variable = match(variable,varnames)
       } else {
-        stop("El nombre de la variable no es valido")
+        stop("El nombre de la variable no es v\u00e1lido")
       }
     }
 
@@ -91,7 +96,7 @@ matriz.correlacion <- function(x, variable = NULL, exportar = FALSE){
   clase <- sapply(x, class)
 
   if (!all(clase %in% c("numeric","integer"))) {
-    stop("No puede calcularse la varianza, alguna variable que has seleccionado no es cuantitativa")
+    stop("No puede calcularse la matriz de correlaci\u00f3, alguna variable que has seleccionado no es cuantitativa")
   }
 
 

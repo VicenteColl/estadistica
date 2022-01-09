@@ -76,7 +76,10 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuas
 
   if(is.null(variable)){
 
-    x <- x
+    varcuan <-  names(x[unlist(lapply(x, is.numeric))])
+    seleccion = match(varcuan,varnames)
+    x <- x[seleccion]
+    varnames <- varcuan
 
   } else{
 
@@ -196,10 +199,10 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuas
 
     }
 
-    names(varianza) <- paste("varianza_",varnames,sep="")
 
   }
 
+  names(varianza) <- paste("varianza_",varnames,sep="")
 
   return(varianza)
 

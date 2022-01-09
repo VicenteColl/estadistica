@@ -65,7 +65,10 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
 
   if(is.null(variable)){
 
-    x <- x
+    varcuan <-  names(x[unlist(lapply(x, is.numeric))])
+    seleccion = match(varcuan,varnames)
+    x <- x[seleccion]
+    varnames <- varcuan
 
   } else{
 

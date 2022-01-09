@@ -110,7 +110,7 @@ if(isFALSE(introducir)) {
       x <- x
     } else{
       warning("Para calcular este tipo de contraste hay que seleccionar 2 variables")
-      stop("El conjunto de datos seleccionado no tiene la dimension adecuada")
+      stop("El conjunto de datos seleccionado no tiene la dimensi\u00f3n adecuada")
     }
   } else{
 
@@ -119,14 +119,14 @@ if(isFALSE(introducir)) {
           if(all(variable <= length(x))){
             variable <- variable
           } else{
-            stop("Seleccion erronea de variable")
+            stop("Selecci\u00f3n err\u00f3nea de variables")
           }
         }
       if(is.character(variable)){
         if(all(variable %in% varnames)){
           variable = match(variable,varnames)
           } else {
-            stop("El nombre de la variable no es valido")
+            stop("El nombre de la variable no es v\u00e1lido")
           }
         }
 
@@ -135,7 +135,7 @@ if(isFALSE(introducir)) {
 
       } else{
         warning("Para calcular el contraste de la raz\u00f3n de varianzas hay que seleccionar dos variables")
-        stop("El conjunto de datos seleccionado parece ser no valido")
+        stop("El conjunto de datos seleccionado parece ser no v\u00e1lido")
       }
   }
 
@@ -166,7 +166,7 @@ if(isFALSE(introducir)) {
 
 } else{   # aqu\u00ed empieza introducir datos
 
-  print("A continuacion, vas a introducir los datos de las muestras.")
+  print("A continuaci\u00f3n, vas a introducir los datos de las muestras.")
 
   n1 <- readline(prompt = "Introducir el tama\u00f1o de la muestra 1: ")
   n1 <- as.numeric(n1)
