@@ -68,8 +68,11 @@
 #' forma2 <- medidas.forma(startup, alternativa= TRUE)
 #'
 #' @export
-medidas.forma <- function(x, variable = NULL, pesos = NULL,
-                          alternativa = FALSE, exportar = FALSE){
+medidas.forma <- function(x,
+                          variable = NULL,
+                          pesos = NULL,
+                          alternativa = FALSE,
+                          exportar = FALSE){
 
   x <- data.frame(x)
   varnames <- names(x)
@@ -169,7 +172,7 @@ medidas.forma <- function(x, variable = NULL, pesos = NULL,
 
   } else{
 
-    desv.x <- as.numeric(desviacion(x,variable=variable,pesos=pesos))
+    desv.x <- as.numeric(desviacion(x,variable=1,pesos=2))
     forma <-  x %>%
         na.omit %>%
         rename(variable2 = varnames[1], pesos = varnames[2]) %>%
@@ -183,8 +186,8 @@ medidas.forma <- function(x, variable = NULL, pesos = NULL,
 
     N <- sum(x[2])
 
-    asimetria <- forma[3]
-    curtosis <- forma[4]
+    asimetria <- as.numeric(forma[3])
+    curtosis <- as.numeric(forma[4])
     momento3 <- as.numeric(forma[1])
     momento4 <- as.numeric(forma[2])
 

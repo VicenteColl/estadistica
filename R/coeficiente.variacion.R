@@ -56,7 +56,10 @@
 #' @import dplyr
 #'
 #' @export
-coeficiente.variacion <- function(x, variable = NULL, pesos= NULL, tipo = c("muestral","cuasi")){
+coeficiente.variacion <- function(x,
+                                  variable = NULL,
+                                  pesos= NULL,
+                                  tipo = c("muestral","cuasi")){
 
   tipo <- tolower(tipo)
   tipo <- match.arg(tipo)
@@ -163,15 +166,15 @@ coeficiente.variacion <- function(x, variable = NULL, pesos= NULL, tipo = c("mue
 
   } else{
 
-    valor_media <- media(x,variable = variable, pesos = pesos)
+    valor_media <- media(x,variable = 1, pesos = 2)
 
     if(tipo=="muestral"){
 
-      valor_desviacion <- desviacion(x,variable = variable, pesos = pesos)
+      valor_desviacion <- desviacion(x,variable = 1, pesos = 2)
 
     } else{
 
-      valor_desviacion <- desviacion(x,variable = variable, pesos = pesos, tipo="cuasi")
+      valor_desviacion <- desviacion(x,variable = 1, pesos = 2, tipo="cuasi")
 
     }
 
