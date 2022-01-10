@@ -74,6 +74,10 @@ regresion.simple <- function(x,
                              grafico = FALSE,
                              exportar = FALSE){
 
+  old <- options()
+  on.exit(options(old))
+
+  options(scipen = 999)
 
   if(isFALSE(introducir)) {
 
@@ -454,7 +458,6 @@ regresion.simple <- function(x,
   if (exportar) {
 
     names(resumen) <- "Valor"
-    names(resultados.parciales) <- "valor"
 
     filename <- paste("Resultados regresion simple"," (", Sys.time(), ").xlsx", sep = "")
     filename <- gsub(" ", "_", filename)
@@ -463,6 +466,8 @@ regresion.simple <- function(x,
     if(isFALSE(introducir)){
 
       if(inferencia){
+
+        names(resultados.parciales) <- "valor"
 
         lista <- list(tabla,resultados.parciales,tabla.anova,modelo.regresion)
 
@@ -505,16 +510,16 @@ regresion.simple <- function(x,
 
     if(inferencia){
 
-      return(list('Calculos intermedios' = tabla2,
-                  'Resultados parciales' = resultados.parciales2,
+      return(list('Calculos.intermedios' = tabla2,
+                  'Resultados.parciales' = resultados.parciales2,
                   'ANOVA' = tabla.anova2,
-                  'Moldelo estimado' = modelo.regresion2,
+                  'Moldelo.estimado' = modelo.regresion2,
                   'Graficos' = plot))
 
     } else{
 
-      return(list('Calculos intermedios' = tabla2,
-                  'Resumen regresion' = resumen2,
+      return(list('Calculos.intermedios' = tabla2,
+                  'Resumen.regresion' = resumen2,
                   'Graficos' = plot))
 
     }
@@ -525,13 +530,13 @@ regresion.simple <- function(x,
 
     if(inferencia){
 
-      return(list('Resultados parciales' = resultados.parciales2,
+      return(list('Resultados.parciales' = resultados.parciales2,
                   'ANOVA' = tabla.anova2,
-                  'Moldelo estimado' = modelo.regresion2))
+                  'Moldelo.estimado' = modelo.regresion2))
 
     } else{
 
-      return('Resumen regresion' = resumen2)
+      return('Resumen.regresion' = resumen2)
 
     }
 
