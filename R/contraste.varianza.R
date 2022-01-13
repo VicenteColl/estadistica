@@ -44,19 +44,19 @@
 #' (1.1) utilizando la varianza muestral:
 #'
 #' \if{html}{\figure{cvarmuestra.png}{options: width="30\%" alt="Figure: cvarmuestra.png"}}
-#' \if{latex}{\figure{cvarmuestra.png}{options: scale=.3}}
+#' \if{latex}{\figure{cvarmuestra.png}{options: width=3cm}}
 #'
 #' (1.2) utilizando la cuasi-varianza muestral:
 #'
 #' \if{html}{\figure{cvarcuasi.png}{options: width="30\%" alt="Figure: cvarcuasi.png"}}
-#' \if{latex}{\figure{cvarcuasi.png}{options: scale=.3}}
-
+#' \if{latex}{\figure{cvarcuasi.png}{options: width=43cm}}
+#'
 #' (2) Si la media poblacional es conocida.
 #'
 #' (2.1) utilizando la varianza muestral:
 #'
 #' \if{html}{\figure{cvarmediaconmuestra.png}{options: width="60\%" alt="Figure: cvarmediaconmuestra.png"}}
-#' \if{latex}{\figure{cvarmediaconmuestra.png}{options: scale=.6}}
+#' \if{latex}{\figure{cvarmediaconmuestra.png}{options: width=5cm}}
 #'
 #'  Nota: En todos los casos el estadístico chi-dos se distrubuye con n-1 grados de libertad.
 #'

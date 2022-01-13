@@ -48,8 +48,8 @@
 #'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
-#' @importFrom fpp2 ma
-#' @import dplyr fpp2 zoo
+#' @importFrom forecast ma
+#' @import dplyr forecast zoo
 #'
 #' @export
 series.temporales <- function(x,

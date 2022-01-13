@@ -25,12 +25,12 @@ Calcula la covarianza.
 (1) La covarianza muestral se obtiene a partir de la siguiente expresión:
 
 \if{html}{\figure{covarianzamuestra.png}{options: width="50\%" alt="Figure: covarianzamuestra.png"}}
-\if{latex}{\figure{covarianzamuestra.png}{options: scale=.5}}
+\if{latex}{\figure{covarianzamuestra.png}{options: width=4cm}}
 
 (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la covarianza a partir de la expresión:
 
 \if{html}{\figure{covarianzacuasi.png}{options: width="50\%" alt="Figure: covarianzacuasi.png"}}
-\if{latex}{\figure{covarianzacuasi.png}{options: scale=.5}}
+\if{latex}{\figure{covarianzacuasi.png}{options: width=4cm}}
 
 Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
 }
@@ -38,7 +38,7 @@ Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la covarianza poblacional:
 
 \if{html}{\figure{covarianzapob.png}{options: width="50\%" alt="Figure: covarianzapob.png"}}
-\if{latex}{\figure{covarianzapob.png}{options: scale=.5}}
+\if{latex}{\figure{covarianzapob.png}{options: width=4cm}}
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
