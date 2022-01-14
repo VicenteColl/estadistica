@@ -1,18 +1,20 @@
 #' @title Series temporales.
 #'
-#' @description Calcula la descomposición de las series temporales mediante el método de las medias móviles.
-#' @usage series.temporales(x,
+#' @description Esta función utiliza el método de las medias móviles (centradas) para suavizar la componente irregular de una serie temporal.
+#' A partir de las medias móviles, también se obtienen los índices de variación irregular (IVE).
+#'
+#' series.temporales(x,
 #' variable = NULL,
 #' inicio_anual = 1,
 #' periodo_inicio = 1,
 #' frecuencia = 4,
 #' orden = frecuencia)
 #'
-#' @param x sss
-#' @param variable sss
-#' @param inicio_anual Año de inicio de la serie.
-#' @param periodo_inicio Periodo de inicio de la serie.
-#' @param frecuencia Periodificación de la serie.
+#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
+#' @param inicio_anual Año de inicio de la serie. Por defecto \code{inicio_anual = 1}.
+#' @param periodo_inicio Periodo de inicio de la serie. Por defecto \code{perido_inicio = 1}, es decir, el primer periodo del año 1.
+#' @param frecuencia Periodificación de la serie. Por defecto \code{frecuencia = 4}.
 #' Si anual, frecuencia = 1
 #' Si semestral, frecuencia = 2
 #' Si cuatrimestral, frecuencia = 3
@@ -21,10 +23,10 @@
 #' Si mensual, frecuencia = 12
 #' Si semanal, frecuencia = 52
 #' Si diario, frecuencia = 360
-#' @param orden Orden de la media móvil. Por defecto orden = frecuencia.
+#' @param orden Orden (o puntos) de cálculo de la media móvil. Por defecto \code{orden = frecuencia}.
 #' @param prediccion Orden de la media móvil. Por defecto orden = frecuencia.
-#' @param grafico Orden de la media móvil. Por defecto orden = frecuencia.
-#' @param exportar Orden de la media móvil. Por defecto orden = frecuencia.
+#' @param grafico Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica la serie original, las medias móviles y la estimación por regresión de la tendencia, cambiar a \code{grafico = TRUE}.
+#' @param exportar Para exportar los principales resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).
 #'
 #' @return Esta función devuelve la covarianza en un objeto de la clase \code{data.frame}.
 #'
