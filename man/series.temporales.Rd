@@ -12,10 +12,13 @@ frecuencia = 4,
 orden = frecuencia)
 }
 \arguments{
+<<<<<<< HEAD
 \item{x}{sss}
 
 \item{variable}{sss}
 
+=======
+>>>>>>> 6e2c4b7ae6e015d514381e59ce80402ad2abf3ae
 \item{inicio_anual}{Año de inicio de la serie.}
 
 \item{periodo_inicio}{Periodo de inicio de la serie.}
@@ -31,12 +34,15 @@ Si semanal, frecuencia = 52
 Si diario, frecuencia = 360}
 
 \item{orden}{Orden de la media móvil. Por defecto orden = frecuencia.}
+<<<<<<< HEAD
 
 \item{prediccion}{Orden de la media móvil. Por defecto orden = frecuencia.}
 
 \item{grafico}{Orden de la media móvil. Por defecto orden = frecuencia.}
 
 \item{exportar}{Orden de la media móvil. Por defecto orden = frecuencia.}
+=======
+>>>>>>> 6e2c4b7ae6e015d514381e59ce80402ad2abf3ae
 }
 \value{
 Esta función devuelve la covarianza en un objeto de la clase \code{data.frame}.
