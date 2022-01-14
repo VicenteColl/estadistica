@@ -40,7 +40,7 @@ Realiza el contraste de hipótesis sobre la proporción poblacional.
 En este caso el estadístico Z del contraste es:
 
 \if{html}{\figure{cproporcion.png}{options: width="40\%" alt="Figure: cproporcion.png"}}
-\if{latex}{\figure{cproporcion.png}{options: scale=.4}}
+\if{latex}{\figure{cproporcion.png}{options: width=4cm}}
 }
 \references{
 Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X

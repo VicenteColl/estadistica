@@ -10,7 +10,7 @@ Dataframe con 216726 observaciones de 10 variables.
   \item{ID}{Identificador del encuestado.}
   \item{CODIGO.REGION}{1=NOROESTE,2=NORESTE,3=COMUNIDAD MADRID,4=CENTRO,5=ESTE,6=SUR,7=CANARIAS}
   \item{SEXO}{Sexo (1=hombre, 6=mujer)}
-  \item{ESTUDIOS}{Nivel de estudios. 1=Menos que primaria,2=Primaria,3=Primera etapa secundaria,3=Segunda etapa secundaria,4=FP superior o similar,5=Diplomado o similar,6=Licenciados o similares y doctores}
+  \item{ESTUDIOS}{Nivel de estudios. 1=Menos que primaria,2=Primaria,3=Primera etapa secundaria,4=Segunda etapa secundaria,5=FP superior o similar,6=Diplomado o similar,7=Licenciados o similares y doctores}
   \item{TIPO.JORNADA}{Tipo de jornada laboral. 1=Tiempo completo,2=Tiempo parcial}
   \item{TIPO.CONTRATO}{Tipo de contrato laboral. 1=Indefinido,2=Duración determinada}
   \item{SALARIO.BRUTO.ANUAL}{Salario bruto anual}

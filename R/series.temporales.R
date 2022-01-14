@@ -8,8 +8,8 @@
 #' frecuencia = 4,
 #' orden = frecuencia)
 #'
-#' @param x
-#' @param variable
+#' @param x sss
+#' @param variable sss
 #' @param inicio_anual Año de inicio de la serie.
 #' @param periodo_inicio Periodo de inicio de la serie.
 #' @param frecuencia Periodificación de la serie.
@@ -22,6 +22,9 @@
 #' Si semanal, frecuencia = 52
 #' Si diario, frecuencia = 360
 #' @param orden Orden de la media móvil. Por defecto orden = frecuencia.
+#' @param prediccion Orden de la media móvil. Por defecto orden = frecuencia.
+#' @param grafico Orden de la media móvil. Por defecto orden = frecuencia.
+#' @param exportar Orden de la media móvil. Por defecto orden = frecuencia.
 #'
 #' @return Esta función devuelve la covarianza en un objeto de la clase \code{data.frame}.
 #'
@@ -48,8 +51,8 @@
 #'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
-#' @importFrom fpp2 ma
-#' @import dplyr fpp2 zoo
+#' @importFrom forecast ma
+#' @import dplyr forecast zoo
 #'
 #' @export
 series.temporales <- function(x,

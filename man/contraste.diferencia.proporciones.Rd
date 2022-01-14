@@ -42,17 +42,17 @@ El estadístico Z del contraste, que se distribuye N(0,1), es:
 (1) Si se consideran las proporciones muestrales:
 
 \if{html}{\figure{cdifpromuestra.png}{options: width="60\%" alt="Figure: cdifpromuestra.png"}}
-\if{latex}{\figure{cdifpromuestra.png}{options: scale=.6}}
+\if{latex}{\figure{cdifpromuestra.png}{options: width=8cm}}
 
 (2) si se estima p como media ponderada de las proporciones muestrales, la ponderación es:
 
 \if{html}{\figure{cproponderacion.png}{options: width="50\%" alt="Figure: cproponderacion.png"}}
-\if{latex}{\figure{cproponderacion.png}{options: scale=.5}}
+\if{latex}{\figure{cproponderacion.png}{options: width=6cm}}
 
 y el estadístico resulta:
 
 \if{html}{\figure{cdifpropond.png}{options: width="60\%" alt="Figure: cdifpropond.png"}}
-\if{latex}{\figure{cdifpropond.png}{options: scale=.6}}
+\if{latex}{\figure{cdifpropond.png}{options: width=7cm}}
 }
 \references{
 Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X

@@ -40,7 +40,7 @@
 #' En este caso el estadístico Z del contraste es:
 #'
 #' \if{html}{\figure{cproporcion.png}{options: width="40\%" alt="Figure: cproporcion.png"}}
-#' \if{latex}{\figure{cproporcion.png}{options: scale=.4}}
+#' \if{latex}{\figure{cproporcion.png}{options: width=4cm}}
 #'
 #' @seealso \code{\link{ic.proporcion}}
 #'

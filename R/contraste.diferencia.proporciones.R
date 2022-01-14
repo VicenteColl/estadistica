@@ -42,17 +42,17 @@
 #' (1) Si se consideran las proporciones muestrales:
 #'
 #' \if{html}{\figure{cdifpromuestra.png}{options: width="60\%" alt="Figure: cdifpromuestra.png"}}
-#' \if{latex}{\figure{cdifpromuestra.png}{options: scale=.6}}
+#' \if{latex}{\figure{cdifpromuestra.png}{options: width=8cm}}
 #'
 #' (2) si se estima p como media ponderada de las proporciones muestrales, la ponderación es:
 #'
 #' \if{html}{\figure{cproponderacion.png}{options: width="50\%" alt="Figure: cproponderacion.png"}}
-#' \if{latex}{\figure{cproponderacion.png}{options: scale=.5}}
+#' \if{latex}{\figure{cproponderacion.png}{options: width=6cm}}
 #'
 #' y el estadístico resulta:
 #'
 #' \if{html}{\figure{cdifpropond.png}{options: width="60\%" alt="Figure: cdifpropond.png"}}
-#' \if{latex}{\figure{cdifpropond.png}{options: scale=.6}}
+#' \if{latex}{\figure{cdifpropond.png}{options: width=7cm}}
 #'
 #' @seealso \code{\link{ic.diferencia.proporciones}}
 #'

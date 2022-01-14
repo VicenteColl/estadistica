@@ -37,7 +37,7 @@
 #' La hipótesis nula que se considera en este contraste es:
 #'
 #' \if{html}{\figure{contrastecocientevar.png}{options: width="30\%" alt="Figure: contrastecocientevar.png"}}
-#' \if{latex}{\figure{contrastecocientevar.png}{options: scale=.3}}
+#' \if{latex}{\figure{contrastecocientevar.png}{options: width=3cm}}
 #'
 #' El estadístico F es:
 #'
@@ -45,13 +45,13 @@
 #'
 #'
 #' \if{html}{\figure{contrastecocientevarmuestra.png}{options: width="50\%" alt="Figure: contrastecocientevarmuestra.png"}}
-#' \if{latex}{\figure{contrastecocientevarmuestra.png}{options: scale=.5}}
+#' \if{latex}{\figure{contrastecocientevarmuestra.png}{options: width=5cm}}
 #'
 #' (2) si trabajamos con la cuasi-varianza muestral:
 #'
 #'
 #' \if{html}{\figure{contrastecocientevarcuasi.png}{options: width="25\%" alt="Figure: contrastecocientevarcuasi.png"}}
-#' \if{latex}{\figure{contrastecocientevarcuasi.png}{options: scale=.25}}
+#' \if{latex}{\figure{contrastecocientevarcuasi.png}{options: width=3cm}}
 #'
 #' Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerador y (n1-1) en el denominador.
 #'
