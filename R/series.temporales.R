@@ -24,11 +24,11 @@
 #' Si semanal, frecuencia = 52
 #' Si diario, frecuencia = 360
 #' @param orden Orden (o puntos) de cálculo de la media móvil. Por defecto \code{orden = frecuencia}.
-#' @param prediccion Orden de la media móvil. Por defecto orden = frecuencia.
+#' @param prediccion vector de periodo temporal (\code{t=0}, origen de la serie) para el que se quiere obtener un pronóstico de la variable objeto de estudio.
 #' @param grafico Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica la serie original, las medias móviles y la estimación por regresión de la tendencia, cambiar a \code{grafico = TRUE}.
 #' @param exportar Para exportar los principales resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).
 #'
-#' @return Esta función devuelve la covarianza en un objeto de la clase \code{data.frame}.
+#' @return Esta función devuelve un objeto de la clase \code{list}.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -39,12 +39,7 @@
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
-#' @details
-#'
-
-#' @note
-#'
-#' @seealso \code{\link{varianza}}, \code{\link{desviacion}},\code{\link{matriz.covar}}
+#' @seealso \code{\link{regresion.simple}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -53,15 +48,21 @@
 #'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
-#' @importFrom forecast ma
-#' @import dplyr forecast zoo
+#'@examples
+#'
+#' serie <- series.temporales(turistas,
+#' variable=2,
+#' inicio_anual=2000,
+#' periodo_inicio = 1)
+#'
+#' @import dplyr forecast
 #'
 #' @export
 series.temporales <- function(x,
                               variable = NULL,
                               inicio_anual = 1,
                               periodo_inicio = 1,
-                              frecuencia = NULL,
+                              frecuencia = 4,
                               orden = frecuencia,
                               prediccion = FALSE,
                               grafico = FALSE,
@@ -72,64 +73,55 @@ series.temporales <- function(x,
 
   options(scipen = 999)
 
-  x <- as.data.frame(x)
+  x <- data.frame(x)
+  varnames <- names(x)
 
-  varnames <- colnames(x)
-
-  if(length(x) > 1 ) {
-
-    variable <- readline(prompt = "Intoduce el nombre de la variable: ")
-
+  if(is.null(variable)){
+    if(length(x) == 1){
+      x <- x
+    } else{
+      stop("El conjunto de datos seleccionado tiene mas de 1 variable.")
+    }
   } else{
+    if(length(variable) == 1){
+      if(is.numeric(variable)){
+        if(variable <= length(x)){
+          variable <- variable
+        } else{
+          stop("Selecci\u00f3n err\u00f3nea de variable")
+          }
+      }
+    }
 
-    variable <- varnames
-
-  }
-
-  if(is.character(variable)){
-    if(variable %in% varnames){
-      variable = which(varnames == variable)
-    } else {
-      stop("El nombre de la variable no es valido")
+    if(is.character(variable)){
+      if(all(variable %in% varnames)){
+        variable = match(variable,varnames)
+      } else {
+        stop("El nombre de la variable no es v\u00e1lido")
+        }
     }
   }
 
-  x <- as.data.frame(x) %>%
-    dplyr::select(all_of(variable))
+    x <- x[,variable] %>% as.data.frame()
+    names(x) <- varnames[variable]
 
-  y <- varnames[variable] # nombre de la variable seleccionada
-
-  clase <- sapply(x, class)
-
-  if (!clase %in% c("numeric","integer")) {
-    stop("No puede construirse la tabla de frecuencias, la variable que has\n
-         seleccionado es car\u00e1cter")
+  if(frecuencia == 4){
+    time2 = "T"
+  } else if(frecuencia==3){
+    time2 = "C"
+  } else if(frecuencia == 12){
+    time2 = "M"
+  } else if(frecuencia == 360){
+    time2 = "D"
+  } else if(frecuencia == 2){
+    time2 = "S"
+  } else if(frecuencia == 52){
+    time2 = "s"
+  } else if(frecuencia == 6){
+    time2 = "B" # bimestral (cada dos meses)
+  } else{
+    time2 = NULL
   }
-
-  if(length(x) > 1){
-    stop("Esta funci\u00f3n solo puede contruir la tabla de frecuencias de una variable")
-    print("Para obtener la tabla de frecuencias de mas de una variable utiliza la funci\u00f3n apply")
-  }
-
-
-if(frecuencia == 4){
-  time2 = "T"
-} else if(frecuencia==3){
-  time2 = "C"
-} else if(frecuencia == 12){
-  time2 = "M"
-} else if(frecuencia == 360){
-  time2 = "D"
-} else if(frecuencia == 2){
-  orden = 2
-  time2 = "S"
-} else if(frecuencia == 52){
-  time2 = "s"
-} else if(frecuencia == 6){
-  time2 = "B" # bimestral (cada dos meses)
-} else{
-  time2 = NULL
-}
 
 
 orden = orden
@@ -169,9 +161,15 @@ x$id <- 1:n
 
 
 mediasMoviles <- x %>%
-  rename(variable_serie = varnames) %>%
+  rename(variable_serie = varnames[variable]) %>%
   mutate(mediamovil = ma(variable_serie, order = orden, centre = TRUE)) %>%
   select(4,2,3,1,6)
+
+# incluyo la variable t para el ajuste de tendencia
+NonNAindex <- which(!is.na(mediasMoviles[5]))
+firstNonNA <- min(NonNAindex)
+lastNonNA <- max(NonNAindex)
+mediasMoviles$t <- c(rep(NA,firstNonNA-1),0:(lastNonNA-firstNonNA),rep(NA,n-lastNonNA))
 
 if(frecuencia != 1){
   ive <- mediasMoviles %>%
@@ -188,9 +186,9 @@ if(frecuencia != 1){
   ivecorregio <- NULL
 }
 
+
 serie_regresion <- subset(mediasMoviles,!is.na(mediamovil))
 serie_regresion <- serie_regresion %>%
-  mutate(t=0:(nrow(serie_regresion)-1)) %>%
   select(1,6,4,5)
 
 if(grafico){
@@ -206,7 +204,7 @@ if(grafico){
                   se = FALSE,
                   color = "blue") +
       scale_x_continuous(breaks = serie_regresion$t, labels = serie_regresion$fecha) +
-      labs(x="Periodo",y=varnames) +
+      labs(x="Periodo",y=varnames[variable]) +
       theme(axis.text.x=element_text(size=6,angle=90,vjust=0.2))
 
   } else{
@@ -219,12 +217,17 @@ if(grafico){
                   se = FALSE,
                   color = "blue") +
       scale_x_continuous(breaks = serie_regresion$t, labels = serie_regresion$fecha) +
-      labs(x="Periodo",y=varnames) +
+      labs(x="Periodo",y=varnames[variable]) +
       theme(axis.text.x=element_text(size=6,angle=90,vjust=0.2))
   }
 }else{
   plot <- NULL
 }
+
+#cambio nombre de objeto
+names(mediasMoviles) <- c("Fecha","Periodo","Time",varnames[variable],
+                          "Media.Movil","t")
+
 
 media_t <- as.numeric(media(serie_regresion[2]))
 media_mediamovil <- as.numeric(media(serie_regresion[4]))
@@ -277,30 +280,34 @@ if (exportar) {
   if(frecuencia!=1){
 
     if(prediccion){
-      lista <- list(mediasMoviles,ivecorregido,resultados_regresion,pronosticos)
+      lista <- list(mediasMoviles,ivecorregido,serie_regresion,resultados_regresion,pronosticos)
 
       rio::export(lista, row.names = T, filename, sheetName=c("Medias moviles",
                                                               "IVE",
+                                                              "Datos ajuste tendencia",
                                                               "Modelo ajuste",
                                                               "Pronosticos"))
     }else{
-      lista <- list(mediasMoviles,ivecorregido,resultados_regresion)
+      lista <- list(mediasMoviles,ivecorregido,serie_regresion,resultados_regresion)
 
       rio::export(lista, row.names = T, filename, sheetName=c("Medias moviles",
                                                               "IVE",
+                                                              "Datos ajuste tendencia",
                                                               "Modelo ajuste"))
     }
   }else{
     if(prediccion){
-      lista <- list(mediasMoviles,resultados_regresion,pronosticos)
+      lista <- list(mediasMoviles,serie_regresion,resultados_regresion,pronosticos)
 
       rio::export(lista, row.names = T, filename, sheetName=c("Medias moviles",
+                                                              "Datos ajuste tendencia",
                                                               "Modelo ajuste",
                                                               "Pronosticos"))
     }else{
-      lista <- list(mediasMoviles,resultados_regresion)
+      lista <- list(mediasMoviles,serie_regresion,resultados_regresion)
 
       rio::export(lista, row.names = T, filename, sheetName=c("Medias moviles",
+                                                              "Datos ajueste tendencia",
                                                               "Modelo ajuste"))
     }
   }
@@ -309,6 +316,7 @@ if (exportar) {
 
 return(list('Medias_moviles' = mediasMoviles,
             'IVE' = ivecorregido,
+            'Datos_ajuste_tendencia'= serie_regresion,
             'Modelo_ajuste' = resultados_regresion,
             'Pronosticos' = pronosticos,
             'Grafico' = plot))

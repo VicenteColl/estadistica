@@ -29,11 +29,7 @@ Por su construcción, el valor del coeficiente de correlación muestral es el mi
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene el coeficiente de correlació poblacional:
 
 \if{html}{\figure{correlacionpob.png}{options: width="30\%" alt="Figure: correlacionpob.png"}}
-<<<<<<< HEAD
 \if{latex}{\figure{correlacionpob.png}{options: width=4cm}}
-=======
-\if{latex}{\figure{correlacionpob.png}{options: width=5cm}}
->>>>>>> 6e2c4b7ae6e015d514381e59ce80402ad2abf3ae
 }
 \examples{
 

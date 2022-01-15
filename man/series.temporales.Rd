@@ -4,26 +4,28 @@
 \alias{series.temporales}
 \title{Series temporales.}
 \usage{
-series.temporales(x,
-variable = NULL,
-inicio_anual = 1,
-periodo_inicio = 1,
-frecuencia = 4,
-orden = frecuencia)
+series.temporales(
+  x,
+  variable = NULL,
+  inicio_anual = 1,
+  periodo_inicio = 1,
+  frecuencia = 4,
+  orden = frecuencia,
+  prediccion = FALSE,
+  grafico = FALSE,
+  exportar = FALSE
+)
 }
 \arguments{
-<<<<<<< HEAD
-\item{x}{sss}
+\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
-\item{variable}{sss}
+\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
-=======
->>>>>>> 6e2c4b7ae6e015d514381e59ce80402ad2abf3ae
-\item{inicio_anual}{Año de inicio de la serie.}
+\item{inicio_anual}{Año de inicio de la serie. Por defecto \code{inicio_anual = 1}.}
 
-\item{periodo_inicio}{Periodo de inicio de la serie.}
+\item{periodo_inicio}{Periodo de inicio de la serie. Por defecto \code{perido_inicio = 1}, es decir, el primer periodo del año 1.}
 
-\item{frecuencia}{Periodificación de la serie.
+\item{frecuencia}{Periodificación de la serie. Por defecto \code{frecuencia = 4}.
 Si anual, frecuencia = 1
 Si semestral, frecuencia = 2
 Si cuatrimestral, frecuencia = 3
@@ -33,27 +35,34 @@ Si mensual, frecuencia = 12
 Si semanal, frecuencia = 52
 Si diario, frecuencia = 360}
 
-\item{orden}{Orden de la media móvil. Por defecto orden = frecuencia.}
-<<<<<<< HEAD
+\item{orden}{Orden (o puntos) de cálculo de la media móvil. Por defecto \code{orden = frecuencia}.}
 
-\item{prediccion}{Orden de la media móvil. Por defecto orden = frecuencia.}
+\item{prediccion}{vector de periodo temporal (\code{t=0}, origen de la serie) para el que se quiere obtener un pronóstico de la variable objeto de estudio.}
 
-\item{grafico}{Orden de la media móvil. Por defecto orden = frecuencia.}
+\item{grafico}{Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica la serie original, las medias móviles y la estimación por regresión de la tendencia, cambiar a \code{grafico = TRUE}.}
 
-\item{exportar}{Orden de la media móvil. Por defecto orden = frecuencia.}
-=======
->>>>>>> 6e2c4b7ae6e015d514381e59ce80402ad2abf3ae
+\item{exportar}{Para exportar los principales resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).}
 }
 \value{
-Esta función devuelve la covarianza en un objeto de la clase \code{data.frame}.
+Esta función devuelve un objeto de la clase \code{list}.
 }
 \description{
-Calcula la descomposición de las series temporales mediante el método de las medias móviles.
-}
-\details{
+Esta función utiliza el método de las medias móviles (centradas) para suavizar la componente irregular de una serie temporal.
+A partir de las medias móviles, también se obtienen los índices de variación irregular (IVE).
 
+series.temporales(x,
+variable = NULL,
+inicio_anual = 1,
+periodo_inicio = 1,
+frecuencia = 4,
+orden = frecuencia)
 }
-\note{
+\examples{
+
+serie <- series.temporales(turistas,
+variable=2,
+inicio_anual=2000,
+periodo_inicio = 1)
 
 }
 \references{
@@ -64,7 +73,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 }
 \seealso{
-\code{\link{varianza}}, \code{\link{desviacion}},\code{\link{matriz.covar}}
+\code{\link{regresion.simple}}
 }
 \author{
 \strong{Vicente Coll-Serrano}.

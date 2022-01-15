@@ -50,22 +50,14 @@ Realiza el contraste de hipótesis sobre la varianza poblacional.
 (1.2) utilizando la cuasi-varianza muestral:
 
 \if{html}{\figure{cvarcuasi.png}{options: width="30\%" alt="Figure: cvarcuasi.png"}}
-<<<<<<< HEAD
 \if{latex}{\figure{cvarcuasi.png}{options: width=43cm}}
 
-=======
-\if{latex}{\figure{cvarcuasi.png}{options: width=3cm}}
->>>>>>> 6e2c4b7ae6e015d514381e59ce80402ad2abf3ae
 (2) Si la media poblacional es conocida.
 
 (2.1) utilizando la varianza muestral:
 
 \if{html}{\figure{cvarmediaconmuestra.png}{options: width="60\%" alt="Figure: cvarmediaconmuestra.png"}}
-<<<<<<< HEAD
 \if{latex}{\figure{cvarmediaconmuestra.png}{options: width=5cm}}
-=======
-\if{latex}{\figure{cvarmediaconmuestra.png}{options: width=4cm}}
->>>>>>> 6e2c4b7ae6e015d514381e59ce80402ad2abf3ae
 
  Nota: En todos los casos el estadístico chi-dos se distrubuye con n-1 grados de libertad.
 }
