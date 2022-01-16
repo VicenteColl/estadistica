@@ -9,4 +9,5 @@ utils::globalVariables(c("ni", "fi", "sumatorio", "variable2",
                          "obs","sc.observados","sc.teoricos","errores2","suma.cuadrados.total",
                          "suma.cuadrados.errores","suma.cuadrados.regresion","varianza.residual",
                          "varianza.residuos","influencia","puntos.influyentes","error.norm",
-                         "X","momento"))
+                         "X","momento", "atipico", "lm", "mediamovil", "paso1_ive",
+                         "periodo", "pivot_wider", "variable_serie"))

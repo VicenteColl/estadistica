@@ -55,8 +55,7 @@
 #' inicio_anual=2000,
 #' periodo_inicio = 1)
 #'
-#' @import dplyr zoo forecast
-#' @importFrom forecast ma
+#' @import dplyr tidyr
 #'
 #' @export
 series.temporales <- function(x,

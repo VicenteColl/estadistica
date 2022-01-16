@@ -59,7 +59,7 @@ tabla.frecuencias <- function(x,
     if(variable %in% varnames){
       variable = which(varnames == variable)
     } else {
-      stop("El nombre de la variable no es valido")
+      stop("El nombre de la variable no es v\u00e1lido")
     }
   }
 
@@ -115,7 +115,7 @@ tabla.frecuencias <- function(x,
 
     } else{
 
-      print("Has decidido no agrupar los valores, puede que el diagrama de barras no represente adecuadamente la distribución de la variable")
+      print("Has decidido no agrupar los valores, puede que el diagrama de barras no represente adecuadamente la distribuci\u00f3n de la variable")
 
       agrupar = 0
 
