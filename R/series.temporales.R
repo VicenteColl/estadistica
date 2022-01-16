@@ -55,7 +55,8 @@
 #' inicio_anual=2000,
 #' periodo_inicio = 1)
 #'
-#' @import dplyr forecast
+#' @import dplyr zoo forecast
+#' @importFrom forecast ma
 #'
 #' @export
 series.temporales <- function(x,
@@ -162,7 +163,7 @@ x$id <- 1:n
 
 mediasMoviles <- x %>%
   rename(variable_serie = varnames[variable]) %>%
-  mutate(mediamovil = ma(variable_serie, order = orden, centre = TRUE)) %>%
+  mutate(mediamovil = forecast::ma(variable_serie, order = orden, centre = TRUE)) %>%
   select(4,2,3,1,6)
 
 # incluyo la variable t para el ajuste de tendencia

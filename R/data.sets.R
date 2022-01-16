@@ -182,7 +182,7 @@
 #'
 "rendimientos"
 
-#' Data: turistas
+#' Data: turistas internacionales
 #'
 #' Datos del Instituto Nacional de Estadística. Hay un total de 216,726 observaciones de 10 variables seleccionadas. Los datos han sido tratados siguiendo las instrucciones que el INE adjunta con los microdatos.
 #' @usage data("turistas")
@@ -192,6 +192,20 @@
 #'   \item{Turistas.internacionales}{Número de turistas internacionales}
 #' }
 #' @source Instituto Nacional de Estadística \url{http://www.ine.es/}
+#'
+"turistas2"
+
+#' Data: turistas
+#'
+#' Datos de World Tourism Organization.
+#' @usage data("turistas")
+#' @format Dataframe con 130 observaciones de 3 variables.
+#' \describe{
+#'   \item{País}{País de procedencia.}
+#'   \item{Llegadas.de.turistas}{Número de llegada de turistas en 2017, en miles.}
+#'   \item{Gasto.viajes}{Gasto en viajes en 2017, en millones de USD.}
+#' }
+#' @source World Tourism Organization (2019), Compendium of Tourism Statistics dataset [Electronic], UNWTO, Madrid, data updated on 11/01/2019. \url{http://statistics.unwto.org/news/2018-03-23/methodological-notes-tourism-statistics-database-2018-edition}
 #'
 "turistas"
 
