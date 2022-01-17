@@ -239,7 +239,7 @@ varianza_t <- as.numeric(varianza(serie_regresion[2]))
 varianza_mediamovil <- as.numeric(varianza(serie_regresion[4]))
 covarianza_t_mediamovil <- as.numeric(covarianza(serie_regresion[,c(2,4)]))
 
-modelo_series <- lm(mediamovil ~ t, data = serie_regresion)
+modelo_series <- regresion.simple2(serie_regresion,mediamovil,t)
 
 constante_regresion <- as.numeric(modelo_series$coefficients[1])
 coeficiente_regresion <- as.numeric(modelo_series$coefficients[2])

@@ -11,7 +11,7 @@ series.temporales(
   periodo_inicio = 1,
   frecuencia = 4,
   orden = frecuencia,
-  prediccion = FALSE,
+  prediccion_tendencia = FALSE,
   grafico = FALSE,
   exportar = FALSE
 )
@@ -37,7 +37,7 @@ Si diario, frecuencia = 360}
 
 \item{orden}{Orden (o puntos) de cálculo de la media móvil. Por defecto \code{orden = frecuencia}.}
 
-\item{prediccion}{vector de periodo temporal (\code{t=0}, origen de la serie) para el que se quiere obtener un pronóstico de la variable objeto de estudio.}
+\item{prediccion_tendencia}{vector de periodo temporal (\code{t=0}, origen de la serie) para el que se quiere obtener una predicción de la tendencia de la serie objeto de estudio.}
 
 \item{grafico}{Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica la serie original, las medias móviles y la estimación por regresión de la tendencia, cambiar a \code{grafico = TRUE}.}
 
@@ -51,11 +51,14 @@ Esta función utiliza el método de las medias móviles (centradas) para suaviza
 A partir de las medias móviles, también se obtienen los índices de variación irregular (IVE).
 
 series.temporales(x,
-variable = NULL,
-inicio_anual = 1,
-periodo_inicio = 1,
-frecuencia = 4,
-orden = frecuencia)
+       variable = NULL,
+       inicio_anual = 1,
+       periodo_inicio = 1,
+       frecuencia = 4,
+       orden = frecuencia,
+       prediccion_tendencia = FALSE,
+       grafico = FALSE,
+       exportar = FALSE)
 }
 \examples{
 

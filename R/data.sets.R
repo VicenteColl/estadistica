@@ -184,14 +184,13 @@
 
 #' Data: turistas internacionales
 #'
-#' Datos del Instituto Nacional de Estadística. Hay un total de 216,726 observaciones de 10 variables seleccionadas. Los datos han sido tratados siguiendo las instrucciones que el INE adjunta con los microdatos.
 #' @usage data("turistas")
 #' @format Dataframe con 80 observaciones de 2 variables.
 #' \describe{
 #'   \item{perido}{Periodo temporal.}
-#'   \item{Turistas.internacionales}{Número de turistas internacionales}
+#'   \item{Turistas.internacionales}{Número de turistas con destino principal la Comunidad Valenciana}
 #' }
-#' @source Instituto Nacional de Estadística \url{http://www.ine.es/}
+#' @source Movimientos turísticos en fronteras. Frontur. Instituto de Estudios Turísticos (hasta septiembre de 2015) e INE (a partir de octubre de 2015)
 #'
 "turistas2"
 
