@@ -27,7 +27,7 @@
 #' Si semanal, frecuencia = 52
 #' Si diario, frecuencia = 360
 #' @param orden Orden (o puntos) de cálculo de la media móvil. Por defecto \code{orden = frecuencia}.
-#' @param prediccion_tendencia vector de periodo temporal (\code{t=0}, origen de la serie) para el que se quiere obtener un pronóstico de la variable objeto de estudio.
+#' @param prediccion_tendencia vector de periodo temporal (\code{t=0}, origen de la serie) para el que se quiere obtener una predicción de la tendencia de la serie objeto de estudio.
 #' @param grafico Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica la serie original, las medias móviles y la estimación por regresión de la tendencia, cambiar a \code{grafico = TRUE}.
 #' @param exportar Para exportar los principales resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).
 #'
