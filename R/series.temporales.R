@@ -8,7 +8,10 @@
 #' inicio_anual = 1,
 #' periodo_inicio = 1,
 #' frecuencia = 4,
-#' orden = frecuencia)
+#' orden = frecuencia,
+#' prediccion_tendencia = FALSE,
+#' grafico = FALSE,
+#' exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
@@ -24,7 +27,7 @@
 #' Si semanal, frecuencia = 52
 #' Si diario, frecuencia = 360
 #' @param orden Orden (o puntos) de cálculo de la media móvil. Por defecto \code{orden = frecuencia}.
-#' @param prediccion vector de periodo temporal (\code{t=0}, origen de la serie) para el que se quiere obtener un pronóstico de la variable objeto de estudio.
+#' @param prediccion_tendencia vector de periodo temporal (\code{t=0}, origen de la serie) para el que se quiere obtener un pronóstico de la variable objeto de estudio.
 #' @param grafico Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica la serie original, las medias móviles y la estimación por regresión de la tendencia, cambiar a \code{grafico = TRUE}.
 #' @param exportar Para exportar los principales resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).
 #'
@@ -64,7 +67,7 @@ series.temporales <- function(x,
                               periodo_inicio = 1,
                               frecuencia = 4,
                               orden = frecuencia,
-                              prediccion = FALSE,
+                              prediccion_tendencia = FALSE,
                               grafico = FALSE,
                               exportar = FALSE){
 
@@ -264,7 +267,7 @@ rownames(resultados_regresion) <- c("media t","media mediamovil","varianza t",
                                  "varianza explicada","varianza residual")
 
 
-if(prediccion){
+if(prediccion_tendencia){
   pronostico <- constante_regresion + coeficiente_regresion *prediccion
   pronosticos <- data.frame(valor_t = prediccion,pronosticos = pronostico)
 } else{

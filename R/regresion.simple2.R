@@ -2,7 +2,8 @@
 #'
 #' @description Calcula la regresión lineal simple.
 #' @usage regresion.simple(x,
-#'                  variable = NULL,
+#'                  var_depen = NULL,
+#'                  var_indepen = NULL,
 #'                  introducir = FALSE,
 #'                  inferencia = FALSE,
 #'                  confianza = 0.95,
@@ -66,8 +67,9 @@
 #' @import dplyr knitr ggplot2
 #'
 #' @export
-regresion.simple <- function(x,
-                             variable = NULL,
+regresion.simple2 <- function(x,
+                             var_depen = 1,
+                             var_indepen = 2,
                              introducir = FALSE,
                              inferencia = FALSE,
                              confianza = 0.95,
@@ -79,46 +81,58 @@ regresion.simple <- function(x,
 
   options(scipen = 999)
 
-  if(isFALSE(introducir)) {
+  if(isFALSE(introducir)){
 
     x <- data.frame(x)
     varnames <- names(x)
 
-    if(is.null(variable)){
+    if(is.null(var_depen) | is.null(var_indepen)){
+     stop("Debes seleccionar la variable dependiente y/o independiente")
+    }
 
-      if(length(x) == 2){
-        x <- x
-      } else{
-        warning("Para calcular la regresi\u00f3n simple hay que seleccionar 2 variables")
-        stop("El conjunto de datos seleccionado no tiene la dimensi\u00f3n adecuada")
-      }
-    } else{
-
-      if(length(variable) == 2){
-        if(is.numeric(variable)){
-          if(all(variable <= length(x))){
-            variable <- variable
-          } else{
-            stop("Selecci\u00f3n err\u00f3nea de variables")
-          }
-        }
-        if(is.character(variable)){
-          if(all(variable %in% varnames)){
-            variable = match(variable,varnames)
-          } else {
-            stop("El nombre de la variable no es v\u00e1lido")
-          }
-        }
-
-        x <- x[,variable] %>% as.data.frame()
-        names(x) <- varnames[variable]
-        varnames <- names(x)
-
-      } else{
-        warning("Para calcular la regresi\u00f3n simple hay que seleccionar dos variables")
-        stop("El conjunto de datos seleccionado parece ser no v\u00e1lido")
+    if(is.numeric(var_depen)){
+      if(var_depen<=length(x)){
+        var_depen <- var_depen}
+      else{
+        stop("Seleccion erronea de variable")
       }
     }
+
+    if(is.character(var_depen)){
+      if(var_depen %in% varnames){
+        var_depen = match(var_depen,varnames)
+      } else {
+        stop("El nombre de la variable no es v\u00e1lido")
+      }
+    }
+
+
+    if(is.numeric(var_indepen)){
+      if(var_indepen<=length(x)){
+        var_indepen <- var_indepen}
+      else{
+        stop("Seleccion erronea de variable")
+      }
+    }
+
+    if(is.character(var_indepen)){
+      if(var_indepen %in% varnames){
+        var_indepen = match(var_indepen,varnames)
+      } else {
+        stop("El nombre de la variable no es v\u00e1lido")
+      }
+    }
+
+    if(var_depen == var_indepen){
+      stop("La variable dependiente e independiente son la misma variable")
+    }
+
+      variable <- c(var_indepen,var_depen)
+
+
+      x <- x[,variable] %>% as.data.frame()
+      names(x) <- varnames[variable]
+      varnames <- names(x)
 
     clase <- sapply(x, class)
 
@@ -126,22 +140,6 @@ regresion.simple <- function(x,
       stop("No puede calcularse la regresi\u00f3 simple porque las variables seleccionadas no son cuantitativas")
     }
 
-    var_depen <- as.numeric(readline(prompt = 'Indica la posici\u00f3n en el dataframe de la variable dependiente (variable Y): \n'))
-
-    if(var_depen == 1){
-
-      var_indepen = 2
-
-    } else{
-
-      var_indepen = 1
-
-    }
-
-  # nombres de las variables independiente (var_x) y dependiente (var_y)
-
-  x <- x[,c(var_indepen,var_depen)]
-  varnames <- names(x)
 
   # tabla de resultados parciales
 
