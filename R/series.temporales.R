@@ -53,7 +53,7 @@
 #'
 #'@examples
 #'
-#' serie <- series.temporales(turistas,
+#' ejemplo_serie <- series.temporales(turistas2,
 #' variable=2,
 #' inicio_anual=2000,
 #' periodo_inicio = 1)
@@ -187,7 +187,7 @@ if(frecuencia != 1){
   rownames(ivecorregido) <- "IVE"
   #sum(ivecorregido[1,])
 }else{
-  ivecorregio <- NULL
+  ivecorregido <- NULL
 }
 
 
@@ -195,9 +195,9 @@ serie_regresion <- subset(mediasMoviles,!is.na(mediamovil))
 serie_regresion <- serie_regresion %>%
   select(1,6,4,5)
 
-if(grafico){
+if(isTRUE(grafico)){
   if(frecuencia!=1){
-    plot <-  ggplot(serie_regresion) +
+    p <-  ggplot(serie_regresion) +
       geom_point(aes(x = t, y = variable_serie)) +
       geom_line(aes(x = t, y = variable_serie)) +
       geom_point(aes(x = t, y = mediamovil),size=1,color="red") +
@@ -212,7 +212,7 @@ if(grafico){
       theme(axis.text.x=element_text(size=6,angle=90,vjust=0.2))
 
   } else{
-    plot <-  ggplot(serie_regresion) +
+    p <-  ggplot(serie_regresion) +
       geom_point(aes(x = t, y = variable_serie)) +
       geom_line(aes(x = t, y = variable_serie)) +
       geom_smooth(aes(t,mediamovil),
@@ -223,9 +223,10 @@ if(grafico){
       scale_x_continuous(breaks = serie_regresion$t, labels = serie_regresion$fecha) +
       labs(x="Periodo",y=varnames[variable]) +
       theme(axis.text.x=element_text(size=6,angle=90,vjust=0.2))
+
   }
 }else{
-  plot <- NULL
+  p <- NULL
 }
 
 #cambio nombre de objeto
@@ -283,7 +284,7 @@ if (exportar) {
 
   if(frecuencia!=1){
 
-    if(prediccion){
+    if(prediccion_tendencia){
       lista <- list(mediasMoviles,ivecorregido,serie_regresion,resultados_regresion,pronosticos)
 
       rio::export(lista, row.names = T, filename, sheetName=c("Medias moviles",
@@ -300,7 +301,7 @@ if (exportar) {
                                                               "Modelo ajuste"))
     }
   }else{
-    if(prediccion){
+    if(prediccion_tendencia){
       lista <- list(mediasMoviles,serie_regresion,resultados_regresion,pronosticos)
 
       rio::export(lista, row.names = T, filename, sheetName=c("Medias moviles",
@@ -323,6 +324,6 @@ return(list('Medias_moviles' = mediasMoviles,
             'Datos_ajuste_tendencia'= serie_regresion,
             'Modelo_ajuste' = resultados_regresion,
             'Pronosticos' = pronosticos,
-            'Grafico' = plot))
+            'Grafico' = p))
 
 }

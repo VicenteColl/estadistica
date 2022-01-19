@@ -26,14 +26,14 @@ series.temporales(
 \item{periodo_inicio}{Periodo de inicio de la serie. Por defecto \code{perido_inicio = 1}, es decir, el primer periodo del año 1.}
 
 \item{frecuencia}{Periodificación de la serie. Por defecto \code{frecuencia = 4}.
-Si anual, frecuencia = 1
-Si semestral, frecuencia = 2
-Si cuatrimestral, frecuencia = 3
-Si trimestral, frecuencia = 4
-Si bimestral, frecuencia = 6
-Si mensual, frecuencia = 12
-Si semanal, frecuencia = 52
-Si diario, frecuencia = 360}
+Si anual, frecuencia = 1.
+Si semestral, frecuencia = 2.
+Si cuatrimestral, frecuencia = 3.
+Si trimestral, frecuencia = 4.
+Si bimestral, frecuencia = 6.
+Si mensual, frecuencia = 12.
+Si semanal, frecuencia = 52.
+Si diario, frecuencia = 360.}
 
 \item{orden}{Orden (o puntos) de cálculo de la media móvil. Por defecto \code{orden = frecuencia}.}
 
@@ -62,7 +62,7 @@ series.temporales(x,
 }
 \examples{
 
-serie <- series.temporales(turistas,
+ejemplo_serie <- series.temporales(turistas2,
 variable=2,
 inicio_anual=2000,
 periodo_inicio = 1)

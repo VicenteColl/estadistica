@@ -20,9 +20,6 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo-García}.
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @details
@@ -66,6 +63,7 @@
 #'
 #' forma <- medidas.forma(startup)
 #' forma2 <- medidas.forma(startup, alternativa= TRUE)
+#'
 #'
 #' @export
 medidas.forma <- function(x,
@@ -161,7 +159,7 @@ medidas.forma <- function(x,
 
   if(is.null(pesos)){
 
-    N <- nrow(x)
+    #N <- nrow(x)
     momento3 <- apply(x,2,momento.central,orden = 3)
     momento4 <- apply(x,2,momento.central,orden = 4)
     desv.x <- as.numeric(desviacion(x))
@@ -197,27 +195,38 @@ medidas.forma <- function(x,
 
   if(alternativa == TRUE){
 
-    desv.x.muestra <- desv.x * sqrt(N/(N-1))
 
+    xalt <- x %>% gather(key="var_coef",value=value) %>%
+      filter(stats::complete.cases(.)) %>%
+      group_by(var_coef) %>%
+      summarize(N= n(),
+                c1 = (N*(N+1))/((N-1)*(N-2)*(N-3)),
+                c3 = (3*(N-1)^2)/((N-2)*(N-3)),
+                error_asimetria = sqrt((6*N*(N-1))/((N-2)*(N+1)*(N+3))),
+                error_curtosis = 2 * error_asimetria * sqrt((N^2-1)/((N-3)*(N+5)))
+                ) %>% ungroup()
 
-    c1 <- (N*(N+1))/((N-1)*(N-2)*(N-3))
-    c2 <- (N*momento4)/desv.x.muestra^4
-    c3 <- (3*(N-1)^2)/((N-2)*(N-3))
+    desv.x.muestra = as.numeric(desviacion(x,tipo="cuasi"))
+    momento4 <- as.numeric(momento4)
+    momento3 <- as.numeric(momento3)
 
-    curtosis_soft <- (c1*c2)-c3
+    xalt <- xalt %>%
+      mutate(desv.x.muestra = desv.x.muestra,
+             c2 = (N*momento4)/desv.x.muestra^4,
+             curtosis_soft = (c1*c2)-c3,
+             A1 = N/((N-1)*(N-2)),
+             A2 = (N*momento3)/desv.x.muestra^3,
+             asimetria_soft = A1*A2) %>%
+      ungroup()
 
-    A1 <- N/((N-1)*(N-2))
-    A2 <- (N*momento3)/desv.x.muestra^3
-
-    asimetria_soft <- A1*A2
-
-
-    error_asimetria <- sqrt((6*N*(N-1))/((N-2)*(N+1)*(N+3)))
-    error_curtosis <- 2 * error_asimetria * sqrt((N^2-1)/((N-3)*(N+5)))
-
-    forma <- data.frame(asimetria=asimetria,curtosis=curtosis,
-                        asimetria2=asimetria_soft, error_asimetria2=error_asimetria,
-                        curtosis2=curtosis_soft,error_curtosis2=error_curtosis)
+    forma <- xalt %>%
+      select(2,5,6,9,12) %>%
+      mutate(asimetria = asimetria,
+             curtosis = curtosis) %>%
+      select(N="N",asimetria="asimetria",curtosis="curtosis",asimetria2="asimetria_soft",
+             error_asimetria2="error_asimetria",
+             curtosis2="curtosis_soft",error_curtosis2="error_curtosis") %>%
+      as.data.frame()
 
 
   } else{

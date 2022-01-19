@@ -5,7 +5,8 @@
 \title{Regresión lineal simple.}
 \usage{
 regresion.simple(x,
-                 variable = NULL,
+                 var_depen = NULL,
+                 var_indepen = NULL,
                  introducir = FALSE,
                  inferencia = FALSE,
                  confianza = 0.95,
@@ -15,7 +16,9 @@ regresion.simple(x,
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}
 
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
+\item{var_depen}{Es un vector (numérico o carácter) que indica la variable dependiente.}
+
+\item{var_indepen}{Es un vector (numérico o carácter) que indica la variable independiente.}
 
 \item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante de las variables: vector de medias y matriz de varianzas-covarianzas.}
 
