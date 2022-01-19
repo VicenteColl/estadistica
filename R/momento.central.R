@@ -54,7 +54,7 @@ momento.central <- function(x, orden){
   }
 
 
-  momento <- x %>%
+  momento <- x %>% na.omit %>%
     mutate(media_x = media(x),
            momento = (x-media_x)^orden) %>%
     summarize(momento = sum(momento)/n()) %>%

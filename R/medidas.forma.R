@@ -20,6 +20,9 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
+#' \strong{Cristina Pardo-García}.
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
+#'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @details
@@ -64,7 +67,6 @@
 #' forma <- medidas.forma(startup)
 #' forma2 <- medidas.forma(startup, alternativa= TRUE)
 #'
-#'
 #' @export
 medidas.forma <- function(x,
                           variable = NULL,
@@ -73,6 +75,7 @@ medidas.forma <- function(x,
                           exportar = FALSE){
 
   x <- data.frame(x)
+  x <- x[,order(names(x))]
   varnames <- names(x)
 
   if(is.null(variable)){
@@ -113,7 +116,7 @@ medidas.forma <- function(x,
   if(is.null(pesos) & !is.null(variable)){
 
     x <- x[,variable] %>% as.data.frame()
-    names(x) <- varnames[variable]
+    x <- x[,order(names(x))]
     varnames <- names(x)
 
   }
@@ -197,7 +200,7 @@ medidas.forma <- function(x,
 
 
     xalt <- x %>% gather(key="var_coef",value=value) %>%
-      filter(stats::complete.cases(.)) %>%
+      filter(complete.cases(.)) %>%
       group_by(var_coef) %>%
       summarize(N= n(),
                 c1 = (N*(N+1))/((N-1)*(N-2)*(N-3)),
