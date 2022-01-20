@@ -1,6 +1,10 @@
 #' @title Coeficiente de correlación.
 #'
 #' @description Calcula el coeficiente de correlación de Pearson.
+#'
+#' \if{html}{\figure{qrcorrelacion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrcorrelacion.png}{options: scale=.25}}
+#'
 #' @usage correlacion(x, variable = NULL)
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).

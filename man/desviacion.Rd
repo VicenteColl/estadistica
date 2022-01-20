@@ -23,6 +23,9 @@ Esta función devuelve un objeto de la clase \code{data.frame}. Si \code{tipo="m
 }
 \description{
 Calcula la desviación típica.
+
+\if{html}{\figure{qrdispersion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrdispersion.png}{options: scale=.25}}
 }
 \details{
 (1) La expresión de la de la desviación típica muestral es:

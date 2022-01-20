@@ -1,7 +1,7 @@
 #' @title Series temporales.
 #'
-#' @description Esta función utiliza el método de las medias móviles (centradas) para suavizar la componente irregular de una serie temporal.
-#' A partir de las medias móviles, también se obtienen los índices de variación irregular (IVE).
+#' @description Esta función utiliza el método de las medias móviles (centradas) para extraer la tendencia de una serie temporal.
+#' A partir de las medias móviles, también se obtienen los índices de variación estacional (IVE).
 #'
 #' series.temporales(x,
 #'        variable = NULL,
@@ -195,39 +195,6 @@ serie_regresion <- subset(mediasMoviles,!is.na(mediamovil))
 serie_regresion <- serie_regresion %>%
   select(1,6,4,5)
 
-if(isTRUE(grafico)){
-  if(frecuencia!=1){
-    p <-  ggplot(serie_regresion) +
-      geom_point(aes(x = t, y = variable_serie)) +
-      geom_line(aes(x = t, y = variable_serie)) +
-      geom_point(aes(x = t, y = mediamovil),size=1,color="red") +
-      geom_line(aes(x = t, y = mediamovil),size=1,color="red") +
-      geom_smooth(aes(t,mediamovil),
-                  method = "lm",
-                  formula= 'y ~ x',
-                  se = FALSE,
-                  color = "blue") +
-      scale_x_continuous(breaks = serie_regresion$t, labels = serie_regresion$fecha) +
-      labs(x="Periodo",y=varnames[variable]) +
-      theme(axis.text.x=element_text(size=6,angle=90,vjust=0.2))
-
-  } else{
-    p <-  ggplot(serie_regresion) +
-      geom_point(aes(x = t, y = variable_serie)) +
-      geom_line(aes(x = t, y = variable_serie)) +
-      geom_smooth(aes(t,mediamovil),
-                  method = "lm",
-                  formula= 'y ~ x',
-                  se = FALSE,
-                  color = "blue") +
-      scale_x_continuous(breaks = serie_regresion$t, labels = serie_regresion$fecha) +
-      labs(x="Periodo",y=varnames[variable]) +
-      theme(axis.text.x=element_text(size=6,angle=90,vjust=0.2))
-
-  }
-}else{
-  p <- NULL
-}
 
 #cambio nombre de objeto
 names(mediasMoviles) <- c("Fecha","Periodo","Time",varnames[variable],
@@ -267,6 +234,47 @@ rownames(resultados_regresion) <- c("media t","media mediamovil","varianza t",
                                  "correlacion t_mediamovil","constante regresion",
                                  "coeficiente regresion","coeficiente determinacion",
                                  "varianza explicada","varianza residual")
+
+
+if(isTRUE(grafico)){
+  if(frecuencia!=1){
+    p <-  ggplot(serie_regresion) +
+      geom_point(aes(x = t, y = variable_serie)) +
+      geom_line(aes(x = t, y = variable_serie)) +
+      geom_point(aes(x = t, y = mediamovil),size=1,color="red") +
+      geom_line(aes(x = t, y = mediamovil),size=1,color="red") +
+      geom_smooth(aes(t,mediamovil),
+                  method = "lm",
+                  formula= 'y ~ x',
+                  se = FALSE,
+                  color = "blue") +
+      scale_x_continuous(breaks = serie_regresion$t, labels = serie_regresion$fecha) +
+      labs(title=paste("Serie temporal de ",varnames[variable],sep=""),
+           subtitle=paste("Ajuste lineal: ",varnames[variable],"=",round(modelo_series$coefficients[1],5),if_else(modelo_series$coefficients[2] >=0, "+", ""),round(modelo_series$coefficients[2],5)," * t",sep=""),
+           x="Periodo",
+           y=varnames[variable]) +
+  theme(axis.text.x=element_text(size=6,angle=90,vjust=0.2))
+
+  } else{
+    p <-  ggplot(serie_regresion) +
+      geom_point(aes(x = t, y = variable_serie)) +
+      geom_line(aes(x = t, y = variable_serie)) +
+      geom_smooth(aes(t,mediamovil),
+                  method = "lm",
+                  formula= 'y ~ x',
+                  se = FALSE,
+                  color = "blue") +
+      scale_x_continuous(breaks = serie_regresion$t, labels = serie_regresion$fecha) +
+      labs(title=paste("Serie temporal de ",varnames[variable],sep=""),
+           subtitle=paste("Ajuste lineal: ",varnames[variable],"=",round(modelo_series$coefficients[1],5),if_else(modelo_series$coefficients[2] >=0, "+", ""),round(modelo_series$coefficients[2],5)," * t",sep=""),
+           x="Periodo",
+           y=varnames[variable]) +
+      theme(axis.text.x=element_text(size=6,angle=90,vjust=0.2))
+
+  }
+}else{
+  p <- NULL
+}
 
 
 if(prediccion_tendencia){

@@ -2,6 +2,9 @@
 #'
 #' @description Calcula la media aritmética.
 #'
+#' \if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrposicion.png}{options: scale=.25}}
+#'
 #' @usage media(x, variable = NULL, pesos = NULL)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.

@@ -1,6 +1,10 @@
 #' @title Mediana.
 #'
 #' @description Calcula la mediana.
+#'
+#' \if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrposicion.png}{options: scale=.25}}
+#'
 #' @usage mediana(x, variable = NULL, pesos = NULL)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.

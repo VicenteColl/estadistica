@@ -3,7 +3,7 @@
 \docType{data}
 \name{turistas2}
 \alias{turistas2}
-\title{Data: turistas internacionales}
+\title{Data: Turistas internacionales Comunidad Valenciana}
 \format{
 Dataframe con 80 observaciones de 2 variables.
 \describe{
@@ -18,6 +18,6 @@ Movimientos turísticos en fronteras. Frontur. Instituto de Estudios Turísticos
 data("turistas")
 }
 \description{
-Data: turistas internacionales
+Data: Turistas internacionales Comunidad Valenciana
 }
 \keyword{datasets}

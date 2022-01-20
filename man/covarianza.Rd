@@ -20,6 +20,9 @@ Esta función devuelve la covarianza en un objeto de la clase \code{data.frame}.
 }
 \description{
 Calcula la covarianza.
+
+\if{html}{\figure{qrcovarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrcovarianza.png}{options: scale=.25}}
 }
 \details{
 (1) La covarianza muestral se obtiene a partir de la siguiente expresión:

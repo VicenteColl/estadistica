@@ -2,6 +2,9 @@
 #'
 #' @description Realiza el contraste de hipótesis sobre la media poblacional.
 #'
+#' \if{html}{\figure{qrcmedia.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrcmedia.png}{options: scale=.25}}
+#'
 #' @usage contraste.media(x,
 #'                  variable = NULL,
 #'                  introducir = FALSE,

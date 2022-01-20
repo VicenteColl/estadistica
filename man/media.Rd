@@ -18,6 +18,9 @@ Si \code{pesos = NULL}, devuelve la media (aritmética) de todas la variables se
 }
 \description{
 Calcula la media aritmética.
+
+\if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrposicion.png}{options: scale=.25}}
 }
 \details{
 Si se obtiene la media (muestral) a partir de los datos brutos, como generalmente hacen los softwares:

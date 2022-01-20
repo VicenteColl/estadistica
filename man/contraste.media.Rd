@@ -38,6 +38,9 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 }
 \description{
 Realiza el contraste de hipótesis sobre la media poblacional.
+
+\if{html}{\figure{qrcmedia.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrcmedia.png}{options: scale=.25}}
 }
 \details{
 (1) Si la varianza poblacional es conocida, el estadístico Z es:

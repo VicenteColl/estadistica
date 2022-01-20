@@ -35,28 +35,30 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 }
 \description{
 Realiza el contraste de hipótesis sobre la razón de dos varianzas poblacionales.
+
+\if{html}{\figure{qrcrazonvarianzas.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrcrazonvarianzas.png}{options: scale=.25}}
 }
 \details{
-La hipótesis nula que se considera en este contraste es:
+La hipótesis nula que se considera en el contraste bilateral es:
 
-\if{html}{\figure{contrastecocientevar.png}{options: width="30\%" alt="Figure: contrastecocientevar.png"}}
-\if{latex}{\figure{contrastecocientevar.png}{options: width=3cm}}
+\if{html}{\figure{crazonvar.png}{options: width="30\%" alt="Figure: contrastecocientevar.png"}}
+\if{latex}{\figure{crazonvar.png}{options: width=3cm}}
 
 El estadístico F es:
 
 (1) Si trabajamos con la varianza muestral:
 
 
-\if{html}{\figure{contrastecocientevarmuestra.png}{options: width="50\%" alt="Figure: contrastecocientevarmuestra.png"}}
-\if{latex}{\figure{contrastecocientevarmuestra.png}{options: width=5cm}}
+\if{html}{\figure{crazonvarmuestra.png}{options: width="50\%" alt="Figure: contrastecocientevarmuestra.png"}}
+\if{latex}{\figure{crazonvarmuestra.png}{options: width=5cm}}
 
 (2) si trabajamos con la cuasi-varianza muestral:
 
+\if{html}{\figure{crazonvarcuasi.png}{options: width="25\%" alt="Figure: contrastecocientevarcuasi.png"}}
+\if{latex}{\figure{crazonvarcuasi.png}{options: width=3cm}}
 
-\if{html}{\figure{contrastecocientevarcuasi.png}{options: width="25\%" alt="Figure: contrastecocientevarcuasi.png"}}
-\if{latex}{\figure{contrastecocientevarcuasi.png}{options: width=3cm}}
-
-Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerador y (n1-1) en el denominador.
+Tanto en (1) como en (2) el estadístico F se distribuye como una F con (n1-1) grados de libertad en el numerador y (n2-1) grados de libertad en el denominador.
 }
 \references{
 Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X

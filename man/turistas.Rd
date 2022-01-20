@@ -3,17 +3,17 @@
 \docType{data}
 \name{turistas}
 \alias{turistas}
-\title{Data: turistas}
+\title{Data: Turistas por paises (WTO)}
 \format{
 Dataframe con 130 observaciones de 3 variables.
 \describe{
-  \item{País}{País de procedencia.}
+  \item{País}{País de destino.}
   \item{Llegadas.de.turistas}{Número de llegada de turistas en 2017, en miles.}
   \item{Gasto.viajes}{Gasto en viajes en 2017, en millones de USD.}
 }
 }
 \source{
-World Tourism Organization (2019), Compendium of Tourism Statistics dataset [Electronic], UNWTO, Madrid, data updated on 11/01/2019. \url{http://statistics.unwto.org/news/2018-03-23/methodological-notes-tourism-statistics-database-2018-edition}
+World Tourism Organization (2019).
 }
 \usage{
 data("turistas")

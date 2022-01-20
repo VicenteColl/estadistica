@@ -47,8 +47,8 @@ Si diario, frecuencia = 360.}
 Esta función devuelve un objeto de la clase \code{list}.
 }
 \description{
-Esta función utiliza el método de las medias móviles (centradas) para suavizar la componente irregular de una serie temporal.
-A partir de las medias móviles, también se obtienen los índices de variación irregular (IVE).
+Esta función utiliza el método de las medias móviles (centradas) para extraer la tendencia de una serie temporal.
+A partir de las medias móviles, también se obtienen los índices de variación estacional (IVE).
 
 series.temporales(x,
        variable = NULL,

@@ -2,6 +2,9 @@
 #'
 #' @description Realiza el contraste de hipótesis sobre la razón de dos varianzas poblacionales.
 #'
+#' \if{html}{\figure{qrcrazonvarianzas.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrcrazonvarianzas.png}{options: scale=.25}}
+#'
 #' @usage contraste.razon.varianzas(x,
 #'                  variable = NULL,
 #'                  introducir = FALSE,
@@ -34,26 +37,25 @@
 #'
 #' @details
 #'
-#' La hipótesis nula que se considera en este contraste es:
+#' La hipótesis nula que se considera en el contraste bilateral es:
 #'
-#' \if{html}{\figure{contrastecocientevar.png}{options: width="30\%" alt="Figure: contrastecocientevar.png"}}
-#' \if{latex}{\figure{contrastecocientevar.png}{options: width=3cm}}
+#' \if{html}{\figure{crazonvar.png}{options: width="30\%" alt="Figure: contrastecocientevar.png"}}
+#' \if{latex}{\figure{crazonvar.png}{options: width=3cm}}
 #'
 #' El estadístico F es:
 #'
 #' (1) Si trabajamos con la varianza muestral:
 #'
 #'
-#' \if{html}{\figure{contrastecocientevarmuestra.png}{options: width="50\%" alt="Figure: contrastecocientevarmuestra.png"}}
-#' \if{latex}{\figure{contrastecocientevarmuestra.png}{options: width=5cm}}
+#' \if{html}{\figure{crazonvarmuestra.png}{options: width="50\%" alt="Figure: contrastecocientevarmuestra.png"}}
+#' \if{latex}{\figure{crazonvarmuestra.png}{options: width=5cm}}
 #'
 #' (2) si trabajamos con la cuasi-varianza muestral:
 #'
+#' \if{html}{\figure{crazonvarcuasi.png}{options: width="25\%" alt="Figure: contrastecocientevarcuasi.png"}}
+#' \if{latex}{\figure{crazonvarcuasi.png}{options: width=3cm}}
 #'
-#' \if{html}{\figure{contrastecocientevarcuasi.png}{options: width="25\%" alt="Figure: contrastecocientevarcuasi.png"}}
-#' \if{latex}{\figure{contrastecocientevarcuasi.png}{options: width=3cm}}
-#'
-#' Nota: en ambos casos el estadístico F se distribuye con una F con (n2-1) grados de libertad en el numerador y (n1-1) en el denominador.
+#' Tanto en (1) como en (2) el estadístico F se distribuye como una F con (n1-1) grados de libertad en el numerador y (n2-1) grados de libertad en el denominador.
 #'
 #' @seealso \code{\link{ic.razon.varianzas}}
 #'
@@ -227,25 +229,25 @@ if(alfa >= 0 & alfa <=1){
 if(var_muestra == 1){
 
   # caso 1.1
-  estadistico.prueba <- (n2/(n2-1))*((n1-1)/n1)*(var_mu2/var_mu1)*hipotesis_nula
+  estadistico.prueba <- (n1/(n1-1))*((n2-1)/n2)*(var_mu1/var_mu2)*(1/hipotesis_nula)
 
 } else {
 
   # caso 1.2
   print("Este es el intervalo de confianza que generalmente calculan los softwares")
 
-  estadistico.prueba <- (var_mu2 / var_mu1) * hipotesis_nula
+  estadistico.prueba <- (var_mu1 / var_mu2) * (1/hipotesis_nula)
 
 }
 
-percentil99 <- qf(.9999, df1= n2-1, df2 = n1-1)
+percentil99 <- qf(.9999, df1= n1-1, df2 = n2-1)
 
 data <- data.frame(x=seq(from = 0, to = percentil99, percentil99/200))
-data$y <-df(data$x, df1= n2-1, df2 = n1-1)
+data$y <-df(data$x, df1= n1-1, df2 = n2-1)
 
 if(tipo_contraste == "bilateral"){
 
-  pvalor <- 2 * min(pf(estadistico.prueba, df1= n2-1, df2 = n1-1,lower.tail = F), pf(estadistico.prueba, df1= n2-1, df2 = n1-1,lower.tail = T))
+  pvalor <- 2 * min(pf(estadistico.prueba, df1= n1-1, df2 = n2-1,lower.tail = F), pf(estadistico.prueba, df1= n1-1, df2 = n2-1,lower.tail = T))
 
   if(estadistico.prueba >= valor_critico1 & estadistico.prueba <=  valor_critico2){
 
@@ -267,7 +269,7 @@ if(tipo_contraste == "bilateral"){
       geom_area(data=subset(data,x>valor_critico2),fill = "red") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-      labs(title = paste("Distribuci\u00f3n F con ", n2-1, " y ",n1-1," grados de libertad",sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
       scale_x_continuous(breaks = round(c(0L,estadistico.prueba,valor_critico1,valor_critico2),4)) +
       theme(axis.text.x = element_text(angle = 45))
@@ -276,7 +278,7 @@ if(tipo_contraste == "bilateral"){
 
 } else if(tipo_contraste == "cola derecha"){
 
-  pvalor <- pf(estadistico.prueba, df1= n2-1, df2 = n1-1,lower.tail = F)
+  pvalor <- pf(estadistico.prueba, df1= n1-1, df2 = n2-1,lower.tail = F)
 
   if(estadistico.prueba >= valor_critico){
 
@@ -297,7 +299,7 @@ if(tipo_contraste == "bilateral"){
       geom_area(data=subset(data,x>valor_critico),fill = "red") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-      labs(title = paste("Distribuci\u00f3n F con ", n2-1, " y ",n1-1," grados de libertad",sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
       scale_x_continuous(breaks = round(c(0L,estadistico.prueba,valor_critico),4)) +
       theme(axis.text.x = element_text(angle = 45))
@@ -306,7 +308,7 @@ if(tipo_contraste == "bilateral"){
 
 } else{
 
-  pvalor <- pf(estadistico.prueba, df1= n2-1, df2 = n1-1,lower.tail = T)
+  pvalor <- pf(estadistico.prueba, df1= n1-1, df2 = n2-1,lower.tail = T)
 
   if(estadistico.prueba <= valor_critico){
 
@@ -327,7 +329,7 @@ if(tipo_contraste == "bilateral"){
       geom_area(data=subset(data,x<valor_critico),fill = "red") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "blue", linetype = "dashed") +
-      labs(title = paste("Distribuci\u00f3n F con ", n2-1, " y ",n1-1," grados de libertad",sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n F con ", n1-1, " y ",n2-1," grados de libertad",sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
       scale_x_continuous(breaks = round(c(0L,estadistico.prueba,valor_critico),4)) +
       theme(axis.text.x = element_text(angle = 45))

@@ -2,6 +2,9 @@
 #'
 #' @description Realiza el contraste de hipótesis sobre la varianza poblacional.
 #'
+#' \if{html}{\figure{qrcvarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrcvarianza.png}{options: scale=.25}}
+#'
 #' @usage contraste.varianza(x,
 #'                  variable = NULL,
 #'                  introducir = FALSE,

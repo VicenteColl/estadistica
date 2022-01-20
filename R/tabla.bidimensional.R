@@ -1,6 +1,10 @@
 #' @title Tabla doble entrada.
 #'
 #' @description Calcula la tabla de frecuencias bidimensionales.
+#'
+#' \if{html}{\figure{qrtablabidimensional.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrtablabidimensional.png}{options: scale=.25}}
+#'
 #' @usage tabla.bidimensional(x,
 #'              distribucion = c("cruzada","condicionada"),
 #'              frecuencias = c("absolutas","relativas"),
