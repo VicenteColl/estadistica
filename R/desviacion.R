@@ -1,6 +1,10 @@
 #' @title Desviación típica.
 #'
 #' @description Calcula la desviación típica.
+#'
+#' \if{html}{\figure{qrdispersion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrdispersion.png}{options: scale=.25}}
+#'
 #' @usage desviacion(x,
 #'          variable = NULL,
 #'          pesos = NULL,

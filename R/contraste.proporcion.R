@@ -2,6 +2,9 @@
 #'
 #' @description Realiza el contraste de hipótesis sobre la proporción poblacional.
 #'
+#' \if{html}{\figure{qrcproporcion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrcproporcion.png}{options: scale=.25}}
+#'
 #' @usage contraste.proporcion(x,
 #'                  variable = NULL,
 #'                  introducir = FALSE,

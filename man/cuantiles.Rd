@@ -26,6 +26,9 @@ Si \code{pesos = NULL}, la función devuelve los cuantiles de todas las variable
 }
 \description{
 Calcula los cuantiles.
+
+\if{html}{\figure{qrcuantiles.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrcuantiles.png}{options: scale=.25}}
 }
 \details{
 Los cuantiles se obtienen a partir de la siguiente regla de decisión:

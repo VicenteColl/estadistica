@@ -16,6 +16,9 @@ Esta función devuelve el valor del coeficiente de correlación lineal en un obj
 }
 \description{
 Calcula el coeficiente de correlación de Pearson.
+
+\if{html}{\figure{qrcorrelacion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrcorrelacion.png}{options: scale=.25}}
 }
 \details{
 El coeficiente de correlación muestral se obtiene a partir de la siguiente expresión:

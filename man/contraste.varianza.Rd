@@ -38,6 +38,9 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 }
 \description{
 Realiza el contraste de hipótesis sobre la varianza poblacional.
+
+\if{html}{\figure{qrcvarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrcvarianza.png}{options: scale=.25}}
 }
 \details{
 (1) Si la media poblacional es conocida, el estadístico chi-dos es:

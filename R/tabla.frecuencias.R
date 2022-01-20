@@ -1,6 +1,10 @@
 #' @title Tabla de frecuencias.
 #'
 #' @description Esta función presenta la distribución de frecuencias de una variable.
+#'
+#' \if{html}{\figure{qrtablafrecuencias.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrtablafrecuencias.png}{options: scale=.25}}
+#'
 #' @usage tabla.frecuencias(x,
 #'                          eliminar.na = TRUE,
 #'                          grafico = FALSE,

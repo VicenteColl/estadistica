@@ -2,6 +2,10 @@
 #' @title Coeficiente de variación.
 #'
 #' @description Calcula el coeficiente de variación de Pearson.
+#'
+#' \if{html}{\figure{qrdispersion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrdispersion.png}{options: scale=.25}}
+#'
 #' @usage coeficiente.variacion(x,
 #'                    variable = NULL,
 #'                    pesos = NULL,

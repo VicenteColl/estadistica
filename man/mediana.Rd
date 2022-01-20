@@ -18,6 +18,9 @@ Si \code{pesos = NULL}, devuelve la mediana de todas la variables seleccionadas 
 }
 \description{
 Calcula la mediana.
+
+\if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrposicion.png}{options: scale=.25}}
 }
 \details{
 La mediana se obtiene a partir de la siguiente regla de decisión:

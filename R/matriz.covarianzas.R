@@ -1,6 +1,10 @@
 #' @title Matriz de varianzas y covarianzas.
 #'
 #' @description Obtiene la matriz de varianzas y covarianzas.
+#'
+#' \if{html}{\figure{qrcovarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrcovarianza.png}{options: scale=.25}}
+#'
 #' @usage matriz.covar(x,
 #'               variable = NULL,
 #'               tipo = c("muestral","cuasi"),

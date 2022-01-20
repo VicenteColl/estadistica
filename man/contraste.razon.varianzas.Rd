@@ -35,6 +35,9 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 }
 \description{
 Realiza el contraste de hipótesis sobre la razón de dos varianzas poblacionales.
+
+\if{html}{\figure{qrcrazonvarianzas.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrcrazonvarianzas.png}{options: scale=.25}}
 }
 \details{
 La hipótesis nula que se considera en este contraste es:

@@ -1,6 +1,10 @@
 #' @title Matriz de correlación.
 #'
 #' @description Obtiene la matriz de correlación (de Pearson) entre 2 o más variables cuantitativas.
+#'
+#' \if{html}{\figure{qrcorrelacion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrcorrelacion.png}{options: scale=.25}}
+#'
 #' @usage matriz.correlacion(x, variable = NULL, exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
