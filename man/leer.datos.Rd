@@ -18,7 +18,7 @@ Al finalizar el proceso de lectura de datos se mostrará el dataframe cargado en
 Carga un conjunto de datos.
 
 \if{html}{\figure{qrleerdatos.png}{options: width="25\%" alt="Figure: qrleerdatos.png"}}
-\if{latex}{\figure{qrleerdatos.png}{options: scale=.25}}
+\if{latex}{\figure{qrleerdatos.png}{options: width=3cm}}
 }
 \references{
 Esteban García, J. et al. (2005). Estadística descriptiva y nociones de probabilidad. Thomson.

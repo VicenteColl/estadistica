@@ -25,20 +25,20 @@ Esta función devuelve un objeto de la clase \code{data.frame}. Si \code{tipo="m
 Calcula la desviación típica.
 
 \if{html}{\figure{qrdispersion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-\if{latex}{\figure{qrdispersion.png}{options: scale=.25}}
+\if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 }
 \details{
 (1) La expresión de la de la desviación típica muestral es:
 
 \if{html}{\figure{desviacion.png}{options: width="40\%"}}
-\if{latex}{\figure{desviacion.png}{options: scale=.4}}
+\if{latex}{\figure{desviacion.png}{options: width=5cm}}
 
 La desviación típica muestral así definida es el estimador máximo verosímil de la desviación típica de una población normal
 
 (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
 
 \if{html}{\figure{cuasidesviacion.png}{options: width="40\%"}}
-\if{latex}{\figure{cuasidesviacion.png}{options: scale=.4}}
+\if{latex}{\figure{cuasidesviacion.png}{options: width=5cm}}
 
 Nosotros llamamos a esta medida: cuasi-desviación típica muestral y es un estimador insesgado de la desviación típica poblacional.
 }
@@ -46,7 +46,7 @@ Nosotros llamamos a esta medida: cuasi-desviación típica muestral y es un esti
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la desviación típica poblacional:
 
 \if{html}{\figure{desviacionpob.png}{options: width="40\%"}}
-\if{latex}{\figure{desviacionpob.png}{options: scale=.4}}
+\if{latex}{\figure{desviacionpob.png}{options: width=5cm}}
 }
 \examples{
 

@@ -3,7 +3,7 @@
 #' @description Realiza el contraste de hipótesis sobre la varianza poblacional.
 #'
 #' \if{html}{\figure{qrcvarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrcvarianza.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrcvarianza.png}{options: width=3cm}}
 #'
 #' @usage contraste.varianza(x,
 #'                  variable = NULL,
@@ -42,7 +42,7 @@
 #'
 #' @details
 #'
-#' (1) Si la media poblacional es conocida, el estadístico chi-dos es:
+#' (1) Si la media poblacional es desconocida, el estadístico chi-dos es:
 #'
 #' (1.1) utilizando la varianza muestral:
 #'
@@ -52,7 +52,7 @@
 #' (1.2) utilizando la cuasi-varianza muestral:
 #'
 #' \if{html}{\figure{cvarcuasi.png}{options: width="30\%" alt="Figure: cvarcuasi.png"}}
-#' \if{latex}{\figure{cvarcuasi.png}{options: width=43cm}}
+#' \if{latex}{\figure{cvarcuasi.png}{options: width=4cm}}
 #'
 #' (2) Si la media poblacional es conocida.
 #'
@@ -61,7 +61,7 @@
 #' \if{html}{\figure{cvarmediaconmuestra.png}{options: width="60\%" alt="Figure: cvarmediaconmuestra.png"}}
 #' \if{latex}{\figure{cvarmediaconmuestra.png}{options: width=5cm}}
 #'
-#'  Nota: En todos los casos el estadístico chi-dos se distrubuye con n-1 grados de libertad.
+#'  Nota: En todos los casos, el estadístico chi-dos se distrubuye con n-1 grados de libertad.
 #'
 #' @seealso \code{\link{ic.varianza}}
 #'

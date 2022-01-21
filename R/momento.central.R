@@ -1,6 +1,10 @@
 #' @title Momento central.
 #'
 #' @description Calcula los momentos centrales respecto de la media.
+#'
+#' \if{html}{\figure{qrforma.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{latex}{\figure{qrforma.png}{options: width=3cm}}
+#'
 #' @usage momento.central(x, orden)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.

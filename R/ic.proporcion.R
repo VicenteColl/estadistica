@@ -3,7 +3,7 @@
 #' @description Calcula el intervalo de confianza de una proporción.
 #'
 #' \if{html}{\figure{qricproporcion.png}{options: width="25\%" alt="Figure: qricproporcion.png"}}
-#' \if{latex}{\figure{qricproporcion.png}{options: scale=.25}}
+#' \if{latex}{\figure{qricproporcion.png}{options: width=3cm}}
 #'
 #' @usage ic.proporcion(x,
 #'           variable = NULL,
@@ -38,17 +38,17 @@
 #' (1) Para tamaños muestrales muy grandes:
 #'
 #' \if{html}{\figure{icproporcion3.png}{options: width="80\%" alt="Figure: "icproporcion3.png"}}
-#' \if{latex}{\figure{icproporcion3.png}{options: scale=.8}}
+#' \if{latex}{\figure{icproporcion3.png}{options: width=12cm}}
 #'
 #' (2) Para cualquier tamaño muestral puede obtenerse el intervalo:
 #'
 #' \if{html}{\figure{icproporcion1.png}{options: width="15\%" alt="Figure: icproporcion2.png"}}
-#' \if{latex}{\figure{icproporcion1.png}{options: scale=.15}}
+#' \if{latex}{\figure{icproporcion1.png}{options: width=2.5cm}}
 #'
 #' correspondiendo los valores a las raíces de:
 #'
 #' \if{html}{\figure{icproporcion2.png}{options: width="80\%" alt="Figure: icproporcion2.png"}}
-#' \if{latex}{\figure{icproporcion2.png}{options: scale=.8}}
+#' \if{latex}{\figure{icproporcion2.png}{options: width=12cm}}
 #'
 #' @references
 #' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X

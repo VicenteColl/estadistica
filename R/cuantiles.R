@@ -3,7 +3,7 @@
 #' @description Calcula los cuantiles.
 #'
 #' \if{html}{\figure{qrcuantiles.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrcuantiles.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrcuantiles.png}{options: width=3cm}}
 #'
 #' @usage cuantiles(x,
 #'                  variable = NULL,

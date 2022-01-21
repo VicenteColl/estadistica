@@ -31,12 +31,12 @@
 #' (1) El intervalo para
 #'
 #' \if{html}{\figure{iccorrelacion1.png}{options: width="20\%" alt="iccorrelacion1.png"}}
-#' \if{latex}{\figure{iccorrelacion1.png}{options: scale=.2}}
+#' \if{latex}{\figure{iccorrelacion1.png}{options: width=4cm}}
 #'
 #' (2) es:
 #'
 #' \if{html}{\figure{iccorrelacion2.png}{options: width="80\%" alt="Figure: iccorrelacion2.png"}}
-#' \if{latex}{\figure{iccorrelacion2.png}{options: scale=.8}}
+#' \if{latex}{\figure{iccorrelacion2.png}{options: width=15cm}}
 #'
 #' Igualando la expresión en (1) al extremo inferior de (2) y al extremo superior de (2) se obtendrá el intervalo para la correlación.
 #'

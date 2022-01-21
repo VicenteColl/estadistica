@@ -3,7 +3,7 @@
 #' @description Calcula la tabla de frecuencias bidimensionales.
 #'
 #' \if{html}{\figure{qrtablabidimensional.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrtablabidimensional.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrtablabidimensional.png}{options: width=3cm}}
 #'
 #' @usage tabla.bidimensional(x,
 #'              distribucion = c("cruzada","condicionada"),

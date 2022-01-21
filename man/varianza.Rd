@@ -25,20 +25,20 @@ Esta función devuelve un objeto de la clase \code{data.frame}. Si \code{tipo="m
 Calcula la varianza.
 
 \if{html}{\figure{qrdispersion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-\if{latex}{\figure{qrdispersion.png}{options: scale=.25}}
+\if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 }
 \details{
 (1) La expresión de la varianza muestral es:
 
 \if{html}{\figure{varianza.png}{options: width="40\%" alt="Figure: varianza.png"}}
-\if{latex}{\figure{varianza.png}{options: scale=.4}}
+\if{latex}{\figure{varianza.png}{options: width=5cm}}
 
 La varianza muestral así definida es el estimador máximo verosímil de la varianza de una población normal
 
 (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
 
 \if{html}{\figure{cuasivarianza.png}{options: width="40\%" alt="Figure: cuasivarianza.png"}}
-\if{latex}{\figure{cuasivarianza.png}{options: scale=.4}}
+\if{latex}{\figure{cuasivarianza.png}{options: width=5cm}}
 
 Nosotros llamamos a esta medida: cuasi-varianza muestral y es un estimador insesgado de la varianza poblacional.
 }
@@ -47,7 +47,7 @@ Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) 
 
 
 \if{html}{\figure{varianzapob.png}{options: width="40\%" alt="Figure: varianzapob.png"}}
-\if{latex}{\figure{varianzapob.png}{options: scale=.4}}
+\if{latex}{\figure{varianzapob.png}{options: width=5cm}}
 }
 \examples{
 

@@ -38,18 +38,38 @@ Si \code{inferencia = TRUE}, la función devuelve los resultados de inferenciale
 Calcula la regresión lineal simple.
 }
 \details{
-El coeficiente de correlación muestral se obtiene a partir de la siguiente expresión:
+Se obtiene la recta de regresión minimocuadrática de Y (variable dependiente) en función de X (variable independiente).
+La recta de regresión puede expresarse como:
 
-\if{html}{\figure{correlacion.png}{options: width="50\%" alt="Figure: correlacion.png"}}
-\if{latex}{\figure{correlacion.png}{options: scale=.5}}
+\if{html}{\figure{regresion1.png}{options: width="50\%" alt="Figure: correlacion.png"}}
+\if{latex}{\figure{regresion1.png}{options: width=7cm}}
 
-Por su construcción, el valor del coeficiente de correlación muestral es el mismo tanto si se calcula a partir de la covarianza y desviaciones típicas muestrales como si se hace a partir de la cuasi-covarianza y cuasi-desviaciones típicas muestrales.
-}
-\note{
-Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene el coeficiente de correlació poblacional:
+o alternativamente:
 
-\if{html}{\figure{correlacionpob.png}{options: width="30\%" alt="Figure: correlacionpob.png"}}
-\if{latex}{\figure{correlacionpob.png}{options: scale=.3}}
+\if{html}{\figure{regresion2.png}{options: width="75\%" alt="Figure: correlacion.png"}}
+\if{latex}{\figure{regresion2.png}{options: width=10cm}}
+
+En las representaciones gráficas las observaciones influyentes (extremos) se detectan a partir del punto inflyente o índice de leverage:
+
+\if{html}{\figure{influyente.png}{options: width="50\%" alt="Figure: influyente.png"}}
+\if{latex}{\figure{influyente.png}{options: width=10cm}}
+
+de forma que una observación que una observación será influyente si:
+
+\if{html}{\figure{obs_influyente.png}{options: width="25\%" alt="Figure: obs_influyente.png"}}
+\if{latex}{\figure{obs_influyente.png}{options: width=4cm}}
+
+donde p=2 (en el caso de la regresión simple). En general, p es igual al número de variables independientes más la constante.
+
+Por otra parte, las observaciones atípicas se identifican a partir de los errores estandarizados (se). Estos errores se obtienen a partir de:
+
+\if{html}{\figure{error_standarizado.png}{options: width="45\%" alt="Figure: error_standarizado.png"}}
+\if{latex}{\figure{error_standarizado.png}{options: width=10cm}}
+
+Una observación será atípica si:
+
+\if{html}{\figure{obs_atipica.png}{options: width="20\%" alt="Figure: obs_atipica.png"}}
+\if{latex}{\figure{obs_atipica2.png}{options: width=4cm}}
 }
 \examples{
 

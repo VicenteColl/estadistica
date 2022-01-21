@@ -34,7 +34,7 @@ Devuelve el intervalo de confianza de la diferencia de medias poblacionales en u
 Calcula el intervalo de confianza de la diferencia de medias poblacionales.
 
 \if{html}{\figure{qricdiferenciamedias.png}{options: width="25\%" alt="qricdiferenciamedias.png"}}
-\if{latex}{\figure{qricdiferenciamedias.png}{options: scale=.25}}
+\if{latex}{\figure{qricdiferenciamedias.png}{options: width=3cm}}
 }
 \references{
 Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X

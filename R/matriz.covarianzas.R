@@ -3,7 +3,7 @@
 #' @description Obtiene la matriz de varianzas y covarianzas.
 #'
 #' \if{html}{\figure{qrcovarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrcovarianza.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrcovarianza.png}{options: width=3cm}}
 #'
 #' @usage matriz.covar(x,
 #'               variable = NULL,
@@ -34,12 +34,12 @@
 #' (1) Se obtiene la matriz de varianzas y covarianzas muestrales:
 #'
 #' \if{html}{\figure{matrizvarcovmuestra.png}{options: width="50\%" alt="Figure: matrizvarcovmuestra.png"}}
-#' \if{latex}{\figure{matrizvarcovmuestra.png}{options: scale=.5}}
+#' \if{latex}{\figure{matrizvarcovmuestra.png}{options: width=8cm}}
 #'
 #' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) facilitan la matriz de cuasi-varianzas y cuasi-covarianzas muestrales:
 #'
 #' \if{html}{\figure{matrizvarcovcuasi.png}{options: width="55\%" alt="Figure: matrizvarcovcuasi.png"}}
-#' \if{latex}{\figure{matrizvarcovcuasi.png}{options: scale=.55}}
+#' \if{latex}{\figure{matrizvarcovcuasi.png}{options: width=8cm}}
 #'
 #' Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
 #'
@@ -47,7 +47,7 @@
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de varianzas y covarianzas poblacional:
 #'
 #' \if{html}{\figure{matrizvarcovpob.png}{options: width="55\%" alt="Figure: matrizvarcovpob.png"}}
-#' \if{latex}{\figure{matrizvarcovpob.png}{options: scale=.55}}
+#' \if{latex}{\figure{matrizvarcovpob.png}{options: width=8cm}}
 #'
 #' @seealso \code{\link{varianza}}, \code{\link{desviacion}}
 #'

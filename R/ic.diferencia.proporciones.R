@@ -3,7 +3,7 @@
 #' @description Calcula el intervalo de confianza de la diferencia de dos proporciones.
 #'
 #' \if{html}{\figure{qricdiferenciaproporciones.png}{options: width="25\%" alt="qricdiferenciaproporciones.png"}}
-#' \if{latex}{\figure{qricdiferenciaproporciones.png}{options: scale=.25}}
+#' \if{latex}{\figure{qricdiferenciaproporciones.png}{options: width=3cm}}
 #'
 #' @usage ic.diferencia.proporciones(x,
 #'                      variable = NULL,
@@ -34,7 +34,7 @@
 #' Se obtiene el intervalo:
 #'
 #' \if{html}{\figure{icdifproporciones.png}{options: width="65\%" alt="icdifproporciones.png"}}
-#' \if{latex}{\figure{icdifproporciones.png}{options: scale=.65}}
+#' \if{latex}{\figure{icdifproporciones.png}{options: width=12cm}}
 #'
 #' Nota: Las proporciones muestrales del error típico son sustituidas por sus estimaciones máximo-verosímiles (proporciones muestrales).
 #'

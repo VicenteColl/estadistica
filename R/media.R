@@ -3,7 +3,7 @@
 #' @description Calcula la media aritmética.
 #'
 #' \if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrposicion.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
 #' @usage media(x, variable = NULL, pesos = NULL)
 #'
@@ -30,18 +30,18 @@
 #' Si se obtiene la media (muestral) a partir de los datos brutos, como generalmente hacen los softwares:
 #'
 #' \if{html}{\figure{media.png}{options: width="80" alt="Figure: media.png"}}
-#' \if{latex}{\figure{media.png}{options: scale=.8}}
+#' \if{latex}{\figure{media.png}{options: width=3.5cm}}
 #'
 #' Si se desea obtener la media (muestral) a partir de una tabla estadística se utiliza la expresión:
 #'
 #' \if{html}{\figure{media2.png}{options: width="80" alt="Figure: media2.png"}}
-#' \if{latex}{\figure{media2.png}{options: scale=.8}}
+#' \if{latex}{\figure{media2.png}{options: width=3.5cm}}
 #'
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la media poblacional:
 #'
 #' \if{html}{\figure{mediapob.png}{options: width="80" alt="Figure: mediapob.png"}}
-#' \if{latex}{\figure{mediapob.png}{options: scale=.8}}
+#' \if{latex}{\figure{mediapob.png}{options: width=3cm}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

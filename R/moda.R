@@ -3,7 +3,7 @@
 #' @description Calcula la moda.
 #'
 #' \if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrposicion.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
 #' @usage moda(x, variable = NULL, pesos = NULL)
 #'

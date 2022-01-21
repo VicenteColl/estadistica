@@ -3,7 +3,7 @@
 #' @description Calcula un resumen de los principales estadísticos descriptivos.
 #'
 #' \if{html}{\figure{qrdescriptivos.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrdescriptivos.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrdescriptivos.png}{options: width=3cm}}
 #'
 #' @usage resumen.descriptivos(x,
 #'                             variable = NULL,

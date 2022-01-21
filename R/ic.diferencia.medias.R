@@ -3,7 +3,7 @@
 #' @description Calcula el intervalo de confianza de la diferencia de medias poblacionales.
 #'
 #' \if{html}{\figure{qricdiferenciamedias.png}{options: width="25\%" alt="qricdiferenciamedias.png"}}
-#' \if{latex}{\figure{qricdiferenciamedias.png}{options: scale=.25}}
+#' \if{latex}{\figure{qricdiferenciamedias.png}{options: width=3cm}}
 #'
 #' @usage ic.diferencia.medias(x,
 #'                      variable = NULL,

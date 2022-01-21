@@ -43,7 +43,7 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 Realiza el contraste de hipótesis sobre la diferencia de medias poblacionales.
 
 \if{html}{\figure{qrcdifmedias.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-\if{latex}{\figure{qrcdifmedias.png}{options: scale=.25}}
+\if{latex}{\figure{qrcdifmedias.png}{options: width=3cm}}
 }
 \references{
 Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X

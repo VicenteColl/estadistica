@@ -3,7 +3,7 @@
 #' @description Realiza el contraste de hipótesis sobre la razón de dos varianzas poblacionales.
 #'
 #' \if{html}{\figure{qrcrazonvarianzas.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrcrazonvarianzas.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrcrazonvarianzas.png}{options: width=3cm}}
 #'
 #' @usage contraste.razon.varianzas(x,
 #'                  variable = NULL,

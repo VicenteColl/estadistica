@@ -3,7 +3,7 @@
 #' @description Calcula la covarianza.
 #'
 #' \if{html}{\figure{qrcovarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrcovarianza.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrcovarianza.png}{options: width=3cm}}
 #'
 #' @usage covarianza(x,
 #'          variable = NULL,
@@ -32,12 +32,12 @@
 #' (1) La covarianza muestral se obtiene a partir de la siguiente expresión:
 #'
 #' \if{html}{\figure{covarianzamuestra.png}{options: width="50\%" alt="Figure: covarianzamuestra.png"}}
-#' \if{latex}{\figure{covarianzamuestra.png}{options: width=5cm}}
+#' \if{latex}{\figure{covarianzamuestra.png}{options: width=6cm}}
 #'
 #' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la covarianza a partir de la expresión:
 #'
 #' \if{html}{\figure{covarianzacuasi.png}{options: width="50\%" alt="Figure: covarianzacuasi.png"}}
-#' \if{latex}{\figure{covarianzacuasi.png}{options: width=5cm}}
+#' \if{latex}{\figure{covarianzacuasi.png}{options: width=6cm}}
 #'
 #' Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
 #'
@@ -45,7 +45,7 @@
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la covarianza poblacional:
 #'
 #' \if{html}{\figure{covarianzapob.png}{options: width="50\%" alt="Figure: covarianzapob.png"}}
-#' \if{latex}{\figure{covarianzapob.png}{options: width=5cm}}
+#' \if{latex}{\figure{covarianzapob.png}{options: width=6cm}}
 
 #' @seealso \code{\link{varianza}}, \code{\link{desviacion}},\code{\link{matriz.covar}}
 #'

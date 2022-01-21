@@ -3,7 +3,7 @@
 #' @description Realiza el contraste de hipótesis sobre la diferencia de medias poblacionales.
 #'
 #' \if{html}{\figure{qrcdifmedias.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrcdifmedias.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrcdifmedias.png}{options: width=3cm}}
 #'
 #' @usage contraste.diferencia.medias(x,
 #'                  variable = NULL,

@@ -3,7 +3,7 @@
 #' @description Calcula la mediana.
 #'
 #' \if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrposicion.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
 #' @usage mediana(x, variable = NULL, pesos = NULL)
 #'

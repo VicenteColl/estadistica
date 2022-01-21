@@ -40,10 +40,10 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 Realiza el contraste de hipótesis sobre la varianza poblacional.
 
 \if{html}{\figure{qrcvarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-\if{latex}{\figure{qrcvarianza.png}{options: scale=.25}}
+\if{latex}{\figure{qrcvarianza.png}{options: width=3cm}}
 }
 \details{
-(1) Si la media poblacional es conocida, el estadístico chi-dos es:
+(1) Si la media poblacional es desconocida, el estadístico chi-dos es:
 
 (1.1) utilizando la varianza muestral:
 
@@ -53,7 +53,7 @@ Realiza el contraste de hipótesis sobre la varianza poblacional.
 (1.2) utilizando la cuasi-varianza muestral:
 
 \if{html}{\figure{cvarcuasi.png}{options: width="30\%" alt="Figure: cvarcuasi.png"}}
-\if{latex}{\figure{cvarcuasi.png}{options: width=43cm}}
+\if{latex}{\figure{cvarcuasi.png}{options: width=4cm}}
 
 (2) Si la media poblacional es conocida.
 
@@ -62,7 +62,7 @@ Realiza el contraste de hipótesis sobre la varianza poblacional.
 \if{html}{\figure{cvarmediaconmuestra.png}{options: width="60\%" alt="Figure: cvarmediaconmuestra.png"}}
 \if{latex}{\figure{cvarmediaconmuestra.png}{options: width=5cm}}
 
- Nota: En todos los casos el estadístico chi-dos se distrubuye con n-1 grados de libertad.
+ Nota: En todos los casos, el estadístico chi-dos se distrubuye con n-1 grados de libertad.
 }
 \references{
 Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X

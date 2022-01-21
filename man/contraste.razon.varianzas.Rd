@@ -37,7 +37,7 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 Realiza el contraste de hipótesis sobre la razón de dos varianzas poblacionales.
 
 \if{html}{\figure{qrcrazonvarianzas.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-\if{latex}{\figure{qrcrazonvarianzas.png}{options: scale=.25}}
+\if{latex}{\figure{qrcrazonvarianzas.png}{options: width=3cm}}
 }
 \details{
 La hipótesis nula que se considera en el contraste bilateral es:

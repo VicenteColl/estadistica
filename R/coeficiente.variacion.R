@@ -4,7 +4,7 @@
 #' @description Calcula el coeficiente de variación de Pearson.
 #'
 #' \if{html}{\figure{qrdispersion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrdispersion.png}{options: scale=.25}}
+#' \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 #'
 #' @usage coeficiente.variacion(x,
 #'                    variable = NULL,

@@ -20,19 +20,19 @@ La función devuelve la matriz de correlación lineal de las variables seleccion
 Obtiene la matriz de correlación (de Pearson) entre 2 o más variables cuantitativas.
 
 \if{html}{\figure{qrcorrelacion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-\if{latex}{\figure{qrcorrelacion.png}{options: scale=.25}}
+\if{latex}{\figure{qrcorrelacion.png}{options: width=3cm}}
 }
 \details{
 Se obtiene la matriz de correlación muestral:
 
 \if{html}{\figure{matrizcorrelacion.png}{options: width="50\%" alt="Figure: matrizcorrelacion.png"}}
-\if{latex}{\figure{matrizcorrelacion.png}{options: scale=.5}}
+\if{latex}{\figure{matrizcorrelacion.png}{options: width=8cm}}
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de correlació poblacional:
 
 \if{html}{\figure{matrizcorrelacionpob.png}{options: width="55\%" alt="Figure: matrizcorrelacionpob.png"}}
-\if{latex}{\figure{matrizcorrelacionpob.png}{options: scale=.55}}
+\if{latex}{\figure{matrizcorrelacionpob.png}{options: width=8cm}}
 }
 \examples{
 

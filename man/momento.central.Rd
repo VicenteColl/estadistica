@@ -16,6 +16,9 @@ Devuelve el valor de momento central de orden seleccionado
 }
 \description{
 Calcula los momentos centrales respecto de la media.
+
+\if{html}{\figure{qrforma.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{latex}{\figure{qrforma.png}{options: width=3cm}}
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
