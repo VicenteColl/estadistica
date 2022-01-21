@@ -20,7 +20,11 @@ Si \code{pesos = NULL}, devuelve la moda de todas la variables seleccionadas en 
 Calcula la moda.
 
 \if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+<<<<<<< HEAD
 \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
+=======
+\if{latex}{\figure{qrposicion.png}{options: scale=.25}}
+>>>>>>> 52a86955ca07a23550d2c1b29bbf59bea51f4d18
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

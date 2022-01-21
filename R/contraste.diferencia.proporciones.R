@@ -3,7 +3,11 @@
 #' @description Realiza el contraste de hipótesis sobre la diferencia de dos proporciones.
 #'
 #' \if{html}{\figure{qrcdifproporciones.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+<<<<<<< HEAD
 #' \if{latex}{\figure{qrcdifproporciones.png}{options: width=3cm}}
+=======
+#' \if{latex}{\figure{qrcdifproporciones.png}{options: scale=.25}}
+>>>>>>> 52a86955ca07a23550d2c1b29bbf59bea51f4d18
 #'
 #' @usage contraste.diferencia.proporciones(x,
 #'                  variable = NULL,

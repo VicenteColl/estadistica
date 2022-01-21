@@ -26,7 +26,11 @@ Esta función devuelve el valor del coeficiente de variación en un objeto de la
 Calcula el coeficiente de variación de Pearson.
 
 \if{html}{\figure{qrdispersion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+<<<<<<< HEAD
 \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
+=======
+\if{latex}{\figure{qrdispersion.png}{options: scale=.25}}
+>>>>>>> 52a86955ca07a23550d2c1b29bbf59bea51f4d18
 }
 \details{
 El coeficiente de variación (muestral) se obtiene a partir de la siguiente expresión:
