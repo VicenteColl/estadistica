@@ -36,6 +36,8 @@ Si \code{inferencia = TRUE}, la función devuelve los resultados de inferenciale
 }
 \description{
 Calcula la regresión lineal simple.
+
+Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 }
 \details{
 Se obtiene la recta de regresión minimocuadrática de Y (variable dependiente) en función de X (variable independiente).

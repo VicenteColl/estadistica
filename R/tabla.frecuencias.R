@@ -2,12 +2,10 @@
 #'
 #' @description Esta función presenta la distribución de frecuencias de una variable.
 #'
+#' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+#'
 #' \if{html}{\figure{qrtablafrecuencias.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-<<<<<<< HEAD
 #' \if{latex}{\figure{qrtablafrecuencias.png}{options: width=3cm}}
-=======
-#' \if{latex}{\figure{qrtablafrecuencias.png}{options: scale=.25}}
->>>>>>> 52a86955ca07a23550d2c1b29bbf59bea51f4d18
 #'
 #' @usage tabla.frecuencias(x,
 #'                          eliminar.na = TRUE,

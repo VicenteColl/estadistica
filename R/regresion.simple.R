@@ -1,6 +1,8 @@
 #' @title Regresión lineal simple.
 #'
 #' @description Calcula la regresión lineal simple.
+#'
+#' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #' @usage regresion.simple(x,
 #'                  var_depen = NULL,
 #'                  var_indepen = NULL,

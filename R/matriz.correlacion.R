@@ -2,12 +2,10 @@
 #'
 #' @description Obtiene la matriz de correlación (de Pearson) entre 2 o más variables cuantitativas.
 #'
+#' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+#'
 #' \if{html}{\figure{qrcorrelacion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-<<<<<<< HEAD
 #' \if{latex}{\figure{qrcorrelacion.png}{options: width=3cm}}
-=======
-#' \if{latex}{\figure{qrcorrelacion.png}{options: scale=.25}}
->>>>>>> 52a86955ca07a23550d2c1b29bbf59bea51f4d18
 #'
 #' @usage matriz.correlacion(x, variable = NULL, exportar = FALSE)
 #'

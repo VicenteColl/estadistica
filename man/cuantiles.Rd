@@ -27,12 +27,10 @@ Si \code{pesos = NULL}, la función devuelve los cuantiles de todas las variable
 \description{
 Calcula los cuantiles.
 
+Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+
 \if{html}{\figure{qrcuantiles.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-<<<<<<< HEAD
 \if{latex}{\figure{qrcuantiles.png}{options: width=3cm}}
-=======
-\if{latex}{\figure{qrcuantiles.png}{options: scale=.25}}
->>>>>>> 52a86955ca07a23550d2c1b29bbf59bea51f4d18
 }
 \details{
 Los cuantiles se obtienen a partir de la siguiente regla de decisión:

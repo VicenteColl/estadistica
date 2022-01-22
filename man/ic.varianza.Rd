@@ -30,6 +30,8 @@ Devuelve el intervalo de confianza de la varianza poblacional en un objeto de ti
 \description{
 Calcula el intervalo de confianza de la varianza poblacional.
 
+Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+
 \if{html}{\figure{qricvarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qricvarianza.png}{options: width=3cm}}
 }

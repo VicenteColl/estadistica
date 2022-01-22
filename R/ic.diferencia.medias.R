@@ -2,6 +2,8 @@
 #'
 #' @description Calcula el intervalo de confianza de la diferencia de medias poblacionales.
 #'
+#' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+#'
 #' \if{html}{\figure{qricdiferenciamedias.png}{options: width="25\%" alt="qricdiferenciamedias.png"}}
 #' \if{latex}{\figure{qricdiferenciamedias.png}{options: width=3cm}}
 #'

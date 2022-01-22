@@ -2,6 +2,8 @@
 #'
 #' @description Calcula el intervalo de confianza para la razón (o cociente) de varianzas.
 #'
+#' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+#'
 #' \if{html}{\figure{qricrazonvarianzas.png}{options: width="25\%" alt="Figure: qricrazonvarianzas.png"}}
 #' \if{latex}{\figure{qricrazonvarianzas.png}{options: width=3cm}}
 #'

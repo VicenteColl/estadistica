@@ -33,6 +33,8 @@ Devuelve el intervalo de confianza de la media poblacional en un objeto de tipo 
 \description{
 Calcula el intervalo de confianza de la media poblacional.
 
+Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+
 \if{html}{\figure{qricmedia.png}{options: width="25\%" alt="Figure: qricmedia.png"}}
 \if{latex}{\figure{qricmedia.png}{options: width=3cm}}
 }

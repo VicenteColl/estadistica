@@ -4,17 +4,15 @@
 \alias{series.temporales}
 \title{Series temporales.}
 \usage{
-series.temporales(
-  x,
-  variable = NULL,
-  inicio_anual = 1,
-  periodo_inicio = 1,
-  frecuencia = 4,
-  orden = frecuencia,
-  prediccion_tendencia = FALSE,
-  grafico = FALSE,
-  exportar = FALSE
-)
+series.temporales(x,
+       variable = NULL,
+       inicio_anual = 1,
+       periodo_inicio = 1,
+       frecuencia = 4,
+       orden = frecuencia,
+       prediccion_tendencia = FALSE,
+       grafico = FALSE,
+       exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
@@ -50,15 +48,7 @@ Esta función devuelve un objeto de la clase \code{list}.
 Esta función utiliza el método de las medias móviles (centradas) para extraer la tendencia de una serie temporal.
 A partir de las medias móviles, también se obtienen los índices de variación estacional (IVE).
 
-series.temporales(x,
-       variable = NULL,
-       inicio_anual = 1,
-       periodo_inicio = 1,
-       frecuencia = 4,
-       orden = frecuencia,
-       prediccion_tendencia = FALSE,
-       grafico = FALSE,
-       exportar = FALSE)
+Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 }
 \examples{
 

@@ -36,12 +36,10 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 \description{
 Realiza el contraste de hipótesis sobre la proporción poblacional.
 
+Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+
 \if{html}{\figure{qrcproporcion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-<<<<<<< HEAD
 \if{latex}{\figure{qrcproporcion.png}{options: width=3cm}}
-=======
-\if{latex}{\figure{qrcproporcion.png}{options: scale=.25}}
->>>>>>> 52a86955ca07a23550d2c1b29bbf59bea51f4d18
 }
 \details{
 En este caso el estadístico Z del contraste es:

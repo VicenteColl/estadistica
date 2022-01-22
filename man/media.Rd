@@ -19,12 +19,10 @@ Si \code{pesos = NULL}, devuelve la media (aritmética) de todas la variables se
 \description{
 Calcula la media aritmética.
 
+Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+
 \if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-<<<<<<< HEAD
 \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
-=======
-\if{latex}{\figure{qrposicion.png}{options: scale=.25}}
->>>>>>> 52a86955ca07a23550d2c1b29bbf59bea51f4d18
 }
 \details{
 Si se obtiene la media (muestral) a partir de los datos brutos, como generalmente hacen los softwares:

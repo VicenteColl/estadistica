@@ -24,6 +24,8 @@ Devuelve el tamaño de la muesta en un objeto de tipo \code{data.frame}.
 \description{
 Calcula el tamaño muestral para estimar la media de una población normal o la proporcion p de una población.
 
+Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+
 \if{html}{\figure{qrmuestra1.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
 \if{latex}{\figure{qrmuestra1.png}{options: width=3cm}}
 

@@ -24,6 +24,8 @@ exportar = FALSE)
 \description{
 Calcula el coeficiente de asimetría y de curtosis de Fisher.
 
+Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+
 \if{html}{\figure{qrforma.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qrforma.png}{options: width=3cm}}
 }
