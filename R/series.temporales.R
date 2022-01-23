@@ -280,8 +280,8 @@ if(isTRUE(grafico)){
 
 
 if(prediccion_tendencia){
-  pronostico <- constante_regresion + coeficiente_regresion *prediccion
-  pronosticos <- data.frame(valor_t = prediccion,pronosticos = pronostico)
+  pronostico <- constante_regresion + coeficiente_regresion *prediccion_tendencia
+  pronosticos <- data.frame(valor_t = prediccion_tendencia,pronosticos = pronostico)
 } else{
   pronosticos <- NULL
 }
