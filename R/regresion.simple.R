@@ -82,7 +82,12 @@
 #'
 #' @examples
 #'
-#' # ver código QR
+#' ## Not run:
+#'
+#' ejemplo_regresion <- regresion.simple(turistas,
+#' var_depen=2,var_indepen=3,grafico=TRUE)
+#'
+#' ## End(Not run)
 #'
 #' @importFrom stats cor
 #' @importFrom gridExtra grid.arrange
@@ -536,16 +541,16 @@ regresion.simple <- function(x,
 
     if(inferencia){
 
-      return(list('Calculos.intermedios' = tabla2,
-                  'Resultados.parciales' = resultados.parciales2,
-                  'ANOVA' = tabla.anova2,
-                  'Moldelo.estimado' = modelo.regresion2,
+      return(list('Calculos.intermedios' = tabla,
+                  'Resultados.parciales' = resultados.parciales,
+                  'ANOVA' = tabla.anova,
+                  'Moldelo.estimado' = modelo.regresion,
                   'Graficos' = plot))
 
     } else{
 
-      return(list('Calculos.intermedios' = tabla2,
-                  'Resumen.regresion' = resumen2,
+      return(list('Calculos.intermedios' = tabla,
+                  'Resumen.regresion' = resumen,
                   'Graficos' = plot))
 
     }
@@ -556,13 +561,13 @@ regresion.simple <- function(x,
 
     if(inferencia){
 
-      return(list('Resultados.parciales' = resultados.parciales2,
-                  'ANOVA' = tabla.anova2,
-                  'Moldelo.estimado' = modelo.regresion2))
+      return(list('Resultados.parciales' = resultados.parciales,
+                  'ANOVA' = tabla.anova,
+                  'Moldelo.estimado' = modelo.regresion))
 
     } else{
 
-      return('Resumen.regresion' = resumen2)
+      return('Resumen.regresion' = resumen)
 
     }
 
