@@ -31,9 +31,6 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo-García}.
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @details
@@ -41,37 +38,37 @@
 #' Se obtiene la recta de regresión minimocuadrática de Y (variable dependiente) en función de X (variable independiente).
 #' La recta de regresión puede expresarse como:
 #'
-#' \if{html}{\figure{regresion1.png}{options: width="50\%" alt="Figure: correlacion.png"}}
+#' \if{html}{\figure{regresion1.png}{options: width="50\%" alt="Figure: regresion1.png"}}
 #' \if{latex}{\figure{regresion1.png}{options: width=7cm}}
 #'
 #' o alternativamente:
 #'
-#' \if{html}{\figure{regresion2.png}{options: width="75\%" alt="Figure: correlacion.png"}}
+#' \if{html}{\figure{regresion2.png}{options: width="75\%" alt="Figure: regresion2"}}
 #' \if{latex}{\figure{regresion2.png}{options: width=10cm}}
 #'
 #' En las representaciones gráficas las observaciones influyentes (extremos) se detectan a partir del punto inflyente o índice de leverage:
 #'
 #' \if{html}{\figure{influyente.png}{options: width="50\%" alt="Figure: influyente.png"}}
-#' \if{latex}{\figure{influyente.png}{options: width=10cm}}
+#' \if{latex}{\figure{influyente.png}{options: width=6cm}}
 #'
 #' de forma que una observación que una observación será influyente si:
 #'
-#' \if{html}{\figure{obs_influyente.png}{options: width="25\%" alt="Figure: obs_influyente.png"}}
-#' \if{latex}{\figure{obs_influyente.png}{options: width=4cm}}
+#' \if{html}{\figure{obsinfluyente.png}{options: width="25\%" alt="Figure: obsinfluyente.png"}}
+#' \if{latex}{\figure{obsinfluyente.png}{options: width=2.5cm}}
 #'
-#' donde p=2 (en el caso de la regresión simple). En general, p es igual al número de variables independientes más la constante.
+#'  donde p=2 (en el caso de la regresión simple). En general, p es igual al número de variables independientes más la constante.
 #'
 #' Por otra parte, las observaciones atípicas se identifican a partir de los errores estandarizados (se). Estos errores se obtienen a partir de:
 #'
-#' \if{html}{\figure{error_standarizado.png}{options: width="45\%" alt="Figure: error_standarizado.png"}}
-#' \if{latex}{\figure{error_standarizado.png}{options: width=10cm}}
+#' \if{html}{\figure{errorstandarizado.png}{options: width="45\%" alt="Figure: errorstandarizado.png"}}
+#' \if{latex}{\figure{errorstandarizado.png}{options: width=6cm}}
 #'
 #' Una observación será atípica si:
 #'
-#' \if{html}{\figure{obs_atipica.png}{options: width="20\%" alt="Figure: obs_atipica.png"}}
-#' \if{latex}{\figure{obs_atipica2.png}{options: width=4cm}}
+#' \if{html}{\figure{obsatipica.png}{options: width="20\%" alt="Figure: obsatipica.png"}}
+#' \if{latex}{\figure{obsatipica.png}{options: width=2cm}}
 #'
-#' @seealso \code{\link{matriz.covar}}, \code{\link{matriz.correlacion}}
+#'  @seealso \code{\link{matriz.covar}}, \code{\link{matriz.correlacion}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -83,10 +80,8 @@
 #' @examples
 #'
 #' ## Not run:
-#'
 #' ejemplo_regresion <- regresion.simple(turistas,
-#' var_depen=2,var_indepen=3,grafico=TRUE)
-#'
+#' var_depen=2,var_indepen=3,grafico=T)
 #' ## End(Not run)
 #'
 #' @importFrom stats cor
@@ -562,7 +557,7 @@ regresion.simple <- function(x,
     if(inferencia){
 
       return(list('Resultados.parciales' = resultados.parciales,
-                  'ANOVA' = tabla.anova,
+                  'ANOVA' = tabla.anova2,
                   'Moldelo.estimado' = modelo.regresion))
 
     } else{

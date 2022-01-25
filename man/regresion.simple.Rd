@@ -43,43 +43,43 @@ Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo
 Se obtiene la recta de regresión minimocuadrática de Y (variable dependiente) en función de X (variable independiente).
 La recta de regresión puede expresarse como:
 
-\if{html}{\figure{regresion1.png}{options: width="50\%" alt="Figure: correlacion.png"}}
+\if{html}{\figure{regresion1.png}{options: width="50\%" alt="Figure: regresion1.png"}}
 \if{latex}{\figure{regresion1.png}{options: width=7cm}}
 
 o alternativamente:
 
-\if{html}{\figure{regresion2.png}{options: width="75\%" alt="Figure: correlacion.png"}}
+\if{html}{\figure{regresion2.png}{options: width="75\%" alt="Figure: regresion2"}}
 \if{latex}{\figure{regresion2.png}{options: width=10cm}}
 
 En las representaciones gráficas las observaciones influyentes (extremos) se detectan a partir del punto inflyente o índice de leverage:
 
 \if{html}{\figure{influyente.png}{options: width="50\%" alt="Figure: influyente.png"}}
-\if{latex}{\figure{influyente.png}{options: width=10cm}}
+\if{latex}{\figure{influyente.png}{options: width=6cm}}
 
 de forma que una observación que una observación será influyente si:
 
-\if{html}{\figure{obs_influyente.png}{options: width="25\%" alt="Figure: obs_influyente.png"}}
-\if{latex}{\figure{obs_influyente.png}{options: width=4cm}}
+\if{html}{\figure{obsinfluyente.png}{options: width="25\%" alt="Figure: obsinfluyente.png"}}
+\if{latex}{\figure{obsinfluyente.png}{options: width=2.5cm}}
 
-donde p=2 (en el caso de la regresión simple). En general, p es igual al número de variables independientes más la constante.
+ donde p=2 (en el caso de la regresión simple). En general, p es igual al número de variables independientes más la constante.
 
 Por otra parte, las observaciones atípicas se identifican a partir de los errores estandarizados (se). Estos errores se obtienen a partir de:
 
-\if{html}{\figure{error_standarizado.png}{options: width="45\%" alt="Figure: error_standarizado.png"}}
-\if{latex}{\figure{error_standarizado.png}{options: width=10cm}}
+\if{html}{\figure{errorstandarizado.png}{options: width="45\%" alt="Figure: errorstandarizado.png"}}
+\if{latex}{\figure{errorstandarizado.png}{options: width=6cm}}
 
 Una observación será atípica si:
 
-\if{html}{\figure{obs_atipica.png}{options: width="20\%" alt="Figure: obs_atipica.png"}}
-\if{latex}{\figure{obs_atipica2.png}{options: width=4cm}}
+\if{html}{\figure{obsatipica.png}{options: width="20\%" alt="Figure: obsatipica.png"}}
+\if{latex}{\figure{obsatipica.png}{options: width=2cm}}
+
+ @seealso \code{\link{matriz.covar}}, \code{\link{matriz.correlacion}}
 }
 \examples{
 
 ## Not run:
-
 ejemplo_regresion <- regresion.simple(turistas,
-var_depen=2,var_indepen=3,grafico=TRUE)
-
+var_depen=2,var_indepen=3,grafico=T)
 ## End(Not run)
 
 }
@@ -90,18 +90,12 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 
 Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 }
-\seealso{
-\code{\link{matriz.covar}}, \code{\link{matriz.correlacion}}
-}
 \author{
 \strong{Vicente Coll-Serrano}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
-
-\strong{Cristina Pardo-García}.
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)
 }
