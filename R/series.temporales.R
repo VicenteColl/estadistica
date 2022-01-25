@@ -186,7 +186,11 @@ if(frecuencia != 1){
     summarize_at(vars(-1),mean,na.rm=TRUE)
 
   ivecorregido <- (ive/sum(ive[1,]))*frecuencia
-  rownames(ivecorregido) <- "IVE"
+  ivecorregido <- ivecorregido %>%
+    t() %>%
+    as.data.frame()
+  names(ivecorregido) <- "IVE"
+  rownames(ivecorregido) <- paste("IVE_",1:frecuencia,sep="")
   #sum(ivecorregido[1,])
 }else{
   ivecorregido <- NULL
