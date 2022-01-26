@@ -141,7 +141,7 @@ matriz.covar <- function(x, variable = NULL,
     filename <- paste("Matriz de covarianzas"," (", Sys.time(), ").xlsx", sep = "")
     filename <- gsub(" ", "_", filename)
     filename <- gsub(":", ".", filename)
-    rio::export(matriz_covar, row.names = TRUE, file = filename)
+    rio::export(matriz_covar, rowNames = TRUE, file = filename)
   }
 
   return(matriz_covar)
