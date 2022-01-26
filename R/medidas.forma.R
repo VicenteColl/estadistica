@@ -16,7 +16,7 @@
 #' @param x Conjunto de datos, que puede estar formado por una o más variables.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
-#' @param alternativa Es un valor lógico. Si alternativa = TRUE el resultado de las medidas de forma muestra el coeficiente de asimetría y curtosis calculado según SPSS y EXCEL. Se facilita también los correspondientes errores típicos.
+#' @param alternativa Es un valor lógico. Si alternativa = TRUE el resultado de las medidas de forma muestra el coeficiente de asimetría y curtosis calculado según SPSS y EXCEL. Se facilita también los correspondientes errores típicos. Este argumento no funciona si pesos = NULL.
 #' @param exportar Para exportar los resultados a una hoja de cálculo Excel (exportar = TRUE).
 #'
 #' @author
@@ -86,15 +86,12 @@ medidas.forma <- function(x,
                           exportar = FALSE){
 
   x <- data.frame(x)
-  x <- x[,order(names(x))]
   varnames <- names(x)
 
   if(is.null(variable)){
 
-    varcuan <-  names(x[unlist(lapply(x, is.numeric))])
-    seleccion = match(varcuan,varnames)
-    x <- x[seleccion]
-    varnames <- varcuan
+    x <- x[,order(names(x))]
+    varnames <- names(x)
 
   } else{
 
@@ -127,7 +124,7 @@ medidas.forma <- function(x,
   if(is.null(pesos) & !is.null(variable)){
 
     x <- x[,variable] %>% as.data.frame()
-    x <- x[,order(names(x))]
+    names(x) <- varnames[variable]
     varnames <- names(x)
 
   }
@@ -207,47 +204,46 @@ medidas.forma <- function(x,
 
   }
 
-  if(alternativa == TRUE){
+  if(isTRUE(alternativa) & is.null(pesos)){
+
+      xalt <- x %>% gather(key="var_coef",value=value) %>%
+        filter(complete.cases(.)) %>%
+        group_by(var_coef) %>%
+        summarize(N= n(),
+                  c1 = (N*(N+1))/((N-1)*(N-2)*(N-3)),
+                  c3 = (3*(N-1)^2)/((N-2)*(N-3)),
+                  error_asimetria = sqrt((6*N*(N-1))/((N-2)*(N+1)*(N+3))),
+                  error_curtosis = 2 * error_asimetria * sqrt((N^2-1)/((N-3)*(N+5)))
+        ) %>% ungroup()
+
+      desv.x.muestra = as.numeric(desviacion(x,tipo="cuasi"))
+      momento4 <- as.numeric(momento4)
+      momento3 <- as.numeric(momento3)
+
+      xalt <- xalt %>%
+        mutate(desv.x.muestra = desv.x.muestra,
+               c2 = (N*momento4)/desv.x.muestra^4,
+               curtosis_soft = (c1*c2)-c3,
+               A1 = N/((N-1)*(N-2)),
+               A2 = (N*momento3)/desv.x.muestra^3,
+               asimetria_soft = A1*A2) %>%
+        ungroup()
+
+      forma <- xalt %>%
+        select(2,5,6,9,12) %>%
+        mutate(asimetria = asimetria,
+               curtosis = curtosis) %>%
+        select(N="N",asimetria="asimetria",curtosis="curtosis",asimetria2="asimetria_soft",
+               error_asimetria2="error_asimetria",
+               curtosis2="curtosis_soft",error_curtosis2="error_curtosis") %>%
+        as.data.frame()
 
 
-    xalt <- x %>% gather(key="var_coef",value=value) %>%
-      filter(complete.cases(.)) %>%
-      group_by(var_coef) %>%
-      summarize(N= n(),
-                c1 = (N*(N+1))/((N-1)*(N-2)*(N-3)),
-                c3 = (3*(N-1)^2)/((N-2)*(N-3)),
-                error_asimetria = sqrt((6*N*(N-1))/((N-2)*(N+1)*(N+3))),
-                error_curtosis = 2 * error_asimetria * sqrt((N^2-1)/((N-3)*(N+5)))
-                ) %>% ungroup()
+    } else{
 
-    desv.x.muestra = as.numeric(desviacion(x,tipo="cuasi"))
-    momento4 <- as.numeric(momento4)
-    momento3 <- as.numeric(momento3)
+      forma <- data.frame(asimetria=asimetria,curtosis=curtosis)
 
-    xalt <- xalt %>%
-      mutate(desv.x.muestra = desv.x.muestra,
-             c2 = (N*momento4)/desv.x.muestra^4,
-             curtosis_soft = (c1*c2)-c3,
-             A1 = N/((N-1)*(N-2)),
-             A2 = (N*momento3)/desv.x.muestra^3,
-             asimetria_soft = A1*A2) %>%
-      ungroup()
-
-    forma <- xalt %>%
-      select(2,5,6,9,12) %>%
-      mutate(asimetria = asimetria,
-             curtosis = curtosis) %>%
-      select(N="N",asimetria="asimetria",curtosis="curtosis",asimetria2="asimetria_soft",
-             error_asimetria2="error_asimetria",
-             curtosis2="curtosis_soft",error_curtosis2="error_curtosis") %>%
-      as.data.frame()
-
-
-  } else{
-
-    forma <- data.frame(asimetria=asimetria,curtosis=curtosis)
-
-  }
+    }
 
   row.names(forma) <- varnames
 
