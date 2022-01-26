@@ -81,7 +81,7 @@
 #'
 #' ## Not run:
 #' ejemplo_regresion <- regresion.simple(turistas,
-#' var_depen=2,var_indepen=3,grafico=T)
+#' var_depen=2,var_indepen=3,grafico=TRUE)
 #' ## End(Not run)
 #'
 #' @importFrom stats cor
