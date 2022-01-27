@@ -3,6 +3,10 @@
 #' @description Calcula la regresión lineal simple.
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+#'
+#' \if{html}{\figure{qrregresion1.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
+#' \if{latex}{\figure{qrregresion1.png}{options: width=3cm}}
+#'
 #' @usage regresion.simple(x,
 #'                  var_depen = NULL,
 #'                  var_indepen = NULL,

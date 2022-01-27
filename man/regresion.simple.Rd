@@ -38,6 +38,9 @@ Si \code{inferencia = TRUE}, la función devuelve los resultados de inferenciale
 Calcula la regresión lineal simple.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+
+\if{html}{\figure{qrregresion1.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
+\if{latex}{\figure{qrregresion1.png}{options: width=3cm}}
 }
 \details{
 Se obtiene la recta de regresión minimocuadrática de Y (variable dependiente) en función de X (variable independiente).
