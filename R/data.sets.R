@@ -130,58 +130,6 @@
 #'
 "diseno2"
 
-#' Datos simulados sobre características físicas de bebés.
-#' @usage data("crecimiento")
-#' @format Dataframe con 4800 observaciones de 7 variables.
-#' \describe{
-#'   \item{Id.bebe}{identificador del bebé}
-#'   \item{edad}{edad del bebé, en meses}
-#'   \item{sexo}{sexo del bebé}
-#'   \item{estatura}{estatura del bebé, en centímetros}
-#'   \item{peso}{peso del bebé, en kilogramos}
-#'   \item{perimetro.craneal}{perímetro del cráneo del bebé, en centímetros}
-#'   \item{IMC}{índice de masa corporal, en kg/m2. Es la relación entre el peso (en kg) y la longitud (estatura) en posición recostada (en m2)}
-#' }
-#' @source Muestra simulada.
-#'
-#' @author
-#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Quantitative Methods for Measuring Culture (MC2). Applied Economics.}
-#'
-#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
-#' \emph{Economía Aplicada.}
-#'
-#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' Universidad de Valencia (España)
-#'
-"crecimiento"
-
-#' Datos simulados del rendimiento de dos acciones.
-#' @usage data("rendimientos")
-#' @format Dataframe con 3000 observaciones de 3 variables.
-#' \describe{
-#'   \item{Dia}{dia}
-#'   \item{X}{rendimiento mensual de la acción X, en euros}
-#'   \item{Y}{rendimiento mensual de la acción Y, en euros}
-#' }
-#' @source Muestra simulada.
-#'
-#' @author
-#' \strong{Vicente Coll-Serrano} (\email{vicente.coll@@uv.es}).
-#' \emph{Quantitative Methods for Measuring Culture (MC2). Applied Economics.}
-#'
-#' \strong{Rosario Martínez Verdú} (\email{rosario.martinez@@uv.es}).
-#' \emph{Economía Aplicada.}
-#'
-#' \strong{Cristina Pardo García} (\email{cristina.pardo-garcia@@uv.es}).
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
-#' Universidad de Valencia (España)
-#'
-"rendimientos"
-
 #' Data: Turistas internacionales Comunidad Valenciana
 #'
 #' @usage data("turistas")

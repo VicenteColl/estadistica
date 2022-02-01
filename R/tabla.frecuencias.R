@@ -100,6 +100,8 @@ tabla.frecuencias <- function(x,
     if(agrupar == 1){
       clase <- sapply(x, class)
 
+      x <- na.omit(x)
+
       if(clase %in% c("factor","character","logic")){
         stop("La variable no es cuantitativa, no puede representarse el histograma")
       }
@@ -110,9 +112,9 @@ tabla.frecuencias <- function(x,
         intervalos <- ceiling(log(nrow(x))/log(2) + 1)
       }
 
-      amplitud <- (max(x)-min(x))/intervalos
+      amplitud <- (max(x,na.rm=TRUE)-min(x,na.rm=TRUE))/intervalos
 
-      x$cut <- cut(x[,1], seq(min(x[,1]),max(x[,1]),amplitud),
+      x$cut <- cut(x[,1], seq(min(x[,1],na.rm=TRUE),max(x[,1],na.rm=TRUE),amplitud),
                    include.lowest = TRUE,
                    dig.lab = 8)
 
