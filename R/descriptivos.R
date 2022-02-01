@@ -184,7 +184,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     filename <- paste("Resumen descriptivos basicos"," (", Sys.time(), ").xlsx", sep = "")
     filename <- gsub(" ", "_", filename)
     filename <- gsub(":", ".", filename)
-    rio::export(resumen, row.names = TRUE, file = filename)
+    rio::export(resumen, rowNames = TRUE, file = filename)
   }
 
   return(resumen)

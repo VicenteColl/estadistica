@@ -165,7 +165,7 @@ tabla.bidimensional <- function(x,
     filename <- paste("Tabla cruzada de ", variable[1]," y ", variable[2], " (", Sys.time(), ").xlsx", sep = "")
     filename <- gsub(" ", "_", filename)
     filename <- gsub(":", ".", filename)
-    rio::export(tabla, row.names = TRUE, file = filename)
+    rio::export(tabla, rowNames = TRUE, file = filename)
   }
 
   return(tabla)

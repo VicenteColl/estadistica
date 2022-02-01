@@ -7,6 +7,10 @@
 #' \if{html}{\figure{qrregresion1.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
 #' \if{latex}{\figure{qrregresion1.png}{options: width=3cm}}
 #'
+#' \if{html}{\figure{qrregresion2.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
+#' \if{latex}{\figure{qrregresion2.png}{options: width=3cm}}
+
+#'
 #' @usage regresion.simple(x,
 #'                  var_depen = NULL,
 #'                  var_indepen = NULL,
@@ -501,7 +505,7 @@ regresion.simple <- function(x,
 
         lista <- list(tabla,resultados.parciales,tabla.anova,modelo.regresion)
 
-        rio::export(lista, row.names = T, filename, sheetName=c("Resultados parciales",
+        rio::export(lista, rowNames = TRUE, filename, sheetName=c("Resultados parciales",
                                                                 "Resumen medidas",
                                                                 "ANOVA",
                                                                 "Modelo estimado"))
@@ -509,7 +513,7 @@ regresion.simple <- function(x,
 
         lista <- list(resumen,tabla)
 
-        rio::export(lista, row.names = T, filename, sheetName=c("Resumen",
+        rio::export(lista, rowNames = TRUE, filename, sheetName=c("Resumen",
                                                                 "Resultados parciales"))
       }
 
@@ -519,12 +523,12 @@ regresion.simple <- function(x,
 
         lista <- list(resultados.parciales,tabla.anova,modelo.regresion)
 
-        rio::export(lista, row.names = T, filename, sheetName=c("Resumen medidas",
+        rio::export(lista, rowNames = TRUE, filename, sheetName=c("Resumen medidas",
                                                                 "ANOVA",
                                                                 "Modelo estimado"))
       } else{
 
-        rio::export(resumen, row.names = T, filename, sheetName="Resumen")
+        rio::export(resumen, rowNames = TRUE, filename, sheetName="Resumen")
 
       }
 

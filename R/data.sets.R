@@ -208,4 +208,29 @@
 #'
 "turistas"
 
+#' Data: Hogares
+#'
+#' Datos de 10 hogares que se utilizan en los ejemplos de (1) tabla bidimensional, (2) covarianza, (3) matriz de covarianzas, (4) correlación y (5) matriz de correlación.
+#' @usage data("hogares")
+#' @format Dataframe con 10 observaciones de 3 variables.
+#' \describe{
+#'   \item{Hogares}{Identificación del hogar.}
+#'   \item{ingresos}{Ingresos del hogar}
+#'   \item{viajes}{Número de hogares realizado por los hogares.}
+#' }
+#'
+"hogares"
 
+#' Data: Viajes vendidos
+#'
+#' Datos de 5 observaciones que se utilizan en los ejemplos de (1) media, mediana y moda, (2) cuantiles, (3) varianza, desviación típica y coeficiente de variación, (4) medidas de forma y momento central y (5) resumen de descriptivos
+#'
+#' @usage data("viajes_vendidos")
+#' @format Dataframe con 5 observaciones de 3 variables.
+#' \describe{
+#'   \item{Número.de.viajes.vendidos}{Número de viajes perdidos.}
+#'   \item{Empleados}{Número de empleados}
+#'   \item{Ni}{Frecuencia absoluta acumulada del número de empleados}
+#' }
+#'
+"viajes_vendidos"

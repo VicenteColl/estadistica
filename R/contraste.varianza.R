@@ -48,7 +48,7 @@
 #'
 #' (1.1) utilizando la varianza muestral:
 #'
-#' \if{html}{\figure{cvarmuestra.png}{options: width="30\%" alt="Figure: cvarmuestra.png"}}
+#' \if{html}{\figure{cvarmuestra.png}{options: width="25\%" alt="Figure: cvarmuestra.png"}}
 #' \if{latex}{\figure{cvarmuestra.png}{options: width=3cm}}
 #'
 #' (1.2) utilizando la cuasi-varianza muestral:

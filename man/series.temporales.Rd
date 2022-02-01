@@ -49,6 +49,9 @@ Esta función utiliza el método de las medias móviles (centradas) para extraer
 A partir de las medias móviles, también se obtienen los índices de variación estacional (IVE).
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+
+\if{html}{\figure{qrseriestemporales.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
+\if{latex}{\figure{qrseriestemporales.png}{options: width=3cm}}
 }
 \examples{
 

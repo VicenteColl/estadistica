@@ -115,7 +115,7 @@ matriz.correlacion <- function(x, variable = NULL, exportar = FALSE){
     filename <- paste("Matriz de correlaci\u00f3n"," (", Sys.time(), ").xlsx", sep = "")
     filename <- gsub(" ", "_", filename)
     filename <- gsub(":", ".", filename)
-    rio::export(matriz_cor, row.names = TRUE, file = filename)
+    rio::export(matriz_cor, rowNames = TRUE, file = filename)
   }
 
   return(matriz_cor)

@@ -251,7 +251,7 @@ medidas.forma <- function(x,
     filename <- paste("Medidas de forma"," (", Sys.time(), ").xlsx", sep = "")
     filename <- gsub(" ", "_", filename)
     filename <- gsub(":", ".", filename)
-    rio::export(forma, row.names = TRUE, file = filename)
+    rio::export(forma, rowNames = TRUE, file = filename)
   }
 
   return(forma)

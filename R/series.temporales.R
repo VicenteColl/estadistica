@@ -5,6 +5,9 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
+#' \if{html}{\figure{qrseriestemporales.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
+#' \if{latex}{\figure{qrseriestemporales.png}{options: width=3cm}}
+#'
 #' @usage series.temporales(x,
 #'        variable = NULL,
 #'        inicio_anual = 1,
@@ -301,7 +304,7 @@ if (exportar) {
     if(prediccion_tendencia){
       lista <- list(mediasMoviles,ivecorregido,serie_regresion,resultados_regresion,pronosticos)
 
-      rio::export(lista, row.names = T, filename, sheetName=c("Medias moviles",
+      rio::export(lista, rowNames = TRUE, filename, sheetName=c("Medias moviles",
                                                               "IVE",
                                                               "Datos ajuste tendencia",
                                                               "Modelo ajuste",
@@ -309,7 +312,7 @@ if (exportar) {
     }else{
       lista <- list(mediasMoviles,ivecorregido,serie_regresion,resultados_regresion)
 
-      rio::export(lista, row.names = T, filename, sheetName=c("Medias moviles",
+      rio::export(lista, rowNames = TRUE, filename, sheetName=c("Medias moviles",
                                                               "IVE",
                                                               "Datos ajuste tendencia",
                                                               "Modelo ajuste"))
@@ -318,14 +321,14 @@ if (exportar) {
     if(prediccion_tendencia){
       lista <- list(mediasMoviles,serie_regresion,resultados_regresion,pronosticos)
 
-      rio::export(lista, row.names = T, filename, sheetName=c("Medias moviles",
+      rio::export(lista, rowNames = TRUE, filename, sheetName=c("Medias moviles",
                                                               "Datos ajuste tendencia",
                                                               "Modelo ajuste",
                                                               "Pronosticos"))
     }else{
       lista <- list(mediasMoviles,serie_regresion,resultados_regresion)
 
-      rio::export(lista, row.names = T, filename, sheetName=c("Medias moviles",
+      rio::export(lista, rowNames = TRUE, filename, sheetName=c("Medias moviles",
                                                               "Datos ajueste tendencia",
                                                               "Modelo ajuste"))
     }

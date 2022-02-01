@@ -169,7 +169,7 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
     filename <- paste("Cuantiles"," (", Sys.time(), ").xlsx", sep = "")
     filename <- gsub(" ", "_", filename)
     filename <- gsub(":", ".", filename)
-    rio::export(cuantiles, row.names = TRUE, file = filename)
+    rio::export(cuantiles, rowNames = TRUE, file = filename)
   }
 
   return(cuantiles)
