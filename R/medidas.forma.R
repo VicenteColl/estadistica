@@ -32,7 +32,7 @@
 #'
 #' El coeficiente de asimetría se obtiene a partir de la expresión:
 #'
-#' \if{html}{\figure{asimetriamuestra.png}{options: width="25\%" alt="Figure: asimetriamuestra.png"}}
+#' \if{html}{\figure{asimetriamuestra.png}{options: width="20\%" alt="Figure: asimetriamuestra.png"}}
 #' \if{latex}{\figure{asimetriamuestra.png}{options: width=3cm}}
 #'
 #' y el coeficiente de curtosis:
@@ -43,7 +43,7 @@
 #' @note
 #' (1) El coeficiente de asimetría poblacional es:
 #'
-#' \if{html}{\figure{asimetriapob.png}{options: width="25\%" alt="Figure: asimetriapob.png"}}
+#' \if{html}{\figure{asimetriapob.png}{options: width="20\%" alt="Figure: asimetriapob.png"}}
 #' \if{latex}{\figure{asimetriapob.png}{options: width=3cm}}
 #'
 #' (2) El coeficiente de curtosis poblacional es:
