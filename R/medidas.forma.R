@@ -173,7 +173,7 @@ medidas.forma <- function(x,
     desv.x <- as.numeric(desviacion(x))
 
     asimetria <- momento3/desv.x^3
-    curtosis <- momento4/desv.x^4
+    curtosis <- momento4/desv.x^4 - 3
 
 
   } else{
@@ -188,7 +188,7 @@ medidas.forma <- function(x,
         summarize(momento3 = sum(sumatorio3)/sum(pesos),
                   momento4 = sum(sumatorio4)/sum(pesos),
                   asimetria = sum(sumatorio3)/(sum(pesos)*desv.x^3),
-                  curtosis = sum(sumatorio4)/(sum(pesos)*desv.x^4))
+                  curtosis = sum(sumatorio4)/(sum(pesos)*desv.x^4) - 3)
 
     N <- sum(x[2])
 
