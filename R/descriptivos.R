@@ -26,9 +26,6 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo-García}.
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @references
@@ -145,13 +142,16 @@ resumen.descriptivos <- function(x,
     valor_coef_variacion <- coeficiente.variacion(x)
     ric <- cuantiles(x, cortes = 0.75) - cuantiles(x, cortes = 0.25)
     valor_forma <- as.data.frame(t(medidas.forma(x)))
-    valor_moda <- as.data.frame(t(apply(x,2,moda)))
-
+    if(length(x)==1){
+      valor_moda <- as.data.frame(apply(x,2,moda))
+    } else{
+      valor_moda <- as.data.frame(t(apply(x,2,moda)))
+    }
 
   } else{
 
     valor_media <- media(x,variable=1,pesos=2)
-    names(valor_media)
+    #names(valor_media)
     valor_cuartiles <- cuantiles(x,variable=1,pesos=2, cortes = c(0,0.25,0.5,0.75,1))
     valor_varianza <- varianza(x,variable=1,pesos=2)
     valor_desviacion <- desviacion(x,variable=1,pesos=2)
@@ -177,10 +177,22 @@ resumen.descriptivos <- function(x,
   resumen <- as.data.frame(resumen)
   names(resumen) <- varnames
 
-  num_modas <- nrow(valor_moda)
+  if(is.null(pesos) & length(x) > 1){
 
-  row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
-                          "coef.variaci\u00f3n","RIC","asimetr\u00eda","curtosis","moda")
+    row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
+                            "coef.variaci\u00f3n","RIC","asimetr\u00eda","curtosis","moda")
+
+  } else{
+
+    num_modas <- nrow(valor_moda)
+    row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
+                            "coef.variaci\u00f3n","RIC","asimetr\u00eda","curtosis",paste("moda_",1:num_modas,sep=""))
+
+
+
+  }
+
+
 
   if (exportar) {
     filename <- paste("Resumen descriptivos basicos"," (", Sys.time(), ").xlsx", sep = "")
