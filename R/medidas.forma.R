@@ -88,9 +88,9 @@ medidas.forma <- function(x,
   x <- data.frame(x)
   varnames <- names(x)
 
-  if(is.null(variable)){
+  if(is.null(variable) & length(x)>1){
 
-    x <- x[,order(names(x))]
+    x <- x[,order(names(x))] %>% as.data.frame()
     varnames <- names(x)
 
   } else{
