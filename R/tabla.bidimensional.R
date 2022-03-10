@@ -43,6 +43,8 @@
 #'
 #' @export
 tabla.bidimensional <- function(x,
+                                var_filas = NULL,
+                                var_columnas = NULL,
                                 distribucion = c("cruzada","condicionada"),
                                 frecuencias = c("absolutas","relativas"),
                                 exportar = FALSE){
@@ -53,32 +55,60 @@ tabla.bidimensional <- function(x,
   frecuencias <- tolower(frecuencias)
   frecuencias <- match.arg(frecuencias)
 
+  x <- data.frame(x)
+  varnames <- names(x)
 
-  x <- as.data.frame(x) %>%
-    na.omit
-
-  varnames <- colnames(x)
-  numvariables <- length(x)
-
-  variable1 <- readline(prompt = "Intoduce el nombre de la variable 1 (filas): ")
-  variable2 <- readline(prompt = "Intoduce el nombre de la variable 2 (columnas): ")
-  variable <- c(variable1,variable2) #nombres de las variables
-
-  if(variable1 %in% varnames){
-    variable1 = which(varnames == variable1)
-  } else{
-    stop("Comprueba el nombre de la variable")
-  }
-  if(variable2 %in% varnames){
-    variable2 = which(varnames == variable2)
-  } else{
-    stop("Comprueba el nombre de la variable")
+  if(length(x)<2){
+    stop("El conjunto de datos seleccionada solo tiene una variable.")
   }
 
-  x <- x %>%
-    select(all_of(c(variable1,variable2)))
+  if(is.null(var_filas) | is.null(var_columnas)){
+    stop("Debes seleccionar la variable fila y columna")
+  }
 
-  names(x) <- c("filas","columnas")
+  if(is.numeric(var_filas)){
+    if(var_filas<=length(x)){
+      var_filas <- var_filas}
+    else{
+      stop("Selecci\u00f3n err\u00f3nea de variable")
+    }
+  }
+
+  if(is.character(var_filas)){
+    if(var_filas %in% varnames){
+      var_filas = match(var_filas,varnames)
+    } else {
+      stop("El nombre de la variable por filas no es v\u00e1lido")
+    }
+  }
+
+
+  if(is.numeric(var_columnas)){
+    if(var_columnas<=length(x)){
+      var_columnas <- var_columnas}
+    else{
+      stop("Selecci\u00f3n err\u00f3nea de variable")
+    }
+  }
+
+  if(is.character(var_columnas)){
+    if(var_columnas %in% varnames){
+      var_columnas = match(var_columnas,varnames)
+    } else {
+      stop("El nombre de la variable no es v\u00e1lido")
+    }
+  }
+
+  if(var_filas == var_columnas){
+    stop("La variable por fila y columna es la misma variable")
+  }
+
+  variable <- c(var_filas,var_columnas)
+
+
+  x <- x[,variable] %>% as.data.frame()
+  names(x) <- varnames[variable]
+  varnames <- names(x)
 
   clase <- sapply(x, class)
 

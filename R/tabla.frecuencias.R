@@ -90,11 +90,11 @@ tabla.frecuencias <- function(x,
   valores_ordenados <- unique(x)
   valores_ordenados <- valores_ordenados[,1]
 
-  if(valores_distintos > 20){
+  if(valores_distintos >= 20){
 
     # tabla de frecuencias de valores agrupados
 
-    print("La variable presenta muchos valores distintos (mas de 20)")
+    print("La variable presenta muchos valores distintos (20 o mas)")
     agrupar <- as.numeric(readline('\u00bfQuieres agrupar los valores en intervalos?: \n 1. "S\u00ed, agrupar en intervalos." \n 2. "No, usar los valores sin agrupar." \n'))
 
     if(agrupar == 1){
@@ -226,7 +226,7 @@ tabla.frecuencias <- function(x,
           axis.ticks.x=element_blank(),
           axis.line.y = element_blank(),
           axis.ticks.y=element_blank(),
-          axis.text.x=element_text(size=6,angle=45),
+          axis.text.x=element_text(size=6,angle=30),
           axis.text.y=element_blank(),
           legend.title = element_blank()
         )

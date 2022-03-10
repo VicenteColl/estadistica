@@ -51,8 +51,5 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
 
-\strong{Cristina Pardo-García}.
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-
 Facultad de Economía. Universidad de Valencia (España)
 }
