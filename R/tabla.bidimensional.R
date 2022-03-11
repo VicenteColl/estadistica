@@ -95,7 +95,7 @@ tabla.bidimensional <- function(x,
     if(var_columnas %in% varnames){
       var_columnas = match(var_columnas,varnames)
     } else {
-      stop("El nombre de la variable no es v\u00e1lido")
+      stop("El nombre de la variable por columna no es v\u00e1lido")
     }
   }
 
@@ -125,8 +125,8 @@ tabla.bidimensional <- function(x,
       tabla <- addmargins(tabla)
 
     } else{
-      print("Si quieres obtener la distribuci\u00f3nes de variable1/variable2 (por filas) introduce el valor 1, en caso contrario variable2/variable1 (por columnas) introduce el valor 2")
-      tipo <- readline(prompt = "Distribuci\u00f3nes condicionadas por filas (1) o por columnas (2): ")
+      print("Si quieres obtener la distribuciones de variable1/variable2 (condici\u00f3n por columnas) introduce el valor 1, en caso contrario variable2/variable1 (condici\u00f3n por filas) introduce el valor 2")
+      tipo <- readline(prompt = "Distribuci\u00f3nes condicionadas por columnas (1) o por filas (2): ")
       tipo = as.numeric(tipo)
 
       tabla2 <- x %>%
