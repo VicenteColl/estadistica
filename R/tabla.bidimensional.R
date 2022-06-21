@@ -8,11 +8,15 @@
 #' \if{latex}{\figure{qrtablabidimensional.png}{options: width=3cm}}
 #'
 #' @usage tabla.bidimensional(x,
-#'              distribucion = c("cruzada","condicionada"),
-#'              frecuencias = c("absolutas","relativas"),
-#'              exportar = FALSE)
+#' var_filas = NULL,
+#' var_columnas = NULL,
+#' distribucion = c("cruzada","condicionada"),
+#' frecuencias = c("absolutas","relativas"),
+#' exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).
+#' @param var_filas Variable fila.Por defecto su valor es NUll y el sistema pedirá que se identifique. Sin embargo, el usuario puede escribir el nombre o posición de la variable cuyos valores quiere representar por filas.
+#' @param var_columnas Variable columna. Por defecto su valor es NUll y el sistema pedirá que se identifique. Sin embargo, el usuario puede escribir el nombre o posición de la variable cuyos valores quiere representar por columnas
 #' @param distribucion Es un caracter. Por defecto se obtien la tabla cruzada (\code{distribucion = "cruzada"}). Para obtener las distribuciones condicionadas cambiar a \code{distribucion = "condicionada"}.
 #' @param frecuencias Es un carácter. Por defecto se obtienen las frecuencias absolutas ordinarias (\code{frecuencias = "absolutas"}). Para obtener las frecuencias relativas ordinarias cambiar a \code{frecuencias = "relativas"}.
 #' @param exportar Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).
