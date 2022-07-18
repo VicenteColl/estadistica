@@ -5,12 +5,18 @@
 \title{Tabla doble entrada.}
 \usage{
 tabla.bidimensional(x,
-             distribucion = c("cruzada","condicionada"),
-             frecuencias = c("absolutas","relativas"),
-             exportar = FALSE)
+var_filas = NULL,
+var_columnas = NULL,
+distribucion = c("cruzada","condicionada"),
+frecuencias = c("absolutas","relativas"),
+exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).}
+
+\item{var_filas}{Variable fila.Por defecto su valor es NUll y el sistema pedirá que se identifique. Sin embargo, el usuario puede escribir el nombre o posición de la variable cuyos valores quiere representar por filas.}
+
+\item{var_columnas}{Variable columna. Por defecto su valor es NUll y el sistema pedirá que se identifique. Sin embargo, el usuario puede escribir el nombre o posición de la variable cuyos valores quiere representar por columnas}
 
 \item{distribucion}{Es un caracter. Por defecto se obtien la tabla cruzada (\code{distribucion = "cruzada"}). Para obtener las distribuciones condicionadas cambiar a \code{distribucion = "condicionada"}.}
 
