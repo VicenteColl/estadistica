@@ -14,7 +14,7 @@ media(x, variable = NULL, pesos = NULL)
 \item{pesos}{Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
 }
 \value{
-Si \code{pesos = NULL}, devuelve la media (aritmética) de todas la variables seleccionadas en un \code{data.frame}. En caso contrario, devuelve únicamente la media de la variable para la que se ha facilitado la distribución de frecuencias.
+Si \code{pesos = NULL}, devuelve la media (aritmética) de todas la variables seleccionadas en un \code{vector}. En caso contrario, devuelve únicamente la media de la variable para la que se ha facilitado la distribución de frecuencias.
 }
 \description{
 Calcula la media aritmética.
@@ -45,7 +45,7 @@ Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) 
 
 media1 <- media(startup[1])
 media2 <- media(startup,variable=1)
-media3 <- media(salarios2018,variable=7, pesos= 10)
+media3 <- media(salarios2018,variable=6,pesos=7)
 
 }
 \references{

@@ -17,7 +17,7 @@
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #' @param tipo Es un carácter. Por defecto de calcula la varianza muestral (\code{tipo = "muestral"}). Si \code{tipo = "cuasi"}, se calcula la cuasivarianza muestral.
 #'
-#' @return Esta función devuelve un objeto de la clase \code{data.frame}. Si \code{tipo="muestral"}, devuelve la varianza muestral. Si \code{tipo="cuasi"}, devuelve la cuasi-varianza muestral.
+#' @return Esta función devuelve un objeto de la clase \code{vector}. Si \code{tipo="muestral"}, devuelve la varianza muestral. Si \code{tipo="cuasi"}, devuelve la cuasi-varianza muestral.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -196,11 +196,13 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuas
 
     if(tipo == "muestral"){
 
-      varianza <- varianza %>% summarize(varianza = sum(sumatorio)/sum(pesos))
+      varianza <- varianza %>%
+        summarize(varianza = sum(sumatorio)/sum(pesos))
 
     } else{
 
-      varianza <- varianza %>% summarize(varianza = sum(sumatorio)/(sum(pesos)-1))
+      varianza <- varianza %>%
+        summarize(varianza = sum(sumatorio)/(sum(pesos)-1))
 
 
     }
@@ -208,6 +210,7 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuas
 
   }
 
+  varianza <- as.numeric(varianza)
   names(varianza) <- paste("varianza_",varnames,sep="")
 
   return(varianza)

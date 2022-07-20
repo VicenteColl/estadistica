@@ -1,6 +1,6 @@
 #' @title Tabla de frecuencias.
 #'
-#' @description Esta función presenta la distribución de frecuencias de una variable.
+#' @description Esta función presenta la distribución de frecuencias de una variable cuantitativa o cualitativa.
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
@@ -12,7 +12,7 @@
 #'                          grafico = FALSE,
 #'                          exportar = FALSE)
 #'
-#' @param x Conjunto de datos. Puede ser un vector o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.
+#' @param x Conjunto de datos. Puede ser un vector (numérico o factor) o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.
 #' @param eliminar.na Valor lógico. Por defecto \code{eliminar.na = TRUE}. Si se quiere obtener la tabla de frecuencias con NAs, cambiar el argumento a \code{eliminar.na = FALSE}.
 #' @param grafico Si \code{grafico = TRUE}, representa el histograma o el gráfico de barras de la variable seleccionada.
 #' @param exportar Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).
@@ -25,9 +25,6 @@
 #'
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
-#'
-#' \strong{Cristina Pardo-García}.
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
@@ -236,12 +233,18 @@ tabla.frecuencias <- function(x,
 
       variables <- names(df)
 
+      if(clase == "factor"){
+        x_string <- df[,1]
+
+      } else{
+        x_string <- as.factor(round(df[,1],2))
+      }
+
       if(valores_distintos > 10){
 
         print("El diagrama de barras puede no ser una buena representaci\u00f3n gr\u00e1fica si la variable presenta muchos distintos valores (aconsejable como m\u00e1ximo 10-15)")
 
-
-        plot <- ggplot(df, aes_string(x=as.factor(round(df[,1],2)),y=variables[2])) +
+        plot <- ggplot(df, aes_string(x=x_string,y=variables[2])) +
           geom_bar(stat = "identity",  fill = "orange") +
           geom_text(aes_string(label=variables[2]), vjust=1.5, size = 2.5) +
           geom_text(aes(label=paste("(",round(df[,3]*100,2),"%)",sep="")), vjust=2.65, size = 2.5, color = "blue" ) +
@@ -267,14 +270,14 @@ tabla.frecuencias <- function(x,
 
       } else {
 
-        plot <- ggplot(df, aes_string(x=variables[1],y=variables[2])) +
+       plot <- ggplot(df, aes_string(x=x_string,y=variables[2])) +
           geom_bar(stat = "identity", width = 0.5, fill = "orange") +
           geom_text(aes_string(label=variables[2]), vjust=1.5, size = 2.5) +
           geom_text(aes(label=paste("(",round(df[,3]*100,2),"%)",sep="")), vjust=2.65, size = 2.5, color = "blue" ) +
           labs(title = paste("Diagrama de barras de ", variables[1], sep=""),
                x = variables[1],
                y = "") +
-          scale_x_continuous(breaks = valores_ordenados) +
+          scale_x_discrete(breaks = valores_ordenados) +
           theme(
             panel.background = element_rect(fill = "transparent"), # bg of the panel
             plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot

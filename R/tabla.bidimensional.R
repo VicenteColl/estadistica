@@ -15,9 +15,9 @@
 #' exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).
-#' @param var_filas Variable fila.Por defecto su valor es NUll y el sistema pedirá que se identifique. Sin embargo, el usuario puede escribir el nombre o posición de la variable cuyos valores quiere representar por filas.
-#' @param var_columnas Variable columna. Por defecto su valor es NUll y el sistema pedirá que se identifique. Sin embargo, el usuario puede escribir el nombre o posición de la variable cuyos valores quiere representar por columnas
-#' @param distribucion Es un caracter. Por defecto se obtien la tabla cruzada (\code{distribucion = "cruzada"}). Para obtener las distribuciones condicionadas cambiar a \code{distribucion = "condicionada"}.
+#' @param var_filas Variable fila.Por defecto su valor es NUll y el usuario debe escribir el nombre o posición de la variable cuyos valores quiere representar por filas.
+#' @param var_columnas Variable columna. Por defecto su valor es NUll y el usuario debe escribir el nombre o posición de la variable cuyos valores quiere representar por columnas
+#' @param distribucion Es un carácter. Por defecto se obtien la tabla cruzada (\code{distribucion = "cruzada"}). Para obtener las distribuciones condicionadas cambiar a \code{distribucion = "condicionada"}.
 #' @param frecuencias Es un carácter. Por defecto se obtienen las frecuencias absolutas ordinarias (\code{frecuencias = "absolutas"}). Para obtener las frecuencias relativas ordinarias cambiar a \code{frecuencias = "relativas"}.
 #' @param exportar Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).
 #'
@@ -29,9 +29,6 @@
 #'
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
-#'
-#' \strong{Cristina Pardo-García}.
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'

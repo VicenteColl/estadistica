@@ -14,7 +14,7 @@ mediana(x, variable = NULL, pesos = NULL)
 \item{pesos}{Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
 }
 \value{
-Si \code{pesos = NULL}, devuelve la mediana de todas la variables seleccionadas en un \code{data.frame}. En caso contrario, devuelve únicamente la mediana de la variable para la que se ha facilitado la distribución de frecuencias.
+Si \code{pesos = NULL}, devuelve la mediana de todas la variables seleccionadas en un \code{vector}. En caso contrario, devuelve únicamente la mediana de la variable para la que se ha facilitado la distribución de frecuencias.
 }
 \description{
 Calcula la mediana.
@@ -36,7 +36,7 @@ donde: Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es
 
 mediana1 <- mediana(startup[1])
 mediana2 <- mediana(startup,variable=1)
-mediana3 <- mediana(salarios2018,variable=7 , pesos=10 )
+mediana3 <- mediana(salarios2018,variable=6,pesos=7)
 
 }
 \references{
