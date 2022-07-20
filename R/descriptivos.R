@@ -97,7 +97,7 @@ resumen.descriptivos <- function(x,
 
   if(!is.null(pesos) & !is.null(variable)){
 
-    if((length(variable) | length(pesos)) > 1){
+    if(length(variable) > 1){
 
       stop("Para calcular los descriptivos a partir de la distribuci\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
 
@@ -128,18 +128,18 @@ resumen.descriptivos <- function(x,
   clase <- sapply(x, class)
 
   if (!all(clase %in% c("numeric","integer"))) {
-    stop("No puede calcularse la varianza, alguna variable que has seleccionado no es cuantitativa")
+    stop("No puede calcularse el resumen, alguna variable que has seleccionado no es cuantitativa")
   }
 
 
   if(is.null(pesos)){
 
     names(x) <- varnames
-    valor_media <- media(x)
+    valor_media <- media(x) %>% t() %>% as.data.frame()
     valor_cuartiles <- cuantiles(x, cortes = c(0,0.25,0.5,0.75,1))
-    valor_varianza <- varianza(x)
-    valor_desviacion <- desviacion(x)
-    valor_coef_variacion <- coeficiente.variacion(x)
+    valor_varianza <- varianza(x) %>% t() %>% as.data.frame()
+    valor_desviacion <- desviacion(x) %>% t() %>% as.data.frame()
+    valor_coef_variacion <- coeficiente.variacion(x)%>% t() %>% as.data.frame()
     ric <- cuantiles(x, cortes = 0.75) - cuantiles(x, cortes = 0.25)
     valor_forma <- as.data.frame(t(medidas.forma(x)))
     if(length(x)==1){
@@ -150,12 +150,12 @@ resumen.descriptivos <- function(x,
 
   } else{
 
-    valor_media <- media(x,variable=1,pesos=2)
+    valor_media <- media(x,variable=1,pesos=2) %>% t() %>% as.data.frame()
     #names(valor_media)
     valor_cuartiles <- cuantiles(x,variable=1,pesos=2, cortes = c(0,0.25,0.5,0.75,1))
-    valor_varianza <- varianza(x,variable=1,pesos=2)
-    valor_desviacion <- desviacion(x,variable=1,pesos=2)
-    valor_coef_variacion <- coeficiente.variacion(x,variable=1,pesos=2)
+    valor_varianza <- varianza(x,variable=1,pesos=2) %>% t() %>% as.data.frame()
+    valor_desviacion <- desviacion(x,variable=1,pesos=2) %>% t() %>% as.data.frame()
+    valor_coef_variacion <- coeficiente.variacion(x,variable=1,pesos=2)  %>% t() %>% as.data.frame()
     ric <- cuantiles(x,variable=1,pesos=2, cortes = 0.75) - cuantiles(x,variable=1,pesos=2, cortes = 0.25)
     valor_forma <- as.data.frame(t(medidas.forma(x,variable=1,pesos=2)))
     valor_moda <- as.data.frame(moda(x,variable=1,pesos=2))

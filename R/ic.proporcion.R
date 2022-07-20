@@ -217,7 +217,7 @@ if(isFALSE(introducir)) {
 
     } else{
 
-      aproximacion <- as.numeric(readline('\u00bfQue estrategia quieres utilizar para aproximar el valor de p en el error t\u00edpico? \n 1. "Aproximar por la proporción muestral" \n 2. "p=q=0.5" \n 3. "Obtener el valor de p a partir del estad\u00edstico" \n'))
+      aproximacion <- as.numeric(readline('\u00bfQue estrategia quieres utilizar para aproximar el valor de p en el error t\u00edpico? \n 1. "Aproximar por la proporci\u00f3n muestral" \n 2. "p=q=0.5" \n 3. "Obtener el valor de p a partir del estad\u00edstico" \n'))
 
       if(aproximacion == 1){
 

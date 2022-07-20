@@ -14,11 +14,11 @@ exportar = FALSE)
 \arguments{
 \item{x}{Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).}
 
-\item{var_filas}{Variable fila.Por defecto su valor es NUll y el sistema pedirá que se identifique. Sin embargo, el usuario puede escribir el nombre o posición de la variable cuyos valores quiere representar por filas.}
+\item{var_filas}{Variable fila.Por defecto su valor es NUll y el usuario debe escribir el nombre o posición de la variable cuyos valores quiere representar por filas.}
 
-\item{var_columnas}{Variable columna. Por defecto su valor es NUll y el sistema pedirá que se identifique. Sin embargo, el usuario puede escribir el nombre o posición de la variable cuyos valores quiere representar por columnas}
+\item{var_columnas}{Variable columna. Por defecto su valor es NUll y el usuario debe escribir el nombre o posición de la variable cuyos valores quiere representar por columnas}
 
-\item{distribucion}{Es un caracter. Por defecto se obtien la tabla cruzada (\code{distribucion = "cruzada"}). Para obtener las distribuciones condicionadas cambiar a \code{distribucion = "condicionada"}.}
+\item{distribucion}{Es un carácter. Por defecto se obtien la tabla cruzada (\code{distribucion = "cruzada"}). Para obtener las distribuciones condicionadas cambiar a \code{distribucion = "condicionada"}.}
 
 \item{frecuencias}{Es un carácter. Por defecto se obtienen las frecuencias absolutas ordinarias (\code{frecuencias = "absolutas"}). Para obtener las frecuencias relativas ordinarias cambiar a \code{frecuencias = "relativas"}.}
 
@@ -48,9 +48,6 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
-
-\strong{Cristina Pardo-García}.
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)
 }

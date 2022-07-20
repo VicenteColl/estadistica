@@ -4,15 +4,17 @@
 \alias{correlacion}
 \title{Coeficiente de correlación.}
 \usage{
-correlacion(x, variable = NULL)
+correlacion(x, variable = NULL, pesos=NULL)
 }
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
+
+\item{pesos}{Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
 }
 \value{
-Esta función devuelve el valor del coeficiente de correlación lineal en un objeto de la clase \code{data.frame}.
+Esta función devuelve el valor del coeficiente de correlación lineal en un objeto de la clase \code{vector}.
 }
 \description{
 Calcula el coeficiente de correlación de Pearson.
@@ -58,9 +60,6 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
-
-\strong{Cristina Pardo-García}.
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)
 }

@@ -18,7 +18,7 @@
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #' @param tipo Es un carácter. Por defecto calcula la desviación típica muestral (\code{tipo = "muestral"}). Si \code{tipo = "cuasi"}, se calcula la cuasi-desviación típica muestral.
 #'
-#' @return Esta función devuelve el valor del coeficiente de variación en un objeto de la clase \code{data.frame}. Por defecto, el coeficiente de variación se calcula utilizando la desviación típica muestral.
+#' @return Esta función devuelve el valor del coeficiente de variación en un objeto de la clase \code{vector}. Por defecto, el coeficiente de variación se calcula utilizando la desviación típica muestral.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -26,9 +26,6 @@
 #'
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
-#'
-#' \strong{Cristina Pardo-García}.
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
@@ -185,7 +182,6 @@ coeficiente.variacion <- function(x,
     }
 
     coef_variacion <- valor_desviacion / valor_media
-    coef_variacion <- as.data.frame(coef_variacion)
     names(coef_variacion) <- paste("coef_variacion_",varnames[1],sep="")
 
   }

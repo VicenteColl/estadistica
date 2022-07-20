@@ -10,7 +10,7 @@ tabla.frecuencias(x,
                          exportar = FALSE)
 }
 \arguments{
-\item{x}{Conjunto de datos. Puede ser un vector o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.}
+\item{x}{Conjunto de datos. Puede ser un vector (numérico o factor) o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.}
 
 \item{eliminar.na}{Valor lógico. Por defecto \code{eliminar.na = TRUE}. Si se quiere obtener la tabla de frecuencias con NAs, cambiar el argumento a \code{eliminar.na = FALSE}.}
 
@@ -22,7 +22,7 @@ tabla.frecuencias(x,
 Devuelve la tabla de frecuencias como una \code{tibble}. Si \code{grafico = TRUE}, se devuelve en una lista la tabla de frecuencias y su representación gráfica.
 }
 \description{
-Esta función presenta la distribución de frecuencias de una variable.
+Esta función presenta la distribución de frecuencias de una variable cuantitativa o cualitativa.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
@@ -42,9 +42,6 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
-
-\strong{Cristina Pardo-García}.
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)
 }

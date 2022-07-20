@@ -13,7 +13,7 @@
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #'
-#' @return Si \code{pesos = NULL}, devuelve la mediana de todas la variables seleccionadas en un \code{data.frame}. En caso contrario, devuelve únicamente la mediana de la variable para la que se ha facilitado la distribución de frecuencias.
+#' @return Si \code{pesos = NULL}, devuelve la mediana de todas la variables seleccionadas en un \code{vector}. En caso contrario, devuelve únicamente la mediana de la variable para la que se ha facilitado la distribución de frecuencias.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -49,7 +49,7 @@
 #'
 #' mediana1 <- mediana(startup[1])
 #' mediana2 <- mediana(startup,variable=1)
-#' mediana3 <- mediana(salarios2018,variable=7 , pesos=10 )
+#' mediana3 <- mediana(salarios2018,variable=6,pesos=7)
 #'
 #' @import dplyr
 #'

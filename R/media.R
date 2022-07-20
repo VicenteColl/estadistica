@@ -13,7 +13,7 @@
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #'
-#' @return Si \code{pesos = NULL}, devuelve la media (aritmética) de todas la variables seleccionadas en un \code{data.frame}. En caso contrario, devuelve únicamente la media de la variable para la que se ha facilitado la distribución de frecuencias.
+#' @return Si \code{pesos = NULL}, devuelve la media (aritmética) de todas la variables seleccionadas en un \code{vector}. En caso contrario, devuelve únicamente la media de la variable para la que se ha facilitado la distribución de frecuencias.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -56,7 +56,7 @@
 #'
 #' media1 <- media(startup[1])
 #' media2 <- media(startup,variable=1)
-#' media3 <- media(salarios2018,variable=7, pesos= 10)
+#' media3 <- media(salarios2018,variable=6,pesos=7)
 #'
 #' @importFrom stats na.omit
 #'
@@ -154,7 +154,8 @@ media <- function(x, variable = NULL, pesos = NULL){
   if(is.null(pesos)){
 
     media <- apply(x,2,mean,na.rm=TRUE)
-    media <- as.data.frame(t(media))
+    media <- as.data.frame(t(media)) %>%
+      as.numeric()
 
   } else{
 
@@ -162,7 +163,7 @@ media <- function(x, variable = NULL, pesos = NULL){
       na.omit %>%
       rename(variable2 = varnames[1], pesos = varnames[2]) %>%
       dplyr::summarize(media = sum(variable2*pesos)/sum(pesos)) %>%
-      as.data.frame()
+      as.numeric()
 
     varnames <- varnames[1]
 

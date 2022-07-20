@@ -24,4 +24,4 @@ RoxygenNote: 7.2.0
 URL: https://www.uv.es/estadistic/
 Depends:
     R (>= 3.5.0)
-Imports: tidyverse, dplyr, tidyr, plotly, ggplot2, rio, data.table, magrittr, grid, shiny, shinydashboard, knitr, gridExtra, forecast
+Imports: tidyverse, dplyr, tidyr, plotly, ggplot2, rio, data.table, grid, shiny, shinydashboard, knitr, gridExtra, forecast

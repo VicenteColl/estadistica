@@ -7,12 +7,13 @@
 #' \if{html}{\figure{qrcorrelacion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrcorrelacion.png}{options: width=3cm}}
 #'
-#' @usage correlacion(x, variable = NULL)
+#' @usage correlacion(x, variable = NULL, pesos=NULL)
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
+#' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #'
-#' @return Esta función devuelve el valor del coeficiente de correlación lineal en un objeto de la clase \code{data.frame}.
+#' @return Esta función devuelve el valor del coeficiente de correlación lineal en un objeto de la clase \code{vector}.
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.
@@ -20,9 +21,6 @@
 #'
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
-#'
-#' \strong{Cristina Pardo-García}.
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
@@ -59,39 +57,37 @@
 #' @import dplyr
 #'
 #' @export
-correlacion <- function(x, variable = NULL){
+correlacion <- function(x, variable = NULL, pesos=NULL){
 
   x <- data.frame(x)
   varnames <- names(x)
-
 
   if(is.null(variable)){
 
     if(length(x) == 2){
 
-      x <- x
-
+      varcuan <-  names(x[unlist(lapply(x, is.numeric))])
+      seleccion = match(varcuan,varnames)
+      x <- x[seleccion]
+      varnames <- varcuan
     } else{
-
-
       warning("Para obtener la matriz de correlaci\u00f3n utilizar la funcion matriz.correlacion()")
       stop("El conjunto de datos seleccionado tiene mas de 2 variables.")
-
     }
 
   } else if(length(variable) == 2){
 
-    if(is.numeric(variable)){
+      if(is.numeric(variable)){
 
-      if(all(variable <= length(x))){
+        if(all(variable <= length(x))){
 
-        variable <- variable
+          variable <- variable
 
         } else{
 
           stop("Selecci\u00f3n err\u00f3nea de variables")
 
-          }
+        }
       }
 
       if(is.character(variable)){
@@ -100,37 +96,77 @@ correlacion <- function(x, variable = NULL){
 
           variable = match(variable,varnames)
 
-          } else {
+        } else {
 
-            stop("El nombre de la variable no es v\u00e1lido")
-
-          }
+          stop("El nombre de la variable no es v\u00edlido")
 
         }
 
-    x <- x[,variable] %>% as.data.frame()
-    varnames <- names(x)
+      }
 
     } else{
 
-      warning("Para obtener la matriz de correlaci\u00f3n utilizar la funci\u00f3n matriz.cor()")
-      stop("Para calcular la correlaci\u00f3n solo puedes seleccionar dos variables")
+      warning("Para obtener la matriz de varianzas-covarianzas utilizar la funci\u00f3n matriz.covar()")
+      stop("Para calcular la covarianza solo puedes seleccionar dos variables")
+    }
+
+  if(is.null(pesos) & !is.null(variable)){
+
+    x <- x[,variable] %>% as.data.frame()
+    varnames <- varnames[variable]
+
+  }
+
+  if(!is.null(pesos) & !is.null(variable)){
+
+    if((length(variable) | length(pesos)) > 3){
+
+      stop("Para calcular la covarianza a partir de la distribuci\u00f3n de frecuencias solo puedes seleccionar dos variables y unos pesos")
 
     }
+
+    if(is.numeric(pesos)){
+
+      pesos <- pesos
+
+    }
+
+    if(is.character(pesos)){
+      if(pesos %in% varnames){
+        pesos = match(pesos,varnames)
+      } else {
+        stop("El nombre de los pesos no es v\u00e1lido")
+      }
+    }
+
+    x <- x[,c(variable,pesos)] %>% as.data.frame()
+    varnames <- varnames[c(variable,pesos)]
+
+  }
 
   clase <- sapply(x, class)
 
   if (!all(clase %in% c("numeric","integer"))) {
 
-    stop("No puede calcularse la correlaci\u00f3n, alguna variable que has seleccionado no es cuantitativa")
+    stop("No puede calcularse la covarianza, alguna variable que has seleccionado no es cuantitativa")
 
-    }
+  }
 
+  if(is.null(pesos)){
     correlacion <- cor(x[1],x[2], use ="everything")
     correlacion <- as.data.frame(correlacion)
+  } else{
+    x <- x %>%
+    na.omit %>%
+    rename(variable1 = varnames[1], variable2 = varnames[2], pesos = varnames[3])
 
-    names(correlacion) <- paste("correlacion_",varnames[1],"_",varnames[2],sep="")
-    row.names(correlacion) <- NULL
+  correlacion <- x %>%
+    summarize(correlacion = covarianza(x,variable=c(1,2),3) / (desviacion(x,2,3)*desviacion(x,2,3)))
+  }
+
+  correlacion <- as.numeric(correlacion)
+  names(correlacion) <- paste("correlacion_",varnames[1],"_",varnames[2],sep="")
+  row.names(correlacion) <- NULL
 
   return(correlacion)
 

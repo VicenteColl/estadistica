@@ -59,7 +59,7 @@
 #'
 #' cuantiles1 <- cuantiles(startup[1])
 #' cuantiles2 <- cuantiles(startup,variable=1,cortes=seq(0.1,0.9,0.1))
-#' cuantiles3 <- cuantiles(salarios2018,variable=7,pesos=10 )
+#' cuantiles3 <- cuantiles(salarios2018,variable=6,pesos=7 )
 #'
 #' @export
 cuantiles <- function(x, variable = NULL, pesos = NULL,

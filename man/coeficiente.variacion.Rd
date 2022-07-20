@@ -20,7 +20,7 @@ coeficiente.variacion(x,
 \item{tipo}{Es un carácter. Por defecto calcula la desviación típica muestral (\code{tipo = "muestral"}). Si \code{tipo = "cuasi"}, se calcula la cuasi-desviación típica muestral.}
 }
 \value{
-Esta función devuelve el valor del coeficiente de variación en un objeto de la clase \code{data.frame}. Por defecto, el coeficiente de variación se calcula utilizando la desviación típica muestral.
+Esta función devuelve el valor del coeficiente de variación en un objeto de la clase \code{vector}. Por defecto, el coeficiente de variación se calcula utilizando la desviación típica muestral.
 }
 \description{
 Calcula el coeficiente de variación de Pearson.
@@ -63,9 +63,6 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
-
-\strong{Cristina Pardo-García}.
-\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)
 }
