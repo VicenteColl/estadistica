@@ -114,8 +114,10 @@ regresion.simple <- function(x,
 
   if(isFALSE(introducir)){
 
+    varnames <- as.character(names(x))
     x <- data.frame(x)
-    varnames <- names(x)
+    names(x) <- varnames
+
 
     if(length(x)<2){
       stop("El conjunto de datos seleccionada solo tiene una variable.")
@@ -196,7 +198,8 @@ regresion.simple <- function(x,
   coeficientes <- invA%*%B
   names(coeficientes) <- c("constante",varnames[1])
 
-  mediay <- as.numeric(media(Y))
+
+  mediay <- mean(Y)
   valores.teoricos <- vX%*%coeficientes
   residuos <- Y - valores.teoricos # observado - estimado
 

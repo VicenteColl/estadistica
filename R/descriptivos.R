@@ -52,13 +52,16 @@ resumen.descriptivos <- function(x,
 
   options(scipen = 999)
 
+  varnames <- as.character(names(x))
   x <- data.frame(x)
-  varnames <- names(x)
+  names(x) <- varnames
 
-  if(is.null(variable) & length(x)>1){
+  if(is.null(variable)){
 
-    x <- x[,order(names(x))] %>% as.data.frame()
-    varnames <- names(x)
+    varcuan <-  names(x)[which(sapply(x[varnames], is.numeric))]
+    #seleccion = match(varcuan,varnames)
+    x <- x[varcuan]
+    varnames <- varcuan
 
   } else{
 
@@ -67,7 +70,6 @@ resumen.descriptivos <- function(x,
       if(all(variable <= length(x))){
 
         variable <- variable
-
 
       } else{
 
@@ -92,14 +94,15 @@ resumen.descriptivos <- function(x,
 
     x <- x[,variable] %>% as.data.frame()
     varnames <- varnames[variable]
+    names(x) <- varnames
 
   }
 
   if(!is.null(pesos) & !is.null(variable)){
 
-    if(length(variable) > 1){
+    if((length(variable) | length(pesos)) > 1){
 
-      stop("Para calcular los descriptivos a partir de la distribuci\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
+      stop("Para calcular la media a partir de la distribuci\u00fn de frecuencias solo puedes seleccionar una variable y unos pesos")
 
     }
 
@@ -119,34 +122,39 @@ resumen.descriptivos <- function(x,
       }
     }
 
+    if(pesos == variable){
+
+      stop("Has seleccionado la misma columna del dataframe para la variable y los pesos")
+
+    }
+
 
     x <- x[,c(variable,pesos)] %>% as.data.frame()
     varnames <- varnames[c(variable,pesos)]
+    names(x) <- varnames
 
   }
 
   clase <- sapply(x, class)
 
   if (!all(clase %in% c("numeric","integer"))) {
-    stop("No puede calcularse el resumen, alguna variable que has seleccionado no es cuantitativa")
+    stop("No pueden calcularse las medidas de forma, alguna variable que has seleccionado no es cuantitativa")
   }
+
 
 
   if(is.null(pesos)){
 
-    names(x) <- varnames
+    #names(x) <- varnames
     valor_media <- media(x) %>% t() %>% as.data.frame()
     valor_cuartiles <- cuantiles(x, cortes = c(0,0.25,0.5,0.75,1))
     valor_varianza <- varianza(x) %>% t() %>% as.data.frame()
     valor_desviacion <- desviacion(x) %>% t() %>% as.data.frame()
     valor_coef_variacion <- coeficiente.variacion(x)%>% t() %>% as.data.frame()
     ric <- cuantiles(x, cortes = 0.75) - cuantiles(x, cortes = 0.25)
-    valor_forma <- as.data.frame(t(medidas.forma(x)))
-    if(length(x)==1){
-      valor_moda <- as.data.frame(apply(x,2,moda))
-    } else{
-      valor_moda <- as.data.frame(t(apply(x,2,moda)))
-    }
+    valor_forma <- medidas.forma(x) %>% as.data.frame
+    valor_moda <- moda(x)
+
 
   } else{
 
@@ -174,25 +182,17 @@ resumen.descriptivos <- function(x,
                                         valor_moda),
                                    use.names = FALSE)
 
-  resumen <- as.data.frame(resumen)
+  resumen <- as.data.frame(resumen) %>%
+    round(4)
   names(resumen) <- varnames
 
-  if(is.null(pesos) & length(x) > 1){
-
-    row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
-                            "coef.variaci\u00f3n","RIC","asimetr\u00eda","curtosis","moda")
-
-  } else{
+  if(is.null(pesos)){
 
     num_modas <- nrow(valor_moda)
     row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
                             "coef.variaci\u00f3n","RIC","asimetr\u00eda","curtosis",paste("moda_",1:num_modas,sep=""))
 
-
-
   }
-
-
 
   if (exportar) {
     filename <- paste("Resumen descriptivos basicos"," (", Sys.time(), ").xlsx", sep = "")

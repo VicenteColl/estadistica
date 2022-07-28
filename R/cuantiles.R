@@ -66,9 +66,14 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
                       cortes = c(0.25,0.5,0.75),
                       exportar = FALSE){
 
-  x <- data.frame(x)
-  varnames <- names(x)
+  if(is.numeric(x)){
+    varnames <- "variable.x"
+  }else{
+    varnames <- as.character(names(x))
+  }
 
+  x <- data.frame(x)
+  names(x) <- varnames
   if(is.null(variable)){
 
     varcuan <-  names(x[unlist(lapply(x, is.numeric))])

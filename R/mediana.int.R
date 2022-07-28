@@ -1,6 +1,6 @@
 mediana.int <- function(x, pesos = NULL){
 
-  x <- as.data.frame(x)
+  x <- data.frame(x)
 
   clase <- sapply(x, class)
 

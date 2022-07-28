@@ -82,8 +82,9 @@ series.temporales <- function(x,
 
   options(scipen = 999)
 
+  varnames <- as.character(names(x))
   x <- data.frame(x)
-  varnames <- names(x)
+  names(x) <- varnames
 
   if(is.null(variable)){
     if(length(x) == 1){
@@ -210,10 +211,10 @@ names(mediasMoviles) <- c("Fecha","Periodo","Time",varnames[variable],
                           "Media.Movil","t")
 
 
-media_t <- as.numeric(media(serie_regresion[2]))
-media_mediamovil <- as.numeric(media(serie_regresion[4]))
-varianza_t <- as.numeric(varianza(serie_regresion[2]))
-varianza_mediamovil <- as.numeric(varianza(serie_regresion[4]))
+media_t <- media(serie_regresion[2])
+media_mediamovil <- media(serie_regresion[4])
+varianza_t <- varianza(serie_regresion[2])
+varianza_mediamovil <- varianza(serie_regresion[4])
 covarianza_t_mediamovil <- as.numeric(covarianza(serie_regresion[,c(2,4)]))
 
 modelo_series <- lm(mediamovil ~ t, data = serie_regresion)
@@ -222,7 +223,7 @@ constante_regresion <- as.numeric(modelo_series$coefficients[1])
 coeficiente_regresion <- as.numeric(modelo_series$coefficients[2])
 correlacion_t_mediamovil <- as.numeric(correlacion(serie_regresion[,c(2,4)]))
 coeficiente_determinacion <- summary(modelo_series)$r.squared
-varianza_explicada <- as.numeric(varianza(modelo_series$fitted.values))
+varianza_explicada <- varianza(modelo_series$fitted.values)
 varianza_residual <- varianza_mediamovil - varianza_explicada
 
 resultados_regresion <- data.frame(c(media_t,

@@ -21,9 +21,6 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo-García}.
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @references
@@ -36,6 +33,21 @@
 #' @export
 momento.central <- function(x, orden){
 
+  if(is.numeric(x)){
+    varnames <- "variable.x"
+  }else{
+    varnames <- as.character(names(x))
+  }
+
+  x <- data.frame(x)
+  names(x) <- varnames
+
+
+  varcuan <-  names(x)[which(sapply(x[varnames], is.numeric))]
+  #seleccion = match(varcuan,varnames)
+  x <- x[varcuan]
+  varnames <- varcuan
+
   orden <- as.integer(orden)
 
   if(!is.integer(orden)){
@@ -45,27 +57,32 @@ momento.central <- function(x, orden){
   }
 
   x <- data.frame(x)
-  varnames <- names(x)
 
-  if(length(x) > 1){
+  clase <- sapply(x, class)
 
-    stop("Esta funci\u00f3n solo funciona para una variable y parece que tus datos tienen varias variables")
-
-  }
-
-  clase <- sapply(x,class)
-
-  if (!(clase %in% c("numeric","integer"))) {
+  if (!all(clase %in% c("numeric","integer"))) {
     stop("No pueden calcularse las medidas de forma, alguna variable que has seleccionado no es cuantitativa")
   }
 
+  momento_vacio <- vector("list",length=length(x))
 
-  momento <- x %>% na.omit %>%
-    mutate(media_x = media(x),
-           momento = (x-media_x)^orden) %>%
-    summarize(momento = sum(momento)/n()) %>%
+  for(i in 1:length(x)){
+
+    momento <- x[i] %>% na.omit %>%
+      mutate(media_x = media(x[i]),
+             momento = (x[i]-media_x)^orden) %>%
+      summarize(momento = sum(momento)/n()) %>%
+      as.numeric()
+
+    momento_vacio[[i]] <- momento
+
+  }
+
+  max_long <-  max(lengths(momento_vacio))
+  momento <- sapply(momento_vacio, "[", seq_len(max_long)) %>%
+    t() %>%
     as.numeric()
-
+  names(momento) <- varnames
 
   return(momento)
 

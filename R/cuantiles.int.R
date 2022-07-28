@@ -1,7 +1,6 @@
 cuantiles.int <- function(x, pesos = NULL, cortes = 0.5){
 
-  x <- as.data.frame(x)
-  varnames <- names(x)
+  x <- data.frame(x)
 
   clase <- sapply(x, class)
 

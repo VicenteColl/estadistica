@@ -56,8 +56,14 @@
 #' @export
 mediana <- function(x, variable = NULL, pesos = NULL){
 
+  if(is.numeric(x)){
+    varnames <- "variable.x"
+  }else{
+    varnames <- as.character(names(x))
+  }
+
   x <- data.frame(x)
-  varnames <- names(x)
+  names(x) <- varnames
 
   if(is.null(variable)){
 
@@ -97,7 +103,7 @@ mediana <- function(x, variable = NULL, pesos = NULL){
   if(is.null(pesos) & !is.null(variable)){
 
     x <- x[,variable] %>% as.data.frame()
-    varnames <- names(x)
+    varnames <- varnames[variable]
 
   }
 

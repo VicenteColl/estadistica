@@ -82,13 +82,21 @@ medidas.forma <- function(x,
                           alternativa = FALSE,
                           exportar = FALSE){
 
+  if(is.numeric(x)){
+    varnames <- "variable.x"
+  }else{
+    varnames <- as.character(names(x))
+  }
+
   x <- data.frame(x)
-  varnames <- names(x)
+  names(x) <- varnames
 
-  if(is.null(variable) & length(x)>1){
+  if(is.null(variable)){
 
-    x <- x[,order(names(x))] %>% as.data.frame()
-    varnames <- names(x)
+    varcuan <-  names(x)[which(sapply(x[varnames], is.numeric))]
+    #seleccion = match(varcuan,varnames)
+    x <- x[varcuan]
+    varnames <- varcuan
 
   } else{
 
@@ -97,7 +105,6 @@ medidas.forma <- function(x,
       if(all(variable <= length(x))){
 
         variable <- variable
-
 
       } else{
 
@@ -121,8 +128,8 @@ medidas.forma <- function(x,
   if(is.null(pesos) & !is.null(variable)){
 
     x <- x[,variable] %>% as.data.frame()
-    names(x) <- varnames[variable]
-    varnames <- names(x)
+    varnames <- varnames[variable]
+    names(x) <- varnames
 
   }
 
@@ -130,7 +137,7 @@ medidas.forma <- function(x,
 
     if((length(variable) | length(pesos)) > 1){
 
-      stop("Para calcular las medidas de forma a partir de la distribuci\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
+      stop("Para calcular la media a partir de la distribuci\u00fn de frecuencias solo puedes seleccionar una variable y unos pesos")
 
     }
 
@@ -150,11 +157,16 @@ medidas.forma <- function(x,
       }
     }
 
+    if(pesos == variable){
 
-    x <- x[,c(variable,pesos)] %>%
-      na.omit(x) %>%
-      as.data.frame()
+      stop("Has seleccionado la misma columna del dataframe para la variable y los pesos")
+
+    }
+
+
+    x <- x[,c(variable,pesos)] %>% as.data.frame()
     varnames <- varnames[c(variable,pesos)]
+    names(x) <- varnames
 
   }
 
@@ -168,21 +180,25 @@ medidas.forma <- function(x,
   if(is.null(pesos)){
 
     #N <- nrow(x)
-    momento3 <- apply(x,2,momento.central,orden = 3)
-    momento4 <- apply(x,2,momento.central,orden = 4)
-    desv.x <- as.numeric(desviacion(x))
+    momento3 <- momento.central(x,orden = 3)
+    momento4 <- momento.central(x,orden = 4)
+    desv.x <- desviacion(x)
 
     asimetria <- momento3/desv.x^3
     curtosis <- momento4/desv.x^4 - 3
 
+    forma <- bind_rows(asimetria,curtosis) %>%
+      as.data.frame()
+    row.names(forma) <- c("asimetria","curtosis")
+
 
   } else{
 
-    desv.x <- as.numeric(desviacion(x,variable=1,pesos=2))
+    desv.x <- desviacion(x,variable=1,pesos=2)
     forma <-  x %>%
         na.omit %>%
         rename(variable2 = varnames[1], pesos = varnames[2]) %>%
-        mutate(media = as.numeric(media(x,variable=1,pesos=2)),
+        mutate(media = media(x,variable=1,pesos=2),
                     sumatorio3 = (variable2-media)^3*pesos,
                     sumatorio4 = (variable2-media)^4*pesos) %>%
         summarize(momento3 = sum(sumatorio3)/sum(pesos),
@@ -197,7 +213,13 @@ medidas.forma <- function(x,
     momento3 <- as.numeric(forma[1])
     momento4 <- as.numeric(forma[2])
 
-    varnames <- varnames[1]
+    forma <- forma %>%
+      select(asimetria,curtosis) %>%
+      t() %>%
+      as.data.frame()
+
+    names(forma) <- varnames[1]
+    row.names(forma) <- c("asimetria","curtosis")
 
   }
 
@@ -213,9 +235,7 @@ medidas.forma <- function(x,
                   error_curtosis = 2 * error_asimetria * sqrt((N^2-1)/((N-3)*(N+5)))
         ) %>% ungroup()
 
-      desv.x.muestra = as.numeric(desviacion(x,tipo="cuasi"))
-      momento4 <- as.numeric(momento4)
-      momento3 <- as.numeric(momento3)
+      desv.x.muestra = desviacion(x,tipo="cuasi")
 
       xalt <- xalt %>%
         mutate(desv.x.muestra = desv.x.muestra,
@@ -234,15 +254,12 @@ medidas.forma <- function(x,
                error_asimetria2="error_asimetria",
                curtosis2="curtosis_soft",error_curtosis2="error_curtosis") %>%
         as.data.frame()
+      row.names(forma) <- varnames
 
 
-    } else{
+  }
 
-      forma <- data.frame(asimetria=asimetria,curtosis=curtosis)
 
-    }
-
-  row.names(forma) <- varnames
 
   if (exportar) {
     filename <- paste("Medidas de forma"," (", Sys.time(), ").xlsx", sep = "")
