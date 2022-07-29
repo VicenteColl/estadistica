@@ -219,7 +219,7 @@ covarianza <- function(x,
 
   }
 
-
+  covarianza <- covarianza %>% round(4)
   names(covarianza) <- paste("covarianza_",varnames[1],"_",varnames[2],sep="")
   row.names(covarianza) <- NULL
 

@@ -192,6 +192,8 @@ coeficiente.variacion <- function(x,
 
   }
 
+  coef_variacion <- coef_variacion %>% round(4)
+
   return(coef_variacion)
 
 }

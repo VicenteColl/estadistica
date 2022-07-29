@@ -216,7 +216,7 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuas
 
   }
 
-  varianza <- as.numeric(varianza)
+  varianza <- as.numeric(varianza) %>% round(4)
   names(varianza) <- paste("varianza_",varnames,sep="")
 
   return(varianza)

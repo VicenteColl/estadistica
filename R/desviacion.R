@@ -209,7 +209,7 @@ desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cu
 
   }
 
-  desviacion <- as.numeric(desviacion)
+  desviacion <- as.numeric(desviacion) %>% round(4)
   names(desviacion) <- paste("desviacion_",varnames,sep="")
 
   return(desviacion)

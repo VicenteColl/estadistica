@@ -158,15 +158,15 @@ resumen.descriptivos <- function(x,
 
   } else{
 
-    valor_media <- media(x,variable=1,pesos=2) %>% t() %>% as.data.frame()
+    valor_media <- media(x,variable=1,pesos=2) %>% as.data.frame()
     #names(valor_media)
     valor_cuartiles <- cuantiles(x,variable=1,pesos=2, cortes = c(0,0.25,0.5,0.75,1))
-    valor_varianza <- varianza(x,variable=1,pesos=2) %>% t() %>% as.data.frame()
-    valor_desviacion <- desviacion(x,variable=1,pesos=2) %>% t() %>% as.data.frame()
-    valor_coef_variacion <- coeficiente.variacion(x,variable=1,pesos=2)  %>% t() %>% as.data.frame()
+    valor_varianza <- varianza(x,variable=1,pesos=2) %>%  as.data.frame()
+    valor_desviacion <- desviacion(x,variable=1,pesos=2) %>% as.data.frame()
+    valor_coef_variacion <- coeficiente.variacion(x,variable=1,pesos=2) %>% as.data.frame()
     ric <- cuantiles(x,variable=1,pesos=2, cortes = 0.75) - cuantiles(x,variable=1,pesos=2, cortes = 0.25)
-    valor_forma <- as.data.frame(t(medidas.forma(x,variable=1,pesos=2)))
-    valor_moda <- as.data.frame(moda(x,variable=1,pesos=2))
+    valor_forma <- medidas.forma(x,variable=1,pesos=2)
+    valor_moda <-moda(x,variable=1,pesos=2)
 
     varnames <- varnames[1]
 
@@ -186,13 +186,10 @@ resumen.descriptivos <- function(x,
     round(4)
   names(resumen) <- varnames
 
-  if(is.null(pesos)){
-
-    num_modas <- nrow(valor_moda)
-    row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
+  num_modas <- nrow(valor_moda)
+  row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
                             "coef.variaci\u00f3n","RIC","asimetr\u00eda","curtosis",paste("moda_",1:num_modas,sep=""))
 
-  }
 
   if (exportar) {
     filename <- paste("Resumen descriptivos basicos"," (", Sys.time(), ").xlsx", sep = "")

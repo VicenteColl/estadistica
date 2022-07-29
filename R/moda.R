@@ -22,9 +22,6 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo-García}.
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @references
@@ -39,7 +36,7 @@
 #' @export
 moda <- function(x, variable = NULL, pesos = NULL){
 
-  if(is.numeric(x)){
+  if(class(x) %in% c("numeric","factor","integer","logical")){
     varnames <- "variable.x"
   }else{
     varnames <- as.character(names(x))
@@ -50,7 +47,12 @@ moda <- function(x, variable = NULL, pesos = NULL){
 
   if(is.null(variable)){
 
-    varcuan <-  names(x[unlist(lapply(x, is.numeric))])
+    varcuan <- x %>% select_if(function(col) is.numeric(col) |
+                                 is.integer(col) |
+                                 is.factor(col) |
+                                 is.logical(col)) %>%
+      names()
+
     seleccion = match(varcuan,varnames)
     x <- x[seleccion]
     varnames <- varcuan
@@ -157,7 +159,7 @@ moda <- function(x, variable = NULL, pesos = NULL){
     max_long <-  max(lengths(moda_vacio))
     moda <- sapply(moda_vacio, "[", seq_len(max_long))
 
-    if(is.logical(moda)){
+    if(is.vector(moda)){
       moda <- matrix(moda,nrow=1,ncol=length(moda)) %>%
         as.data.frame()
     } else{
