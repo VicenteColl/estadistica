@@ -52,7 +52,12 @@ resumen.descriptivos <- function(x,
 
   options(scipen = 999)
 
-  varnames <- as.character(names(x))
+  if(is.numeric(x)){
+    varnames <- "variable.x"
+  }else{
+    varnames <- as.character(names(x))
+  }
+
   x <- data.frame(x)
   names(x) <- varnames
 
