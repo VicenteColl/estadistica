@@ -107,8 +107,8 @@ matriz.correlacion <- function(x, variable = NULL, exportar = FALSE){
 
 
   matriz_cor <- cor(x) %>%
-    as.data.frame()
-  names(matriz_cor) <- varnames
+    as.matrix()
+  colnames(matriz_cor) <- varnames
   row.names(matriz_cor) <- varnames
 
   if (exportar) {

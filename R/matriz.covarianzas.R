@@ -133,8 +133,8 @@ matriz.covar <- function(x, variable = NULL,
   }
 
   matriz_covar <- factor * var(x, na.rm = TRUE) %>%
-    as.data.frame()
-  names(matriz_covar) <- varnames
+    as.matrix()
+  colnames(matriz_covar) <- varnames
   row.names(matriz_covar) <- varnames
 
   if (exportar) {
