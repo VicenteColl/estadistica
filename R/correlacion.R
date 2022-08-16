@@ -161,7 +161,7 @@ correlacion <- function(x, variable = NULL, pesos=NULL){
     rename(variable1 = varnames[1], variable2 = varnames[2], pesos = varnames[3])
 
   correlacion <- x %>%
-    summarize(correlacion = covarianza(x,variable=c(1,2),3) / (desviacion(x,2,3)*desviacion(x,2,3)))
+    summarize(correlacion = covarianza(x,variable=c(1,2),3) / (desviacion(x,1,3)*desviacion(x,2,3)))
   }
 
   correlacion <- as.numeric(correlacion) %>% round(4)
