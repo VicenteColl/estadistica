@@ -59,8 +59,9 @@
 #' @export
 correlacion <- function(x, variable = NULL, pesos=NULL){
 
+  varnames <- as.character(names(x))
   x <- data.frame(x)
-  varnames <- names(x)
+  names(x) <- varnames
 
   if(is.null(variable)){
 
@@ -71,7 +72,7 @@ correlacion <- function(x, variable = NULL, pesos=NULL){
       x <- x[seleccion]
       varnames <- varcuan
     } else{
-      warning("Para obtener la matriz de correlaci\u00f3n utilizar la funcion matriz.correlacion()")
+      warning("Para obtener la matriz de correlaci\u00f3n utiliza la funci\u00f3n matriz.correlacion()")
       stop("El conjunto de datos seleccionado tiene mas de 2 variables.")
     }
 

@@ -181,7 +181,7 @@ regresion.simple <- function(x,
   # tabla de resultados parciales
 
   n <- nrow(x)
-  Y <- as.matrix(x[2]) # matriz coeficinetes v.depen
+  Y <- as.matrix(x[2]) # matriz coeficientes v.depen
   vx <- as.matrix(x[1]) # matriz coeficientes v.indepen
   vX <- cbind(x0=rep(1,n),vx) # con termino constante
 
@@ -196,12 +196,17 @@ regresion.simple <- function(x,
 
   invA <- solve(A)
   coeficientes <- invA%*%B
-  names(coeficientes) <- c("constante",varnames[1])
+  rownames(coeficientes) <- c("constante",varnames[1])
+  colnames(coeficientes) <- "Coeficientes"
 
 
   mediay <- mean(Y)
+
   valores.teoricos <- vX%*%coeficientes
+  colnames(valores.teoricos) <- "Valores teóricos"
+
   residuos <- Y - valores.teoricos # observado - estimado
+  colnames(residuos) <- "Errores"
 
 
   tabla <- x %>%
@@ -210,19 +215,20 @@ regresion.simple <- function(x,
            vx2 = vx^2,
            vy2 = vy^2,
            vxy = vx * vy,
-           valores.teoricos = valores.teoricos,
-           errores = Y - valores.teoricos,
-           sc.observados = (Y-mediay)^2,
-           sc.teoricos = (valores.teoricos - mediay)^2,
+           valores_teoricos = as.vector(valores.teoricos),
+           errores = as.vector(residuos),
+           sc_observados = as.vector((Y-mediay)^2),
+           sc_teoricos = (valores_teoricos - mediay)^2,
            errores2 = errores^2) %>%
     select(obs,everything())
 
   names(tabla) <- c("id",
-                    varnames,
+                    varnames[1],
+                    varnames[2],
                     paste(varnames[1],"^2",sep=""),
                     paste(varnames[2],"^2",sep=""),
                     paste(varnames[1],"*",varnames[2],sep=""),
-                    "valores.teoricos",
+                    "valores_teoricos",
                     "errores",
                     "sc.observados",
                     "sc.teoricos",
@@ -247,11 +253,9 @@ regresion.simple <- function(x,
                         varianza.residual = SCE/n,
                         coeficiente.determinacion = SCR/SCT,
                         coeficiente.correlacion = sqrt(SCR/SCT)) %>%
-    t() %>% as.data.frame()
+    t() %>% round(4) %>% as.data.frame()
 
-  resumen2 <- resumen %>%
-    kable(col.names="Valor",
-          caption = "Resumen medidas de la regresi\u00f3n")
+  names(resumen) <- ""
 
 
   } else{   # aqu\u00ed empieza introducir datos
@@ -281,18 +285,15 @@ regresion.simple <- function(x,
     coeficientes <- c(constante,coeficiente.regresion)
 
     resumen <- data.frame() %>%
-      summarize(coeficiente.correlacion = round(coeficiente.correlacion,4),
-                coeficiente.determinacion = round(coeficiente.determinacion,4),
+      summarize(constante = constante,
+                coeficiente.regresion = coeficiente.regresion,
+                coeficiente.determinacion = coeficiente.determinacion,
                 varianza.regresion = coeficiente.determinacion * vary,
                 varianza.residual = vary - varianza.regresion,
-                constante = constante,
-                coeficiente.regresion = coeficiente.regresion) %>%
-      t() %>% as.data.frame
+                coeficiente.correlacion = coeficiente.correlacion) %>%
+      t() %>% round(4) %>% as.data.frame()
 
-
-    resumen2 <- resumen %>%
-      kable(col.names="Valor",
-            caption="Resultados de la regresi\u00f3n simple")
+    names(resumen) <- ""
 
   }
 
@@ -338,10 +339,6 @@ regresion.simple <- function(x,
                                        "suma.cuadrados.residuos")
 
 
-      resultados.parciales2 <- resultados.parciales %>%
-        kable(col.names="Valor",
-              caption="Resumen resultados de la regresi\u00f3n")
-
       estadistico = (SCR/(k-1))/(SCE/(n-k))
       tabla.anova <- data.frame(Medida = c("Regresion","errores","total"),
                                 Suma.cuadrados = round(c(SCR,SCE,SCT),5),
@@ -352,11 +349,9 @@ regresion.simple <- function(x,
 
       tabla.anova[is.na(tabla.anova)] <- " "
 
-      tabla.anova2 <- tabla.anova %>%
-        kable(caption = "ANOVA", align= "c")
 
       # errores tipicos de la regresion
-        # VARIANZAS DE LOS ESTIMADORES (BETAS)
+      # VARIANZAS DE LOS ESTIMADORES (BETAS)
       varianza.residuos = SCE/(n-k)
 
       if(introducir){
@@ -414,7 +409,7 @@ regresion.simple <- function(x,
 
     if(grafico){
 
-      mediax <- as.numeric(media(x[1]))
+      mediax <- media(x[1])
 
       tablaplot <- tabla %>%
         select(1,2,3,7,8,11) %>%
@@ -433,6 +428,7 @@ regresion.simple <- function(x,
       miscolores <- c("red","purple","chocolate","darkgreen")
       names(miscolores) <- levels(tablaplot$grupo)
 
+      # formas de los puntos
       mispuntos <- c(15,18,17,19)
       names(mispuntos) <- levels(tablaplot$grupo)
 
@@ -455,24 +451,26 @@ regresion.simple <- function(x,
         geom_smooth(method = "lm", formula = y ~ x, se = FALSE,color="blue") +
         labs(title = "Modelo de regresi\u00f3n estimado",
              subtitle= paste(varnames[2],"=",round(coeficientes[1],5),if_else(coeficientes[2] >=0, "+", ""),round(coeficientes[2],5),"*",varnames[1],sep="")
-        )
+        ) +
+        theme(legend.position = "bottom",
+              legend.title = element_blank(),
+              legend.text = element_text(size = 6))
 
 
-      plot12 <- ggplot(tablaplot,aes(x=valores.teoricos,y=errores)) +
-        geom_point()
+      #plot12 <- ggplot(tablaplot,aes(x=valores.teoricos,y=errores)) +
+      #  geom_point()
 
-      plot21 <- ggplot(tablaplot, aes(x=id,y=valores.teoricos,color=grupo,shape=grupo,label=id)) +
+      plot21 <- ggplot(tablaplot, aes(x=id,y=valores.teoricos,color=grupo,shape=grupo)) +
         geom_point() +
         geom_hline(yintercept = mediay) +
-      geom_text(data=subset(tablaplot,grupo!='no influyente_no atipico'),
-                vjust = -0.75,
-                size=2) +
+        #geom_text(data=subset(tablaplot,grupo!='no influyente_no atipico'),
+        #          label=data$id,
+        #          vjust = -0.75,
+        #          size=2) +
         labs(y="valores pronosticados (teoricos)") +
         escalaColor +
-        escalaForma
-
-      plot21
-
+        escalaForma +
+        theme(legend.position = "none")
 
       plot22 <- ggplot(tablaplot, aes(x=id,y=error.norm,color=grupo,shape=grupo,label=id)) +
         geom_point() +
@@ -484,7 +482,8 @@ regresion.simple <- function(x,
                   size=2) +
         labs(y="errores estandarizados") +
         escalaColor +
-        escalaForma
+        escalaForma +
+        theme(legend.position = "none")
 
       #plot <- gridExtra::grid.arrange(plot1,plot12,plot21,plot22, ncol=2, nrow=2)
       plot <- gridExtra::grid.arrange(plot1,gridExtra::arrangeGrob(plot21,plot22), ncol=2)
@@ -494,7 +493,7 @@ regresion.simple <- function(x,
 
   if (exportar) {
 
-    names(resumen) <- "Valor"
+    names(resumen) <- c("Medida","Valor")
 
     filename <- paste("Resultados regresion simple"," (", Sys.time(), ").xlsx", sep = "")
     filename <- gsub(" ", "_", filename)

@@ -22,9 +22,6 @@
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
 #'
-#' \strong{Cristina Pardo-García}.
-#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
-#'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @details
@@ -60,8 +57,9 @@
 #' @export
 matriz.correlacion <- function(x, variable = NULL, exportar = FALSE){
 
+  varnames <- as.character(names(x))
   x <- data.frame(x)
-  varnames <- names(x)
+  names(x) <- varnames
 
   if(is.null(variable)){
 

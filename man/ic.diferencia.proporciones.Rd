@@ -33,7 +33,9 @@ Se obtiene el intervalo:
 \if{html}{\figure{icdifproporciones.png}{options: width="65\%" alt="icdifproporciones.png"}}
 \if{latex}{\figure{icdifproporciones.png}{options: width=12cm}}
 
-Nota: Las proporciones muestrales del error típico son sustituidas por sus estimaciones máximo-verosímiles (proporciones muestrales).
+Nota: El usuario puede seguir dos estrategias:
+(1) Sustituir las proporciones muestrales del error típico por sus estimaciones máximo-verosímiles (proporciones muestrales)
+(2) Considerar el caso: p=q=0.5
 }
 \references{
 Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X

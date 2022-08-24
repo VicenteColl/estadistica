@@ -69,9 +69,9 @@ covarianza <- function(x,
   tipo <- tolower(tipo)
   tipo <- match.arg(tipo)
 
+  varnames <- as.character(names(x))
   x <- data.frame(x)
-  varnames <- names(x)
-
+  names(x) <- varnames
 
   if(is.null(variable)){
 
@@ -82,7 +82,7 @@ covarianza <- function(x,
       x <- x[seleccion]
       varnames <- varcuan
     } else{
-      warning("Para obtener la matriz de correlaci\u00f3n utilizar la funcion matriz.correlacion()")
+      warning("Para obtener la matriz de varianza-covarianzas utiliza la funci\u00f3n matriz.covar()")
       stop("El conjunto de datos seleccionado tiene mas de 2 variables.")
     }
 
