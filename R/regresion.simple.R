@@ -226,6 +226,7 @@ regresion.simple <- function(x,
                  sc.teoricos,
                  errores2) %>%
     as.data.frame() %>%
+    round(4) %>%
     select(obs,everything())
 
   names(tabla) <- c("id",
@@ -259,7 +260,9 @@ regresion.simple <- function(x,
                         coeficiente.determinacion = SCR/SCT,
                         coeficiente.correlacion = sqrt(SCR/SCT)) %>%
     t() %>%
+    round(4) %>%
     as.data.frame()
+
   names(resumen) <- "Resumen"
 
   resumen2 <- resumen %>%
@@ -301,6 +304,7 @@ regresion.simple <- function(x,
                 constante = constante,
                 coeficiente.regresion = coeficiente.regresion) %>%
       t() %>%
+      round(4) %>%
       as.data.frame()
 
     names(resumen) <- "Resumen"
@@ -471,14 +475,16 @@ regresion.simple <- function(x,
         escalaForma +
         geom_smooth(method = "lm", formula = y ~ x, se = FALSE,color="blue") +
         geom_text(data=subset(tablaplot,grupo!='no influyente_no atipico'),
-                  vjust = -0.75,
-                  size=2) +
+                  vjust = -0.7,
+                  size= 1.5) +
         labs(title = "Modelo de regresi\u00f3n estimado",
-             subtitle= paste(varnames[2],"=",round(coeficientes[1],5),if_else(coeficientes[2] >=0, "+", ""),round(coeficientes[2],5),"*",varnames[1],sep="")
-        ) +
+             subtitle= paste(varnames[2],"=",round(coeficientes[1],5),if_else(coeficientes[2] >=0, "+", ""),round(coeficientes[2],5),"*",varnames[1],sep=""),
+             x = varnames[1],
+             y = varnames[2]) +
+        theme_classic() +
         theme(legend.position = "bottom",
-              legend.title = element_blank(),
-              legend.text = element_text(size = 6))
+                      legend.title = element_blank(),
+                      legend.text = element_text(size = 6))
 
 
       #plot12 <- ggplot(tablaplot,aes(x=valores.teoricos,y=errores)) +
@@ -488,11 +494,12 @@ regresion.simple <- function(x,
         geom_point() +
         geom_hline(yintercept = mediay) +
       geom_text(data=subset(tablaplot,grupo!='no influyente_no atipico'),
-                vjust = -0.75,
-                size=2) +
+                vjust = -0.55,
+                size=1.5) +
         labs(y="valores pronosticados (teoricos)") +
         escalaColor +
         escalaForma +
+        theme_classic()+
         theme(legend.position = "none")
 
 
@@ -502,11 +509,12 @@ regresion.simple <- function(x,
         geom_hline(yintercept = 2, linetype=2) +
         geom_hline(yintercept = -2, linetype=2) +
         geom_text(data=subset(tablaplot,grupo!='no influyente_no atipico'),
-                  vjust = -0.75,
-                  size=2) +
+                  vjust = -0.7,
+                  size=1.5) +
         labs(y="errores estandarizados") +
         escalaColor +
         escalaForma +
+        theme_classic()+
         theme(legend.position = "none")
 
       #plot <- gridExtra::grid.arrange(plot1,plot12,plot21,plot22, ncol=2, nrow=2)
