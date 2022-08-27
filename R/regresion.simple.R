@@ -108,9 +108,9 @@ regresion.simple <- function(x,
                              exportar = FALSE){
 
   old <- options()
-  on.exit(options(old))
+#  on.exit(options(old))
 
-  options(scipen = 999, digits=4)
+  options(scipen=999, digits=4)
 
   if(isFALSE(introducir)){
 
@@ -394,6 +394,7 @@ regresion.simple <- function(x,
 
       # p-valores
       p_valor <- 2 * apply(abs(t),1,pt,df=n-k,lower.tail=FALSE)
+      p_valor <- round(p_valor,6)
 
       # intervalo de confianza
       alfa2 <- (1-confianza)/2
@@ -600,5 +601,7 @@ regresion.simple <- function(x,
     }
 
   }
+
+  on.exit(options(old))
 
 }

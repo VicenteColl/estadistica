@@ -78,7 +78,7 @@ series.temporales <- function(x,
                               exportar = FALSE){
 
   old <- options()
-  on.exit(options(old))
+  #on.exit(options(old))
 
   options(scipen = 999)
 
@@ -343,5 +343,7 @@ return(list('Medias_moviles' = mediasMoviles,
             'Modelo_ajuste' = resultados_regresion,
             'Pronosticos' = pronosticos,
             'Grafico' = p))
+
+on.exit(options(old))
 
 }
