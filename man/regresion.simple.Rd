@@ -57,12 +57,12 @@ o alternativamente:
 \if{html}{\figure{regresion2.png}{options: width="75\%" alt="Figure: regresion2"}}
 \if{latex}{\figure{regresion2.png}{options: width=10cm}}
 
-En las representaciones gráficas las observaciones influyentes (extremos) se detectan a partir del punto inflyente o índice de leverage:
+En las representaciones gráficas las observaciones anómals se detectan a partir del punto leverage:
 
 \if{html}{\figure{influyente.png}{options: width="50\%" alt="Figure: influyente.png"}}
 \if{latex}{\figure{influyente.png}{options: width=6cm}}
 
-de forma que una observación que una observación será influyente si:
+de forma que una observación tendrá efecto de apalancamiento si:
 
 \if{html}{\figure{obsinfluyente.png}{options: width="25\%" alt="Figure: obsinfluyente.png"}}
 \if{latex}{\figure{obsinfluyente.png}{options: width=2.5cm}}

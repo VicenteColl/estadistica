@@ -36,22 +36,23 @@
 #'
 #' (1) Para tamaños muestrales muy grandes (n>100):
 #'
-#' \if{html}{\figure{icproporcion3.png}{options: width="80\%" alt="Figure: "icproporcion3.png"}}
+#' \if{html}{\figure{icproporcion3.png}{options: width="80\%"}}
 #' \if{latex}{\figure{icproporcion3.png}{options: width=12cm}}
 #'
 #' El usuario puede elegir entre tres estrategias:
+#'
 #' (1.1) En el error típico aproximar p por su estimación muestral.
 #' (1.2) En el error típico considerar el caso: p=q=0.5
 #' (1.3) Obtener el valor de p a partir del estadístico.
 #'
 #' (2) Para cualquier tamaño muestral puede obtenerse el intervalo:
 #'
-#' \if{html}{\figure{icproporcion1.png}{options: width="15\%" alt="Figure: icproporcion2.png"}}
+#' \if{html}{\figure{icproporcion1.png}{options: width="15\%"}}
 #' \if{latex}{\figure{icproporcion1.png}{options: width=2.5cm}}
 #'
 #' correspondiendo los valores a las raíces de:
 #'
-#' \if{html}{\figure{icproporcion2.png}{options: width="80\%" alt="Figure: icproporcion2.png"}}
+#' \if{html}{\figure{icproporcion2.png}{options: width="80\%"}}
 #' \if{latex}{\figure{icproporcion2.png}{options: width=12cm}}
 #'
 #' @references
