@@ -270,6 +270,23 @@ regresion.simple <- function(x,
           caption = "Resumen medidas de la regresi\u00f3n")
 
 
+  # deteccion de outliers
+  mediax <- as.numeric(media(x[,1]))
+
+  tablaplot <- tabla %>%
+    select(1,2,3,7,8,11) %>%
+    rename("X"=varnames[1],"Y"=varnames[2]) %>%
+    mutate(momento = (X-mediax)^2,
+           leverage = 1/n + (momento/sum(momento)),
+           puntos.palanca = ifelse(leverage > 3 * k/n, "palanca", "no palanca"),
+           error.norm = errores/(sqrt(sum(errores2)/(n-2))*sqrt(1-leverage)),
+           atipico = ifelse(abs(error.norm)>2,"atipico","no atipico"),
+           distancia.cook = (error.norm^2 / 2) * (leverage /(1-leverage)),
+           grupo = paste(puntos.palanca,"_",atipico,sep=""))
+
+  deteccion.outliers <- tablaplot[c(1,8,10,12)]
+
+
   } else{   # aqu\u00ed empieza introducir datos
 
     message("Esta opci\u00f3n obtiene la regresi\u00f3n simple que se estudia en un curso introductorio de estad\u00edstica descriptiva. Ver Esteban y otros (2005).")
@@ -432,20 +449,7 @@ regresion.simple <- function(x,
 
 
     # REPRESENTACION GRAFICA
-
     if(grafico){
-
-      mediax <- as.numeric(media(x[1]))
-
-      tablaplot <- tabla %>%
-        select(1,2,3,7,8,11) %>%
-        rename("X"=varnames[1],"Y"=varnames[2]) %>%
-        mutate(momento = (X-mediax)^2,
-               leverage = 1/n + (momento/sum(momento)),
-               puntos.palanca = ifelse(leverage > 3 * k/n, "palanca", "no palanca"),
-               error.norm = errores/(sqrt(sum(errores2)/(n-2))*sqrt(1-leverage)),
-               atipico = ifelse(abs(error.norm)>2,"atipico","no atipico"),
-               grupo = paste(puntos.palanca,"_",atipico,sep=""))
 
       tablaplot$grupo <- factor(tablaplot$grupo)
       levels(tablaplot$grupo) <- list(palanca_atipico = "palanca_atipico",
@@ -479,7 +483,7 @@ regresion.simple <- function(x,
         geom_smooth(method = "lm", formula = y ~ x, se = FALSE,color="blue") +
         geom_text(data=subset(tablaplot,grupo!='normal'),
                   vjust = -0.7,
-                  size= 2) +
+                  size= 2.5) +
         labs(title = "Modelo de regresi\u00f3n estimado",
              subtitle= paste(varnames[2],"=",round(coeficientes[1],5),if_else(coeficientes[2] >=0, "+", ""),round(coeficientes[2],5),"*",varnames[1],sep=""),
              x = varnames[1],
@@ -488,7 +492,7 @@ regresion.simple <- function(x,
         theme(legend.title = element_blank(),
               legend.key.size = unit(0, 'lines'),
               legend.position = "bottom",
-              legend.text = element_text(size = 6))
+              legend.text = element_text(size = 7))
 
 
       #plot12 <- ggplot(tablaplot,aes(x=valores.teoricos,y=errores)) +
@@ -499,7 +503,7 @@ regresion.simple <- function(x,
         geom_hline(yintercept = mediay) +
       geom_text(data=subset(tablaplot,grupo!='normal'),
                 vjust = -0.55,
-                size=2) +
+                size=2.5) +
         labs(y="valores pronosticados (teoricos)") +
         escalaColor +
         escalaForma +
@@ -514,7 +518,7 @@ regresion.simple <- function(x,
         geom_hline(yintercept = -2, linetype=2) +
         geom_text(data=subset(tablaplot,grupo!='normal'),
                   vjust = -0.7,
-                  size=2) +
+                  size=2.5) +
         labs(y="errores estandarizados") +
         escalaColor +
         escalaForma +
@@ -544,15 +548,15 @@ regresion.simple <- function(x,
         lista <- list(tabla,resultados.parciales,tabla.anova,modelo.regresion)
 
         rio::export(lista, rowNames = TRUE, filename, sheetName=c("Resultados parciales",
-                                                                "Resumen medidas",
-                                                                "ANOVA",
-                                                                "Modelo estimado"))
+                                                                  "Resumen medidas",
+                                                                  "ANOVA",
+                                                                  "Modelo estimado"))
       } else{
 
         lista <- list(resumen,tabla)
 
         rio::export(lista, rowNames = TRUE, filename, sheetName=c("Resumen",
-                                                                "Resultados parciales"))
+                                                                  "Resultados parciales"))
       }
 
     } else{
@@ -585,13 +589,15 @@ regresion.simple <- function(x,
       return(list('Calculos.intermedios' = tabla,
                   'Resultados.parciales' = resultados.parciales,
                   'ANOVA' = tabla.anova,
-                  'Moldelo.estimado' = modelo.regresion,
-                  'Graficos' = plot))
+                  'Modelo.estimado' = modelo.regresion,
+                  'Deteccion.outliers' = deteccion.outliers,
+                                    'Graficos' = plot))
 
     } else{
 
       return(list('Calculos.intermedios' = tabla,
                   'Resumen.regresion' = resumen,
+                  'Deteccion.outliers' = deteccion.outliers,
                   'Graficos' = plot))
 
     }
