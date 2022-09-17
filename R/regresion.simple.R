@@ -483,7 +483,7 @@ regresion.simple <- function(x,
         geom_smooth(method = "lm", formula = y ~ x, se = FALSE,color="blue") +
         geom_text(data=subset(tablaplot,grupo!='normal'),
                   vjust = -0.7,
-                  size= 2.5) +
+                  size = 2.5) +
         labs(title = "Modelo de regresi\u00f3n estimado",
              subtitle= paste(varnames[2],"=",round(coeficientes[1],5),if_else(coeficientes[2] >=0, "+", ""),round(coeficientes[2],5),"*",varnames[1],sep=""),
              x = varnames[1],
@@ -503,7 +503,7 @@ regresion.simple <- function(x,
         geom_hline(yintercept = mediay) +
       geom_text(data=subset(tablaplot,grupo!='normal'),
                 vjust = -0.55,
-                size=2.5) +
+                size= 2.5) +
         labs(y="valores pronosticados (teoricos)") +
         escalaColor +
         escalaForma +
@@ -518,7 +518,7 @@ regresion.simple <- function(x,
         geom_hline(yintercept = -2, linetype=2) +
         geom_text(data=subset(tablaplot,grupo!='normal'),
                   vjust = -0.7,
-                  size=2.5) +
+                  size = 2.5) +
         labs(y="errores estandarizados") +
         escalaColor +
         escalaForma +

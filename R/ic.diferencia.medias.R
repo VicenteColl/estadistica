@@ -414,6 +414,21 @@ if(isFALSE(introducir)) {
 
     if(var_pob == "conocida"){
 
+      if(n1 >= 30 & n2 >= 30){ # muestras grandes
+
+        # caso de varianza poblacionales conocidas (iguales o distintas por la seleccion de varianza poblacional)
+        # casos 1 y 2
+        valor_critico <- qnorm(alfa2,lower.tail = FALSE)
+        error_tipico <- sqrt(varianza_pob1/n1 + varianza_pob2/n2)
+
+        print("Con muestras grandes aplicamos el TCL y suponemos que la poblaci\u00f3n es normal")
+
+      } else {
+
+       print("La distribuci\u00f3n de probabilidad de la poblaci\u00f3n y su varianza son desconocidas. Adem\u00e1s, el tama\u00f1o de alguna muestra es peque\u00f1o (n<30)")
+       stop("Bajo estas condiciones no es posible estimar el intervalo de confianza")
+
+      }
 
     } else{ # poblacion desconocida y varianzas poblaciones desconocidas
 
@@ -444,7 +459,6 @@ if(isFALSE(introducir)) {
 
         print("La distribuci\u00f3n de probabilidad de la poblaci\u00f3 y su varianza son desconocidas. Adem\u00e1s, el tama\u00f1o de alguna muestra es peque\u00f1o (n<30)")
         stop("Bajo estas condiciones no es posible estimar el intervalo de confianza")
-
 
       }
 
