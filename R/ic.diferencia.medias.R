@@ -341,9 +341,9 @@ if(isFALSE(introducir)) {
 
       if(isTRUE(iguales)){ # varianzas poblaciones desconocidas e iguales
 
-        if(all(n>=30)){ # muestras grandes
+        if(all(n>=30)){ # muestras grandes (caso 2)
 
-          print("Si los tama\u00f1os muestrales son grandes se estima la varianza poblacional")
+          print("Como los tama\u00f1os muestrales son grandes se estima la varianza poblacional")
           valor_critico <- qnorm(alfa2,lower.tail = FALSE)
           error_tipico <- sqrt(var_mu1/n1 + var_mu2/n2)
 
@@ -376,13 +376,13 @@ if(isFALSE(introducir)) {
 
       } else {  # varianzas poblaciones desconocidas y distintas
 
-        if(all(n>=30)){ # muestras grandes
+        if(all(n>=30)){ # muestras grandes (caso 2)
 
-          print("Si los tama\u00f1os muestrales son grandes se estima la varianza poblacional")
+          print("Como los tama\u00f1os muestrales son grandes se estima la varianza poblacional")
           valor_critico <- qnorm(alfa2,lower.tail = FALSE)
           error_tipico <- sqrt(var_mu1/n1 + var_mu2/n2)
 
-        } else{ # muestras pequenas
+        } else{ # muestras pequenas (caso 4)
 
           if(var_muestra == 1){
           # caso 4.1
@@ -394,7 +394,7 @@ if(isFALSE(introducir)) {
           valor_critico <- qt(alfa2,gl,lower.tail = FALSE)
           error_tipico <- sqrt((var_mu1/(n1-1))+(var_mu2/(n2-1)))
 
-        } else{
+          } else{
           # caso 4.2
           # varianzas poblacionales desconocidas y distintas (cuasivarianza muestral)
           print("Este es el intervalo que generalmente calculan los softwares (SPSS, Excel, etc.)")
@@ -416,19 +416,18 @@ if(isFALSE(introducir)) {
 
       if(n1 >= 30 & n2 >= 30){ # muestras grandes
 
-        # caso de varianza poblacionales conocidas (iguales o distintas por la seleccion de varianza poblacional)
-        # casos 1 y 2
-        valor_critico <- qnorm(alfa2,lower.tail = FALSE)
-        error_tipico <- sqrt(varianza_pob1/n1 + varianza_pob2/n2)
+        print("Como los tama\u00f1os muestrales son grandes, por aplicaci\u00f3n del TCL se puede suponer que las medias muestrales se distribuyen aproximadamente normales")
 
-        print("Con muestras grandes aplicamos el TCL y suponemos que la poblaci\u00f3n es normal")
+        valor_critico <- qnorm(alfa2,lower.tail = FALSE)
+        error_tipico <- sqrt(var_mu1/n1 + var_mu2/n2)
 
       } else {
 
-       print("La distribuci\u00f3n de probabilidad de la poblaci\u00f3n y su varianza son desconocidas. Adem\u00e1s, el tama\u00f1o de alguna muestra es peque\u00f1o (n<30)")
-       stop("Bajo estas condiciones no es posible estimar el intervalo de confianza")
+        print("La distribuci\u00f3n de probabilidad de la poblaci\u00f3n es desconocida y el tama\u00f1o de alguna muestra es peque\u00f1o (n<30)")
+        stop("Bajo estas condiciones no es posible estimar el intervalo de confianza")
 
       }
+
 
     } else{ # poblacion desconocida y varianzas poblaciones desconocidas
 
@@ -436,22 +435,43 @@ if(isFALSE(introducir)) {
 
         # se\u00fan libro de casas
 
-        valor_critico <- qnorm(alfa2,lower.tail = FALSE)
+        valor_critico <- qnorm(alfa2,lower.tail = FALSE) # valor critico normal
 
         if(isTRUE(iguales)){
 
-          # caso 5
-          # error tipico igual al del caso 3_2 pero el valor cr\u00edtico con normal
-          numerador <- var_mu1*(n1-1) + var_mu2*(n2-1)
-          denominador <- n1+n2-2
+          if(var_muestra == 1){
 
-          error_tipico <- sqrt(numerador/denominador)*sqrt((n1+n2)/(n1*n2))
+            # similar caso 3_1 con varianza muestral
+            numerador <- sqrt(n1+n2) * sqrt(n1*var_mu1 + n2*var_mu2)
+            denominador <- sqrt(n1*n2) * sqrt(n1+n2-2)
+            error_tipico <- numerador/denominador
+
+          } else{   # comprobado con la cuasi
+
+            # similar caso 3_2 con cuasivarianza muestral
+
+            print("Este es el intervalo que generalmente calculan los softwares (SPSS, Excel, etc.)")
+            numerador <- var_mu1*(n1-1) + var_mu2*(n2-1)
+            denominador <- n1+n2-2
+
+            error_tipico <- sqrt(numerador/denominador)*sqrt((n1+n2)/(n1*n2))
+
+          }
+
 
         } else {
 
-          # caso 6
-          # error tipico como el caso 1 y 2 pero con las varianzas poblaciones estimadas con las muestrales
-          error_tipico <- sqrt(var_mu1/n1 + var_mu2/n2)
+          if(var_muestra == 1){
+
+            # similar caso 4_1 con varianza muestral (se estima var_pob por varianza muestral)
+            error_tipico <- sqrt((var_mu1/n1)+(var_mu2/n2))
+
+          } else{   # comprobado con la cuasi (se estima var_pob por estimador insesgado: cuasivar muestral)
+
+            # similar caso 4_2 con cuasivarianza muestral
+            error_tipico <- sqrt((var_mu1/n1)+(var_mu2/n2))
+
+          }
 
         }
 
@@ -459,6 +479,7 @@ if(isFALSE(introducir)) {
 
         print("La distribuci\u00f3n de probabilidad de la poblaci\u00f3 y su varianza son desconocidas. Adem\u00e1s, el tama\u00f1o de alguna muestra es peque\u00f1o (n<30)")
         stop("Bajo estas condiciones no es posible estimar el intervalo de confianza")
+
 
       }
 

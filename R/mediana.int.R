@@ -1,5 +1,11 @@
 mediana.int <- function(x, pesos = NULL){
 
+  if(is.numeric(x)){
+    varnames <- "variable.x"
+  }else{
+    varnames <- as.character(names(x))
+  }
+
   x <- data.frame(x)
 
   clase <- sapply(x, class)

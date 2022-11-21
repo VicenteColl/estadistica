@@ -43,10 +43,10 @@ momento.central <- function(x, orden){
   names(x) <- varnames
 
 
-  varcuan <-  names(x)[which(sapply(x[varnames], is.numeric))]
+  #varcuan <-  names(x)[which(sapply(x[varnames], is.numeric))]
   #seleccion = match(varcuan,varnames)
-  x <- x[varcuan]
-  varnames <- varcuan
+  #x <- x[varcuan]
+  #varnames <- varcuan
 
   orden <- as.integer(orden)
 
@@ -68,9 +68,11 @@ momento.central <- function(x, orden){
 
   for(i in 1:length(x)){
 
-    momento <- x[i] %>% na.omit %>%
-      mutate(media_x = media(x[i]),
-             momento = (x[i]-media_x)^orden) %>%
+    x2 <- x[i] %>% na.omit
+
+    momento <- x2 %>%
+      mutate(media_x = media(x2),
+             momento = (x2-media_x)^orden) %>%
       summarize(momento = sum(momento)/n()) %>%
       as.numeric()
 
