@@ -258,7 +258,7 @@ regresion.simple <- function(x,
                         varianza.regresion = SCR/n,
                         varianza.residual = SCE/n,
                         coeficiente.determinacion = SCR/SCT,
-                        coeficiente.correlacion = sqrt(SCR/SCT)) %>%
+                        coeficiente.correlacion = correlacion(as.data.frame(x)) ) %>%
     t() %>%
     round(4) %>%
     as.data.frame()
