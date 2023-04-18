@@ -40,7 +40,7 @@
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @importFrom stats addmargins na.omit
-#' @import tidyverse
+#' @import dplyr
 #'
 #' @export
 tabla.bidimensional <- function(x,
