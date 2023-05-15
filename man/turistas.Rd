@@ -8,7 +8,7 @@
 Dataframe con 130 observaciones de 3 variables.
 \describe{
   \item{País}{País de destino.}
-  \item{Llegadas.de.turistas}{Número de llegada de turistas en 2017, en miles.}
+  \item{Llegadas.turistas}{Número de llegada de turistas en 2017, en miles.}
   \item{Gasto.viajes}{Gasto en viajes en 2017, en millones de USD.}
 }
 }
