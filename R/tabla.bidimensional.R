@@ -138,7 +138,7 @@ tabla.bidimensional <- function(x,
       if(tipo == 1){
         tabla_aux <- x %>%
           select(tipo) %>%
-          group_by(filas) %>%
+          group_by_at(vars(varnames[tipo]))  %>%
           count() %>%
           ungroup() %>%
           select(n)
@@ -148,7 +148,7 @@ tabla.bidimensional <- function(x,
       } else{
         tabla_aux <- x %>%
           select(tipo) %>%
-          group_by(columnas) %>%
+          group_by_at(vars(varnames[tipo])) %>%
           count() %>%
           ungroup() %>%
           select(n)
