@@ -1,5 +1,4 @@
-library(dplyr)
-library(stats)  # Para usar cov.wt
+#' @importFrom stats cov.wt
 
 # Función matriz.covar para calcular covarianzas con y sin datos agrupados
 matriz.covar2 <- function(data, variable = NULL, tipo = c("muestral", "cuasi"), pesos = NULL) {
@@ -77,35 +76,3 @@ matriz.covar2 <- function(data, variable = NULL, tipo = c("muestral", "cuasi"), 
 
   return(result)
 }
-
-
-# Sin agrupación, especificando variables y pesos
-result_no_group <- matriz.covar2(mtcars, variable = c("mpg", "disp", "hp"), tipo = "cuasi", pesos = 4)
-print(result_no_group)
-
-# Con agrupación, especificando variables y pesos
-grouped_mtcars <- mtcars %>% group_by(cyl)
-result_grouped <- matriz.covar2(grouped_mtcars, variable = c("mpg", "disp", "hp"), tipo = "cuasi")
-print(result_grouped)
-
-# Agrupar mtcars por 'cyl' y calcular la matriz de covarianzas para cada grupo
-grouped_mtcars <- mtcars %>% group_by(cyl) |> matriz.covar2(variable=c(1,3,6),tipo = "cuasi")
-
-# Imprimir resultados
-lapply(result_grouped, print)  # Imprime cada matriz de covarianzas en la lista
-
-
-matriz.covar2(mtcars,variable=c(1,3,6))
-cov(mtcars[c(1,3,6)])
-
-
-matriz.covar2(mtcars,variable=c(1,3,6),tipo="cuasi")
-cov(mtcars[c(1,3,6)])*31/32
-
-matriz.covar2(mtcars,variable=c(1,3,6),pesos=4)
-cov.wt(mtcars[c(1,3,6)], wt = mtcars$hp,method="ML")$cov
-
-mtcars |>
-  group_by(cyl) |>
-  matriz.covar2(c(1,3,6),4)
-

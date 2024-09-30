@@ -60,27 +60,3 @@ correlacion.nueva <- function(.data, variables = NULL, pesos = NULL) {
   return(resultado)
 }
 
-
-mtcars |>
-  group_by(cyl) |>
-  correlacion.nueva(c("mpg","wt"))
-
-mtcars |>
-  group_by(cyl) |>
-  summarize(corr=cor(mpg,wt))
-
-mtcars |>
-  group_by(cyl) |>
-  correlacion.nueva(c(1,6))
-
-cor(mtcars$mpg,mtcars$wt)
-correlacion.nueva(mtcars,c("mpg","wt"))
-correlacion.nueva(mtcars,c(1,6))
-estadistica::correlacion(mtcars,c("mpg","wt"))
-estadistica::correlacion(mtcars,c(1,6))
-
-
-correlacion.nueva(mtcars,c("mpg","wt"),pesos="disp")
-correlacion.nueva(mtcars,c(1,6),3)
-estadistica::correlacion(mtcars,c("mpg","wt"),"disp")
-estadistica::correlacion(mtcars,c(1,6),3)

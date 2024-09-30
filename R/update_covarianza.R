@@ -1,5 +1,5 @@
-library(dplyr)
-
+#' @importFrom stats weighted.mean
+#'
 covarianza.nueva <- function(data, variable = NULL, pesos = NULL, tipo = "muestral") {
   tipo <- match.arg(tolower(tipo), choices = c("muestral", "cuasi"))
 

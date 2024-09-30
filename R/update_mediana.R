@@ -1,4 +1,4 @@
-library(dplyr)
+#' @importFrom stats median
 
 # Función auxiliar para calcular la mediana
 calculate_median <- function(x, pesos = NULL) {

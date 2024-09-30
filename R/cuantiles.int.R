@@ -1,3 +1,5 @@
+#' @importFrom stats setNames
+
 cuantiles.int <- function(x, pesos = NULL, cortes = 0.5){
 
   if(is.numeric(x)){

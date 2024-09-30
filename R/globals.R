@@ -12,4 +12,4 @@ utils::globalVariables(c("ni", "fi", "sumatorio", "variable2",
                          "X","momento", "atipico", "lm", "mediamovil", "paso1_ive",
                          "periodo", "pivot_wider", "matriz","variable_serie",
                          "A1","A2","c1","c2","c3","error_asimetria","var_coef","prediccion",".",
-                         "variable1","variable2"))
+                         "variable1","variable2","..density.."))

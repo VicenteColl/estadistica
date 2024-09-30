@@ -48,36 +48,3 @@ covarianza.nueva <- function(data, variable, pesos = NULL, tipo = "muestral") {
   names(covarianza) <- paste("covarianza", variable[1], variable[2], sep = "_")
   return(covarianza)
 }
-
-# Ejemplo de uso:
-covarianza.nueva(mtcars, variable = c("mpg", "disp"), tipo = "cuasi")
-
-# Uso de la función en mtcars
-mtcars %>%
-  group_by(cyl) %>%
-  covarianza.nueva(variable=c("mpg", "disp"))
-
-# Ejemplo de uso
-covarianza.nueva(mtcars[c("mpg", "disp")], tipo = "cuasi")  # Sin pesos
-
-
-# Ejemplo de uso
-mtcars %>%
-  covarianza.nueva(variable = c("mpg", "disp"), pesos = "wt", tipo = "muestral")
-
-
-cov(mtcars$mpg,mtcars$disp)
-covarianza.nueva(mtcars[c(1,3)], tipo = "cuasi")
-
-estadistica::covarianza(mtcars,variable=c("mpg", "disp"), tipo = "cuasi")
-covarianza.nueva(mtcars,variable=c("mpg", "disp"), tipo = "cuasi")
-
-estadistica::covarianza(mtcars,variable=c("mpg", "disp"))
-covarianza.nueva(mtcars,variable=c("mpg", "disp"))
-
-covarianza.nueva(mtcars[c(1,3)])
-
-
-mtcars |>
-  group_by(cyl) |>
-  covarianza.nueva(variable=c("mpg", "disp"))
