@@ -20,11 +20,6 @@ Description: Este paquete pretende apoyar el proceso enseñanza-aprendizaje de e
 License: GPL
 Encoding: UTF-8
 LazyData: true
-<<<<<<< HEAD
-RoxygenNote: 7.3.2
-=======
-RoxygenNote: 7.2.3
->>>>>>> 40a1b7c50aac9c48f297a0b6b235d49a99838a17
 URL: https://www.uv.es/estadistic/
 Depends:
     R (>= 3.5.0)
