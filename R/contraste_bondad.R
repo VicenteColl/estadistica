@@ -90,8 +90,6 @@ contraste_bondad <- function(x,
                              alfa = 0.05,
                              grafico = FALSE){
 
-  #source("funcion_aux_bondad.R")
-
 
   if(isFALSE(introducir)) {
 
@@ -229,9 +227,6 @@ contraste_bondad <- function(x,
     # Opcional: advertir al usuario del ajuste
     message("Se ha ajustado la última categoría en ", diferencia, " para que las frecuencias esperadas sumen ", suma_freq_obs, ".")
   }
-
-  # Imprimir la tabla final
-  print(matriz)
 
 
   n <- length(matriz$Freq_obs)
