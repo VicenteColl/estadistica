@@ -216,6 +216,24 @@ contraste_bondad <- function(x,
     print(matriz)
   }
 
+  # Sumar las frecuencias observadas
+  suma_freq_obs <- sum(matriz$Freq_obs)
+
+  # Comprobar si las frecuencias esperadas suman la suma de las frecuencias observadas
+  if (sum(matriz$Freq_esp) != suma_freq_obs) {
+    diferencia <- suma_freq_obs - sum(matriz$Freq_esp)
+
+    # Ajustar la última categoría
+    matriz$Freq_esp[nrow(matriz)] <- matriz$Freq_esp[nrow(matriz)] + diferencia
+
+    # Opcional: advertir al usuario del ajuste
+    message("Se ha ajustado la última categoría en ", diferencia, " para que las frecuencias esperadas sumen ", suma_freq_obs, ".")
+  }
+
+  # Imprimir la tabla final
+  print(matriz)
+
+
   n <- length(matriz$Freq_obs)
 
   g.l <- n - k - 1
