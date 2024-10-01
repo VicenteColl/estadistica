@@ -80,7 +80,6 @@ contraste_bondad_cat <- function(x,
                              alfa = 0.05,
                              grafico = FALSE) {
 
-  source("funcion_aux_bondad.R")
 
     # Si el usuario quiere introducir los datos manualmente
     if (introducir == TRUE) {

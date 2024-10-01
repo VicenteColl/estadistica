@@ -73,7 +73,6 @@ contraste_homogeneidad <- function(x,
                                    alfa = 0.05,
                                    grafico = FALSE) {
 
-  source("funcion_aux_homo.R")
 
   # Si el usuario quiere introducir los datos manualmente
   if (introducir == TRUE) {

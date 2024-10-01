@@ -9,22 +9,14 @@ Authors@R:
            email = "estadistic@uv.es"),
     person(given = "Rosario",
            family = "Martínez Verdú",
-           role = "aut"),    
-    person(given = "Cristina",
-           family = "Pardo García",
-           role = "ctb"))
+           role = "aut"))
 Author: Vicente Coll-Serrano [aut, cre],
-  Rosario Martínez Verdú [aut],
-  Cristina Pardo García [ctb]
+  Rosario Martínez Verdú [aut]
 Description: Este paquete pretende apoyar el proceso enseñanza-aprendizaje de estadística descriptiva e inferencial. Las funciones contenidas en el paquete 'estadistica' cubren los conceptos básicos estudiados en un curso introductorio. Muchos conceptos son ilustrados con gráficos dinámicos o web apps para facilitar su comprensión. This package aims to help the teaching-learning process of descriptive and inferential statistics. The functions contained in the package 'estadistica' cover the basic concepts studied in a statistics introductory course. Many concepts are illustrated with dynamic graphs or web apps to make the understanding easier. See: Esteban et al. (2005, ISBN: 9788497323741), Newbold et al.(2019, ISBN:9781292315034 ), Murgui et al. (2002, ISBN:9788484424673) .
 License: GPL
 Encoding: UTF-8
 LazyData: true
-<<<<<<< HEAD
 RoxygenNote: 7.3.2
-=======
-RoxygenNote: 7.2.3
->>>>>>> 40a1b7c50aac9c48f297a0b6b235d49a99838a17
 URL: https://www.uv.es/estadistic/
 Depends:
     R (>= 3.5.0)

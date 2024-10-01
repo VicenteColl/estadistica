@@ -11,13 +11,13 @@ cuantiles(x,
                  exportar = FALSE)
 }
 \arguments{
+\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
+
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
 \item{pesos}{Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.}
 
 \item{cortes}{Vector con los puntos de corte a calcular. Por defecto se calcula el primer, segundo y tercer cuartil.}
-
-\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
 \item{exportar}{Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).}
 }
