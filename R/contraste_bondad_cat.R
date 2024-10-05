@@ -8,21 +8,17 @@
 #' \if{latex}{\figure{qrcmedia.png}{options: width=3cm}}
 
 #' @usage contraste_bondad_cat(x,
-#'                  variable = NULL,
 #'                  introducir = FALSE,
 #'                  distribucion = "equiprobable",
-#'                  parametro = FALSE,
 #'                  alfa = 0.05,
 #'                  grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
-#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de filas (se abrirá una ventana con un editor de datos y deberá introducir los valores de la variable poblacional y las frecuencias observadas), valor del parámetro poblacional, etc.
 #' @param distribucion Es un carácter. Indica el tipo de distribución poblacional que se quiere contrastar en la hipótesis nula (por defecto, \code{distribucion = "equiprobable"}) o desconocida. En este último caso debería cambiarse el argumento a \code{var_pob = "desconocida"}.
 #'        Si \code{distribucion = "equiprobable"}, se contrasta que en la distribución poblacional de la hipótesis nula todos los valores de la población tienen la misma probabilidad.
 #'        Si \code{distribucion = "poisson"}, se contrasta que la distribución poblacional de la hipótesis nula se distribuye según una Poisson.
 #'        Si \code{distribucion = "binomial"}, se contrasta que la distribución poblacional de la hipótesis nula se distribuye según una Binomial.
-#' @param parametro Es un valor lógico. Si no se especifica ningún valor para el parámetro o parámetros de la distribución poblacional \code{parametro = FALSE} (por defecto) o si se especifica un valor para dicho parámetro o parámetros (cambiar el argumento a \code{parametro = TRUE})
 #' @param alfa Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, \code{alfa = 0.05} (5 por ciento)
 #' @param grafico Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a \code{grafico = TRUE}.
 #'
@@ -73,10 +69,10 @@
 #'
 #' @export
 contraste_bondad_cat <- function(x,
-                             variable = NULL,
+                             # variable = NULL,
                              introducir = FALSE,
                              distribucion = "equiprobable",
-                             parametro = FALSE,
+                             # parametro = FALSE,
                              alfa = 0.05,
                              grafico = FALSE) {
 
@@ -227,7 +223,7 @@ contraste_bondad_cat <- function(x,
     # Añadir las frecuencias esperadas como una nueva columna en la matriz
     matriz_completa <- cbind(Freq_obs = frecuencias_observadas, Freq_esp = frecuencias_esperadas)
     matriz_completa <- as.data.frame(matriz_completa)
-    rownames(matriz_completa) <- rownames(x)
+    rownames(matriz_completa) <- levels(data_frame_obs[[1]])
 
     # Mostrar la matriz completa con frecuencias observadas y esperadas
     cat("Matriz con frecuencias observadas y esperadas:\n")
@@ -250,7 +246,7 @@ contraste_bondad_cat <- function(x,
 
   }else{
 
-    estadistico.prueba <- sum((matriz_completa$Freq_obs - matriz$matriz_completa$Freq_esp)^2/ matriz_completa$Freq_esp)
+    estadistico.prueba <- sum((matriz_completa$Freq_obs - matriz_completa$Freq_esp)^2/ matriz_completa$Freq_esp)
 
   }
 

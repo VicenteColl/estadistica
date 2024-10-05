@@ -9,14 +9,12 @@
 
 #' @usage contraste_bondad(x,
 #'                  variable = NULL,
-#'                  introducir = FALSE,
 #'                  distribucion = "equiprobable",
 #'                  parametro = FALSE,
 #'                  alfa = 0.05,
 #'                  grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
-#' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de filas (se abrirá una ventana con un editor de datos y deberá introducir los valores de la variable poblacional y las frecuencias observadas), valor del parámetro poblacional, etc.
 #' @param distribucion Es un carácter. Indica el tipo de distribución poblacional que se quiere contrastar en la hipótesis nula (por defecto, \code{distribucion = "equiprobable"}) o desconocida. En este último caso debería cambiarse el argumento a \code{var_pob = "desconocida"}.
 #'        Si \code{distribucion = "equiprobable"}, se contrasta que en la distribución poblacional de la hipótesis nula todos los valores de la población tienen la misma probabilidad.
@@ -34,18 +32,12 @@
 #'
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
+#'#'
+#' \strong{Juan José Vidal Llana}.
+#' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
-#' \strong{Josep Lledó Benito}.
-#' \emph{Economía Aplicada.}
-#'
-#' Facultad de Economía. Universidad de Valencia (España)
-#'
-#' \strong{Francisco Palmi Perales}.
-#' \emph{Estadística e Investigación Operativa.}
-#'
-#' Facultad de Matemáticas. Universidad de Valencia (España)
 #'
 #' @details
 #'
@@ -83,7 +75,6 @@
   #' @export
 
 contraste_bondad <- function(x,
-                             variable = NULL,
                              introducir = FALSE,
                              distribucion = "equiprobable",
                              parametro = FALSE,

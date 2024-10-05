@@ -237,7 +237,7 @@ contraste_independencia <- function(x,
 
   pvalor <- pchisq(estadistico.prueba, g.l, lower.tail = FALSE)
 
-  H0 <- "Las variables son indepencientes"
+  H0 <- "Las variables son independientes"
   CH <- cbind(H0, estadistico.prueba, round(pvalor, 4))
   CH <- as.data.frame(CH)
   names(CH) <- c("Hipótesis nula", "estadístico de prueba", "p-valor")
