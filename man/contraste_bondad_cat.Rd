@@ -5,17 +5,13 @@
 \title{Contraste de Hipótesis de Bondad de Ajuste.}
 \usage{
 contraste_bondad_cat(x,
-                 variable = NULL,
                  introducir = FALSE,
                  distribucion = "equiprobable",
-                 parametro = FALSE,
                  alfa = 0.05,
                  grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
-
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
 \item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de filas (se abrirá una ventana con un editor de datos y deberá introducir los valores de la variable poblacional y las frecuencias observadas), valor del parámetro poblacional, etc.}
 
@@ -23,8 +19,6 @@ contraste_bondad_cat(x,
 Si \code{distribucion = "equiprobable"}, se contrasta que en la distribución poblacional de la hipótesis nula todos los valores de la población tienen la misma probabilidad.
 Si \code{distribucion = "poisson"}, se contrasta que la distribución poblacional de la hipótesis nula se distribuye según una Poisson.
 Si \code{distribucion = "binomial"}, se contrasta que la distribución poblacional de la hipótesis nula se distribuye según una Binomial.}
-
-\item{parametro}{Es un valor lógico. Si no se especifica ningún valor para el parámetro o parámetros de la distribución poblacional \code{parametro = FALSE} (por defecto) o si se especifica un valor para dicho parámetro o parámetros (cambiar el argumento a \code{parametro = TRUE})}
 
 \item{alfa}{Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, \code{alfa = 0.05} (5 por ciento)}
 

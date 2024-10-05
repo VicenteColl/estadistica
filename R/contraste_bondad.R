@@ -8,7 +8,6 @@
 #' \if{latex}{\figure{qrcmedia.png}{options: width=3cm}}
 
 #' @usage contraste_bondad(x,
-#'                  variable = NULL,
 #'                  distribucion = "equiprobable",
 #'                  parametro = FALSE,
 #'                  alfa = 0.05,
@@ -67,13 +66,11 @@
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
-
-  #' @importFrom stats dbinom dpois
-  #' @importFrom utils edit
-  #' @import dplyr ggplot2
-  #'
-  #' @export
-
+#' @importFrom stats dbinom dpois
+#' @importFrom utils edit
+#' @import dplyr ggplot2
+#'
+#' @export
 contraste_bondad <- function(x,
                              introducir = FALSE,
                              distribucion = "equiprobable",

@@ -5,8 +5,6 @@
 \title{Contraste de Hipótesis de Bondad de Ajuste.}
 \usage{
 contraste_bondad(x,
-                 variable = NULL,
-                 introducir = FALSE,
                  distribucion = "equiprobable",
                  parametro = FALSE,
                  alfa = 0.05,
@@ -14,8 +12,6 @@ contraste_bondad(x,
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
-
-\item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
 \item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de filas (se abrirá una ventana con un editor de datos y deberá introducir los valores de la variable poblacional y las frecuencias observadas), valor del parámetro poblacional, etc.}
 
@@ -76,16 +72,9 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
+#'
+\strong{Juan José Vidal Llana}.
+\emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 
 Facultad de Economía. Universidad de Valencia (España)
-
-\strong{Josep Lledó Benito}.
-\emph{Economía Aplicada.}
-
-Facultad de Economía. Universidad de Valencia (España)
-
-\strong{Francisco Palmi Perales}.
-\emph{Estadística e Investigación Operativa.}
-
-Facultad de Matemáticas. Universidad de Valencia (España)
 }
