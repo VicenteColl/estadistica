@@ -223,7 +223,7 @@ contraste_bondad_cat <- function(x,
     # Añadir las frecuencias esperadas como una nueva columna en la matriz
     matriz_completa <- cbind(Freq_obs = frecuencias_observadas, Freq_esp = frecuencias_esperadas)
     matriz_completa <- as.data.frame(matriz_completa)
-    rownames(matriz_completa) <- levels(data_frame_obs[[1]])
+    rownames(matriz_completa) <- row.names(matriz_obs)
 
     # Mostrar la matriz completa con frecuencias observadas y esperadas
     cat("Matriz con frecuencias observadas y esperadas:\n")
@@ -265,7 +265,7 @@ contraste_bondad_cat <- function(x,
 
   pvalor <- pchisq(estadistico.prueba, g.l, lower.tail = F)
 
-  H0 <- paste("Los datos siguen una distribución ", distribucion)
+  H0 <- paste("Los datos siguen una distribución ",  paste(distribucion, collapse = ", "))
   CH <- cbind(H0, estadistico.prueba, round(pvalor, 4))
   CH <- as.data.frame(CH)
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
