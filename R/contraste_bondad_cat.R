@@ -1,26 +1,20 @@
-#' @title Contraste de Hipótesis de Bondad de Ajuste.
+#' @title Contraste de hipótesis de bondad de ajuste para datos categóricos.
 #'
-#' @description Contrasta si los datos de una muestra proceden de una distribución poblacional determinada.
+#' @description Contrasta si las probabilidades de que una observación pertenezca a cada una de las categorías de una variable categórica o criterio de clasificación se ajusta o no a unas probabilidades propuestas.
 #'
-#' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
+#' Lee el código QR para video-tutorial 6666sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrcmedia.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrcmedia.png}{options: width=3cm}}
-
 #' @usage contraste_bondad_cat(x,
 #'                  introducir = FALSE,
 #'                  distribucion = "equiprobable",
 #'                  alfa = 0.05,
 #'                  grafico = FALSE)
 #'
-#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
-#' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de filas (se abrirá una ventana con un editor de datos y deberá introducir los valores de la variable poblacional y las frecuencias observadas), valor del parámetro poblacional, etc.
-#' @param distribucion Es un carácter. Indica el tipo de distribución poblacional que se quiere contrastar en la hipótesis nula (por defecto, \code{distribucion = "equiprobable"}) o desconocida. En este último caso debería cambiarse el argumento a \code{var_pob = "desconocida"}.
-#'        Si \code{distribucion = "equiprobable"}, se contrasta que en la distribución poblacional de la hipótesis nula todos los valores de la población tienen la misma probabilidad.
-#'        Si \code{distribucion = "poisson"}, se contrasta que la distribución poblacional de la hipótesis nula se distribuye según una Poisson.
-#'        Si \code{distribucion = "binomial"}, se contrasta que la distribución poblacional de la hipótesis nula se distribuye según una Binomial.
+#' @param x Conjunto de datos. Puede ser un vector o un dataframe. En caso de haber más de una variable, el programa preguntará por la variable a seleccionar (por nombre o por posición) que debe ser un factor o carácter.
+#' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de categorías de la variable, el nombre de cada categoría. A continuación se abrirá una ventana con un editor de datos y deberá introducir los valores de las frecuencias observadas.
+#' @param distribucion Es un vector numérico. Deberá indicarse las probabilidades teóricas para cada categoría de la variable de la hipótesis nula. Por defecto, *distribucion="equiporobable"*.
 #' @param alfa Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, \code{alfa = 0.05} (5 por ciento)
-#' @param grafico Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a \code{grafico = TRUE}.
+#' @param grafico Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a \code{grafico = TRUE}. Nota: Esta opción no está implementada para todos los casos.
 #'
 #' @return La función devuelve un objeto de la clase \code{list}. La lista contendrá información sobre: la hipótesis nula contrastada, el estadístico de prueba y el p-valor. Si \code{grafico=TRUE} se incluirá una representación gráfica de la región de aceptación-rechazo con el valor crítico.
 #'
@@ -35,24 +29,25 @@
 #'
 #' @details
 #'
-#' (1) El estadístico del contraste de bondad de ajuste es:
+#'(1) El estadístico del contraste de bondad de ajuste para datos categóricos es:
 #'
 #' \deqn{\chi ^{2} = \sum_{i=1}^{k} \frac{(O_{i} - E_{i})^{2}}{E_{i}}}
 #'
-#' donde \(O_{i}\) son las frecuencias observadas y \(E_{i}\) son las frecuencias teóricas o esperadas.
+#' donde \eqn{O_{i}} son las frecuencias observadas y \eqn{E_{i}} son las frecuencias teóricas o esperadas, y se distribuye como:
 #'
-#' \deqn{\chi_{k-m-1}^{2}}
+#' \deqn{\chi_{k-1}^{2}}
 #'
-#' donde \(k\) es el número de valores distintos de la variable, y \(m\) es el número de parámetros de la distribución poblacional de la hipótesis nula no especificados (desconocidos) y que se han tenido que estimar.
+#' donde \eqn{k} es el número de categorías de la variable.
 #'
-#' Además, se exige que todas las frecuencias teóricas no estén por debajo de 5. Si alguna no lo cumple, es necesario reagrupar valores contiguos hasta conseguir superar esa cota.
+#'Además, se exige que todas las frecuencias teóricas no estén por debajo de 5. Si alguna no lo cumple es necesario reagrupar valores contiguos hasta conseguir superar esa cota.
 #'
 #' (2) Si el número de grados de libertad es 1, al estadístico del contraste se le aplica la siguiente corrección de Yates:
 #'
 #' \deqn{\chi ^{2} = \sum_{i=1}^{k} \frac{(\left| O_{i} - E_{i} \right| - 0.5)^{2}}{E_{i}}}
 #'
 #'
-#' @seealso \code{\link{contraste_independencia}},\code{\link{contraste_homogeneidad}}
+#' @seealso \code{\link{contraste_bondad}}, \code{\link{contraste_independencia}},
+#' \code{\link{contraste_homogeneidad}}
 #'
 #' @references
 #' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
@@ -110,19 +105,19 @@ contraste_bondad_cat <- function(x,
       cat("Las columnas disponibles en el data frame son:\n")
       print(colnames(x))
 
-      # Función auxiliar para seleccionar columna por nombre o posición
+      # Funcon auxiliar para seleccionar columna por nombre o posicion
       seleccionar_columna <- function(prompt_msg) {
         seleccion <- readline(prompt = prompt_msg)
 
-        # Verificar si el usuario ingresó un número (posición) o un nombre (texto)
+        # Verificar si el usuario ingreso un numero (posicion) o un nombre (texto)
         if (suppressWarnings(!is.na(as.numeric(seleccion)))) {
           seleccion <- as.numeric(seleccion)
           if (seleccion < 1 || seleccion > ncol(x)) {
-            stop("La posición seleccionada está fuera del rango de las columnas disponibles.")
+            stop("La posici\u00f3n seleccionada est\u00e1 fuera del rango de las columnas disponibles.")
           }
           return(seleccion)
         } else {
-          # Selección por nombre
+          # Seleccion por nombre
           if (!seleccion %in% colnames(x)) {
             stop("El nombre de columna introducido no existe.")
           }
@@ -131,14 +126,14 @@ contraste_bondad_cat <- function(x,
       }
 
       # Seleccionar la columna
-      col <- seleccionar_columna("Selecciona la variable (por nombre o posición): ")
+      col <- seleccionar_columna("Selecciona la variable (por nombre o posici\u00f3n): ")
 
-      # Verificar que la variable seleccionada es un factor o carácter
+      # Verificar que la variable seleccionada es un factor o caracter
       if (!(is.factor(x[[col]]) || is.character(x[[col]]))) {
-        stop("La variable seleccionada debe ser un factor o carácter.")
+        stop("La variable seleccionada debe ser un factor o car\u00e1cter.")
       }
 
-      # Convertir a factor si es un carácter
+      # Convertir a factor si es un caracter
       if (is.character(x[[col]])) {
         x[[col]] <- as.factor(x[[col]])
         cat("La variable se ha convertido a factor.\n")
@@ -185,36 +180,37 @@ contraste_bondad_cat <- function(x,
     frecuencias_observadas <- as.numeric(matriz_obs)
     categorias <- length(frecuencias_observadas)
 
-    # Verificar y calcular las frecuencias esperadas según la distribución
+    # Verificar y calcular las frecuencias esperadas según la distribucio*6n
     if (is.character(distribucion) && distribucion == "equiprobable") {
-      # Caso de distribución equiprobable
+      # Caso de distribucion equiprobable
       frecuencias_esperadas <- rep(sum(frecuencias_observadas) / categorias, categorias)
-      cat("Se ha asumido una distribución equiprobable.\n")
+      cat("Se ha asumido una distribuci\u00f3n equiprobable.\n")
 
     } else if (is.numeric(distribucion)) {
-      # Verificar que la longitud de la distribución sea igual al número de categorías
+      # Verificar que la longitud de la distribucio3n sea igual al número de categorías
       if (length(distribucion) != categorias) {
-        stop("El vector de distribución debe tener la misma longitud que el número de categorías.")
+        stop("El vector de distribuci\u00f3n debe tener la misma longitud que el número de categorías.")
       }
 
-      # Verificar que la suma de los valores de la distribución sea 1 o 100%
+      # Verificar que la suma de los valores de la distribucion sea 1 o 100% (con tolerancia)
       suma_distribucion <- sum(distribucion)
-      if (!(suma_distribucion == 1 || suma_distribucion == 100)) {
-        stop("La suma del vector de distribución debe ser 1 o 100%.")
+      if (!(abs(suma_distribucion - 1) < 1e-10 || abs(suma_distribucion - 100) < 1e-8)) {
+        stop("La suma del vector de distribuci\u00f3n debe ser 1 o 100%.")
       }
 
-      # Ajustar si la distribución se ingresó en formato porcentual
-      if (suma_distribucion == 100) {
+      # Ajustar si la distribucion se ingreso en formato porcentual (con tolerancia)
+      if (abs(suma_distribucion - 100) < 1e-8) {
         distribucion <- distribucion / 100
       }
 
-      # Calcular las frecuencias esperadas en base a la distribución proporcionada
+      # Calcular las frecuencias esperadas en base a la distribucion proporcionada
       frecuencias_esperadas <- sum(frecuencias_observadas) * distribucion
-      cat("Se ha utilizado la distribución proporcionada por el usuario.\n")
+      cat("Se ha utilizado la distribuci\u00f3n proporcionada por el usuario.\n")
 
     } else {
       stop("El argumento 'distribucion' debe ser 'equiprobable' o un vector numérico.")
     }
+
 
     # Mostrar las frecuencias esperadas
     cat("Frecuencias esperadas:\n")
@@ -230,8 +226,8 @@ contraste_bondad_cat <- function(x,
     print(matriz_completa)
 
   if(sum(matriz_completa$Freq_esp < 5) > 0){
-    message("Aquí tienes la tabla recalcudada de frecuencias esperadas porque alguna de las frecuecias teóricas era menor a 5. Para llevar a cabo el test es necesario reagrupar las categorías.")
-    matriz_completa <- check_min_obs(matriz_completa)
+    message("Aquí tienes la tabla recalcudada de frecuencias esperadas porque alguna de las frecuecias te\u00f3ricas era menor a 5. Para llevar a cabo el test es necesario reagrupar las categorías.")
+    matriz_completa <- .check_min_obs(matriz_completa)
     print(matriz_completa)
   }
 
@@ -241,7 +237,7 @@ contraste_bondad_cat <- function(x,
 
   if(g.l == 1){
 
-    warning("Los grados de libertad son 1; por tanto, es necesario aplicar la corrección de Yates.")
+    warning("Los grados de libertad son 1; por tanto, es necesario aplicar la correcci\u00f3n de Yates.")
     estadistico.prueba <- sum((abs(matriz_completa$Freq_obs - matriz_completa$Freq_esp)-0.5)^2/matriz_completa$Freq_esp)
 
   }else{
@@ -265,7 +261,7 @@ contraste_bondad_cat <- function(x,
 
   pvalor <- pchisq(estadistico.prueba, g.l, lower.tail = F)
 
-  H0 <- paste("Los datos siguen una distribución ",  paste(distribucion, collapse = ", "))
+  H0 <- paste("Los datos siguen una distribuci\u00f3n ",  paste(distribucion, collapse = ", "))
   CH <- cbind(H0, estadistico.prueba, round(pvalor, 4))
   CH <- as.data.frame(CH)
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
@@ -296,6 +292,6 @@ contraste_bondad_cat <- function(x,
 
   }
 
-} # End of function
+} # Fin de la funcion
 
 

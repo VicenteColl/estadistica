@@ -60,7 +60,7 @@
 #'  \if{html}{\figure{curtosissoft.png}{options: width="120\%" alt="Figure: curtosissoft.png"}}
 #' \if{latex}{\figure{curtosissoft.png}{options: width=13cm}}
 #'
-#' @seealso \code{\link{momento.central}},\code{\link{varianza}},\code{\link{desviacion}}
+#' @seealso \code{\link{varianza}},\code{\link{desviacion}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -180,8 +180,8 @@ medidas.forma <- function(x,
   if(is.null(pesos)){
 
     #N <- nrow(x)
-    momento3 <- momento.central(x,orden = 3)
-    momento4 <- momento.central(x,orden = 4)
+    momento3 <- .momento.central(x,orden = 3)
+    momento4 <- .momento.central(x,orden = 4)
     desv.x <- desviacion(x)
 
     asimetria <- momento3/desv.x^3
@@ -259,13 +259,28 @@ medidas.forma <- function(x,
 
   }
 
-
-
+  # Exportar
   if (exportar) {
-    filename <- paste("Medidas de forma"," (", Sys.time(), ").xlsx", sep = "")
-    filename <- gsub(" ", "_", filename)
-    filename <- gsub(":", ".", filename)
-    rio::export(forma, rowNames = TRUE, file = filename)
+
+    filename <- paste0("Medidas_de_forma_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
+
+    wb <- openxlsx::createWorkbook()
+    openxlsx::addWorksheet(wb, "Medidas_de_forma")
+
+    # nombres de fila a columna
+    resumen_export <- cbind(forma = row.names(forma), forma)
+    row.names(resumen_export) <- NULL
+
+    openxlsx::writeData(wb, "Medidas_de_forma", resumen_export)
+
+    # formato numerico decimal en Excel
+    addStyle(wb, "Medidas_de_forma",
+             style = createStyle(numFmt = "0.0000"),
+             rows = 2:(nrow(resumen_export)+1),
+             cols = 2:(ncol(resumen_export)+1),
+             gridExpand = TRUE)
+
+    saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
   return(forma)

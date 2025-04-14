@@ -109,11 +109,28 @@ matriz.correlacion <- function(x, variable = NULL, exportar = FALSE){
   colnames(matriz_cor) <- varnames
   row.names(matriz_cor) <- varnames
 
+  # Exportar
   if (exportar) {
-    filename <- paste("Matriz de correlaci\u00f3n"," (", Sys.time(), ").xlsx", sep = "")
-    filename <- gsub(" ", "_", filename)
-    filename <- gsub(":", ".", filename)
-    rio::export(matriz_cor, rowNames = TRUE, file = filename)
+
+    filename <- paste0("Matriz_de_correlacion_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
+
+    wb <- openxlsx::createWorkbook()
+    openxlsx::addWorksheet(wb, "Matriz_correlacion")
+
+    # nombres de fila a columna
+    resumen_export <- cbind(' ' = row.names(matriz_cor), matriz_cor)
+    row.names(resumen_export) <- NULL
+
+    openxlsx::writeData(wb, "Matriz_correlacion", resumen_export)
+
+    # formato numerico decimal en Excel
+    addStyle(wb, "Matriz_correlacion",
+             style = createStyle(numFmt = "0.0000"),
+             rows = 2:(nrow(resumen_export)+1),
+             cols = 2:(ncol(resumen_export)+1),
+             gridExpand = TRUE)
+
+    saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
   return(matriz_cor)

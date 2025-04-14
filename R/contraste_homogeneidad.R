@@ -4,13 +4,10 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrcmedia.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrcmedia.png}{options: width=3cm}}
-
 #' @usage contraste_homogeneidad(x,
-#' introducir = FALSE,
-#' alfa = 0.05,
-#' grafico = FALSE)
+#'    introducir = FALSE,
+#'    alfa = 0.05,
+#'    grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser una matriz o un dataframe. Debe contener sólo 2 columnas.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de muestras, sobre el número de categorías de la variable poblacional, el nombre de cada categoría de la variable o de cada muestra en la posición de fila y el nombre de la categoría de la variable o de cada muestra en la posición de columna. A continuación se abrirá una ventana con un editor de datos y deberá introducir los valores de las frecuencias observadas de la tabla de contingencia.
@@ -37,13 +34,13 @@
 #' \sum_{i=1}^{I} \sum_{j=1}^{J}
 #' \frac{(O_{ij} - \frac{O_{i.} \times O_{.j}}{n})^{2}}{\frac{O_{i.} \times O_{.j}}{n}}}
 #'
-#' donde \(O_{ij}\) son las frecuencias conjuntas observadas, \(E_{ij}\) son las frecuencias teóricas o esperadas,
-#' \(O_{i.}\) es el tamaño de cada muestra, \(O_{.j}\) es el total de individuos del conjunto de las muestras
-#' clasificados en la categoría \(j\) de la variable, y \(n\) es la suma de los tamaños de todas las muestras.
+#' donde \eqn{O_{ij}} son las frecuencias conjuntas observadas, \eqn{E_{ij}} son las frecuencias teóricas o esperadas,
+#' \eqn{O_{i.}} es el tamaño de cada muestra, \eqn{O_{.j}} es el total de individuos del conjunto de las muestras
+#' clasificados en la categoría \eqn{j} de la variable, y \eqn{n} es la suma de los tamaños de todas las muestras.
 #'
 #' \deqn{\chi_{(I-1)(J-1)}^{2}}
 #'
-#' donde \(I\) es el número de muestras y \(J\) es el número de categorías de la variable.
+#' donde \eqn{I} es el número de muestras y \eqn{J} es el número de categorías de la variable.
 #'
 #' Además, se exige que el tamaño de las muestras sea grande y que todas las frecuencias teóricas no estén por debajo de 5.
 #' Si alguna no lo cumple, es necesario reagrupar las categorías contiguas hasta conseguir superar esa cota.
@@ -209,7 +206,7 @@ contraste_homogeneidad <- function(x,
   mar_y <- apply(matriz_obs, 2, sum)
   matriz_esp <- crossprod(t(mar_x), mar_y) / n
 
-  check_min_obs_extended_cols(matriz_obs, matriz_esp)
+  .check_min_obs_extended_cols(matriz_obs, matriz_esp)
 
   g.l <- (nrow(matriz_obs) - 1) * (ncol(matriz_obs) - 1)
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/contraste_bondad_cat.R
 \name{contraste_bondad_cat}
 \alias{contraste_bondad_cat}
-\title{Contraste de Hipótesis de Bondad de Ajuste.}
+\title{Contraste de hipótesis de bondad de ajuste para datos categóricos.}
 \usage{
 contraste_bondad_cat(x,
                  introducir = FALSE,
@@ -11,42 +11,36 @@ contraste_bondad_cat(x,
                  grafico = FALSE)
 }
 \arguments{
-\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
+\item{x}{Conjunto de datos. Puede ser un vector o un dataframe. En caso de haber más de una variable, el programa preguntará por la variable a seleccionar (por nombre o por posición) que debe ser un factor o carácter.}
 
-\item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de filas (se abrirá una ventana con un editor de datos y deberá introducir los valores de la variable poblacional y las frecuencias observadas), valor del parámetro poblacional, etc.}
+\item{introducir}{Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de categorías de la variable, el nombre de cada categoría. A continuación se abrirá una ventana con un editor de datos y deberá introducir los valores de las frecuencias observadas.}
 
-\item{distribucion}{Es un carácter. Indica el tipo de distribución poblacional que se quiere contrastar en la hipótesis nula (por defecto, \code{distribucion = "equiprobable"}) o desconocida. En este último caso debería cambiarse el argumento a \code{var_pob = "desconocida"}.
-Si \code{distribucion = "equiprobable"}, se contrasta que en la distribución poblacional de la hipótesis nula todos los valores de la población tienen la misma probabilidad.
-Si \code{distribucion = "poisson"}, se contrasta que la distribución poblacional de la hipótesis nula se distribuye según una Poisson.
-Si \code{distribucion = "binomial"}, se contrasta que la distribución poblacional de la hipótesis nula se distribuye según una Binomial.}
+\item{distribucion}{Es un vector numérico. Deberá indicarse las probabilidades teóricas para cada categoría de la variable de la hipótesis nula. Por defecto, *distribucion="equiporobable"*.}
 
 \item{alfa}{Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, \code{alfa = 0.05} (5 por ciento)}
 
-\item{grafico}{Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a \code{grafico = TRUE}.}
+\item{grafico}{Es un valor lógico. Por defecto \code{grafico = FALSE}. Si se quiere obtener una representación gráfica del contraste realizado, cambiar el argumento a \code{grafico = TRUE}. Nota: Esta opción no está implementada para todos los casos.}
 }
 \value{
 La función devuelve un objeto de la clase \code{list}. La lista contendrá información sobre: la hipótesis nula contrastada, el estadístico de prueba y el p-valor. Si \code{grafico=TRUE} se incluirá una representación gráfica de la región de aceptación-rechazo con el valor crítico.
 }
 \description{
-Contrasta si los datos de una muestra proceden de una distribución poblacional determinada.
+Contrasta si las probabilidades de que una observación pertenezca a cada una de las categorías de una variable categórica o criterio de clasificación se ajusta o no a unas probabilidades propuestas.
 
-Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
-
-\if{html}{\figure{qrcmedia.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-\if{latex}{\figure{qrcmedia.png}{options: width=3cm}}
+Lee el código QR para video-tutorial 6666sobre el uso de la función con un ejemplo.
 }
 \details{
-(1) El estadístico del contraste de bondad de ajuste es:
+(1) El estadístico del contraste de bondad de ajuste para datos categóricos es:
 
 \deqn{\chi ^{2} = \sum_{i=1}^{k} \frac{(O_{i} - E_{i})^{2}}{E_{i}}}
 
-donde \(O_{i}\) son las frecuencias observadas y \(E_{i}\) son las frecuencias teóricas o esperadas.
+donde \eqn{O_{i}} son las frecuencias observadas y \eqn{E_{i}} son las frecuencias teóricas o esperadas, y se distribuye como:
 
-\deqn{\chi_{k-m-1}^{2}}
+\deqn{\chi_{k-1}^{2}}
 
-donde \(k\) es el número de valores distintos de la variable, y \(m\) es el número de parámetros de la distribución poblacional de la hipótesis nula no especificados (desconocidos) y que se han tenido que estimar.
+donde \eqn{k} es el número de categorías de la variable.
 
-Además, se exige que todas las frecuencias teóricas no estén por debajo de 5. Si alguna no lo cumple, es necesario reagrupar valores contiguos hasta conseguir superar esa cota.
+Además, se exige que todas las frecuencias teóricas no estén por debajo de 5. Si alguna no lo cumple es necesario reagrupar valores contiguos hasta conseguir superar esa cota.
 
 (2) Si el número de grados de libertad es 1, al estadístico del contraste se le aplica la siguiente corrección de Yates:
 
@@ -62,7 +56,8 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 }
 \seealso{
-\code{\link{contraste_independencia}},\code{\link{contraste_homogeneidad}}
+\code{\link{contraste_bondad}}, \code{\link{contraste_independencia}},
+\code{\link{contraste_homogeneidad}}
 }
 \author{
 \strong{Vicente Coll-Serrano}.

@@ -73,18 +73,40 @@
 #' @export
 desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral","cuasi")){
 
-  tipo <- tolower(tipo)
-  tipo <- match.arg(tipo)
+  # Capturar el nombre original si es un vector
+  var_name <- deparse(substitute(x))
 
-  if(is.numeric(x)){
-    varnames <- "variable.x"
-  }else{
-    varnames <- as.character(names(x))
+  # Manejo de nombres para diferentes tipos de entrada
+  if (is.data.frame(x) || is.list(x)) {
+    # Para data.frames/listas
+    original_names <- names(x)
+    x <- as.data.frame(x)
+
+    if (is.null(variable)) {
+      varnames <- names(x)[sapply(x, is.numeric)]
+    } else {
+      if (is.numeric(variable)) {
+        varnames <- names(x)[variable]
+      } else {
+        varnames <- variable
+      }
+    }
+  } else {
+    # Para vectores
+    if (grepl("\\$", var_name)) {
+      # Si es de tipo dataframe$columna
+      varnames <- sub(".*\\$", "", var_name)
+    } else {
+      # Si es un vector simple
+      varnames <- "variable"
+    }
+    x <- data.frame(x)
+    names(x) <- varnames
+    original_names <- varnames
   }
 
-  x <- data.frame(x)
-  names(x) <- varnames
-
+  # Validar tipo de desviacion
+  tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
 
   if(is.null(variable)){
 

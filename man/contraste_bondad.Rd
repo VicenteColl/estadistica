@@ -2,7 +2,7 @@
 % Please edit documentation in R/contraste_bondad.R
 \name{contraste_bondad}
 \alias{contraste_bondad}
-\title{Contraste de Hipótesis de Bondad de Ajuste.}
+\title{Contraste de hipótesis de bondad de ajuste para distribuciones discretas.}
 \usage{
 contraste_bondad(x,
                  distribucion = "equiprobable",
@@ -33,20 +33,17 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 Contrasta si los datos de una muestra proceden de una distribución poblacional determinada.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
-
-\if{html}{\figure{qrcmedia.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-\if{latex}{\figure{qrcmedia.png}{options: width=3cm}}
 }
 \details{
 (1) El estadístico del contraste de bondad de ajuste es:
 
 \deqn{\chi ^{2} = \sum_{i=1}^{k} \frac{(O_{i} - E_{i})^{2}}{E_{i}}}
 
-donde \(O_{i}\) son las frecuencias observadas y \(E_{i}\) son las frecuencias teóricas o esperadas.
+donde \eqn{O_{i}} son las frecuencias observadas y \eqn{E_{i}} son las frecuencias teóricas o esperadas, y se distribuye como:
 
 \deqn{\chi_{k-m-1}^{2}}
 
-donde \(k\) es el número de valores distintos de la variable, y \(m\) es el número de parámetros de la distribución poblacional de la hipótesis nula no especificados (desconocidos) y que se han tenido que estimar.
+donde \eqn{k} es el número de valores distintos de la variable, y \deqn{m} es el número de parámetros de la distribución poblacional de la hipótesis nula no especificados (desconocidos) y que se han tenido que estimar.
 
 Además, se exige que todas las frecuencias teóricas no estén por debajo de 5. Si alguna no lo cumple, es necesario reagrupar valores contiguos hasta conseguir superar esa cota.
 
@@ -64,7 +61,8 @@ Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias so
 Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 }
 \seealso{
-\code{\link{contraste_independencia}},\code{\link{contraste_homogeneidad}}
+\code{\link{contraste_bondad_cat}},\code{\link{contraste_independencia}},
+\code{\link{contraste_homogeneidad}}
 }
 \author{
 \strong{Vicente Coll-Serrano}.
@@ -72,7 +70,7 @@ Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economi
 
 \strong{Rosario Martínez Verdú}.
 \emph{Economía Aplicada.}
-#'
+
 \strong{Juan José Vidal Llana}.
 \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 

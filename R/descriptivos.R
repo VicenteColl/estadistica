@@ -39,7 +39,7 @@
 #'
 #' descriptivos <- resumen.descriptivos(startup)
 #'
-#' @import dplyr
+#' @import dplyr openxlsx
 #'
 #' @export
 resumen.descriptivos <- function(x,
@@ -47,19 +47,47 @@ resumen.descriptivos <- function(x,
                                  pesos = NULL,
                                  exportar = FALSE){
 
-  old <- options()
-  on.exit(options(old))
+  # 1. Guardar TODAS las opciones originales
+  old_options <- options()
 
-  options(scipen = 999)
+  # 2. Configurar para evitar notación científica
+  options(scipen = 999,  # Valor muy alto para forzar decimales
+          digits = 15)    # Número de dígitos a mostrar
 
-  if(is.numeric(x)){
-    varnames <- "variable.x"
-  }else{
-    varnames <- as.character(names(x))
+  # 3. Asegurar que se restauren las opciones al salir
+  on.exit(options(old_options), add = TRUE)
+
+  # Capturar el nombre original si es un vector
+  var_name <- deparse(substitute(x))
+
+  # Manejo de nombres para diferentes tipos de entrada
+  if (is.data.frame(x) || is.list(x)) {
+    # Para data.frames/listas
+    original_names <- names(x)
+    x <- as.data.frame(x)
+
+    if (is.null(variable)) {
+      varnames <- names(x)[sapply(x, is.numeric)]
+    } else {
+      if (is.numeric(variable)) {
+        varnames <- names(x)[variable]
+      } else {
+        varnames <- variable
+      }
+    }
+  } else {
+    # Para vectores
+    if (grepl("\\$", var_name)) {
+      # Si es de tipo dataframe$columna
+      varnames <- sub(".*\\$", "", var_name)
+    } else {
+      # Si es un vector simple
+      varnames <- "variable"
+    }
+    x <- data.frame(x)
+    names(x) <- varnames
+    original_names <- varnames
   }
-
-  x <- data.frame(x)
-  names(x) <- varnames
 
   if(is.null(variable)){
 
@@ -195,15 +223,34 @@ resumen.descriptivos <- function(x,
   row.names(resumen) <- c("media","m\u00ednimo","cuartil 1","mediana","cuartil 3", "m\u00e1ximo","varianza","desviaci\u00f3n t\u00edpica",
                             "coef.variaci\u00f3n","RIC","asimetr\u00eda","curtosis",paste("moda_",1:num_modas,sep=""))
 
+  # Mostrar resultados (viene de utils.R)
+  .mostrar_lista_resultados(resumen, "Resumen de estadísticos descriptivos")
 
+  # Exportar
   if (exportar) {
-    filename <- paste("Resumen descriptivos basicos"," (", Sys.time(), ").xlsx", sep = "")
-    filename <- gsub(" ", "_", filename)
-    filename <- gsub(":", ".", filename)
-    rio::export(resumen, rowNames = TRUE, file = filename)
+
+    filename <- paste0("Descriptivos_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
+
+    wb <- openxlsx::createWorkbook()
+    openxlsx::addWorksheet(wb, "Descriptivos")
+
+    # nombres de fila a columna
+    resumen_export <- cbind('Estadístico' = row.names(resumen), resumen)
+    row.names(resumen_export) <- NULL
+
+    writeData(wb, "Descriptivos", resumen_export)
+
+    # Forzar formato numerico decimal en Excel
+    addStyle(wb, "Descriptivos",
+             style = createStyle(numFmt = "0.0000"),
+             rows = 2:(nrow(resumen_export)+1),
+             cols = 2:(ncol(resumen_export)+1),
+             gridExpand = TRUE)
+
+    saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
-  return(resumen)
+  invisible(resumen)
 
 }
 

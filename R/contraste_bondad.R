@@ -1,12 +1,9 @@
-#' @title Contraste de Hipótesis de Bondad de Ajuste.
+#' @title Contraste de hipótesis de bondad de ajuste para distribuciones discretas.
 #'
 #' @description Contrasta si los datos de una muestra proceden de una distribución poblacional determinada.
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrcmedia.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-#' \if{latex}{\figure{qrcmedia.png}{options: width=3cm}}
-
 #' @usage contraste_bondad(x,
 #'                  distribucion = "equiprobable",
 #'                  parametro = FALSE,
@@ -31,12 +28,11 @@
 #'
 #' \strong{Rosario Martínez Verdú}.
 #' \emph{Economía Aplicada.}
-#'#'
+#'
 #' \strong{Juan José Vidal Llana}.
 #' \emph{Métodos Cuantitativos para la Medición de la Cultura (MC2). Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
-#'
 #'
 #' @details
 #'
@@ -44,11 +40,11 @@
 #'
 #' \deqn{\chi ^{2} = \sum_{i=1}^{k} \frac{(O_{i} - E_{i})^{2}}{E_{i}}}
 #'
-#' donde \(O_{i}\) son las frecuencias observadas y \(E_{i}\) son las frecuencias teóricas o esperadas.
+#' donde \eqn{O_{i}} son las frecuencias observadas y \eqn{E_{i}} son las frecuencias teóricas o esperadas, y se distribuye como:
 #'
 #' \deqn{\chi_{k-m-1}^{2}}
 #'
-#' donde \(k\) es el número de valores distintos de la variable, y \(m\) es el número de parámetros de la distribución poblacional de la hipótesis nula no especificados (desconocidos) y que se han tenido que estimar.
+#' donde \eqn{k} es el número de valores distintos de la variable, y \eqn{m} es el número de parámetros de la distribución poblacional de la hipótesis nula no especificados (desconocidos) y que se han tenido que estimar.
 #'
 #' Además, se exige que todas las frecuencias teóricas no estén por debajo de 5. Si alguna no lo cumple, es necesario reagrupar valores contiguos hasta conseguir superar esa cota.
 #'
@@ -56,7 +52,8 @@
 #'
 #' \deqn{\chi ^{2} = \sum_{i=1}^{k} \frac{(\left| O_{i} - E_{i} \right| - 0.5)^{2}}{E_{i}}}
 #'
-#' @seealso \code{\link{contraste_independencia}},\code{\link{contraste_homogeneidad}}
+#' @seealso \code{\link{contraste_bondad_cat}},\code{\link{contraste_independencia}},
+#' \code{\link{contraste_homogeneidad}}
 #'
 #' @references
 #' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
@@ -66,6 +63,7 @@
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
+#'
 #' @importFrom stats dbinom dpois
 #' @importFrom utils edit
 #' @import dplyr ggplot2
@@ -158,7 +156,7 @@ contraste_bondad <- function(x,
 
   } else {
 
-    stop("No has introducido una distribución de probabilidad disponible")
+    stop("No has introducido una distribuci\u00f3n de probabilidad disponible")
 
   } # Fin de distribucion
 
@@ -197,8 +195,8 @@ contraste_bondad <- function(x,
 
   # reagrupar si frecuencias esperadas es menor a 5
   if(sum(matriz$Freq_esp < 5) > 0){
-    message("Aquí tienes la tabla recalcudada de frecuencias esperadas porque alguna de las frecuecias teóricas era menor a 5. Para llevar a cabo el test es necesario reagrupar las categorías.")
-    matriz <- check_min_obs(matriz)
+    message("Aqu\u00ed tienes la tabla recalcudada de frecuencias esperadas porque alguna de las frecuecias te\u00f3ricas era menor a 5. Para llevar a cabo el test es necesario reagrupar las categorías.")
+    matriz <- .check_min_obs(matriz)
     print(matriz)
   }
 
@@ -213,7 +211,7 @@ contraste_bondad <- function(x,
     matriz$Freq_esp[nrow(matriz)] <- matriz$Freq_esp[nrow(matriz)] + diferencia
 
     # Opcional: advertir al usuario del ajuste
-    message("Se ha ajustado la última categoría en ", diferencia, " para que las frecuencias esperadas sumen ", suma_freq_obs, ".")
+    message("Se ha ajustado la última categor\u00eda en ", diferencia, " para que las frecuencias esperadas sumen ", suma_freq_obs, ".")
   }
 
 
@@ -223,7 +221,7 @@ contraste_bondad <- function(x,
 
   if(g.l == 1){
 
-    warning("Los grados de libertad son 1; por tanto, es necesario aplicar la corrección de Yates.")
+    warning("Los grados de libertad son 1; por tanto, es necesario aplicar la correcci\u00f3n de Yates.")
     estadistico.prueba <- sum((abs(matriz$Freq_obs-matriz$Freq_esp)-0.5)^2/matriz$Freq_esp)
 
   }else{
@@ -247,7 +245,7 @@ contraste_bondad <- function(x,
 
   pvalor <- pchisq(estadistico.prueba, g.l, lower.tail = F)
 
-  H0 <- paste("Los datos siguen una distribución ", distribucion)
+  H0 <- paste("Los datos siguen una distribuci\u00f3n ", distribucion)
   CH <- cbind(H0, estadistico.prueba, round(pvalor, 4))
   CH <- as.data.frame(CH)
   names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")

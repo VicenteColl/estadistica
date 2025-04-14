@@ -66,14 +66,38 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
                       cortes = c(0.25,0.5,0.75),
                       exportar = FALSE){
 
-  if(is.numeric(x)){
-    varnames <- "variable.x"
-  }else{
-    varnames <- as.character(names(x))
+  # Capturar el nombre original si es un vector
+  var_name <- deparse(substitute(x))
+
+  # Manejo de nombres para diferentes tipos de entrada
+  if (is.data.frame(x) || is.list(x)) {
+    # Para data.frames/listas
+    original_names <- names(x)
+    x <- as.data.frame(x)
+
+    if (is.null(variable)) {
+      varnames <- names(x)[sapply(x, is.numeric)]
+    } else {
+      if (is.numeric(variable)) {
+        varnames <- names(x)[variable]
+      } else {
+        varnames <- variable
+      }
+    }
+  } else {
+    # Para vectores
+    if (grepl("\\$", var_name)) {
+      # Si es de tipo dataframe$columna
+      varnames <- sub(".*\\$", "", var_name)
+    } else {
+      # Si es un vector simple
+      varnames <- "variable"
+    }
+    x <- data.frame(x)
+    names(x) <- varnames
+    original_names <- varnames
   }
 
-  x <- data.frame(x)
-  names(x) <- varnames
   if(is.null(variable)){
 
     varcuan <-  names(x[unlist(lapply(x, is.numeric))])
@@ -92,7 +116,7 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
 
       } else{
 
-        stop("Seleccion erronea de variables")
+        stop("Selecci\u00f3n err\u00f3nea de variables")
 
       }
     }
@@ -102,7 +126,7 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
       if(all(variable %in% varnames)){
         variable = match(variable,varnames)
       } else {
-        stop("El nombre de la variable no es valido")
+        stop("El nombre de la variable no es v\u00e1lido")
       }
     }
 
@@ -120,7 +144,7 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
 
     if((length(variable) | length(pesos)) > 1){
 
-      stop("Para calcular los cuantiles a partir de la distribucion de frecuencias solo puedes seleccionar una variable y unos pesos")
+      stop("Para calcular los cuantiles a partir de la distribuci\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
 
     }
 
@@ -155,14 +179,14 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
 
   if(is.null(pesos)){
 
-    cuantiles <- apply(x,2,cuantiles.int,cortes=cortes)
+    cuantiles <- apply(x,2,.cuantiles.int,cortes=cortes)
 
 
 
   } else{
 
     x <- x
-    cuantiles <- cuantiles.int(x[1],x[2],cortes)
+    cuantiles <- .cuantiles.int(x[1],x[2],cortes)
 
   }
 
@@ -170,11 +194,28 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
   names(cuantiles) <- paste("cuantiles_",varnames,sep="")
   row.names(cuantiles) <- paste(cortes*100,"%",sep="")
 
+  # Exportar
   if (exportar) {
-    filename <- paste("Cuantiles"," (", Sys.time(), ").xlsx", sep = "")
-    filename <- gsub(" ", "_", filename)
-    filename <- gsub(":", ".", filename)
-    rio::export(cuantiles, rowNames = TRUE, file = filename)
+
+    filename <- paste0("Cuantiles_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
+
+    wb <- openxlsx::createWorkbook()
+    openxlsx::addWorksheet(wb, "Cuantiles")
+
+    # nombres de fila a columna
+    resumen_export <- cbind(Cuantil = row.names(cuantiles), cuantiles)
+    row.names(resumen_export) <- NULL
+
+    writeData(wb, "Cuantiles", resumen_export)
+
+    # formato numerico decimal en Excel
+    addStyle(wb, "Cuantiles",
+             style = createStyle(numFmt = "0.0000"),
+             rows = 2:(nrow(resumen_export)+1),
+             cols = 2:(ncol(resumen_export)+1),
+             gridExpand = TRUE)
+
+    saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
   return(cuantiles)

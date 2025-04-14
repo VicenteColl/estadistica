@@ -54,114 +54,82 @@
 #' @import dplyr
 #'
 #' @export
-mediana <- function(x, variable = NULL, pesos = NULL){
+mediana <- function(x, variable = NULL, pesos = NULL) {
 
-  if(is.numeric(x)){
-    varnames <- "variable.x"
-  }else{
-    varnames <- as.character(names(x))
-  }
+  # Capturar el nombre original si es un vector
+  var_name <- deparse(substitute(x))
 
-  x <- data.frame(x)
-  names(x) <- varnames
+  # Manejo de nombres para diferentes tipos de entrada
+  if (is.data.frame(x) || is.list(x)) {
+    # Para data.frames/listas
+    original_names <- names(x)
+    x <- as.data.frame(x)
 
-  if(is.null(variable)){
-
-    varcuan <-  names(x[unlist(lapply(x, is.numeric))])
-    seleccion = match(varcuan,varnames)
-    x <- x[seleccion]
-    varnames <- varcuan
-
-  } else{
-
-    if(is.numeric(variable)){
-
-      if(all(variable <= length(x))){
-
-        variable <- variable
-
-
-      } else{
-
-        stop("Seleccion erronea de variables")
-
-      }
-    }
-
-    if(is.character(variable)){
-
-      if(all(variable %in% varnames)){
-        variable = match(variable,varnames)
+    if (is.null(variable)) {
+      varnames <- names(x)[sapply(x, is.numeric)]
+    } else {
+      if (is.numeric(variable)) {
+        varnames <- names(x)[variable]
       } else {
-        stop("El nombre de la variable no es valido")
+        varnames <- variable
       }
     }
-
+  } else {
+    # Para vectores
+    if (grepl("\\$", var_name)) {
+      # Si es de tipo dataframe$columna
+      varnames <- sub(".*\\$", "", var_name)
+    } else {
+      # Si es un vector simple
+      varnames <- "variable"
+    }
+    x <- data.frame(x)
+    names(x) <- varnames
+    original_names <- varnames
   }
 
-
-  if(is.null(pesos) & !is.null(variable)){
-
-    x <- x[,variable] %>% as.data.frame()
-    varnames <- varnames[variable]
-
+  # Seleccion de variables
+  if(!is.null(variable)) {
+    if(is.character(variable)) {
+      if(!all(variable %in% names(x))) stop("Nombre de variable no v\u00e1lido")
+      x <- x[, variable, drop = FALSE]
+    } else if(is.numeric(variable)) {
+      if(any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
+      x <- x[, variable, drop = FALSE]
+    } else {
+      stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
+    }
+  } else {
+    # Seleccionar solo columnas numericas si no se especifica variable
+    x <- x[, sapply(x, is.numeric), drop = FALSE]
+    if(ncol(x) == 0) stop("No hay variables numéricas para calcular la mediana")
   }
 
-  if(!is.null(pesos) & !is.null(variable)){
+  # Manejo de pesos
+  if(!is.null(pesos)) {
+    if(ncol(x) > 1) stop("Solo puedes seleccionar una variable con pesos")
 
-    if((length(variable) | length(pesos)) > 1){
-
-      stop("Para calcular la desviacion tipica a partir de la distribucion de frecuencias solo puedes seleccionar una variable y unos pesos")
-
+    if(is.character(pesos)) {
+      if(!pesos %in% names(x)) stop("Nombre de pesos no v\u00e1lido")
+       pesos_col <- pesos
+    } else if(is.numeric(pesos)) {
+      if(pesos > ncol(x)) stop("Selecci\u00f3n de pesos no v\u00e1lida")
+      pesos_col <- names(x)[pesos]
+    } else {
+      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
     }
 
-    if(is.numeric(pesos)){
+    # Calcular mediana ponderada
+    datos <- na.omit(x)
+    if(nrow(datos) == 0) return(NA)
 
-      pesos <- pesos
-
-    }
-
-
-    if(is.character(pesos)){
-
-      if(pesos %in% varnames){
-        pesos = match(pesos,varnames)
-      } else {
-        stop("El nombre de los pesos no es valido")
-      }
-    }
-
-
-    x <- x[,c(variable,pesos)] %>% as.data.frame()
-    varnames <- names(x)
-
+    result <- .mediana.int(datos[[1]], datos[[pesos_col]])
+    names(result) <- paste0("mediana_", names(x)[1])
+    return(round(result, 4))
   }
 
-  clase <- sapply(x, class)
-
-  if (!all(clase %in% c("numeric","integer"))) {
-    stop("No puede calcularse la varianza, alguna variable que has seleccionado no es cuantitativa")
-  }
-
-
-  if(is.null(pesos)){
-
-    mediana <- apply(x,2,mediana.int)
-    names(mediana) <- paste("mediana_",varnames,sep="")
-
-  } else{
-
-    mediana <- x %>%
-      na.omit %>%
-      rename(variable2 = varnames[1], pesos = varnames[2]) %>%
-      summarize(mediana = mediana.int(variable2,pesos)) %>%
-      as.data.frame()
-
-    names(mediana) <- paste("mediana_",varnames[1],sep="")
-
-
-  }
-
-  return(mediana)
-
+  # Calcular medianas simples
+  result <- sapply(x, .mediana.int)
+  names(result) <- paste0("mediana_", names(x))
+  return(round(result, 4))
 }

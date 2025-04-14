@@ -135,13 +135,29 @@ matriz.covar <- function(x, variable = NULL,
   colnames(matriz_covar) <- varnames
   row.names(matriz_covar) <- varnames
 
+  # Exportar
   if (exportar) {
-    filename <- paste("Matriz de covarianzas"," (", Sys.time(), ").xlsx", sep = "")
-    filename <- gsub(" ", "_", filename)
-    filename <- gsub(":", ".", filename)
-    rio::export(matriz_covar, rowNames = TRUE, file = filename)
-  }
 
+    filename <- paste0("Matriz_de_covarianzas_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
+
+    wb <- openxlsx::createWorkbook()
+    openxlsx::addWorksheet(wb, "Matriz_covarianzas")
+
+    # nombres de fila a columna
+    resumen_export <- cbind(' ' = row.names(matriz_covar), matriz_covar)
+    row.names(resumen_export) <- NULL
+
+    openxlsx::writeData(wb, "Matriz_covarianzas", resumen_export)
+
+    # formato numerico decimal en Excel
+    addStyle(wb, "Matriz_covarianzas",
+             style = createStyle(numFmt = "0.0000"),
+             rows = 2:(nrow(resumen_export)+1),
+             cols = 2:(ncol(resumen_export)+1),
+             gridExpand = TRUE)
+
+    saveWorkbook(wb, filename, overwrite = TRUE)
+  }
   return(matriz_covar)
 
 }

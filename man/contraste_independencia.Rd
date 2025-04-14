@@ -5,9 +5,9 @@
 \title{Contraste de Independencia.}
 \usage{
 contraste_independencia(x,
-introducir = FALSE,
-alfa = 0.05,
-grafico = FALSE)
+   introducir = FALSE,
+   alfa = 0.05,
+   grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser una matriz o un dataframe. Debe contener sólo 2 columnas.}
@@ -25,9 +25,6 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 Contrasta la hipótesis de independencia entre las categorías de dos variables categóricas o criterios de clasificación en los que se encuentra clasificada la muestra proveniente de dicha población bidimensional.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
-
-\if{html}{\figure{qrcmedia.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
-\if{latex}{\figure{qrcmedia.png}{options: width=3cm}}
 }
 \details{
 (1) El estadístico del contraste de independencia es:
@@ -37,12 +34,12 @@ Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo
 \sum_{i=1}^{I} \sum_{j=1}^{J}
 \frac{(O_{ij} - \frac{O_{i.} \times O_{.j}}{n})^{2}}{\frac{O_{i.} \times O_{.j}}{n}}}
 
-donde \(O_{ij}\) son las frecuencias conjuntas observadas, \(E_{ij}\) son las frecuencias teóricas o esperadas,
-\(O_{i.}\) y \(O_{.j}\) son las frecuencias marginales de cada variable, y \(n\) es el tamaño de la muestra.
+donde \eqn{O_{ij}} son las frecuencias conjuntas observadas, \eqn{E_{ij}} son las frecuencias teóricas o esperadas,
+\eqn{O_{i.}} y \eqn{O_{.j}} son las frecuencias marginales de cada variable, y \eqn{n} es el tamaño de la muestra.
 
 \deqn{\chi_{(I-1)(J-1)}^{2}}
 
-donde I y J son el número de categorías de la variable fila y de la variable columna, respectivamente.
+donde \eqn{I} y \eqn{J} son el número de categorías de la variable fila y de la variable columna, respectivamente.
 
 Además, se exige que el tamaño de la muestra sea grande y que todas las frecuencias teóricas no estén por debajo de 5.
 Si alguna no lo cumple, es necesario reagrupar las categorías contiguas hasta conseguir superar esa cota.

@@ -530,52 +530,65 @@ regresion.simple <- function(x,
 
     }
 
-
   if (exportar) {
+    # Prepara el nombre del archivo
+    filename <- paste("Resultados_regresion_simple_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx", sep = "")
 
-    names(resumen) <- "Valor"
+    # Crear el workbook
+    wb <- openxlsx::createWorkbook()
 
-    filename <- paste("Resultados regresion simple"," (", Sys.time(), ").xlsx", sep = "")
-    filename <- gsub(" ", "_", filename)
-    filename <- gsub(":", ".", filename)
+    # Función auxiliar para añadir data.frames con formato
+    add_sheet_with_style <- function(wb, sheet_name, data) {
+      openxlsx::addWorksheet(wb, sheet_name)
+      openxlsx::writeData(wb, sheet_name, data, rowNames = TRUE)
 
-    if(isFALSE(introducir)){
-
-      if(inferencia){
-
-        names(resultados.parciales) <- "valor"
-
-        lista <- list(tabla,resultados.parciales,tabla.anova,modelo.regresion)
-
-        rio::export(lista, rowNames = TRUE, filename, sheetName=c("Resultados parciales",
-                                                                  "Resumen medidas",
-                                                                  "ANOVA",
-                                                                  "Modelo estimado"))
-      } else{
-
-        lista <- list(resumen,tabla)
-
-        rio::export(lista, rowNames = TRUE, filename, sheetName=c("Resumen",
-                                                                  "Resultados parciales"))
+      # Aplicar formato numérico a columnas numéricas
+      numeric_cols <- which(sapply(data, is.numeric))
+      if (length(numeric_cols) > 0) {
+        openxlsx::addStyle(
+          wb, sheet_name,
+          style = openxlsx::createStyle(numFmt = "0.0000"),
+          rows = 2:(nrow(data) + 1),
+          cols = numeric_cols + 1,  # +1 porque rowNames=TRUE añade una columna
+          gridExpand = TRUE
+        )
       }
-
-    } else{
-
-      if(inferencia){
-
-        lista <- list(resultados.parciales,tabla.anova,modelo.regresion)
-
-        rio::export(lista, rowNames = TRUE, filename, sheetName=c("Resumen medidas",
-                                                                "ANOVA",
-                                                                "Modelo estimado"))
-      } else{
-
-        rio::export(resumen, rowNames = TRUE, filename, sheetName="Resumen")
-
-      }
-
     }
 
+    if (isFALSE(introducir)) {
+      if (inferencia) {
+        names(resultados.parciales) <- "valor"
+
+        # Añadir todas las hojas
+        add_sheet_with_style(wb, "Resultados_parciales", tabla)
+        add_sheet_with_style(wb, "Resumen_medidas", resultados.parciales)
+        add_sheet_with_style(wb, "ANOVA", tabla.anova)
+
+        # Hoja para el modelo (manejo especial)
+        openxlsx::addWorksheet(wb, "Modelo_estimado")
+        openxlsx::writeData(wb, "Modelo_estimado", capture.output(modelo.regresion))
+
+      } else {
+        add_sheet_with_style(wb, "Resumen", resumen)
+        add_sheet_with_style(wb, "Resultados_parciales", tabla)
+      }
+
+    } else {
+      if (inferencia) {
+        add_sheet_with_style(wb, "Resumen_medidas", resultados.parciales)
+        add_sheet_with_style(wb, "ANOVA", tabla.anova)
+
+        # Hoja para el modelo (manejo especial)
+        openxlsx::addWorksheet(wb, "Modelo_estimado")
+        openxlsx::writeData(wb, "Modelo_estimado", capture.output(modelo.regresion))
+
+      } else {
+        add_sheet_with_style(wb, "Resumen", resumen)
+      }
+    }
+
+    # Guardar el archivo
+    openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
   if(isFALSE(introducir)){
