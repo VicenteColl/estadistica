@@ -259,6 +259,6 @@ contraste_homogeneidad <- function(x,
     return(list(CH, name_plot))
 
   } else {
-    return(CH)3
+    return(CH)
   }
 }
