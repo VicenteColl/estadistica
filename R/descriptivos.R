@@ -135,7 +135,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
   }
 
   # Clase especial para impresión
-  class(resumen) <- c("resumen_descriptivos", class(resumen))
+  class(resumen) <- c("resumen", class(resumen))
 
   return(resumen)
 }
