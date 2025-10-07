@@ -66,122 +66,105 @@ covarianza <- function(x,
                        pesos = NULL,
                        tipo = c("muestral", "cuasi")) {
 
-  tipo <- tolower(tipo)
-  tipo <- match.arg(tipo)
+  # --- Validacion de tipo ---
+  tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
 
-  varnames <- as.character(names(x))
-  x <- data.frame(x)
-  names(x) <- varnames
+  # --- Normalizacion del input ---
+  if (!is.data.frame(x)) {
+    var_name <- deparse(substitute(x))
+    if (is.vector(x)) {
+      x <- data.frame(x)
+      names(x) <- if (grepl("\\$", var_name)) sub(".*\\$", "", var_name) else "variable"
+    } else {
+      stop("El argumento 'x' debe ser un data.frame o un vector num\u00e9rico.")
+    }
+  }
 
+  # --- Guardar nombres originales ---
+  varnames <- names(x)
+
+  # --- Seleccion de variables ---
   if (is.null(variable)) {
-    if (length(x) == 2) {
-      varcuan <- names(x[unlist(lapply(x, is.numeric))])
-      seleccion <- match(varcuan, varnames)
-      x <- x[seleccion]
-      varnames <- varcuan
-    } else {
-      warning("Para obtener la matriz de varianza-covarianzas utiliza la funci\u00f3n matriz.covar()")
-      stop("El conjunto de datos seleccionado tiene más de 2 variables.")
+    if (ncol(x) != 2) {
+      stop("Debes seleccionar exactamente dos variables para calcular la covarianza.")
     }
-  } else if (length(variable) == 2) {
-
+  } else {
     if (is.numeric(variable)) {
-      if (!all(variable <= length(x))) {
-        stop("Selecci\u00f3n err\u00f3nea de variables")
-      }
-    }
-
-    if (is.character(variable)) {
-      if (all(variable %in% varnames)) {
-        variable <- match(variable, varnames)
-      } else {
-        stop("El nombre de la variable no es v\u00e1lido")
-      }
-    }
-
-  } else {
-    warning("Para obtener la matriz de varianzas-covarianzas utilizar la funci\u00f3n matriz.covar()")
-    stop("Para calcular la covarianza solo puedes seleccionar dos variables")
-  }
-
-  if (is.null(pesos) & !is.null(variable)) {
-    x <- x[, variable] %>% as.data.frame()
-    varnames <- varnames[variable]
-  }
-
-  if (!is.null(pesos) & !is.null(variable)) {
-    if ((length(variable) | length(pesos)) > 3) {
-      stop("Para calcular la covarianza a partir de la distribuci\u00f3n de frecuencias solo puedes seleccionar dos variables y unos pesos")
-    }
-
-    if (is.numeric(pesos)) pesos <- pesos
-
-    if (is.character(pesos)) {
-      if (pesos %in% varnames) {
-        pesos <- match(pesos, varnames)
-      } else {
-        stop("El nombre de los pesos no es v\u00e1lido")
-      }
-    }
-
-    x <- x[, c(variable, pesos)] %>% as.data.frame()
-    varnames <- varnames[c(variable, pesos)]
-  }
-
-  clase <- sapply(x, class)
-  if (!all(clase %in% c("numeric", "integer"))) {
-    stop("No puede calcularse la covarianza: alguna variable no es cuantitativa")
-  }
-
-  tipo_covarianza <- c("muestral", "cuasi")
-  if (!(tipo %in% tipo_covarianza)) {
-    stop("Indica si quieres calcular la covarianza muestral o la cuasi-covarianza")
-  }
-
-  if (is.null(pesos) & tipo == "muestral") {
-    n <- nrow(na.omit(x))
-    factor <- (n - 1) / n
-  } else {
-    factor <- 1
-  }
-
-  # --- CORRECCION PRINCIPAL ---
-  if (is.null(pesos)) {
-
-    # Eliminar filas con NA en cualquiera de las dos variables
-    x <- na.omit(x)
-
-    covarianza <- factor * cov(x[[1]], x[[2]], use = "complete.obs") %>%
-      as.numeric()
-
-  } else {
-
-    x <- x %>%
-      na.omit() %>%
-      rename(variable1 = varnames[1],
-             variable2 = varnames[2],
-             pesos = varnames[3])
-
-    media1 <- as.numeric(estadistica::media(x, variable = 1, pesos = 3))
-    media2 <- as.numeric(estadistica::media(x, variable = 2, pesos = 3))
-
-    covarianza <- x %>%
-      dplyr::mutate(sumatorio = (variable1 - media1) * (variable2 - media2) * pesos)
-
-    if (tipo == "muestral") {
-      covarianza <- covarianza %>%
-        summarize(covarianza = sum(sumatorio) / sum(pesos)) %>%
-        as.numeric()
+      if (!all(variable <= ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables.")
+      x <- x[, variable, drop = FALSE]
+    } else if (is.character(variable)) {
+      if (!all(variable %in% varnames)) stop("Nombre de variable no v\u00e1lido.")
+      x <- x[, variable, drop = FALSE]
     } else {
-      covarianza <- covarianza %>%
-        summarize(varianza = sum(sumatorio) / (sum(pesos) - 1)) %>%
-        as.numeric()
+      stop("El argumento 'variable' debe ser numérico o de tipo car\u00e1cter.")
     }
   }
 
-  covarianza <- round(covarianza, 4)
-  names(covarianza) <- paste("covarianza_", varnames[1], "_", varnames[2], sep = "")
-  row.names(covarianza) <- NULL
+  # --- Nombres tras subsetting ---
+  varnames <- names(x)
+  if (length(varnames) != 2) stop("Debes proporcionar exactamente dos variables cuantitativas.")
 
-  return(covarianza)
+  # --- Comprobación de tipos ---
+  if (!all(sapply(x, is.numeric))) {
+    stop("No puede calcularse la covarianza: alguna variable seleccionada no es cuantitativa.")
+  }
+
+  # --- Caso SIN pesos ---
+  if (is.null(pesos)) {
+    # Eliminar observaciones incompletas
+    x <- na.omit(x)
+    n_eff <- nrow(x)
+    if (n_eff < 2) stop("No hay suficientes observaciones completas para calcular la covarianza.")
+
+    # Calcular factor muestral correctamente
+    factor <- if (tipo == "muestral") (n_eff - 1) / n_eff else 1
+
+    # Calcular covarianza
+    cov_val <- factor * cov(x[[1]], x[[2]], use = "complete.obs")
+
+    result <- round(as.numeric(cov_val), 4)
+    names(result) <- paste0("covarianza_", varnames[1], "_", varnames[2])
+    return(result)
+  }
+
+  # --- Caso CON pesos ---
+  if (length(pesos) != 1) {
+    stop("Solo se admite una variable de pesos.")
+  }
+
+  if (is.character(pesos)) {
+    if (!pesos %in% names(x)) stop("Nombre de pesos no v\u00e1lido.")
+    pesos_idx <- match(pesos, names(x))
+  } else if (is.numeric(pesos)) {
+    pesos_idx <- pesos
+  } else {
+    stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter.")
+  }
+
+  # Reconstruir data.frame con pesos
+  x <- x[, c(1:2, pesos_idx), drop = FALSE]
+  names(x) <- c("var1", "var2", "pesos")
+
+  # Eliminar NA
+  x <- na.omit(x)
+  n_eff <- nrow(x)
+  if (n_eff < 2) stop("No hay suficientes observaciones completas para calcular la covarianza ponderada.")
+
+  # Calcular medias ponderadas
+  media1 <- sum(x$var1 * x$pesos, na.rm = TRUE) / sum(x$pesos, na.rm = TRUE)
+  media2 <- sum(x$var2 * x$pesos, na.rm = TRUE) / sum(x$pesos, na.rm = TRUE)
+
+  # Covarianza ponderada
+  sum_cuad <- sum((x$var1 - media1) * (x$var2 - media2) * x$pesos, na.rm = TRUE)
+
+  if (tipo == "muestral") {
+    cov_val <- sum_cuad / sum(x$pesos, na.rm = TRUE)
+  } else {
+    cov_val <- sum_cuad / (sum(x$pesos, na.rm = TRUE) - 1)
+  }
+
+  result <- round(as.numeric(cov_val), 4)
+  names(result) <- paste0("covarianza_", varnames[1], "_", varnames[2])
+
+  return(result)
 }

@@ -68,57 +68,67 @@
 #' @export
 matriz.covar <- function(x,
                          variable = NULL,
-                         tipo = c("muestral","cuasi"),
-                         exportar = FALSE){
+                         tipo = c("muestral", "cuasi"),
+                         exportar = FALSE) {
 
-  tipo <- tolower(tipo)
-  tipo <- match.arg(tipo)
+  tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
 
-  varnames <- as.character(names(x))
-  x <- data.frame(x)
-  names(x) <- varnames
+  # --- Normalizar entrada ---
+  if (!is.data.frame(x)) {
+    var_name <- deparse(substitute(x))
+    if (is.vector(x)) {
+      x <- data.frame(x)
+      names(x) <- if (grepl("\\$", var_name)) sub(".*\\$", "", var_name) else "variable"
+    } else {
+      stop("El argumento x debe ser un data.frame o una lista de variables num\u00e9ricas.")
+    }
+  }
+
+  varnames <- names(x)
 
   # --- Seleccion de variables ---
   if (is.null(variable)) {
-    varcuan <- names(x[unlist(lapply(x, is.numeric))])
-    seleccion <- match(varcuan, varnames)
-    x <- x[seleccion]
+    varcuan <- names(x)[sapply(x, is.numeric)]
+    if (length(varcuan) == 0) stop("No hay variables num\u00e9ricas para calcular la matriz.")
+    x <- x[, varcuan, drop = FALSE]
     varnames <- varcuan
   } else {
     if (is.numeric(variable)) {
-      if (!all(variable <= length(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
+      if (!all(variable <= ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables.")
+      x <- x[, variable, drop = FALSE]
+    } else if (is.character(variable)) {
+      if (!all(variable %in% varnames)) stop("El nombre de alguna variable no es v\u00e1lido.")
+      x <- x[, variable, drop = FALSE]
+    } else {
+      stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter.")
     }
-    if (is.character(variable)) {
-      if (all(variable %in% varnames)) {
-        variable <- match(variable, varnames)
-      } else stop("El nombre de la variable no es v\u00e1lido")
-    }
-    x <- x[, variable, drop = FALSE]
     varnames <- names(x)
   }
 
-  # --- Comprobación de tipo de variables ---
-  clase <- sapply(x, class)
-  if (!all(clase %in% c("numeric","integer"))) {
-    stop("No puede calcularse la matriz de varianzas-covarianzas: alguna variable no es cuantitativa")
+  # --- Verificar tipo de variables ---
+  if (!all(sapply(x, is.numeric))) {
+    stop("No puede calcularse la matriz de varianzas-covarianzas: alguna variable no es cuantitativa.")
   }
 
-  # --- Preparar matriz vacia ---
+  # --- Eliminar filas con NA en cualquiera de las variables ---
+  x <- na.omit(x)
+  n_eff <- nrow(x)
+  if (n_eff < 2) stop("No hay suficientes observaciones completas para calcular la matriz.")
+
+  # --- Preparar matriz vaca i---
   k <- ncol(x)
   matriz_covar <- matrix(NA, nrow = k, ncol = k)
   colnames(matriz_covar) <- varnames
   rownames(matriz_covar) <- varnames
 
-  # --- Rellenar matriz usando mis funciones ---
+  # --- Rellenar matriz con funciones personalizadas ---
   for (i in seq_len(k)) {
     for (j in seq_len(k)) {
       if (i == j) {
-        # Varianza usando tvarianza()
         matriz_covar[i, j] <- varianza(x[, i, drop = FALSE],
                                        variable = 1,
                                        tipo = tipo)
       } else {
-        # Covarianza usando tcovarianza()
         matriz_covar[i, j] <- covarianza(x[, c(i, j)],
                                          variable = 1:2,
                                          tipo = tipo)
@@ -126,14 +136,15 @@ matriz.covar <- function(x,
     }
   }
 
-  # --- Asegurar simetria numerica ---
+  # --- Asegurar simetria ---
   matriz_covar[lower.tri(matriz_covar)] <- t(matriz_covar)[lower.tri(matriz_covar)]
-
   matriz_covar <- round(matriz_covar, 4)
 
-  # --- Exportar ---
+  # --- Exportar si se solicita ---
   if (exportar) {
-    filename <- paste0("Matriz_de_covarianzas_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".xlsx")
+    filename <- paste0("Matriz_de_covarianzas_",
+                       format(Sys.time(), "%Y-%m-%d_%H-%M-%S"),
+                       ".xlsx")
     rio::export(matriz_covar, rowNames = TRUE, file = filename)
   }
 
