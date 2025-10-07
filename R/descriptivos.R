@@ -119,7 +119,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
   resumen <- as.data.frame(resumen)
 
   # Clase especial para impresión
-  class(resumen) <- c("resumen", class(resumen))
+  class(resumen) <- c("resumen_descriptivos", class(resumen))
 
   # Exportar si se solicita
   if (exportar) {
@@ -140,3 +140,8 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
   return(resumen)
 }
 
+# Método de impresión
+print.resumen_descriptivos <- function(x, ...) {
+  # Redondear decimales y mostrar sin notación científica
+  print(format(round(x, 4), scientific = FALSE, nsmall = 4), quote = FALSE, ...)
+}
