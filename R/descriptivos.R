@@ -42,68 +42,48 @@
 #' @import dplyr openxlsx
 #'
 #' @export
-resumen.descriptivos <- function(x,
-                                 variable = NULL,
-                                 pesos = NULL,
-                                 exportar = FALSE) {
+resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FALSE) {
 
-  # Guardar opciones originales
   old_options <- options()
   options(scipen = 999, digits = 15)
   on.exit(options(old_options), add = TRUE)
 
-  # Asegurar data.frame
-  if (!is.data.frame(x)) {
-    x <- as.data.frame(x)
-  }
+  # Convertir a data.frame
+  if (!is.data.frame(x)) x <- as.data.frame(x)
 
-  # Determinar nombres originales
-  original_names <- names(x)
-
-  # --- Seleccion de variable(s) ---
+  # Selección de variables
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
-  } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
-    varnames <- names(x)[variable]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("El nombre de la variable no es v\u00e1lido")
+    if (!all(variable %in% names(x))) stop("El nombre de variable no es válido")
     varnames <- variable
-  } else {
-    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
-  }
+  } else if (is.numeric(variable)) {
+    if (any(variable > ncol(x))) stop("Selección errónea de variables")
+    varnames <- names(x)[variable]
+  } else stop("El argumento 'variable' debe ser numérico o carácter")
 
-  # Subconjunto con las variables seleccionadas
   x_sel <- x[, varnames, drop = FALSE]
 
-  # --- Manejo de pesos ---
+  # Manejo de pesos
   if (!is.null(pesos)) {
     if (length(varnames) > 1 || length(pesos) > 1)
-      stop("Para el c\u00e1lculo ponderado solo puedes seleccionar una variable y unos pesos")
+      stop("Para cálculo ponderado solo una variable y un peso")
 
     if (is.character(pesos)) {
-      if (!pesos %in% names(x)) stop("El nombre de los pesos no es v\u00e1lido")
-      pesos_name <- pesos
+      if (!pesos %in% names(x)) stop("Nombre de pesos no válido")
+      pesos_col <- pesos
     } else if (is.numeric(pesos)) {
-      if (pesos > ncol(x)) stop("Selecci\u00f3n err\u00f3nea de pesos")
-      pesos_name <- names(x)[pesos]
-    } else {
-      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
+      pesos_col <- names(x)[pesos]
     }
 
-    if (pesos_name == varnames)
-      stop("No puedes usar la misma variable como dato y como peso")
-
-    x_sel <- data.frame(variable = x[[varnames]], pesos = x[[pesos_name]])
+    if (pesos_col == varnames) stop("No puedes usar la misma variable como dato y peso")
+    x_sel <- data.frame(variable = x[[varnames]], pesos = x[[pesos_col]])
     varnames <- varnames[1]
   }
 
-  # --- Comprobacion tipo de variable ---
-  if (!all(sapply(x_sel, is.numeric))) {
-    stop("No pueden calcularse las medidas de forma, alguna variable que has seleccionado no es cuantitativa")
-  }
+  if (!all(sapply(x_sel, is.numeric))) stop("Alguna variable seleccionada no es cuantitativa")
 
-  # --- Principales medidas ---
+  # --- Cálculo de medidas ---
   if (is.null(pesos)) {
     valor_media <- media(x_sel) %>% t() %>% as.data.frame()
     valor_cuartiles <- cuantiles(x_sel, cortes = c(0, 0.25, 0.5, 0.75, 1))
@@ -125,7 +105,7 @@ resumen.descriptivos <- function(x,
     valor_moda <- moda(x_sel, variable = 1, pesos = 2)
   }
 
-  # --- Ensamblar resumen ---
+  # Ensamblar resumen
   resumen <- data.table::rbindlist(
     list(
       valor_media,
@@ -136,8 +116,7 @@ resumen.descriptivos <- function(x,
       ric,
       valor_forma,
       valor_moda
-    ),
-    use.names = FALSE
+    ), use.names = FALSE
   )
 
   resumen <- as.data.frame(resumen) %>% round(4)
@@ -150,34 +129,26 @@ resumen.descriptivos <- function(x,
     "asimetría", "curtosis", paste("moda_", 1:num_modas, sep = "")
   )
 
-  # Mostrar resultados (si existe funci\u00f3#n auxiliar)
+  # Mostrar
   if (exists(".mostrar_lista_resultados")) {
     .mostrar_lista_resultados(resumen, "Resumen de estadísticos descriptivos")
-  } else {
-    print(resumen)
-  }
+  } else print(resumen)
 
-  # --- Exportar si se solicita ---
+  # Exportar
   if (exportar) {
     filename <- paste0("Descriptivos_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
-
     wb <- openxlsx::createWorkbook()
     openxlsx::addWorksheet(wb, "Descriptivos")
     resumen_export <- cbind('Estadístico' = row.names(resumen), resumen)
     row.names(resumen_export) <- NULL
-
     openxlsx::writeData(wb, "Descriptivos", resumen_export)
-    openxlsx::addStyle(
-      wb, "Descriptivos",
-      style = openxlsx::createStyle(numFmt = "0.0000"),
-      rows = 2:(nrow(resumen_export) + 1),
-      cols = 2:(ncol(resumen_export) + 1),
-      gridExpand = TRUE
-    )
+    openxlsx::addStyle(wb, "Descriptivos",
+                       style = openxlsx::createStyle(numFmt = "0.0000"),
+                       rows = 2:(nrow(resumen_export) + 1),
+                       cols = 2:(ncol(resumen_export) + 1),
+                       gridExpand = TRUE)
     openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
   invisible(resumen)
 }
-
-
