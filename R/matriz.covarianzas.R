@@ -73,6 +73,11 @@ matriz.covar <- function(x,
 
   tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
 
+  # --- Configuracion temporal para evitar notacion cientifica ---
+  old_options <- options()
+  options(scipen = 999, digits = 15)
+  on.exit(options(old_options), add = TRUE)
+
   # --- Normalizar entrada ---
   if (!is.data.frame(x)) {
     var_name <- deparse(substitute(x))
