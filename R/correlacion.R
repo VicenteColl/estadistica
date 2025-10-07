@@ -154,7 +154,7 @@ correlacion <- function(x, variable = NULL, pesos=NULL){
   }
 
   if(is.null(pesos)){
-    correlacion <- cor(x[1],x[2], use ="everything")
+    correlacion <- cor(x[1],x[2], use ="complete.obs")
     correlacion <- as.data.frame(correlacion)
   } else{
     x <- x %>%
@@ -172,3 +172,4 @@ correlacion <- function(x, variable = NULL, pesos=NULL){
   return(correlacion)
 
 }
+

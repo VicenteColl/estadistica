@@ -66,10 +66,10 @@
 #' @import dplyr
 #'
 #' @export
-matriz.covar <- function(x, variable = NULL,
+matriz.covar <- function(x,
+                         variable = NULL,
                          tipo = c("muestral","cuasi"),
                          exportar = FALSE){
-
 
   tipo <- tolower(tipo)
   tipo <- match.arg(tipo)
@@ -78,88 +78,64 @@ matriz.covar <- function(x, variable = NULL,
   x <- data.frame(x)
   names(x) <- varnames
 
-  if(is.null(variable)){
-
-    varcuan <-  names(x[unlist(lapply(x, is.numeric))])
-    seleccion = match(varcuan,varnames)
+  # --- Seleccion de variables ---
+  if (is.null(variable)) {
+    varcuan <- names(x[unlist(lapply(x, is.numeric))])
+    seleccion <- match(varcuan, varnames)
     x <- x[seleccion]
     varnames <- varcuan
-
-  } else{
-
-    if(is.numeric(variable)){
-
-      if(all(variable <= length(x))){
-
-        variable <- variable
-
-      } else{
-
-        stop("Selecci\u00f3n err\u00f3nea de variables")
-
-      }
+  } else {
+    if (is.numeric(variable)) {
+      if (!all(variable <= length(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     }
-
-    if(is.character(variable)){
-
-      if(all(variable %in% varnames)){
-        variable = match(variable,varnames)
-      } else {
-        stop("El nombre de la variable no es v\u00e1lido")
-      }
+    if (is.character(variable)) {
+      if (all(variable %in% varnames)) {
+        variable <- match(variable, varnames)
+      } else stop("El nombre de la variable no es v\u00e1lido")
     }
-
-    x <- x[,variable] %>% as.data.frame()
+    x <- x[, variable, drop = FALSE]
     varnames <- names(x)
-
   }
 
+  # --- Comprobación de tipo de variables ---
   clase <- sapply(x, class)
-
   if (!all(clase %in% c("numeric","integer"))) {
-    stop("No puede calcularse la matriz de varianzas-covarianzas, alguna variable que has seleccionado no es cuantitativa")
+    stop("No puede calcularse la matriz de varianzas-covarianzas: alguna variable no es cuantitativa")
   }
 
-  if(tipo == "muestral"){
-
-    n <- nrow(x)
-    factor = (n-1)/n
-
-  } else{
-
-    factor <- 1
-  }
-
-  matriz_covar <- factor * var(x, na.rm = TRUE) %>%
-    as.matrix()
+  # --- Preparar matriz vacia ---
+  k <- ncol(x)
+  matriz_covar <- matrix(NA, nrow = k, ncol = k)
   colnames(matriz_covar) <- varnames
-  row.names(matriz_covar) <- varnames
+  rownames(matriz_covar) <- varnames
 
-  # Exportar
-  if (exportar) {
-
-    filename <- paste0("Matriz_de_covarianzas_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
-
-    wb <- openxlsx::createWorkbook()
-    openxlsx::addWorksheet(wb, "Matriz_covarianzas")
-
-    # nombres de fila a columna
-    resumen_export <- cbind(' ' = row.names(matriz_covar), matriz_covar)
-    row.names(resumen_export) <- NULL
-
-    openxlsx::writeData(wb, "Matriz_covarianzas", resumen_export)
-
-    # formato numerico decimal en Excel
-    addStyle(wb, "Matriz_covarianzas",
-             style = createStyle(numFmt = "0.0000"),
-             rows = 2:(nrow(resumen_export)+1),
-             cols = 2:(ncol(resumen_export)+1),
-             gridExpand = TRUE)
-
-    saveWorkbook(wb, filename, overwrite = TRUE)
+  # --- Rellenar matriz usando mis funciones ---
+  for (i in seq_len(k)) {
+    for (j in seq_len(k)) {
+      if (i == j) {
+        # Varianza usando tvarianza()
+        matriz_covar[i, j] <- varianza(x[, i, drop = FALSE],
+                                       variable = 1,
+                                       tipo = tipo)
+      } else {
+        # Covarianza usando tcovarianza()
+        matriz_covar[i, j] <- covarianza(x[, c(i, j)],
+                                         variable = 1:2,
+                                         tipo = tipo)
+      }
+    }
   }
+
+  # --- Asegurar simetria numerica ---
+  matriz_covar[lower.tri(matriz_covar)] <- t(matriz_covar)[lower.tri(matriz_covar)]
+
+  matriz_covar <- round(matriz_covar, 4)
+
+  # --- Exportar ---
+  if (exportar) {
+    filename <- paste0("Matriz_de_covarianzas_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".xlsx")
+    rio::export(matriz_covar, rowNames = TRUE, file = filename)
+  }
+
   return(matriz_covar)
-
 }
-
-

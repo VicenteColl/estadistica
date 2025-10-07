@@ -9,9 +9,9 @@
 #' \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 #'
 #' @usage coeficiente.variacion(x,
-#'           variable = NULL,
-#'           pesos = NULL,
-#'           tipo = c("muestral","cuasi"))
+#'                              variable = NULL,
+#'                              pesos = NULL,
+#'                              tipo = c("muestral","cuasi"))
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
@@ -67,80 +67,63 @@ coeficiente.variacion <- function(x,
   tipo <- tolower(tipo)
   tipo <- match.arg(tipo)
 
-  # Capturar el nombre original si es un vector
-  var_name <- deparse(substitute(x))
-
-  # Si es un data.frame/lista y no se especifica variable, usar nombres de columnas
-  if (is.data.frame(x) || is.list(x)) {
-    if (is.null(variable)) {
-      varnames <- names(x)[sapply(x, is.numeric)]
-    } else {
-      if (is.numeric(variable)) {
-        varnames <- names(x)[variable]
-      } else {
-        varnames <- variable
-      }
-    }
-    x <- as.data.frame(x)
-  } else {
-    # Si es un vector, usar el nombre capturado
-    varnames <- ifelse(grepl("\\$", var_name),
-                       sub(".*\\$", "", var_name),
-                       "variable")
-    x <- data.frame(x)
-    names(x) <- varnames
+  # --- Asegurar que sea data.frame ---
+  if (!is.data.frame(x)) {
+    x <- data.frame(variable = x)
   }
 
-  # Manejo de pesos
-  if(!is.null(pesos)) {
-    if(length(varnames) > 1 || (length(pesos) > 1)) {
-      stop("Para calcular el coeficiente de variaci\u00f3n a partir de la distribuci\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
-    }
+  # --- Seleccionar variable(s) ---
+  if (is.null(variable)) {
+    varnames <- names(x)[sapply(x, is.numeric)]
+  } else if (is.numeric(variable)) {
+    if (any(variable > ncol(x))) stop("Selección errónea de variables")
+    varnames <- names(x)[variable]
+  } else if (is.character(variable)) {
+    if (!all(variable %in% names(x))) stop("El nombre de la variable no es válido")
+    varnames <- variable
+  } else {
+    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
+  }
 
-    if(is.character(pesos)) {
-      if(!pesos %in% names(x)) {
-        stop("El nombre de los pesos no es v\u00e1lido")
-      }
+  # Subconjunto con las variables seleccionadas
+  x_sel <- x[, varnames, drop = FALSE]
+
+  # --- Manejo de pesos ---
+  if (!is.null(pesos)) {
+    if (length(varnames) > 1 || length(pesos) > 1)
+      stop("Para el cálculo ponderado solo puedes seleccionar una variable y unos pesos")
+
+    if (is.character(pesos)) {
+      if (!pesos %in% names(x)) stop("El nombre de los pesos no es válido")
       pesos_name <- pesos
-    } else if(is.numeric(pesos)) {
+    } else if (is.numeric(pesos)) {
+      if (any(pesos > ncol(x))) stop("Selección errónea de pesos")
       pesos_name <- names(x)[pesos]
     } else {
-      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
+      stop("El argumento 'pesos' debe ser numérico o de tipo carácter")
     }
 
-    # Conservar el nombre de la variable principal
-    main_var_name <- varnames[1]
-    x <- x[, c(main_var_name, pesos_name), drop = FALSE]
-    varnames <- main_var_name
+    if (pesos_name == varnames)
+      stop("No puedes usar la misma variable como dato y como peso")
+
+    x_sel <- data.frame(variable = x[[varnames]], pesos = x[[pesos_name]])
+    varnames <- varnames[1]
   }
 
-  # Verificar que todas las variables sean cuantitativas
-  if(!all(sapply(x, is.numeric))) {
-    stop("No puede calcularse el coeficiente de variaci\u00f3n, alguna variable que has seleccionado no es cuantitativa")
+  # --- Verificación de tipo numérico ---
+  if (!all(sapply(x_sel, is.numeric))) {
+    stop("No puede calcularse el coeficiente de variación, alguna variable que has seleccionado no es cuantitativa")
   }
 
-  # Cálculo del coeficiente de variación
-  if(is.null(pesos)) {
-    valor_media <- media(x)
-
-    if(tipo == "muestral") {
-      valor_desviacion <- desviacion(x)
-    } else {
-      valor_desviacion <- desviacion(x, tipo = "cuasi")
-    }
-
+  # --- Cálculo del coeficiente de variación ---
+  if (is.null(pesos)) {
+    valor_media <- media(x_sel)
+    valor_desviacion <- desviacion(x_sel, tipo = tipo)
     coef_variacion <- valor_desviacion / valor_media
-    names(coef_variacion) <- paste0("coef_variacion_", names(x))
-
+    names(coef_variacion) <- paste0("coef_variacion_", names(x_sel))
   } else {
-    valor_media <- media(x, variable = 1, pesos = 2)
-
-    if(tipo == "muestral") {
-      valor_desviacion <- desviacion(x, variable = 1, pesos = 2)
-    } else {
-      valor_desviacion <- desviacion(x, variable = 1, pesos = 2, tipo = "cuasi")
-    }
-
+    valor_media <- media(x_sel, variable = 1, pesos = 2)
+    valor_desviacion <- desviacion(x_sel, variable = 1, pesos = 2, tipo = tipo)
     coef_variacion <- valor_desviacion / valor_media
     names(coef_variacion) <- paste0("coef_variacion_", varnames[1])
   }

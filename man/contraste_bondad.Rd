@@ -43,7 +43,7 @@ donde \eqn{O_{i}} son las frecuencias observadas y \eqn{E_{i}} son las frecuenci
 
 \deqn{\chi_{k-m-1}^{2}}
 
-donde \eqn{k} es el número de valores distintos de la variable, y \deqn{m} es el número de parámetros de la distribución poblacional de la hipótesis nula no especificados (desconocidos) y que se han tenido que estimar.
+donde \eqn{k} es el número de valores distintos de la variable, y \eqn{m} es el número de parámetros de la distribución poblacional de la hipótesis nula no especificados (desconocidos) y que se han tenido que estimar.
 
 Además, se exige que todas las frecuencias teóricas no estén por debajo de 5. Si alguna no lo cumple, es necesario reagrupar valores contiguos hasta conseguir superar esa cota.
 

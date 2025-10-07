@@ -65,91 +65,66 @@
 #' @export
 media <- function(x, variable = NULL, pesos = NULL) {
 
-  # Capturar el nombre original si es un vector
-  var_name <- deparse(substitute(x))
+  # Si es un vector, convertirlo a data.frame
+  if (!is.data.frame(x)) {
+    x <- data.frame(variable = x)
+  }
 
-  # Manejo de nombres para diferentes tipos de entrada
-  if (is.data.frame(x) || is.list(x)) {
-    # Para data.frames/listas
-    original_names <- names(x)
-    x <- as.data.frame(x)
-
-    if (is.null(variable)) {
-      varnames <- names(x)[sapply(x, is.numeric)]
-    } else {
-      if (is.numeric(variable)) {
-        varnames <- names(x)[variable]
-      } else {
-        varnames <- variable
-      }
-    }
+  # Determinar variables seleccionadas
+  if (is.null(variable)) {
+    varnames <- names(x)[sapply(x, is.numeric)]
+  } else if (is.numeric(variable)) {
+    varnames <- names(x)[variable]
+  } else if (is.character(variable)) {
+    varnames <- variable
   } else {
-    # Para vectores
-    if (grepl("\\$", var_name)) {
-      # Si es de tipo dataframe$columna
-      varnames <- sub(".*\\$", "", var_name)
-    } else {
-      # Si es un vector simple
-      varnames <- "variable"
-    }
-    x <- data.frame(x)
-    names(x) <- varnames
-    original_names <- varnames
+    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
   }
 
-  # Manejo de selección de variables
-  if (!is.null(variable)) {
-    if (is.numeric(variable)) {
-      if (!all(variable <= ncol(x))) {
-        stop("Selecci\u00f3n err\u00f3nea de variables")
-      }
-      varnames <- names(x)[variable]
-    } else if (is.character(variable)) {
-      if (!all(variable %in% names(x))) {
-        stop("El nombre de la variable no es v\u00e1lido")
-      }
-      varnames <- variable
-    } else {
-      stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
-    }
+  # Verificar que las columnas seleccionadas existen
+  if (!all(varnames %in% names(x))) {
+    stop("Alguna variable seleccionada no existe en el data.frame")
   }
 
-  # Manejo de pesos
+  # Subconjunto con las variables seleccionadas
+  x_sel <- x[, varnames, drop = FALSE]
+
+  # Manejo de pesos (si existen)
   if (!is.null(pesos)) {
-    if ((length(variable) | length(pesos)) > 1) {
-      stop("Para calcular la media a partir de la distribuci\u00f3n de frecuencias solo puedes seleccionar una variable y unos pesos")
+    if (length(varnames) > 1 || length(pesos) > 1) {
+      stop("Para el cálculo ponderado solo puedes seleccionar una variable y un vector de pesos")
     }
 
     if (is.character(pesos)) {
-      if (!pesos %in% names(x)) {
-        stop("El nombre de los pesos no es v\u00e1lido")
-      }
       pesos_name <- pesos
     } else if (is.numeric(pesos)) {
       pesos_name <- names(x)[pesos]
     } else {
-      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
+      stop("El argumento 'pesos' debe ser numérico o de tipo carácter")
+    }
+
+    if (!pesos_name %in% names(x)) {
+      stop("El nombre de los pesos no es válido")
     }
 
     if (pesos_name == varnames) {
-      stop("Has seleccionado la misma columna del dataframe para la variable y los pesos")
+      stop("No puedes usar la misma variable como dato y como peso")
     }
 
-    x <- x[, c(varnames, pesos_name), drop = FALSE]
-    varnames <- varnames[1]  # Conservar solo el nombre de la variable principal
+    x_sel <- data.frame(variable = x[[varnames]], pesos = x[[pesos_name]])
   }
 
   # Verificación de tipos numéricos
-  if (!all(sapply(x, is.numeric))) {
-    stop("No puede calcularse la media, alguna variable que has seleccionado no es cuantitativa")
+  if (!all(sapply(x_sel, is.numeric))) {
+    stop("No puede calcularse la media: alguna variable seleccionada no es cuantitativa")
   }
 
   # Cálculo de la media
   if (is.null(pesos)) {
-    result <- sapply(x, mean, na.rm = TRUE)
-    names(result) <- paste0("media_", names(x))
+    result <- sapply(x_sel, mean, na.rm = TRUE)
+    names(result) <- paste0("media_", names(x_sel))
   } else {
-    result <- sum(x[[1]] * x[[2]], na.rm = TRUE) / sum(x[[2]], na.rm = TRUE)
+    result <- sum(x_sel[[1]] * x_sel[[2]], na.rm = TRUE) / sum(x_sel[[2]], na.rm = TRUE)
     names(result) <- paste0("media_", varnames)
   }
 
