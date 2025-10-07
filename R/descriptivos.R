@@ -118,9 +118,6 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
   )
   resumen <- as.data.frame(resumen)
 
-  # Clase especial para impresión
-  class(resumen) <- c("resumen_descriptivos", class(resumen))
-
   # Exportar si se solicita
   if (exportar) {
     filename <- paste0("Descriptivos_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
@@ -137,11 +134,9 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
+  # Clase especial para impresión
+  class(resumen) <- c("resumen_descriptivos", class(resumen))
+
   return(resumen)
 }
 
-# Método de impresión
-print.resumen_descriptivos <- function(x, ...) {
-  # Redondear decimales y mostrar sin notación científica
-  print(format(round(x, 4), scientific = FALSE, nsmall = 4), quote = FALSE, ...)
-}

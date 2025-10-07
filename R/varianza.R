@@ -109,7 +109,7 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cua
   var_val <- sapply(x_sel, calcular_var)
   names(var_val) <- paste0("varianza_", names(x_sel))
 
-  class(var_val) <- c("resumen_descriptivos", class(var_val))
+  class(var_val) <- c("resumen", class(var_val))
 
   return(var_val)
 }
