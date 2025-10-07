@@ -44,29 +44,31 @@
 #' @export
 resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FALSE) {
 
+  # Guardar opciones originales para evitar notación científica
   old_options <- options()
   options(scipen = 999, digits = 15)
   on.exit(options(old_options), add = TRUE)
 
+  # Asegurar que x sea data.frame
   if (!is.data.frame(x)) x <- as.data.frame(x)
 
-  # Selección de variables
+  # Determinar variables seleccionadas
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
-  } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
-    varnames <- variable
   } else if (is.numeric(variable)) {
     if (any(variable > ncol(x))) stop("Selección errónea de variables")
     varnames <- names(x)[variable]
+  } else if (is.character(variable)) {
+    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
+    varnames <- variable
   } else stop("El argumento 'variable' debe ser numérico o carácter")
 
+  # Subconjunto de variables seleccionadas
   x_sel <- x[, varnames, drop = FALSE]
 
   # Manejo de pesos
   if (!is.null(pesos)) {
-    if (length(varnames) > 1 || length(pesos) > 1)
-      stop("Para cálculo ponderado solo una variable y un peso")
+    if (length(varnames) > 1 || length(pesos) > 1) stop("Para cálculo ponderado solo una variable y un peso")
     if (is.character(pesos)) {
       if (!pesos %in% names(x)) stop("Nombre de pesos no válido")
       pesos_col <- pesos
@@ -78,49 +80,63 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     varnames <- varnames[1]
   }
 
+  # Verificación numérica
   if (!all(sapply(x_sel, is.numeric))) stop("Alguna variable seleccionada no es cuantitativa")
 
-  # Lista para almacenar resultados por variable
-  lista_res <- list()
+  # Inicializar lista para cada medida
+  lista_medidas <- list()
 
-  for (v in varnames) {
-    y <- x_sel[[v]]
+  # Recorrer cada variable individualmente
+  for (var in seq_along(varnames)) {
+    col_data <- x_sel[, var, drop = FALSE]
 
-    media_val <- media(y)
-    var_val <- varianza(y)
-    desv_val <- desviacion(y)
-    coef_val <- coeficiente.variacion(y)
-    cuan <- cuantiles(y, cortes = c(0,0.25,0.5,0.75,1))
-    ric_val <- cuan[4,1] - cuan[2,1]  # cuartil3 - cuartil1
-    forma_val <- medidas.forma(y)
-    moda_val <- moda(y)
+    # Media
+    lista_medidas[[paste0("media_", varnames[var])]] <- media(col_data)
 
-    # Combinar en vector nombrado
-    vec <- c(
-      media = media_val,
-      minimo = cuan[1,1],
-      cuartil1 = cuan[2,1],
-      mediana = cuan[3,1],
-      cuartil3 = cuan[4,1],
-      maximo = cuan[5,1],
-      varianza = var_val,
-      desviacion_tipica = desv_val,
-      coef_variacion = coef_val,
-      RIC = ric_val,
-      asimetria = forma_val[1],
-      curtosis = forma_val[2]
-    )
+    # Cuantiles
+    cuant <- tryCatch({
+      cuantiles(col_data, cortes = c(0,0.25,0.5,0.75,1))
+    }, error = function(e) {
+      data.frame(matrix(NA, nrow=5, ncol=1))
+    })
+    rownames(cuant) <- c("mínimo","cuartil 1","mediana","cuartil 3","máximo")
+    colnames(cuant) <- paste0("cuantiles_", varnames[var])
+    lista_medidas[[paste0("cuantiles_", varnames[var])]] <- cuant
 
-    # Añadir modas
-    if (!is.null(moda_val)) {
-      names(moda_val) <- paste0("moda_", seq_along(moda_val))
-      vec <- c(vec, moda_val)
-    }
+    # Varianza
+    lista_medidas[[paste0("varianza_", varnames[var])]] <- varianza(col_data)
 
-    lista_res[[v]] <- vec
+    # Desviación típica
+    lista_medidas[[paste0("desviacion_", varnames[var])]] <- desviacion(col_data)
+
+    # Coeficiente de variación
+    lista_medidas[[paste0("coef_variacion_", varnames[var])]] <- coeficiente.variacion(col_data)
+
+    # RIC
+    q75 <- tryCatch(cuantiles(col_data, cortes = 0.75), error=function(e) NA)
+    q25 <- tryCatch(cuantiles(col_data, cortes = 0.25), error=function(e) NA)
+    ric_val <- q75 - q25
+    lista_medidas[[paste0("RIC_", varnames[var])]] <- ric_val
+
+    # Medidas de forma
+    forma <- tryCatch(medidas.forma(col_data), error=function(e) data.frame(asimetria=NA, curtosis=NA))
+    lista_medidas[[paste0("forma_", varnames[var])]] <- forma
+
+    # Moda
+    mod <- tryCatch(moda(col_data), error=function(e) NA)
+    lista_medidas[[paste0("moda_", varnames[var])]] <- mod
   }
 
-  resumen <- do.call(cbind, lista_res)
+  # Combinar todas las medidas en un data.frame
+  resumen <- do.call(cbind, lapply(lista_medidas, function(x) {
+    if (is.data.frame(x) || is.matrix(x)) {
+      x
+    } else {
+      as.data.frame(t(x))
+    }
+  }))
+
+  # Redondear
   resumen <- round(resumen, 4)
 
   # Exportar si se solicita
@@ -128,16 +144,14 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     filename <- paste0("Descriptivos_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
     wb <- openxlsx::createWorkbook()
     openxlsx::addWorksheet(wb, "Descriptivos")
-    resumen_export <- cbind('Estadístico' = rownames(resumen), resumen)
-    rownames(resumen_export) <- NULL
+    resumen_export <- cbind('Estadístico' = row.names(resumen), resumen)
+    row.names(resumen_export) <- NULL
     openxlsx::writeData(wb, "Descriptivos", resumen_export)
-    openxlsx::addStyle(
-      wb, "Descriptivos",
-      style = openxlsx::createStyle(numFmt = "0.0000"),
-      rows = 2:(nrow(resumen_export)+1),
-      cols = 2:(ncol(resumen_export)+1),
-      gridExpand = TRUE
-    )
+    openxlsx::addStyle(wb, "Descriptivos",
+                       style = openxlsx::createStyle(numFmt = "0.0000"),
+                       rows = 2:(nrow(resumen_export) + 1),
+                       cols = 2:(ncol(resumen_export) + 1),
+                       gridExpand = TRUE)
     openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
