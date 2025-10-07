@@ -74,6 +74,10 @@ matriz.covar <- function(x,
   tipo <- tolower(tipo)
   tipo <- match.arg(tipo)
 
+  # --- Guardar opciones y desactivar notación científica temporalmente ---
+  old_opt <- options(scipen = 999)
+  on.exit(options(old_opt), add = TRUE)
+
   varnames <- as.character(names(x))
   x <- data.frame(x)
   names(x) <- varnames
@@ -127,14 +131,17 @@ matriz.covar <- function(x,
   # --- Asegurar simetría numérica ---
   matriz_covar[lower.tri(matriz_covar)] <- t(matriz_covar)[lower.tri(matriz_covar)]
 
-  # --- Redondear y convertir a carácter para evitar notación científica ---
-  matriz_covar <- format(round(matriz_covar, 4), scientific = FALSE)
+  # --- Redondear valores numéricos ---
+  matriz_covar <- round(matriz_covar, 4)
 
   # --- Exportar ---
   if (exportar) {
     filename <- paste0("Matriz_de_covarianzas_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".xlsx")
     rio::export(matriz_covar, rowNames = TRUE, file = filename)
   }
+
+  # --- Imprimir sin notación científica ---
+  print(matriz_covar)
 
   return(matriz_covar)
 }
