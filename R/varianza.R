@@ -72,76 +72,42 @@
 #' @importFrom stats var
 #'
 #' @export
-varianza <- function(x,
-                     variable = NULL,
-                     pesos = NULL,
-                     tipo = c("muestral", "cuasi")) {
+varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi")) {
 
   tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
 
-  # --- Convertir a data.frame si no lo es ---
-  if (!is.data.frame(x)) x <- as.data.frame(x)
+  if (!is.data.frame(x)) x <- data.frame(x)
 
-  # --- Determinar variable principal ---
+  # --- Selección de variables ---
   if (is.null(variable)) {
-    numeric_vars <- names(x)[sapply(x, is.numeric)]
-    if (length(numeric_vars) == 0) stop("No hay variables numéricas en el dataframe")
-    variable <- numeric_vars[1]  # Tomamos la primera variable numérica
-  }
-
-  if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
-    main_varname <- variable[1]
-    x <- x[, variable[1], drop = FALSE]
+    varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.numeric(variable)) {
     if (any(variable > ncol(x))) stop("Selección errónea de variables")
-    main_varname <- names(x)[variable[1]]
-    x <- x[, variable[1], drop = FALSE]
+    varnames <- names(x)[variable]
+  } else if (is.character(variable)) {
+    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
+    varnames <- variable
   } else {
-    stop("El argumento 'variable' debe ser numérico o carácter")
+    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
   }
 
-  # --- Validar que la variable es numérica ---
-  if (!is.numeric(x[[1]])) stop("La variable seleccionada no es cuantitativa")
+  x_sel <- x[, varnames, drop = FALSE]
 
-  # --- Caso sin pesos ---
-  if (is.null(pesos)) {
-    n_eff <- sum(!is.na(x[[1]]))
-    if (n_eff < 2) {
-      var_val <- NA_real_
-    } else {
-      factor <- if (tipo == "muestral") (n_eff - 1) / n_eff else 1
-      var_val <- stats::var(x[[1]], na.rm = TRUE) * factor
-    }
-    var_val <- round(var_val, 4)
-    names(var_val) <- paste0("varianza_", main_varname)
-    return(var_val)
+  # --- Verificar numéricas ---
+  if (!all(sapply(x_sel, is.numeric))) {
+    stop("No puede calcularse la varianza: alguna variable seleccionada no es cuantitativa")
   }
 
-  # --- Caso con pesos ---
-  if (is.character(pesos)) {
-    if (!pesos %in% names(x)) stop("Nombre de pesos no válido")
-    pesos <- match(pesos, names(x))
+  # --- Calcular varianza para cada columna ---
+  calcular_var <- function(col) {
+    n_eff <- sum(!is.na(col))
+    if (n_eff < 2) return(NA_real_)
+    factor <- if (tipo == "muestral") (n_eff - 1) / n_eff else 1
+    round(stats::var(col, na.rm = TRUE) * factor, 4)
   }
 
-  x <- x[, c(1, pesos), drop = FALSE]
+  var_val <- sapply(x_sel, calcular_var)
+  names(var_val) <- paste0("varianza_", names(x_sel))
 
-  # Eliminar filas con NA
-  datos <- na.omit(x)
-  if (nrow(datos) < 2) return(setNames(NA_real_, paste0("varianza_", main_varname)))
-
-  # Media ponderada
-  media_pond <- sum(datos[[1]] * datos[[2]]) / sum(datos[[2]])
-  # Sumatorio ponderado
-  sum_cuad <- sum((datos[[1]] - media_pond)^2 * datos[[2]])
-
-  if (tipo == "muestral") {
-    var_val <- sum_cuad / sum(datos[[2]])
-  } else {
-    var_val <- sum_cuad / (sum(datos[[2]]) - 1)
-  }
-
-  var_val <- round(var_val, 4)
-  names(var_val) <- paste0("varianza_", main_varname)
   return(var_val)
 }

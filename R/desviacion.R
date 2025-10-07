@@ -71,66 +71,76 @@
 #' @importFrom stats sd na.omit
 #'
 #' @export
-desviacion <- function(x,
-                       variable = NULL,
-                       pesos = NULL,
-                       tipo = c("muestral","cuasi")) {
+desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi")) {
 
   tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
 
-  # --- Convertir a data.frame ---
-  if (!is.data.frame(x)) x <- as.data.frame(x)
+  # --- Asegurar data.frame ---
+  if (!is.data.frame(x)) x <- data.frame(x)
 
-  # --- Selección de la variable ---
+  # --- Selección de variables ---
   if (is.null(variable)) {
-    numeric_vars <- names(x)[sapply(x, is.numeric)]
-    if (length(numeric_vars) == 0) stop("No hay variables numéricas en el dataframe")
-    variable <- numeric_vars[1]
-  }
-
-  if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
-    main_varname <- variable[1]
-    x <- x[, variable[1], drop = FALSE]
+    varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.numeric(variable)) {
     if (any(variable > ncol(x))) stop("Selección errónea de variables")
-    main_varname <- names(x)[variable[1]]
-    x <- x[, variable[1], drop = FALSE]
+    varnames <- names(x)[variable]
+  } else if (is.character(variable)) {
+    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
+    varnames <- variable
   } else {
-    stop("El argumento 'variable' debe ser numérico o carácter")
+    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
   }
 
-  if (!is.numeric(x[[1]])) stop("La variable seleccionada no es cuantitativa")
+  x_sel <- x[, varnames, drop = FALSE]
 
-  # --- Caso sin pesos ---
+  # --- Verificar que sean numéricas ---
+  if (!all(sapply(x_sel, is.numeric))) {
+    stop("No puede calcularse la desviación: alguna variable no es cuantitativa")
+  }
+
+  # --- Si no hay pesos, calculamos desviación simple ---
   if (is.null(pesos)) {
-    n_eff <- sum(!is.na(x[[1]]))
-    if (n_eff < 2) {
-      desv_val <- NA_real_
-    } else {
+    calcular_desv <- function(col) {
+      n_eff <- sum(!is.na(col))
+      if (n_eff < 2) return(NA_real_)
       factor <- if (tipo == "muestral") sqrt((n_eff - 1) / n_eff) else 1
-      desv_val <- stats::sd(x[[1]], na.rm = TRUE) * factor
+      round(sqrt(stats::var(col, na.rm = TRUE)) * factor, 4)
     }
-    desv_val <- round(desv_val, 4)
-    names(desv_val) <- paste0("desviacion_", main_varname)
+
+    desv_val <- sapply(x_sel, calcular_desv)
+    names(desv_val) <- paste0("desviacion_", names(x_sel))
+
     return(desv_val)
   }
 
-  # --- Caso con pesos ---
-  if (is.character(pesos)) {
-    if (!pesos %in% names(x)) stop("Nombre de pesos no válido")
-    pesos <- match(pesos, names(x))
+  # --- Si hay pesos ---
+  if (length(pesos) != 1 || length(varnames) != 1) {
+    stop("Para desviación ponderada solo puedes seleccionar una variable y un vector de pesos")
   }
 
-  x <- x[, c(1, pesos), drop = FALSE]
-  datos <- na.omit(x)
-  if (nrow(datos) < 2) return(setNames(NA_real_, paste0("desviacion_", main_varname)))
+  # Determinar la columna de pesos
+  if (is.character(pesos)) {
+    if (!pesos %in% names(x)) stop("Nombre de pesos no válido")
+    pesos_col <- x[[pesos]]
+  } else if (is.numeric(pesos)) {
+    if (pesos > ncol(x)) stop("Índice de pesos inválido")
+    pesos_col <- x[[pesos]]
+  } else {
+    stop("El argumento 'pesos' debe ser numérico o de tipo carácter")
+  }
 
-  media_pond <- sum(datos[[1]] * datos[[2]]) / sum(datos[[2]])
-  sum_cuad <- sum((datos[[1]] - media_pond)^2 * datos[[2]])
+  datos <- na.omit(data.frame(variable = x_sel[[1]], pesos = pesos_col))
+  media_pond <- sum(datos$variable * datos$pesos) / sum(datos$pesos)
+  sum_cuad <- sum((datos$variable - media_pond)^2 * datos$pesos)
 
-  desv_val <- if (tipo == "muestral") sqrt(sum_cuad / sum(datos[[2]])) else sqrt(sum_cuad / (sum(datos[[2]]) - 1))
+  desv_val <- if (tipo == "muestral") {
+    sqrt(sum_cuad / sum(datos$pesos))
+  } else {
+    sqrt(sum_cuad / (sum(datos$pesos) - 1))
+  }
+
   desv_val <- round(desv_val, 4)
-  names(desv_val) <- paste0("desviacion_", main_varname)
+  names(desv_val) <- paste0("desviacion_", varnames[1])
+
   return(desv_val)
 }
