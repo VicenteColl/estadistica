@@ -44,106 +44,111 @@
 #' @export
 resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FALSE) {
 
-  # --- Opciones para evitar notación científica ---
+  # Guardar opciones originales y evitar notación científica
   old_options <- options()
   options(scipen = 999, digits = 15)
   on.exit(options(old_options), add = TRUE)
 
-  # --- Asegurar data.frame ---
+  # Convertir a data.frame
   if (!is.data.frame(x)) x <- as.data.frame(x)
 
-  # --- Selección de variables ---
+  # Selección de variables
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
+    if (!all(variable %in% names(x))) stop("El nombre de variable no es válido")
     varnames <- variable
   } else if (is.numeric(variable)) {
     if (any(variable > ncol(x))) stop("Selección errónea de variables")
     varnames <- names(x)[variable]
   } else stop("El argumento 'variable' debe ser numérico o carácter")
 
-  # --- Subconjunto ---
   x_sel <- x[, varnames, drop = FALSE]
 
-  # --- Manejo de pesos ---
+  # Manejo de pesos
   if (!is.null(pesos)) {
     if (length(varnames) > 1 || length(pesos) > 1)
-      stop("Para cálculo ponderado solo una variable y un peso")
+      stop("Para cálculo ponderado solo se permite una variable y un peso")
 
     if (is.character(pesos)) {
       if (!pesos %in% names(x)) stop("Nombre de pesos no válido")
-      pesos_name <- pesos
+      pesos_col <- pesos
     } else if (is.numeric(pesos)) {
-      pesos_name <- names(x)[pesos]
+      pesos_col <- names(x)[pesos]
     }
 
-    if (pesos_name == varnames) stop("No puedes usar la misma variable como dato y peso")
-    x_sel <- data.frame(variable = x[[varnames]], pesos = x[[pesos_name]])
+    if (pesos_col == varnames) stop("No puedes usar la misma variable como dato y peso")
+    x_sel <- data.frame(variable = x[[varnames]], pesos = x[[pesos_col]])
     varnames <- varnames[1]
   }
 
-  # --- Comprobación numérica ---
   if (!all(sapply(x_sel, is.numeric))) stop("Alguna variable seleccionada no es cuantitativa")
 
-  # --- Función auxiliar para medidas por variable ---
-  calcular_medidas <- function(vec, pesos = NULL) {
-    df <- data.frame()
-
-    # Media
-    df["media", 1] <- if (is.null(pesos)) mean(vec, na.rm = TRUE) else sum(vec * pesos) / sum(pesos)
-
-    # Cuantiles
-    qs <- c(0, 0.25, 0.5, 0.75, 1)
-    df[c("mínimo", "cuartil 1", "mediana", "cuartil 3", "máximo"), 1] <-
-      as.numeric(quantile(vec, probs = qs, na.rm = TRUE, names = FALSE))
-
-    # Varianza
-    n_eff <- sum(!is.na(vec))
-    factor <- if (is.null(pesos)) (n_eff - 1)/n_eff else 1
-    var_val <- if (is.null(pesos)) var(vec, na.rm = TRUE) * factor else sum(pesos * (vec - mean(vec * pesos/sum(pesos)))^2)/sum(pesos)
-    df["varianza", 1] <- var_val
-
-    # Desviación típica
-    df["desviación típica", 1] <- sqrt(var_val)
-
-    # Coeficiente de variación
-    df["coef.variación", 1] <- df["desviación típica", 1] / df["media", 1]
-
-    # Rango intercuartílico
-    df["RIC", 1] <- df["cuartil 3", 1] - df["cuartil 1", 1]
-
-    # Medidas de forma
-    desv <- df["desviación típica", 1]
-    momento3 <- mean((vec - df["media", 1])^3, na.rm = TRUE)
-    momento4 <- mean((vec - df["media", 1])^4, na.rm = TRUE)
-    df["asimetría", 1] <- momento3 / (desv^3)
-    df["curtosis", 1] <- momento4 / (desv^4) - 3
-
-    # Moda
-    modas <- names(sort(table(vec), decreasing = TRUE))[1]
-    for (i in seq_along(modas)) {
-      df[paste0("moda_", i), 1] <- as.numeric(modas[i])
-    }
-
-    return(df)
+  # --- Cálculo de medidas ---
+  if (is.null(pesos)) {
+    valor_media <- media(x_sel) %>% t() %>% as.data.frame()
+    valor_cuartiles <- cuantiles(x_sel, cortes = c(0, 0.25, 0.5, 0.75, 1))
+    valor_varianza <- varianza(x_sel) %>% t() %>% as.data.frame()
+    valor_desviacion <- desviacion(x_sel) %>% t() %>% as.data.frame()
+    valor_coef_variacion <- coeficiente.variacion(x_sel) %>% t() %>% as.data.frame()
+    ric <- cuantiles(x_sel, cortes = 0.75) - cuantiles(x_sel, cortes = 0.25)
+    valor_forma <- medidas.forma(x_sel) %>% as.data.frame()
+  } else {
+    valor_media <- media(x_sel, variable = 1, pesos = 2) %>% as.data.frame()
+    valor_cuartiles <- cuantiles(x_sel, variable = 1, pesos = 2, cortes = c(0, 0.25, 0.5, 0.75, 1))
+    valor_varianza <- varianza(x_sel, variable = 1, pesos = 2) %>% as.data.frame()
+    valor_desviacion <- desviacion(x_sel, variable = 1, pesos = 2) %>% as.data.frame()
+    valor_coef_variacion <- coeficiente.variacion(x_sel, variable = 1, pesos = 2) %>% as.data.frame()
+    ric <- cuantiles(x_sel, variable = 1, pesos = 2, cortes = 0.75) -
+      cuantiles(x_sel, variable = 1, pesos = 2, cortes = 0.25)
+    valor_forma <- medidas.forma(x_sel, variable = 1, pesos = 2)
   }
 
-  # --- Calcular medidas para cada variable ---
-  resultados <- lapply(varnames, function(v) {
-    if (!is.null(pesos)) {
-      calcular_medidas(x_sel$variable, x_sel$pesos)
+  # --- Calcular modas robustamente ---
+  modas_lista <- lapply(varnames, function(v) {
+    moda(x_sel, variable = v)
+  })
+  max_modas <- max(sapply(modas_lista, nrow))
+  modas_completas <- lapply(modas_lista, function(m) {
+    if (is.na(m)[1]) {
+      rep(NA, max_modas)
     } else {
-      calcular_medidas(x_sel[[v]])
+      valores <- as.numeric(m[,1])
+      length(valores) <- max_modas
+      return(valores)
     }
   })
+  modas_df <- as.data.frame(modas_completas)
+  colnames(modas_df) <- varnames
+  row.names(modas_df) <- paste0("moda_", seq_len(max_modas))
 
-  # --- Combinar en un solo data.frame ---
-  resumen <- do.call(cbind, resultados)
-  colnames(resumen) <- varnames
-  resumen <- round(resumen, 4)
+  # --- Ensamblar resumen ---
+  resumen_sin_moda <- rbind(
+    valor_media,
+    valor_cuartiles,
+    valor_varianza,
+    valor_desviacion,
+    valor_coef_variacion,
+    ric,
+    valor_forma
+  )
+  resumen <- rbind(resumen_sin_moda, modas_df)
 
-  # --- Exportar a Excel ---
+  # Redondear y evitar notación científica
+  resumen[] <- lapply(resumen, function(x) as.numeric(format(round(x, 4), scientific = FALSE)))
+
+  # Asignar nombres de filas
+  num_modas <- max_modas
+  row.names(resumen)[1:(nrow(resumen)-num_modas)] <- c(
+    "media", "mínimo", "cuartil 1", "mediana", "cuartil 3", "máximo",
+    "varianza", "desviación típica", "coef.variación", "RIC",
+    "asimetría", "curtosis"
+  )
+
+  # Mostrar resultados
+  print(resumen)
+
+  # Exportar si se solicita
   if (exportar) {
     filename <- paste0("Descriptivos_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
     wb <- openxlsx::createWorkbook()
@@ -151,15 +156,13 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     resumen_export <- cbind('Estadístico' = row.names(resumen), resumen)
     row.names(resumen_export) <- NULL
     openxlsx::writeData(wb, "Descriptivos", resumen_export)
-    openxlsx::addStyle(
-      wb, "Descriptivos",
-      style = openxlsx::createStyle(numFmt = "0.0000"),
-      rows = 2:(nrow(resumen_export) + 1),
-      cols = 2:(ncol(resumen_export) + 1),
-      gridExpand = TRUE
-    )
+    openxlsx::addStyle(wb, "Descriptivos",
+                       style = openxlsx::createStyle(numFmt = "0.0000"),
+                       rows = 2:(nrow(resumen_export) + 1),
+                       cols = 2:(ncol(resumen_export) + 1),
+                       gridExpand = TRUE)
     openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
-  return(resumen)
+  invisible(resumen)
 }
