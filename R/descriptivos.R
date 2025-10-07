@@ -85,7 +85,7 @@ resumen.descriptivos <- function(x,
       if (!pesos %in% names(x)) stop("El nombre de los pesos no es v\u00e1lido")
       pesos_name <- pesos
     } else if (is.numeric(pesos)) {
-      if (pesos > ncol(x)) stop("Selecci\u00f3n err\i00f3nea de pesos")
+      if (pesos > ncol(x)) stop("Selecci\u00f3n err\u00f3nea de pesos")
       pesos_name <- names(x)[pesos]
     } else {
       stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
