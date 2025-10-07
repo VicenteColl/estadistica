@@ -68,65 +68,48 @@
 #' @export
 matriz.covar <- function(x,
                          variable = NULL,
-                         tipo = c("muestral", "cuasi"),
-                         exportar = FALSE) {
+                         tipo = c("muestral","cuasi"),
+                         exportar = FALSE){
 
-  tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
+  tipo <- tolower(tipo)
+  tipo <- match.arg(tipo)
 
-  # --- Configuracion temporal para evitar notacion cientifica ---
-  old_options <- options()
-  options(scipen = 999, digits = 15)
-  on.exit(options(old_options), add = TRUE)
+  varnames <- as.character(names(x))
+  x <- data.frame(x)
+  names(x) <- varnames
 
-  # --- Normalizar entrada ---
-  if (!is.data.frame(x)) {
-    var_name <- deparse(substitute(x))
-    if (is.vector(x)) {
-      x <- data.frame(x)
-      names(x) <- if (grepl("\\$", var_name)) sub(".*\\$", "", var_name) else "variable"
-    } else {
-      stop("El argumento x debe ser un data.frame o una lista de variables num\u00e9ricas.")
-    }
-  }
-
-  varnames <- names(x)
-
-  # --- Seleccion de variables ---
+  # --- Selección de variables ---
   if (is.null(variable)) {
-    varcuan <- names(x)[sapply(x, is.numeric)]
-    if (length(varcuan) == 0) stop("No hay variables num\u00e9ricas para calcular la matriz.")
-    x <- x[, varcuan, drop = FALSE]
+    varcuan <- names(x[unlist(lapply(x, is.numeric))])
+    seleccion <- match(varcuan, varnames)
+    x <- x[seleccion]
     varnames <- varcuan
   } else {
     if (is.numeric(variable)) {
-      if (!all(variable <= ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables.")
-      x <- x[, variable, drop = FALSE]
-    } else if (is.character(variable)) {
-      if (!all(variable %in% varnames)) stop("El nombre de alguna variable no es v\u00e1lido.")
-      x <- x[, variable, drop = FALSE]
-    } else {
-      stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter.")
+      if (!all(variable <= length(x))) stop("Selección errónea de variables")
     }
+    if (is.character(variable)) {
+      if (all(variable %in% varnames)) {
+        variable <- match(variable, varnames)
+      } else stop("El nombre de la variable no es válido")
+    }
+    x <- x[, variable, drop = FALSE]
     varnames <- names(x)
   }
 
-  # --- Verificar tipo de variables ---
-  if (!all(sapply(x, is.numeric))) {
-    stop("No puede calcularse la matriz de varianzas-covarianzas: alguna variable no es cuantitativa.")
+  # --- Comprobación de tipo de variables ---
+  clase <- sapply(x, class)
+  if (!all(clase %in% c("numeric","integer"))) {
+    stop("No puede calcularse la matriz de varianzas-covarianzas: alguna variable no es cuantitativa")
   }
 
-  # --- Eliminar filas con NA en cualquiera de las variables ---
-  x <- na.omit(x)
-  n_eff <- nrow(x)
-  if (n_eff < 2) stop("No hay suficientes observaciones completas para calcular la matriz.")
-
-  # --- Preparar matriz vaca i---
+  # --- Preparar matriz vacía ---
   k <- ncol(x)
   matriz_covar <- matrix(NA, nrow = k, ncol = k)
   colnames(matriz_covar) <- varnames
   rownames(matriz_covar) <- varnames
 
-  # --- Rellenar matriz con funciones personalizadas ---
+  # --- Rellenar matriz ---
   for (i in seq_len(k)) {
     for (j in seq_len(k)) {
       if (i == j) {
@@ -141,15 +124,15 @@ matriz.covar <- function(x,
     }
   }
 
-  # --- Asegurar simetria ---
+  # --- Asegurar simetría numérica ---
   matriz_covar[lower.tri(matriz_covar)] <- t(matriz_covar)[lower.tri(matriz_covar)]
-  matriz_covar <- round(matriz_covar, 4)
 
-  # --- Exportar si se solicita ---
+  # --- Redondear y convertir a carácter para evitar notación científica ---
+  matriz_covar <- format(round(matriz_covar, 4), scientific = FALSE)
+
+  # --- Exportar ---
   if (exportar) {
-    filename <- paste0("Matriz_de_covarianzas_",
-                       format(Sys.time(), "%Y-%m-%d_%H-%M-%S"),
-                       ".xlsx")
+    filename <- paste0("Matriz_de_covarianzas_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".xlsx")
     rio::export(matriz_covar, rowNames = TRUE, file = filename)
   }
 
