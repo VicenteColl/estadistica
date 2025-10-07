@@ -63,7 +63,9 @@
 #' @import dplyr
 #'
 #' @export
-media <- function(x, variable = NULL, pesos = NULL) {
+media <- function(x,
+                  variable = NULL,
+                  pesos = NULL) {
 
   # Si es un vector, convertirlo a data.frame
   if (!is.data.frame(x)) {
@@ -78,7 +80,7 @@ media <- function(x, variable = NULL, pesos = NULL) {
   } else if (is.character(variable)) {
     varnames <- variable
   } else {
-    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
+    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
   }
 
   # Verificar que las columnas seleccionadas existen
@@ -92,7 +94,7 @@ media <- function(x, variable = NULL, pesos = NULL) {
   # Manejo de pesos (si existen)
   if (!is.null(pesos)) {
     if (length(varnames) > 1 || length(pesos) > 1) {
-      stop("Para el cálculo ponderado solo puedes seleccionar una variable y un vector de pesos")
+      stop("Para el cl\u00e1culo ponderado solo puedes seleccionar una variable y un vector de pesos")
     }
 
     if (is.character(pesos)) {
@@ -100,11 +102,11 @@ media <- function(x, variable = NULL, pesos = NULL) {
     } else if (is.numeric(pesos)) {
       pesos_name <- names(x)[pesos]
     } else {
-      stop("El argumento 'pesos' debe ser numérico o de tipo carácter")
+      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
     }
 
     if (!pesos_name %in% names(x)) {
-      stop("El nombre de los pesos no es válido")
+      stop("El nombre de los pesos no es v\u00e1lido")
     }
 
     if (pesos_name == varnames) {
@@ -114,12 +116,12 @@ media <- function(x, variable = NULL, pesos = NULL) {
     x_sel <- data.frame(variable = x[[varnames]], pesos = x[[pesos_name]])
   }
 
-  # Verificación de tipos numéricos
+  # Comprobacion tipo de variable
   if (!all(sapply(x_sel, is.numeric))) {
     stop("No puede calcularse la media: alguna variable seleccionada no es cuantitativa")
   }
 
-  # Cálculo de la media
+  # Calculo de la media
   if (is.null(pesos)) {
     result <- sapply(x_sel, mean, na.rm = TRUE)
     names(result) <- paste0("media_", names(x_sel))

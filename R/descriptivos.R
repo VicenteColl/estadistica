@@ -42,7 +42,11 @@
 #' @import dplyr openxlsx
 #'
 #' @export
-resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FALSE) {
+resumen.descriptivos <- function(x,
+                                 variable = NULL,
+                                 pesos = NULL,
+                                 exportar = FALSE) {
+
   # Guardar opciones originales
   old_options <- options()
   options(scipen = 999, digits = 15)
@@ -56,17 +60,17 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
   # Determinar nombres originales
   original_names <- names(x)
 
-  # --- Selección de variable(s) ---
+  # --- Seleccion de variable(s) ---
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selección errónea de variables")
+    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     varnames <- names(x)[variable]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("El nombre de la variable no es válido")
+    if (!all(variable %in% names(x))) stop("El nombre de la variable no es v\u00e1lido")
     varnames <- variable
   } else {
-    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
+    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
   }
 
   # Subconjunto con las variables seleccionadas
@@ -75,16 +79,16 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
   # --- Manejo de pesos ---
   if (!is.null(pesos)) {
     if (length(varnames) > 1 || length(pesos) > 1)
-      stop("Para el cálculo ponderado solo puedes seleccionar una variable y unos pesos")
+      stop("Para el c\u00e1lculo ponderado solo puedes seleccionar una variable y unos pesos")
 
     if (is.character(pesos)) {
-      if (!pesos %in% names(x)) stop("El nombre de los pesos no es válido")
+      if (!pesos %in% names(x)) stop("El nombre de los pesos no es v\u00e1lido")
       pesos_name <- pesos
     } else if (is.numeric(pesos)) {
-      if (pesos > ncol(x)) stop("Selección errónea de pesos")
+      if (pesos > ncol(x)) stop("Selecci\u00f3n err\i00f3nea de pesos")
       pesos_name <- names(x)[pesos]
     } else {
-      stop("El argumento 'pesos' debe ser numérico o de tipo carácter")
+      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
     }
 
     if (pesos_name == varnames)
@@ -94,12 +98,12 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     varnames <- varnames[1]
   }
 
-  # --- Verificación de tipo numérico ---
+  # --- Comprobacion tipo de variable ---
   if (!all(sapply(x_sel, is.numeric))) {
     stop("No pueden calcularse las medidas de forma, alguna variable que has seleccionado no es cuantitativa")
   }
 
-  # --- Cálculos principales ---
+  # --- Principales medidas ---
   if (is.null(pesos)) {
     valor_media <- media(x_sel) %>% t() %>% as.data.frame()
     valor_cuartiles <- cuantiles(x_sel, cortes = c(0, 0.25, 0.5, 0.75, 1))
@@ -146,7 +150,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     "asimetría", "curtosis", paste("moda_", 1:num_modas, sep = "")
   )
 
-  # Mostrar resultados (si existe función auxiliar)
+  # Mostrar resultados (si existe funci\u00f3#n auxiliar)
   if (exists(".mostrar_lista_resultados")) {
     .mostrar_lista_resultados(resumen, "Resumen de estadísticos descriptivos")
   } else {
