@@ -131,5 +131,9 @@ mediana <- function(x, variable = NULL, pesos = NULL) {
   # Calcular medianas simples
   result <- sapply(x, .mediana.int)
   names(result) <- paste0("mediana_", names(x))
-  return(round(result, 4))
+
+  class(result) <- c("resumen", class(result))
+
+
+  return(result)
 }

@@ -4,6 +4,6 @@
 #' @param ... Argumentos adicionales
 #' @export
 print.resumen <- function(x, ...) {
-  # Mostrar sin notación científica, con 4 decimales
+  # Mostrar sin notacion cientifica, con 4 decimales
   print(format(round(x, 4), scientific = FALSE, nsmall = 4), quote = FALSE, ...)
 }

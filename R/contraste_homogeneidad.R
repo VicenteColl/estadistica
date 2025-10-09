@@ -5,9 +5,9 @@
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
 #' @usage contraste_homogeneidad(x,
-#'    introducir = FALSE,
-#'    alfa = 0.05,
-#'    grafico = FALSE)
+#'                               introducir = FALSE,
+#'                               alfa = 0.05,
+#'                               grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser una matriz o un dataframe. Debe contener sólo 2 columnas.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de muestras, sobre el número de categorías de la variable poblacional, el nombre de cada categoría de la variable o de cada muestra en la posición de fila y el nombre de la categoría de la variable o de cada muestra en la posición de columna. A continuación se abrirá una ventana con un editor de datos y deberá introducir los valores de las frecuencias observadas de la tabla de contingencia.
@@ -75,14 +75,14 @@ contraste_homogeneidad <- function(x,
   if (introducir == TRUE) {
 
     # Caso cuando el usuario quiere introducir los datos manualmente
-    nfilas <- as.numeric(readline(prompt = "Introduce el número de categorías de la primera variable: "))
-    ncolumnas <- as.numeric(readline(prompt = "Introduce el número de categorías de la segunda variable: "))
+    nfilas <- as.numeric(readline(prompt = "Introduce el n\u00f1mero de categor\u00edas de la primera variable: "))
+    ncolumnas <- as.numeric(readline(prompt = "Introduce el n\u00f1mero de categor\u00f1as de la segunda variable: "))
 
     nombre_filas <- nombre_columnas <- c()
 
     # Introducir nombres de las filas
     for (j in 1:nfilas) {
-      nombre_filas <- c(nombre_filas, readline(prompt = paste("Introduce el nombre de la fila número ", j, ": ", sep = "")))
+      nombre_filas <- c(nombre_filas, readline(prompt = paste("Introduce el nombre de la fila n\u00f1mero ", j, ": ", sep = "")))
     }
 
     # Introducir nombres de las columnas
@@ -90,7 +90,7 @@ contraste_homogeneidad <- function(x,
       nombre_columnas <- c(nombre_columnas, readline(prompt = paste("Introduce el nombre de la columna número ", k, ": ", sep = "")))
     }
 
-    # Crear la matriz vacía
+    # Crear la matriz vacia
     x <- matrix(0, ncol = ncolumnas, nrow = nfilas)
     rownames(x) <- nombre_filas
     colnames(x) <- nombre_columnas
@@ -110,19 +110,19 @@ contraste_homogeneidad <- function(x,
     cat("Las columnas disponibles en el data frame son:\n")
     print(colnames(x))
 
-    # Función auxiliar para seleccionar columnas por nombre o posición
+    # Funcion auxiliar para seleccionar columnas por nombre o posicion
     seleccionar_columna <- function(prompt_msg) {
       seleccion <- readline(prompt = prompt_msg)
 
-      # Verificar si el usuario ingresó un número (posición) o un nombre (texto)
+      # Verificar si el usuario ingreso un numero (posicion) o un nombre (texto)
       if (suppressWarnings(!is.na(as.numeric(seleccion)))) {
         seleccion <- as.numeric(seleccion)
         if (seleccion < 1 || seleccion > ncol(x)) {
-          stop("La posición seleccionada está fuera del rango de las columnas disponibles.")
+          stop("La posici/u00f3n seleccionada está fuera del rango de las columnas disponibles.")
         }
         return(seleccion)
       } else {
-        # Selección por nombre
+        # Seleccion por nombre
         if (!seleccion %in% colnames(x)) {
           stop("El nombre de columna introducido no existe.")
         }
@@ -130,9 +130,9 @@ contraste_homogeneidad <- function(x,
       }
     }
 
-    # Selección de las columnas
-    col1 <- seleccionar_columna("Selecciona la primera variable (por nombre o posición): ")
-    col2 <- seleccionar_columna("Selecciona la segunda variable (por nombre o posición): ")
+    # Seleccion de las columnas
+    col1 <- seleccionar_columna("Selecciona la primera variable (por nombre o posici\u00f3n): ")
+    col2 <- seleccionar_columna("Selecciona la segunda variable (por nombre o posici\u00f3n): ")
 
     # Verificar que las variables seleccionadas son factores o caracteres
     if (!(is.factor(x[[col1]]) || is.character(x[[col1]])) ||
@@ -214,29 +214,29 @@ contraste_homogeneidad <- function(x,
     estadistico.prueba <- sum(((matriz_obs - matriz_esp) ^ 2)  / matriz_esp)
   } else {
     estadistico.prueba <- sum(((abs(matriz_obs - matriz_esp) - 0.5) ^ 2)  / matriz_esp)
-    warning('Se ha aplicado la corrección de Yates')
+    warning('Se ha aplicado la correcci\u00f3n de Yates')
   }
 
   valor_critico <- qchisq(alfa, g.l, lower.tail = FALSE)
 
   if (estadistico.prueba < valor_critico) {
-    print(paste("No se rechaza la hipótesis nula. El valor del estadístico de contraste: ",
+    print(paste("No se rechaza la hip\u00f3tesis nula. El valor del estad\u00edstico de contraste: ",
                 round(estadistico.prueba, 2),
-                ", se encuentra dentro de la región de aceptación [0, ",
+                ", se encuentra dentro de la regi\u00f3n de aceptación [0, ",
                 round(valor_critico, 2), "]", sep=""))
   } else {
-    print(paste("Se rechaza la hipótesis nula. El valor del estadístico de contraste: ",
+    print(paste("Se rechaza la hip\u00f3tesis nula. El valor del estad\u00edstico de contraste: ",
                 round(estadistico.prueba, 2),
-                ", se encuentra fuera de la región de aceptación [0, ",
+                ", se encuentra fuera de la regi\u00f3n de aceptaci\u00f3n [0, ",
                 round(valor_critico, 2), "]", sep=""))
   }
 
   pvalor <- pchisq(estadistico.prueba, g.l, lower.tail = FALSE)
 
-  H0 <- "Las variables son homogéneas"
+  H0 <- "Las variables son homog\u00e9neas"
   CH <- cbind(H0, estadistico.prueba, round(pvalor, 4))
   CH <- as.data.frame(CH)
-  names(CH) <- c("Hipótesis nula", "estadístico de prueba", "p-valor")
+  names(CH) <- c("Hip\u00f3esis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
   if (isTRUE(grafico)) {

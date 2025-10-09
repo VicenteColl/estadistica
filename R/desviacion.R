@@ -8,9 +8,9 @@
 #' \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 #'
 #' @usage desviacion(x,
-#'          variable = NULL,
-#'          pesos = NULL,
-#'          tipo = c("muestral","cuasi"))
+#'                   variable = NULL,
+#'                   pesos = NULL,
+#'                   tipo = c("muestral","cuasi"))
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
@@ -78,27 +78,27 @@ desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "c
   # --- Asegurar data.frame ---
   if (!is.data.frame(x)) x <- data.frame(x)
 
-  # --- Selección de variables ---
+  # --- Seleccion de variables ---
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selección errónea de variables")
+    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     varnames <- names(x)[variable]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
+    if (!all(variable %in% names(x))) stop("Nombre de variable no v\u00e1lido")
     varnames <- variable
   } else {
-    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
+    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
   }
 
   x_sel <- x[, varnames, drop = FALSE]
 
-  # --- Verificar que sean numéricas ---
+  # --- Comprobar tipo de variables ---
   if (!all(sapply(x_sel, is.numeric))) {
-    stop("No puede calcularse la desviación: alguna variable no es cuantitativa")
+    stop("No puede calcularse la desviaci\u00f3n: alguna variable no es cuantitativa")
   }
 
-  # --- Si no hay pesos, calculamos desviación simple ---
+  # --- Si no hay pesos, calculamos desviacion simple ---
   if (is.null(pesos)) {
     calcular_desv <- function(col) {
       n_eff <- sum(!is.na(col))
@@ -115,18 +115,18 @@ desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "c
 
   # --- Si hay pesos ---
   if (length(pesos) != 1 || length(varnames) != 1) {
-    stop("Para desviación ponderada solo puedes seleccionar una variable y un vector de pesos")
+    stop("Para desviaci\u00f3n ponderada solo puedes seleccionar una variable y un vector de pesos")
   }
 
   # Determinar la columna de pesos
   if (is.character(pesos)) {
-    if (!pesos %in% names(x)) stop("Nombre de pesos no válido")
+    if (!pesos %in% names(x)) stop("Nombre de pesos no v\u00e1lido")
     pesos_col <- x[[pesos]]
   } else if (is.numeric(pesos)) {
-    if (pesos > ncol(x)) stop("Índice de pesos inválido")
+    if (pesos > ncol(x)) stop("Indice de pesos inv\u00e1lido")
     pesos_col <- x[[pesos]]
   } else {
-    stop("El argumento 'pesos' debe ser numérico o de tipo carácter")
+    stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
   }
 
   datos <- na.omit(data.frame(variable = x_sel[[1]], pesos = pesos_col))
@@ -141,6 +141,8 @@ desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "c
 
   desv_val <- round(desv_val, 4)
   names(desv_val) <- paste0("desviacion_", varnames[1])
+
+  class(desv_val) <- c("resumen", class(desv_val))
 
   return(desv_val)
 }

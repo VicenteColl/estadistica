@@ -130,5 +130,8 @@ media <- function(x,
     names(result) <- paste0("media_", varnames)
   }
 
-  return(round(result, 4))
+  class(result) <- c("resumen", class(result))
+
+
+  return(result)
 }

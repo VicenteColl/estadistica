@@ -5,10 +5,10 @@
 #' Lee el código QR para video-tutorial 6666sobre el uso de la función con un ejemplo.
 #'
 #' @usage contraste_bondad_cat(x,
-#'                  introducir = FALSE,
-#'                  distribucion = "equiprobable",
-#'                  alfa = 0.05,
-#'                  grafico = FALSE)
+#'                             introducir = FALSE,
+#'                             distribucion = "equiprobable",
+#'                             alfa = 0.05,
+#'                             grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe. En caso de haber más de una variable, el programa preguntará por la variable a seleccionar (por nombre o por posición) que debe ser un factor o carácter.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de categorías de la variable, el nombre de cada categoría. A continuación se abrirá una ventana con un editor de datos y deberá introducir los valores de las frecuencias observadas.
@@ -76,16 +76,16 @@ contraste_bondad_cat <- function(x,
     if (introducir == TRUE) {
 
       # Caso cuando el usuario quiere introducir los datos manualmente
-      nfilas <- as.numeric(readline(prompt = "Introduce el número de categorías de la variable: "))
+      nfilas <- as.numeric(readline(prompt = "Introduce el n\u00famero de categor\u00edas de la variable: "))
 
       nombre_filas <- c()
 
       # Introducir nombres de las filas
       for (j in 1:nfilas) {
-        nombre_filas <- c(nombre_filas, readline(prompt = paste("Introduce el nombre de la categoría número ", j, ": ", sep = "")))
+        nombre_filas <- c(nombre_filas, readline(prompt = paste("Introduce el nombre de la categor\u00eda n\u00famero ", j, ": ", sep = "")))
       }
 
-      # Crear la matriz vacía
+      # Crear la matriz vacia
       x <- matrix(0, ncol = 1, nrow = nfilas)
       rownames(x) <- nombre_filas
       colnames(x) <- "Frecuencias observadas"
@@ -105,7 +105,7 @@ contraste_bondad_cat <- function(x,
       cat("Las columnas disponibles en el data frame son:\n")
       print(colnames(x))
 
-      # Funcon auxiliar para seleccionar columna por nombre o posicion
+      # Funcion auxiliar para seleccionar columna por nombre o posicion
       seleccionar_columna <- function(prompt_msg) {
         seleccion <- readline(prompt = prompt_msg)
 
@@ -180,16 +180,16 @@ contraste_bondad_cat <- function(x,
     frecuencias_observadas <- as.numeric(matriz_obs)
     categorias <- length(frecuencias_observadas)
 
-    # Verificar y calcular las frecuencias esperadas según la distribucio*6n
+    # Verificar y calcular las frecuencias esperadas segun la distribucion
     if (is.character(distribucion) && distribucion == "equiprobable") {
       # Caso de distribucion equiprobable
       frecuencias_esperadas <- rep(sum(frecuencias_observadas) / categorias, categorias)
       cat("Se ha asumido una distribuci\u00f3n equiprobable.\n")
 
     } else if (is.numeric(distribucion)) {
-      # Verificar que la longitud de la distribucio3n sea igual al número de categorías
+      # Verificar que la longitud de la distribucion sea igual al numero de categorias
       if (length(distribucion) != categorias) {
-        stop("El vector de distribuci\u00f3n debe tener la misma longitud que el número de categorías.")
+        stop("El vector de distribuci\u00f3n debe tener la misma longitud que el n\u00famero de categor\u00edas.")
       }
 
       # Verificar que la suma de los valores de la distribucion sea 1 o 100% (con tolerancia)
@@ -208,7 +208,7 @@ contraste_bondad_cat <- function(x,
       cat("Se ha utilizado la distribuci\u00f3n proporcionada por el usuario.\n")
 
     } else {
-      stop("El argumento 'distribucion' debe ser 'equiprobable' o un vector numérico.")
+      stop("El argumento 'distribucion' debe ser 'equiprobable' o un vector num\u00e9rico.")
     }
 
 
@@ -216,7 +216,7 @@ contraste_bondad_cat <- function(x,
     cat("Frecuencias esperadas:\n")
     print(frecuencias_esperadas)
 
-    # Añadir las frecuencias esperadas como una nueva columna en la matriz
+    # Introducir las frecuencias esperadas como una nueva columna en la matriz
     matriz_completa <- cbind(Freq_obs = frecuencias_observadas, Freq_esp = frecuencias_esperadas)
     matriz_completa <- as.data.frame(matriz_completa)
     rownames(matriz_completa) <- row.names(matriz_obs)

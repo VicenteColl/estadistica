@@ -5,10 +5,10 @@
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
 #' @usage contraste_bondad(x,
-#'                  distribucion = "equiprobable",
-#'                  parametro = FALSE,
-#'                  alfa = 0.05,
-#'                  grafico = FALSE)
+#'                         distribucion = "equiprobable",
+#'                         parametro = FALSE,
+#'                         alfa = 0.05,
+#'                         grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de filas (se abrirá una ventana con un editor de datos y deberá introducir los valores de la variable poblacional y las frecuencias observadas), valor del parámetro poblacional, etc.
@@ -101,7 +101,7 @@ contraste_bondad <- function(x,
 
     } else {
 
-      stop("x debe ser un vector de números")
+      stop("x debe ser un vector de n\u00fameros")
 
     } # Fin de is.numeric
 
@@ -189,7 +189,7 @@ contraste_bondad <- function(x,
 
   } else {
 
-    stop("No has introducido una distribución de probabilidad disponible")
+    stop("No has introducido una distribuci\u00f3n de probabilidad disponible")
 
   } # Fin de estimacion de parametros de distribucion
 
@@ -207,7 +207,7 @@ contraste_bondad <- function(x,
   if (sum(matriz$Freq_esp) != suma_freq_obs) {
     diferencia <- suma_freq_obs - sum(matriz$Freq_esp)
 
-    # Ajustar la última categoría
+    # Ajustar la ultima categoria
     matriz$Freq_esp[nrow(matriz)] <- matriz$Freq_esp[nrow(matriz)] + diferencia
 
     # Opcional: advertir al usuario del ajuste

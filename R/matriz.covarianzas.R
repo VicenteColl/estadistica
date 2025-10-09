@@ -8,9 +8,9 @@
 #' \if{latex}{\figure{qrcovarianza.png}{options: width=3cm}}
 #'
 #' @usage matriz.covar(x,
-#'               variable = NULL,
-#'               tipo = c("muestral","cuasi"),
-#'               exportar = FALSE)
+#'                     variable = NULL,
+#'                     tipo = c("muestral","cuasi"),
+#'                     exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
@@ -78,7 +78,7 @@ matriz.covar <- function(x,
   x <- data.frame(x)
   names(x) <- varnames
 
-  # --- Selección de variables ---
+  # --- Seleccion de variables ---
   if (is.null(variable)) {
     varcuan <- names(x[unlist(lapply(x, is.numeric))])
     seleccion <- match(varcuan, varnames)
@@ -86,24 +86,24 @@ matriz.covar <- function(x,
     varnames <- varcuan
   } else {
     if (is.numeric(variable)) {
-      if (!all(variable <= length(x))) stop("Selección errónea de variables")
+      if (!all(variable <= length(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     }
     if (is.character(variable)) {
       if (all(variable %in% varnames)) {
         variable <- match(variable, varnames)
-      } else stop("El nombre de la variable no es válido")
+      } else stop("El nombre de la variable no es v\u00e1lido")
     }
     x <- x[, variable, drop = FALSE]
     varnames <- names(x)
   }
 
-  # --- Comprobación de tipo de variables ---
+  # --- Comprobacion de tipo de variables ---
   clase <- sapply(x, class)
   if (!all(clase %in% c("numeric","integer"))) {
     stop("No puede calcularse la matriz de varianzas-covarianzas: alguna variable no es cuantitativa")
   }
 
-  # --- Preparar matriz vacía ---
+  # --- Preparar matriz vacia ---
   k <- ncol(x)
   matriz_covar <- matrix(NA, nrow = k, ncol = k)
   colnames(matriz_covar) <- varnames
@@ -124,7 +124,7 @@ matriz.covar <- function(x,
     }
   }
 
-  # --- Asegurar simetría numérica ---
+  # --- Asegurar simetria numerica ---
   matriz_covar[lower.tri(matriz_covar)] <- t(matriz_covar)[lower.tri(matriz_covar)]
 
   # --- Redondear valores ---
@@ -136,6 +136,9 @@ matriz.covar <- function(x,
     rio::export(matriz_covar, rowNames = TRUE, file = filename)
   }
 
-  # --- Devolver matriz numérica ---
+  # --- Devolver matriz numerica ---
+
+  class(matriz_covar) <- c("resumen", class(matriz_covar))
+
   return(matriz_covar)
 }

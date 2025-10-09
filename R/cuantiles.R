@@ -70,17 +70,17 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
   if (!is.data.frame(x)) x <- as.data.frame(x)
   original_names <- names(x)
 
-  # --- Selección de variables ---
+  # --- Seleccion de variables ---
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selección errónea de variables")
+    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     varnames <- names(x)[variable]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("El nombre de la variable no es válido")
+    if (!all(variable %in% names(x))) stop("El nombre de la variable no es v\u00e1lido")
     varnames <- variable
   } else {
-    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
+    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
   }
 
   x_sel <- x[, varnames, drop = FALSE]
@@ -91,13 +91,13 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
       stop("Para calcular cuantiles ponderados solo puedes seleccionar una variable y un peso")
 
     if (is.character(pesos)) {
-      if (!pesos %in% names(x)) stop("El nombre de los pesos no es válido")
+      if (!pesos %in% names(x)) stop("El nombre de los pesos no es v\u00e1lido")
       pesos_name <- pesos
     } else if (is.numeric(pesos)) {
-      if (any(pesos > ncol(x))) stop("Selección errónea de pesos")
+      if (any(pesos > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de pesos")
       pesos_name <- names(x)[pesos]
     } else {
-      stop("El argumento 'pesos' debe ser numérico o de tipo carácter")
+      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
     }
 
     if (pesos_name == varnames)
@@ -107,14 +107,14 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
     varnames <- varnames[1]
   }
 
-  # --- Verificación numérica ---
+  # --- Comprobar tipo de variables ---
   if (!all(sapply(x_sel, is.numeric))) {
     stop("No puede calcularse la media, alguna variable seleccionada no es cuantitativa")
   }
 
   cortes <- sort(cortes)
 
-  # --- Función interna para cuantiles ---
+  # --- Funcion interna para cuantiles ---
   calcular_cuantiles <- function(col, pesos = NULL, cortes) {
     if (all(is.na(col))) {
       return(rep(NA_real_, length(cortes)))
@@ -163,6 +163,8 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
                        gridExpand = TRUE)
     openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   }
+
+  class(cuantiles_df) <- c("resumen", class(cuantiles_df))
 
   return(cuantiles_df)
 }

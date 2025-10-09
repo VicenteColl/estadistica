@@ -78,22 +78,22 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cua
 
   if (!is.data.frame(x)) x <- data.frame(x)
 
-  # --- Selección de variables ---
+  # --- Seleccion de variables ---
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selección errónea de variables")
+    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     varnames <- names(x)[variable]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
+    if (!all(variable %in% names(x))) stop("Nombre de variable no v\u00e1lido")
     varnames <- variable
   } else {
-    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
+    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
   }
 
   x_sel <- x[, varnames, drop = FALSE]
 
-  # --- Verificar numéricas ---
+  # --- Comprobar tipo de variables ---
   if (!all(sapply(x_sel, is.numeric))) {
     stop("No puede calcularse la varianza: alguna variable seleccionada no es cuantitativa")
   }

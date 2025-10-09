@@ -5,9 +5,9 @@
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
 #' @usage contraste_independencia(x,
-#'    introducir = FALSE,
-#'    alfa = 0.05,
-#'    grafico = FALSE)
+#'                                introducir = FALSE,
+#'                                alfa = 0.05,
+#'                                grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser una matriz o un dataframe. Debe contener sólo 2 columnas.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de categorías de cada una de las variables, el nombre de cada categoría de la variable fila y de la variable columna. A continuación se abrirá una ventana con un editor de datos y deberá introducir los valores de las frecuencias observadas de la tabla de contingencia.
@@ -91,7 +91,7 @@ contraste_independencia <- function(x,
       nombre_columnas <- c(nombre_columnas, readline(prompt = paste("Introduce el nombre de la columna n\u00famero ", k, ": ", sep = "")))
     }
 
-    # Crear la matriz vacía
+    # Crear la matriz vacia
     x <- matrix(0, ncol = ncolumnas, nrow = nfilas)
     rownames(x) <- nombre_filas
     colnames(x) <- nombre_columnas
@@ -111,11 +111,11 @@ contraste_independencia <- function(x,
     cat("Las columnas disponibles en el data frame son:\n")
     print(colnames(x))
 
-    # Función auxiliar para seleccionar columnas por nombre o posicio3n
+    # Funcion auxiliar para seleccionar columnas por nombre o posicion
     seleccionar_columna <- function(prompt_msg) {
       seleccion <- readline(prompt = prompt_msg)
 
-      # Verificar si el usuario ingreso un número (posicion) o un nombre (texto)
+      # Verificar si el usuario ingreso un numero (posicion) o un nombre (texto)
       if (suppressWarnings(!is.na(as.numeric(seleccion)))) {
         seleccion <- as.numeric(seleccion)
         if (seleccion < 1 || seleccion > ncol(x)) {
@@ -131,7 +131,7 @@ contraste_independencia <- function(x,
       }
     }
 
-    # Selección de las columnas
+    # Seleccion de las columnas
     col1 <- seleccionar_columna("Selecciona la primera variable (por nombre o posici\u00f3n): ")
     col2 <- seleccionar_columna("Selecciona la segunda variable (por nombre o posici\u00f3n): ")
 
@@ -237,7 +237,7 @@ contraste_independencia <- function(x,
   H0 <- "Las variables son independientes"
   CH <- cbind(H0, estadistico.prueba, round(pvalor, 4))
   CH <- as.data.frame(CH)
-  names(CH) <- c("Hipótesis nula", "estadístico de prueba", "p-valor")
+  names(CH) <- c("Hipótesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
   if (isTRUE(grafico)) {

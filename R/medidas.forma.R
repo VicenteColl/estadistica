@@ -283,6 +283,9 @@ medidas.forma <- function(x,
     saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
+  class(forma) <- c("resumen", class(forma))
+
+
   return(forma)
 
 }

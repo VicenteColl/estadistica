@@ -8,9 +8,9 @@
 #' \if{latex}{\figure{qrcovarianza.png}{options: width=3cm}}
 #'
 #' @usage covarianza(x,
-#' variable = NULL,
-#' pesos = NULL,
-#' tipo = c("muestral","cuasi"))
+#'                   variable = NULL,
+#'                   pesos = NULL,
+#'                   tipo = c("muestral","cuasi"))
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
@@ -96,7 +96,7 @@ covarianza <- function(x,
       if (!all(variable %in% varnames)) stop("Nombre de variable no v\u00e1lido.")
       x <- x[, variable, drop = FALSE]
     } else {
-      stop("El argumento 'variable' debe ser numérico o de tipo car\u00e1cter.")
+      stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter.")
     }
   }
 
@@ -104,7 +104,7 @@ covarianza <- function(x,
   varnames <- names(x)
   if (length(varnames) != 2) stop("Debes proporcionar exactamente dos variables cuantitativas.")
 
-  # --- Comprobación de tipos ---
+  # --- Comprobacion tipo de variable ---
   if (!all(sapply(x, is.numeric))) {
     stop("No puede calcularse la covarianza: alguna variable seleccionada no es cuantitativa.")
   }
@@ -165,6 +165,8 @@ covarianza <- function(x,
 
   result <- round(as.numeric(cov_val), 4)
   names(result) <- paste0("covarianza_", varnames[1], "_", varnames[2])
+
+  class(result) <- c("resumen", class(result))
 
   return(result)
 }

@@ -7,7 +7,9 @@
 #' \if{html}{\figure{qrcorrelacion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrcorrelacion.png}{options: width=3cm}}
 #'
-#' @usage correlacion(x, variable = NULL, pesos=NULL)
+#' @usage correlacion(x,
+#'                    variable = NULL,
+#'                    pesos=NULL)
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
@@ -168,6 +170,8 @@ correlacion <- function(x, variable = NULL, pesos=NULL){
   correlacion <- as.numeric(correlacion) %>% round(4)
   names(correlacion) <- paste("correlacion_",varnames[1],"_",varnames[2],sep="")
   row.names(correlacion) <- NULL
+
+  class(correlacion) <- c("resumen", class(correlacion))
 
   return(correlacion)
 
