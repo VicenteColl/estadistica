@@ -6,9 +6,9 @@
 \title{Coeficiente de variación.}
 \usage{
 coeficiente.variacion(x,
-          variable = NULL,
-          pesos = NULL,
-          tipo = c("muestral","cuasi"))
+                             variable = NULL,
+                             pesos = NULL,
+                             tipo = c("muestral","cuasi"))
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
