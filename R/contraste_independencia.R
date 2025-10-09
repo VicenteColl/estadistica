@@ -63,9 +63,8 @@
 #'
 #' @importFrom utils edit
 #' @import dplyr ggplot2
-  #'
-  #' @export
-
+#'
+#' @export
 contraste_independencia <- function(x,
                                     introducir = FALSE,
                                     alfa = 0.05,
@@ -163,7 +162,7 @@ contraste_independencia <- function(x,
     print(levels(data_frame_obs[[2]]))
 
     # Preguntar al usuario si desea reordenar los niveles de la primera variable
-    respuesta_reordenar_1 <- readline(prompt = "¿Quieres reordenar los niveles de la primera variable? \n 1. \"Si\" \n 2. \"No\" \n")
+    respuesta_reordenar_1 <- readline(prompt = "\u00bfQuieres reordenar los niveles de la primera variable? \n 1. \"Si\" \n 2. \"No\" \n")
 
     if (respuesta_reordenar_1 == "1") {
       # Reordenar niveles de la primera variable
@@ -173,7 +172,7 @@ contraste_independencia <- function(x,
     }
 
     # Preguntar al usuario si desea reordenar los niveles de la segunda variable
-    respuesta_reordenar_2 <- readline(prompt = "¿Quieres reordenar los niveles de la segunda variable? \n 1. \"Si\" \n 2. \"No\" \n")
+    respuesta_reordenar_2 <- readline(prompt = "\u00bfQuieres reordenar los niveles de la segunda variable? \n 1. \"Si\" \n 2. \"No\" \n")
 
     if (respuesta_reordenar_2 == "1") {
       # Reordenar niveles de la segunda variable
@@ -187,7 +186,7 @@ contraste_independencia <- function(x,
     print(matriz_obs)
 
     # Confirmar la matriz observada
-    respuesta <- readline(prompt = '¿Es esta la matriz de datos observados? \n 1. "Si" \n 2. "No" \n')
+    respuesta <- readline(prompt = '\u00bfEs esta la matriz de datos observados? \n 1. "Si" \n 2. "No" \n')
 
     if (respuesta == "2") {
       cat("Introduce o modifica la matriz de datos observados:\n")
@@ -195,13 +194,13 @@ contraste_independencia <- function(x,
       print(matriz_obs)
 
     } else if (respuesta == "1") {
-      cat("¡Perfecto! Seguimos con estos datos.\n")
+      cat("\u00A1Perfecto! Seguimos con estos datos.\n")
     } else {
       stop("El comando introducido no es correcto.")
     }
   }
 
-  # Continuar con el análisis como antes...
+  # Continuar con el analisis como antes...
   n <- sum(matriz_obs)
   mar_x <- apply(matriz_obs, 1, sum)
   mar_y <- apply(matriz_obs, 2, sum)
@@ -237,7 +236,7 @@ contraste_independencia <- function(x,
   H0 <- "Las variables son independientes"
   CH <- cbind(H0, estadistico.prueba, round(pvalor, 4))
   CH <- as.data.frame(CH)
-  names(CH) <- c("Hipótesis nula", "estad\u00edstico de prueba", "p-valor")
+  names(CH) <- c("Hip\u00f3tesis nula", "estad\u00edstico de prueba", "p-valor")
   row.names(CH) <- NULL
 
   if (isTRUE(grafico)) {
@@ -252,7 +251,7 @@ contraste_independencia <- function(x,
       geom_area(data = subset(data, x < valor_critico), fill = "#008B8B") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "#A52A2A", linetype = "dashed", size = 1) +
-      labs(title = paste("Distribución Chi-Cuadrado con ", g.l, " grados de libertad", sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n Chi-Cuadrado con ", g.l, " grados de libertad", sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
       scale_x_continuous(breaks = round(c(0L, estadistico.prueba, valor_critico), 2)) +
       theme(axis.text.x = element_text(angle = 45))

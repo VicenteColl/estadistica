@@ -75,7 +75,7 @@
 #' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 #'
 #' @importFrom stats pnorm qnorm pt qt na.omit dt
-#' @import dplyr ggplot2 grid
+#' @import dplyr ggplot2 cowplot
 #'
 #' @export
 ic.media <- function(x,
@@ -376,8 +376,8 @@ if(isFALSE(introducir)) {
 
 
 
-    plot <- grid::grid.draw(rbind(ggplotGrob(plot11), ggplotGrob(plot12), size = "first"))
-
+    # plot <- grid::grid.draw(rbind(ggplotGrob(plot11), ggplotGrob(plot12), size = "first"))
+    plot <- cowplot::plot_grid(plot11, plot12, ncol = 1)
 
   } else if(poblacion == "desconocida" & var_pob == "conocida" & n<30) {
 

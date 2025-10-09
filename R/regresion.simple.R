@@ -86,16 +86,13 @@
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' @examples
-#'
-#' ## Not run:
+#' \dontrun{
 #' ejemplo_regresion <- regresion.simple(turistas,
 #' var_depen=2,var_indepen=3,grafico=TRUE)
-#' ## End(Not run)
-#'
+#' }
 #' @importFrom stats cor
-#' @importFrom gridExtra grid.arrange
-#' @importFrom gridExtra arrangeGrob
-#' @import dplyr knitr ggplot2
+#' @importFrom utils capture.output
+#' @import dplyr knitr ggplot2 cowplot
 #'
 #' @export
 regresion.simple <- function(x,
@@ -526,7 +523,9 @@ regresion.simple <- function(x,
         theme(legend.position = "none")
 
       #plot <- gridExtra::grid.arrange(plot1,plot12,plot21,plot22, ncol=2, nrow=2)
-      plot <- gridExtra::grid.arrange(plot1,gridExtra::arrangeGrob(plot21,plot22), ncol=2)
+      #plot <- gridExtra::grid.arrange(plot1,gridExtra::arrangeGrob(plot21,plot22), ncol=2)
+      left_plot <- cowplot::plot_grid(plot21, plot22, ncol = 1)  # los apila verticalmente
+      plot <- cowplot::plot_grid(plot1, left_plot, ncol = 2)
 
     }
 

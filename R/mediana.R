@@ -56,84 +56,55 @@
 #' @export
 mediana <- function(x, variable = NULL, pesos = NULL) {
 
-  # Capturar el nombre original si es un vector
   var_name <- deparse(substitute(x))
 
-  # Manejo de nombres para diferentes tipos de entrada
-  if (is.data.frame(x) || is.list(x)) {
-    # Para data.frames/listas
-    original_names <- names(x)
-    x <- as.data.frame(x)
+  # Convertir a data.frame
+  if (!is.data.frame(x)) x <- as.data.frame(x)
 
-    if (is.null(variable)) {
-      varnames <- names(x)[sapply(x, is.numeric)]
-    } else {
-      if (is.numeric(variable)) {
-        varnames <- names(x)[variable]
-      } else {
-        varnames <- variable
-      }
-    }
+  # --- Selecci\u00f3n de variables ---
+  if (is.null(variable)) {
+    varnames <- names(x)[sapply(x, is.numeric)]
+  } else if (is.numeric(variable)) {
+    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
+    varnames <- names(x)[variable]
+  } else if (is.character(variable)) {
+    if (!all(variable %in% names(x))) stop("Nombre de variable no v\u00e1lido")
+    varnames <- variable
   } else {
-    # Para vectores
-    if (grepl("\\$", var_name)) {
-      # Si es de tipo dataframe$columna
-      varnames <- sub(".*\\$", "", var_name)
-    } else {
-      # Si es un vector simple
-      varnames <- "variable"
-    }
-    x <- data.frame(x)
-    names(x) <- varnames
-    original_names <- varnames
+    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
   }
 
-  # Seleccion de variables
-  if(!is.null(variable)) {
-    if(is.character(variable)) {
-      if(!all(variable %in% names(x))) stop("Nombre de variable no v\u00e1lido")
-      x <- x[, variable, drop = FALSE]
-    } else if(is.numeric(variable)) {
-      if(any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
-      x <- x[, variable, drop = FALSE]
-    } else {
-      stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
-    }
-  } else {
-    # Seleccionar solo columnas numericas si no se especifica variable
-    x <- x[, sapply(x, is.numeric), drop = FALSE]
-    if(ncol(x) == 0) stop("No hay variables numéricas para calcular la mediana")
-  }
+  # Subconjunto de variables seleccionadas
+  x_sel <- x[, varnames, drop = FALSE]
 
-  # Manejo de pesos
-  if(!is.null(pesos)) {
-    if(ncol(x) > 1) stop("Solo puedes seleccionar una variable con pesos")
+  # --- Manejo de pesos ---
+  if (!is.null(pesos)) {
+    if (length(varnames) > 1)
+      stop("Solo puedes seleccionar una variable con pesos")
 
-    if(is.character(pesos)) {
-      if(!pesos %in% names(x)) stop("Nombre de pesos no v\u00e1lido")
-       pesos_col <- pesos
-    } else if(is.numeric(pesos)) {
-      if(pesos > ncol(x)) stop("Selecci\u00f3n de pesos no v\u00e1lida")
+    # Buscar columna de pesos en el data.frame original, no en x_sel
+    if (is.character(pesos)) {
+      if (!pesos %in% names(x)) stop("Nombre de pesos no v\u00e1lido")
+      pesos_col <- pesos
+    } else if (is.numeric(pesos)) {
+      if (pesos > ncol(x)) stop("Selecci\u00f3n de pesos no v\u00e1lida")
       pesos_col <- names(x)[pesos]
     } else {
       stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
     }
 
-    # Calcular mediana ponderada
-    datos <- na.omit(x)
-    if(nrow(datos) == 0) return(NA)
+    datos <- na.omit(data.frame(variable = x[[varnames]], pesos = x[[pesos_col]]))
+    if (nrow(datos) == 0) return(NA_real_)
 
-    result <- .mediana.int(datos[[1]], datos[[pesos_col]])
-    names(result) <- paste0("mediana_", names(x)[1])
+    result <- .mediana.int(datos$variable, datos$pesos)
+    names(result) <- paste0("mediana_", varnames)
     return(round(result, 4))
   }
 
-  # Calcular medianas simples
-  result <- sapply(x, .mediana.int)
-  names(result) <- paste0("mediana_", names(x))
+  # --- Mediana simple ---
+  result <- sapply(x_sel, .mediana.int)
+  names(result) <- paste0("mediana_", varnames)
 
   class(result) <- c("resumen", class(result))
-
-
   return(result)
 }

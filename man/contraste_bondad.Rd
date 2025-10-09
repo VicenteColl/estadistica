@@ -5,10 +5,11 @@
 \title{Contraste de hipótesis de bondad de ajuste para distribuciones discretas.}
 \usage{
 contraste_bondad(x,
-                 distribucion = "equiprobable",
-                 parametro = FALSE,
-                 alfa = 0.05,
-                 grafico = FALSE)
+                        introducir = FALSE,
+                        distribucion = "equiprobable",
+                        parametro = FALSE,
+                        alfa = 0.05,
+                        grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

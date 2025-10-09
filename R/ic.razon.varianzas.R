@@ -85,7 +85,7 @@
 #' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
 #'
 #' @importFrom stats pf qf df na.omit
-#' @import dplyr ggplot2 grid
+#' @import dplyr ggplot2 cowplot
 #'
 #' @export
 ic.razon.varianzas <- function(x,
@@ -287,7 +287,8 @@ if(isFALSE(introducir)) {
         labs(y="",x="Intervalo de confianza del cociente de varianzas") +
         tema_blanco
 
-      plot <- grid::grid.draw(rbind(ggplotGrob(plot1), ggplotGrob(plot2), size = "last"))
+      # plot <- grid::grid.draw(rbind(ggplotGrob(plot1), ggplotGrob(plot2), size = "last"))
+      plot <- cowplot::plot_grid(plot1, plot2, ncol = 1, align = "v", rel_heights = c(1, 1))
 
     }
 

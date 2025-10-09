@@ -5,10 +5,10 @@
 \title{Contraste de hipótesis de bondad de ajuste para datos categóricos.}
 \usage{
 contraste_bondad_cat(x,
-                 introducir = FALSE,
-                 distribucion = "equiprobable",
-                 alfa = 0.05,
-                 grafico = FALSE)
+                            introducir = FALSE,
+                            distribucion = "equiprobable",
+                            alfa = 0.05,
+                            grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe. En caso de haber más de una variable, el programa preguntará por la variable a seleccionar (por nombre o por posición) que debe ser un factor o carácter.}

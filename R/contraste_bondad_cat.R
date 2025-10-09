@@ -148,7 +148,7 @@ contraste_bondad_cat <- function(x,
       print(levels(data_frame_obs[[1]]))
 
       # Preguntar al usuario si desea reordenar los niveles de la variable
-      respuesta_reordenar <- readline(prompt = "¿Quieres reordenar los niveles de la variable? \n 1. \"Si\" \n 2. \"No\" \n")
+      respuesta_reordenar <- readline(prompt = "\u00bfQuieres reordenar los niveles de la variable? \n 1. \"Si\" \n 2. \"No\" \n")
 
       if (respuesta_reordenar == "1") {
         # Reordenar niveles de la variable
@@ -162,7 +162,7 @@ contraste_bondad_cat <- function(x,
       print(matriz_obs)
 
       # Confirmar la matriz observada
-      respuesta <- readline(prompt = '¿Es esta la matriz de datos observados? \n 1. "Si" \n 2. "No" \n')
+      respuesta <- readline(prompt = '\u00bfEs esta la matriz de datos observados? \n 1. "Si" \n 2. "No" \n')
 
       if (respuesta == "2") {
         cat("Introduce o modifica la matriz de datos observados:\n")
@@ -170,7 +170,7 @@ contraste_bondad_cat <- function(x,
         print(matriz_obs)
 
       } else if (respuesta == "1") {
-        cat("¡Perfecto! Seguimos con estos datos.\n")
+        cat("\u00A1Perfecto! Seguimos con estos datos.\n")
       } else {
         stop("El comando introducido no es correcto.")
       }
@@ -226,7 +226,7 @@ contraste_bondad_cat <- function(x,
     print(matriz_completa)
 
   if(sum(matriz_completa$Freq_esp < 5) > 0){
-    message("Aquí tienes la tabla recalcudada de frecuencias esperadas porque alguna de las frecuecias te\u00f3ricas era menor a 5. Para llevar a cabo el test es necesario reagrupar las categorías.")
+    message("Aqu\u00ed tienes la tabla recalcudada de frecuencias esperadas porque alguna de las frecuecias te\u00f3ricas era menor a 5. Para llevar a cabo el test es necesario reagrupar las categor\u00edas.")
     matriz_completa <- .check_min_obs(matriz_completa)
     print(matriz_completa)
   }

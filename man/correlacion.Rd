@@ -4,7 +4,9 @@
 \alias{correlacion}
 \title{Coeficiente de correlación.}
 \usage{
-correlacion(x, variable = NULL, pesos=NULL)
+correlacion(x,
+                   variable = NULL,
+                   pesos=NULL)
 }
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}

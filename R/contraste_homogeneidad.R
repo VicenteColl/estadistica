@@ -59,12 +59,10 @@
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
 #' Newbold, P, Carlson, W. y Thorne, B. (2019). Statistics for Business and Economics, Global Edition. Pearson. ISBN: 9781292315034
-
-  #' @importFrom utils edit
-  #' @import dplyr ggplot2
-  #'
-  #' @export
-
+#' @importFrom utils edit
+#' @import dplyr ggplot2
+#'
+#' @export
 contraste_homogeneidad <- function(x,
                                    introducir = FALSE,
                                    alfa = 0.05,
@@ -75,19 +73,19 @@ contraste_homogeneidad <- function(x,
   if (introducir == TRUE) {
 
     # Caso cuando el usuario quiere introducir los datos manualmente
-    nfilas <- as.numeric(readline(prompt = "Introduce el n\u00f1mero de categor\u00edas de la primera variable: "))
-    ncolumnas <- as.numeric(readline(prompt = "Introduce el n\u00f1mero de categor\u00f1as de la segunda variable: "))
+    nfilas <- as.numeric(readline(prompt = "Introduce el n\u00famero de categor\u00edas de la primera variable: "))
+    ncolumnas <- as.numeric(readline(prompt = "Introduce el n\u00famero de categor\u00f1as de la segunda variable: "))
 
     nombre_filas <- nombre_columnas <- c()
 
     # Introducir nombres de las filas
     for (j in 1:nfilas) {
-      nombre_filas <- c(nombre_filas, readline(prompt = paste("Introduce el nombre de la fila n\u00f1mero ", j, ": ", sep = "")))
+      nombre_filas <- c(nombre_filas, readline(prompt = paste("Introduce el nombre de la fila n\u00famero ", j, ": ", sep = "")))
     }
 
     # Introducir nombres de las columnas
     for (k in 1:ncolumnas) {
-      nombre_columnas <- c(nombre_columnas, readline(prompt = paste("Introduce el nombre de la columna número ", k, ": ", sep = "")))
+      nombre_columnas <- c(nombre_columnas, readline(prompt = paste("Introduce el nombre de la columna n\u00famero ", k, ": ", sep = "")))
     }
 
     # Crear la matriz vacia
@@ -118,7 +116,7 @@ contraste_homogeneidad <- function(x,
       if (suppressWarnings(!is.na(as.numeric(seleccion)))) {
         seleccion <- as.numeric(seleccion)
         if (seleccion < 1 || seleccion > ncol(x)) {
-          stop("La posici/u00f3n seleccionada está fuera del rango de las columnas disponibles.")
+          stop("La posici/u00f3n seleccionada est\u00e1 fuera del rango de las columnas disponibles.")
         }
         return(seleccion)
       } else {
@@ -162,7 +160,7 @@ contraste_homogeneidad <- function(x,
     print(levels(data_frame_obs[[2]]))
 
     # Preguntar al usuario si desea reordenar los niveles de la primera variable
-    respuesta_reordenar_1 <- readline(prompt = "¿Quieres reordenar los niveles de la primera variable? \n 1. \"Si\" \n 2. \"No\" \n")
+    respuesta_reordenar_1 <- readline(prompt = "\u00bfQuieres reordenar los niveles de la primera variable? \n 1. \"Si\" \n 2. \"No\" \n")
 
     if (respuesta_reordenar_1 == "1") {
       # Reordenar niveles de la primera variable
@@ -172,7 +170,7 @@ contraste_homogeneidad <- function(x,
     }
 
     # Preguntar al usuario si desea reordenar los niveles de la segunda variable
-    respuesta_reordenar_2 <- readline(prompt = "¿Quieres reordenar los niveles de la segunda variable? \n 1. \"Si\" \n 2. \"No\" \n")
+    respuesta_reordenar_2 <- readline(prompt = "\u00bfQuieres reordenar los niveles de la segunda variable? \n 1. \"Si\" \n 2. \"No\" \n")
 
     if (respuesta_reordenar_2 == "1") {
       # Reordenar niveles de la segunda variable
@@ -186,7 +184,7 @@ contraste_homogeneidad <- function(x,
     print(matriz_obs)
 
     # Confirmar la matriz observada
-    respuesta <- readline(prompt = '¿Es esta la matriz de datos observados? \n 1. "Si" \n 2. "No" \n')
+    respuesta <- readline(prompt = '\u00bfEs esta la matriz de datos observados? \n 1. "Si" \n 2. "No" \n')
 
     if (respuesta == "2") {
       cat("Introduce o modifica la matriz de datos observados:\n")
@@ -194,13 +192,13 @@ contraste_homogeneidad <- function(x,
       print(matriz_obs)
 
     } else if (respuesta == "1") {
-      cat("¡Perfecto! Seguimos con estos datos.\n")
+      cat("\u00A1Perfecto! Seguimos con estos datos.\n")
     } else {
       stop("El comando introducido no es correcto.")
     }
   }
 
-  # Continuar con el análisis como antes...
+  # Continuar con el analisis como antes...
   n <- sum(matriz_obs)
   mar_x <- apply(matriz_obs, 1, sum)
   mar_y <- apply(matriz_obs, 2, sum)
@@ -222,7 +220,7 @@ contraste_homogeneidad <- function(x,
   if (estadistico.prueba < valor_critico) {
     print(paste("No se rechaza la hip\u00f3tesis nula. El valor del estad\u00edstico de contraste: ",
                 round(estadistico.prueba, 2),
-                ", se encuentra dentro de la regi\u00f3n de aceptación [0, ",
+                ", se encuentra dentro de la regi\u00f3n de aceptaci\u00f3n [0, ",
                 round(valor_critico, 2), "]", sep=""))
   } else {
     print(paste("Se rechaza la hip\u00f3tesis nula. El valor del estad\u00edstico de contraste: ",
@@ -251,7 +249,7 @@ contraste_homogeneidad <- function(x,
       geom_area(data = subset(data, x < valor_critico), fill = "#008B8B") +
       geom_vline(xintercept = 0, color = "black") +
       geom_vline(xintercept = estadistico.prueba, color = "#A52A2A", linetype = "dashed", size = 1) +
-      labs(title = paste("Distribución Chi-Cuadrado con ", g.l, " grados de libertad", sep=""), x = "", y = "") +
+      labs(title = paste("Distribuci\u00f3n Chi-Cuadrado con ", g.l, " grados de libertad", sep=""), x = "", y = "") +
       scale_y_continuous(breaks = NULL) +
       scale_x_continuous(breaks = round(c(0L, estadistico.prueba, valor_critico), 2)) +
       theme(axis.text.x = element_text(angle = 45))

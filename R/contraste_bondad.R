@@ -5,6 +5,7 @@
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
 #' @usage contraste_bondad(x,
+#'                         introducir = FALSE,
 #'                         distribucion = "equiprobable",
 #'                         parametro = FALSE,
 #'                         alfa = 0.05,
@@ -84,7 +85,7 @@ contraste_bondad <- function(x,
       matriz <- data.frame("Valores" = unique(x),
                            "Freq_obs" = as.numeric(table(x)));print(matriz)
 
-      respuesta <- readline(prompt ='¿Estas son las frecuencias observadas? \n 1. "Si" \n 2. "No" \n')
+      respuesta <- readline(prompt ='\u00bfEstas son las frecuencias observadas? \n 1. "Si" \n 2. "No" \n')
 
       if (respuesta == "2"){
         print("Has marcado que estas no son las frecuencias, introduce o modifica lo que creas necesario.")
@@ -92,7 +93,7 @@ contraste_bondad <- function(x,
         matriz
 
       } else if (respuesta == "1"){
-        print("¡Perfecto! Seguimos con estos datos")
+        print("\u00A1Perfecto! Seguimos con estos datos")
 
       } else {
         stop("El comando introducido no es correcto")
@@ -107,7 +108,7 @@ contraste_bondad <- function(x,
 
   } else {
     # se introducen los datos manualmente
-    nfilas <- as.numeric(readline(prompt = "Intoduce el número de filas: "))
+    nfilas <- as.numeric(readline(prompt = "Intoduce el n\u00famero de filas: "))
 
     x <- matrix(0, nrow = nfilas, ncol=2)
 
@@ -195,7 +196,7 @@ contraste_bondad <- function(x,
 
   # reagrupar si frecuencias esperadas es menor a 5
   if(sum(matriz$Freq_esp < 5) > 0){
-    message("Aqu\u00ed tienes la tabla recalcudada de frecuencias esperadas porque alguna de las frecuecias te\u00f3ricas era menor a 5. Para llevar a cabo el test es necesario reagrupar las categorías.")
+    message("Aqu\u00ed tienes la tabla recalculkada de frecuencias esperadas porque alguna de las frecuencias te\u00f3ricas era menor a 5. Para llevar a cabo el test es necesario reagrupar las categor\u00edas.")
     matriz <- .check_min_obs(matriz)
     print(matriz)
   }
@@ -211,7 +212,7 @@ contraste_bondad <- function(x,
     matriz$Freq_esp[nrow(matriz)] <- matriz$Freq_esp[nrow(matriz)] + diferencia
 
     # Opcional: advertir al usuario del ajuste
-    message("Se ha ajustado la última categor\u00eda en ", diferencia, " para que las frecuencias esperadas sumen ", suma_freq_obs, ".")
+    message("Se ha ajustado la \u00faltima categor\u00eda en ", diferencia, " para que las frecuencias esperadas sumen ", suma_freq_obs, ".")
   }
 
 

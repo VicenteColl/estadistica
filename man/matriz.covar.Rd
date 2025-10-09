@@ -5,9 +5,9 @@
 \title{Matriz de varianzas y covarianzas.}
 \usage{
 matriz.covar(x,
-              variable = NULL,
-              tipo = c("muestral","cuasi"),
-              exportar = FALSE)
+                    variable = NULL,
+                    tipo = c("muestral","cuasi"),
+                    exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}

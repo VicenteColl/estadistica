@@ -76,13 +76,13 @@ coeficiente.variacion <- function(x,
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selección errónea de variables")
+    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     varnames <- names(x)[variable]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("El nombre de la variable no es válido")
+    if (!all(variable %in% names(x))) stop("El nombre de la variable no es v\u00e1lido")
     varnames <- variable
   } else {
-    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
+    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
   }
 
   # Subconjunto con las variables seleccionadas
@@ -91,16 +91,16 @@ coeficiente.variacion <- function(x,
   # --- Manejo de pesos ---
   if (!is.null(pesos)) {
     if (length(varnames) > 1 || length(pesos) > 1)
-      stop("Para el cálculo ponderado solo puedes seleccionar una variable y unos pesos")
+      stop("Para el c\u00e1lculo ponderado solo puedes seleccionar una variable y unos pesos")
 
     if (is.character(pesos)) {
-      if (!pesos %in% names(x)) stop("El nombre de los pesos no es válido")
+      if (!pesos %in% names(x)) stop("El nombre de los pesos no es v\u00e1lido")
       pesos_name <- pesos
     } else if (is.numeric(pesos)) {
-      if (any(pesos > ncol(x))) stop("Selección errónea de pesos")
+      if (any(pesos > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de pesos")
       pesos_name <- names(x)[pesos]
     } else {
-      stop("El argumento 'pesos' debe ser numérico o de tipo carácter")
+      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
     }
 
     if (pesos_name == varnames)
@@ -110,12 +110,12 @@ coeficiente.variacion <- function(x,
     varnames <- varnames[1]
   }
 
-  # --- Verificación de tipo numérico ---
+  # --- Comprobacion tipo de variable ---
   if (!all(sapply(x_sel, is.numeric))) {
-    stop("No puede calcularse el coeficiente de variación, alguna variable que has seleccionado no es cuantitativa")
+    stop("No puede calcularse el coeficiente de variaci\u00f3n, alguna variable que has seleccionado no es cuantitativa")
   }
 
-  # --- Cálculo del coeficiente de variación ---
+  # --- Calculo del coeficiente de variacion ---
   if (is.null(pesos)) {
     valor_media <- media(x_sel)
     valor_desviacion <- desviacion(x_sel, tipo = tipo)

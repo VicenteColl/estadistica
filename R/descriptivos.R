@@ -39,26 +39,26 @@
 #'
 #' descriptivos <- resumen.descriptivos(startup)
 #'
-#' @import dplyr openxlsx
+#' @import dplyr openxlsx e1071
 #'
 #' @export
 resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FALSE) {
   old_options <- options()
   on.exit(options(old_options), add = TRUE)
-  options(scipen = 999)  # evita notación científica al imprimir
+  options(scipen = 999)
 
   if (!is.data.frame(x)) x <- as.data.frame(x)
 
-  # Selección de variables
+  # Seleccion de variables
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("El nombre de variable no es válido")
+    if (!all(variable %in% names(x))) stop("El nombre de variable no es v\u00e1lido")
     varnames <- variable
   } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selección errónea de variables")
+    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     varnames <- names(x)[variable]
-  } else stop("El argumento 'variable' debe ser numérico o carácter")
+  } else stop("El argumento 'variable' debe ser num\u00e9rico o car\u00e1cter")
 
   x_sel <- x[, varnames, drop = FALSE]
 
@@ -73,10 +73,10 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
 
   if (!all(sapply(x_sel, is.numeric))) stop("Alguna variable seleccionada no es cuantitativa")
 
-  # --- Función para redondear ---
+  # --- Funcion para redondear ---
   redondear <- function(v) round(v, 4)
 
-  # --- Cálculos ---
+  # --- Calculos ---
   medias <- redondear(sapply(x_sel, mean, na.rm = TRUE))
   minimos <- redondear(sapply(x_sel, min, na.rm = TRUE))
   cuartiles <- t(sapply(x_sel, function(v) quantile(v, probs = c(0.25,0.5,0.75), na.rm = TRUE)))
@@ -134,7 +134,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
-  # Clase especial para impresión
+  # Clase especial para impresion
   class(resumen) <- c("resumen", class(resumen))
 
   return(resumen)
