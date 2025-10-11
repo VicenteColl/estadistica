@@ -130,8 +130,13 @@ media <- function(x,
     names(result) <- paste0("media_", varnames)
   }
 
-  class(result) <- c("resumen", class(result))
+  # --- Convertir a data.frame con una fila ---
+  media_df <- as.data.frame(t(result))
+  names(media_df) <- varnames
+
+  class(media_df) <- c("resumen", class(media_df))
 
 
-  return(result)
+  return(media_df)
+
 }

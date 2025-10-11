@@ -69,37 +69,32 @@
 matriz.covar <- function(x,
                          variable = NULL,
                          tipo = c("muestral","cuasi"),
-                         exportar = FALSE){
+                         exportar = FALSE) {
 
   tipo <- tolower(tipo)
   tipo <- match.arg(tipo)
 
-  varnames <- as.character(names(x))
-  x <- data.frame(x)
-  names(x) <- varnames
+  # --- Convertir a data.frame ---
+  if (!is.data.frame(x)) x <- data.frame(x)
+  varnames <- names(x)
 
   # --- Seleccion de variables ---
   if (is.null(variable)) {
-    varcuan <- names(x[unlist(lapply(x, is.numeric))])
-    seleccion <- match(varcuan, varnames)
-    x <- x[seleccion]
+    varcuan <- names(x)[sapply(x, is.numeric)]
+    x <- x[, varcuan, drop = FALSE]
     varnames <- varcuan
-  } else {
-    if (is.numeric(variable)) {
-      if (!all(variable <= length(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
-    }
-    if (is.character(variable)) {
-      if (all(variable %in% varnames)) {
-        variable <- match(variable, varnames)
-      } else stop("El nombre de la variable no es v\u00e1lido")
-    }
+  } else if (is.numeric(variable)) {
+    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     x <- x[, variable, drop = FALSE]
     varnames <- names(x)
-  }
+  } else if (is.character(variable)) {
+    if (!all(variable %in% names(x))) stop("El nombre de la variable no es v\u00e1lido")
+    x <- x[, variable, drop = FALSE]
+    varnames <- names(x)
+  } else stop("El argumento 'variable' debe ser num\u00e9rico o car\u00e1cter")
 
   # --- Comprobacion de tipo de variables ---
-  clase <- sapply(x, class)
-  if (!all(clase %in% c("numeric","integer"))) {
+  if (!all(sapply(x, is.numeric))) {
     stop("No puede calcularse la matriz de varianzas-covarianzas: alguna variable no es cuantitativa")
   }
 
@@ -113,13 +108,9 @@ matriz.covar <- function(x,
   for (i in seq_len(k)) {
     for (j in seq_len(k)) {
       if (i == j) {
-        matriz_covar[i, j] <- varianza(x[, i, drop = FALSE],
-                                       variable = 1,
-                                       tipo = tipo)
+        matriz_covar[i, j] <- as.numeric(varianza(x[, i, drop = FALSE], variable = 1, tipo = tipo))
       } else {
-        matriz_covar[i, j] <- covarianza(x[, c(i, j)],
-                                         variable = 1:2,
-                                         tipo = tipo)
+        matriz_covar[i, j] <- as.numeric(covarianza(x[, c(i, j)], variable = 1:2, tipo = tipo))
       }
     }
   }
@@ -136,9 +127,6 @@ matriz.covar <- function(x,
     rio::export(matriz_covar, rowNames = TRUE, file = filename)
   }
 
-  # --- Devolver matriz numerica ---
-
   class(matriz_covar) <- c("resumen", class(matriz_covar))
-
   return(matriz_covar)
 }

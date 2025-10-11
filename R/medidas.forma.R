@@ -8,10 +8,10 @@
 #' \if{latex}{\figure{qrforma.png}{options: width=3cm}}
 #'
 #' @usage medidas.forma(x,
-#' variable = NULL,
-#' pesos = NULL,
-#' alternativa = FALSE,
-#' exportar = FALSE)
+#'                      variable = NULL,
+#'                      pesos = NULL,
+#'                      alternativa = FALSE,
+#'                      exportar = FALSE)
 #'
 #' @param x Conjunto de datos, que puede estar formado por una o más variables.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
@@ -222,42 +222,75 @@ medidas.forma <- function(x,
     row.names(forma) <- c("asimetria","curtosis")
 
   }
+  if (isTRUE(alternativa) & is.null(pesos)) {
 
-  if(isTRUE(alternativa) & is.null(pesos)){
+    # Convertir a formato largo
+    xalt <- x %>%
+      tidyr::gather(key = "var_coef", value = "value") %>%
+      dplyr::filter(complete.cases(.)) %>%
+      dplyr::group_by(var_coef) %>%
+      dplyr::summarize(
+        N = dplyr::n(),
+        c1 = (N * (N + 1)) / ((N - 1) * (N - 2) * (N - 3)),
+        c3 = (3 * (N - 1)^2) / ((N - 2) * (N - 3)),
+        error_asimetria = sqrt((6 * N * (N - 1)) / ((N - 2) * (N + 1) * (N + 3))),
+        error_curtosis = 2 * sqrt((6 * N * (N - 1)) / ((N - 2) * (N + 1) * (N + 3))) *
+          sqrt((N^2 - 1) / ((N - 3) * (N + 5)))
+      ) %>%
+      dplyr::ungroup()
 
-      xalt <- x %>% gather(key="var_coef",value=value) %>%
-        filter(complete.cases(.)) %>%
-        group_by(var_coef) %>%
-        summarize(N= n(),
-                  c1 = (N*(N+1))/((N-1)*(N-2)*(N-3)),
-                  c3 = (3*(N-1)^2)/((N-2)*(N-3)),
-                  error_asimetria = sqrt((6*N*(N-1))/((N-2)*(N+1)*(N+3))),
-                  error_curtosis = 2 * error_asimetria * sqrt((N^2-1)/((N-3)*(N+5)))
-        ) %>% ungroup()
+    # Calcular los momentos y desviaciones
+    momento3_df <- .momento.central(x, orden = 3)
+    momento4_df <- .momento.central(x, orden = 4)
+    desv_df <- desviacion(x, tipo = "cuasi")
 
-      desv.x.muestra = desviacion(x,tipo="cuasi")
+    # Asegurar que los resultados son vectores numericos
+    momento3_vec <- if (is.data.frame(momento3_df)) as.numeric(momento3_df[1, ]) else as.numeric(momento3_df)
+    momento4_vec <- if (is.data.frame(momento4_df)) as.numeric(momento4_df[1, ]) else as.numeric(momento4_df)
+    desv_vec     <- if (is.data.frame(desv_df)) as.numeric(desv_df[1, ]) else as.numeric(desv_df)
 
-      xalt <- xalt %>%
-        mutate(desv.x.muestra = desv.x.muestra,
-               c2 = (N*momento4)/desv.x.muestra^4,
-               curtosis_soft = (c1*c2)-c3,
-               A1 = N/((N-1)*(N-2)),
-               A2 = (N*momento3)/desv.x.muestra^3,
-               asimetria_soft = A1*A2) %>%
-        ungroup()
+    # Anadir calculos alternativos
+    xalt <- xalt %>%
+      dplyr::mutate(
+        desv.x.muestra = desv_vec,
+        c2 = (N * momento4_vec) / desv.x.muestra^4,
+        curtosis_soft = (c1 * c2) - c3,
+        A1 = N / ((N - 1) * (N - 2)),
+        A2 = (N * momento3_vec) / desv.x.muestra^3,
+        asimetria_soft = A1 * A2,
+        asimetria = as.numeric(asimetria[1, ]),
+        curtosis = as.numeric(curtosis[1, ])
+      )
 
-      forma <- xalt %>%
-        select(2,5,6,9,12) %>%
-        mutate(asimetria = asimetria,
-               curtosis = curtosis) %>%
-        select(N="N",asimetria="asimetria",curtosis="curtosis",asimetria2="asimetria_soft",
-               error_asimetria2="error_asimetria",
-               curtosis2="curtosis_soft",error_curtosis2="error_curtosis") %>%
-        as.data.frame()
-      row.names(forma) <- varnames
+    # Seleccionar columnas finales
+    forma <- xalt %>%
+      dplyr::select(
+        N,
+        asimetria,
+        curtosis,
+        asimetria2 = asimetria_soft,
+        error_asimetria2 = error_asimetria,
+        curtosis2 = curtosis_soft,
+        error_curtosis2 = error_curtosis
+      )
 
+    # Convertir a formato "medidas en filas / variables en columnas"
+    forma_t <- as.data.frame(t(forma))
+    colnames(forma_t) <- varnames
+    rownames(forma_t) <- c(
+      "N",
+      "Asimetr\u00eda (muestral)",
+      "Curtosis (muestral)",
+      "Asimetr\u00eda (alternativa)",
+      "Error asimetr\u00eda (alt)",
+      "Curtosis (alternativa)",
+      "Error curtosis (alt)"
+    )
+
+    forma <- forma_t
 
   }
+
 
   # Exportar
   if (exportar) {

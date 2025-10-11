@@ -191,7 +191,7 @@ moda <- function(x, variable = NULL, pesos = NULL){
 
       names(moda) <- paste("moda_",varnames[1],sep="")
 
-     }
+  }
 
   return(moda)
 

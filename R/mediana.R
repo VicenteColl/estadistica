@@ -94,17 +94,22 @@ mediana <- function(x, variable = NULL, pesos = NULL) {
     }
 
     datos <- na.omit(data.frame(variable = x[[varnames]], pesos = x[[pesos_col]]))
-    if (nrow(datos) == 0) return(NA_real_)
+    if (nrow(datos) == 0) return(data.frame(matrix(NA, ncol = 1, dimnames = list(NULL, varnames))))
 
     result <- .mediana.int(datos$variable, datos$pesos)
-    names(result) <- paste0("mediana_", varnames)
-    return(round(result, 4))
+    result_df <- data.frame(result)
+    colnames(result_df) <- varnames
+
+    class(result_df) <- c("resumen", class(result_df))
+    return(round(result_df, 4))
   }
 
   # --- Mediana simple ---
   result <- sapply(x_sel, .mediana.int)
-  names(result) <- paste0("mediana_", varnames)
+  result_df <- as.data.frame(t(result))  # convertimos a data.frame con columnas como variables
+  colnames(result_df) <- varnames
+  rownames(result_df) <- NULL
 
-  class(result) <- c("resumen", class(result))
-  return(result)
+  class(result_df) <- c("resumen", class(result_df))
+  return(result_df)
 }

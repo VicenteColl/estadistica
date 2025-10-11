@@ -54,12 +54,14 @@ Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo
 \if{latex}{\figure{qrseriestemporales.png}{options: width=3cm}}
 }
 \examples{
-
-ejemplo_serie <- series.temporales(turistas2,
-variable=2,
-inicio_anual=2000,
-periodo_inicio = 1)
-
+\dontrun{
+ejemplo_serie <- series.temporales(
+  turistas2,
+  variable = 2,
+  inicio_anual = 2000,
+  periodo_inicio = 1
+)
+}
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

@@ -59,121 +59,69 @@
 #' @import dplyr
 #'
 #' @export
-correlacion <- function(x, variable = NULL, pesos=NULL){
+correlacion <- function(x,
+                        variable = NULL,
+                        pesos = NULL) {
 
-  varnames <- as.character(names(x))
-  x <- data.frame(x)
-  names(x) <- varnames
+  # Asegurar data.frame
+  x <- as.data.frame(x)
+  varnames <- names(x)
 
-  if(is.null(variable)){
-
-    if(length(x) == 2){
-
-      varcuan <-  names(x[unlist(lapply(x, is.numeric))])
-      seleccion = match(varcuan,varnames)
-      x <- x[seleccion]
-      varnames <- varcuan
-    } else{
-      warning("Para obtener la matriz de correlaci\u00f3n utiliza la funci\u00f3n matriz.correlacion()")
-      stop("El conjunto de datos seleccionado tiene mas de 2 variables.")
+  # --- Seleccion de variables ---
+  if (is.null(variable)) {
+    # Si solo hay 2 variables numericas, las selecciona
+    varcuan <- names(x)[sapply(x, is.numeric)]
+    if (length(varcuan) != 2) {
+      stop("Debes seleccionar exactamente 2 variables para calcular la correlaci\u00f3n.")
     }
-
-  } else if(length(variable) == 2){
-
-      if(is.numeric(variable)){
-
-        if(all(variable <= length(x))){
-
-          variable <- variable
-
-        } else{
-
-          stop("Selecci\u00f3n err\u00f3nea de variables")
-
-        }
-      }
-
-      if(is.character(variable)){
-
-        if(all(variable %in% varnames)){
-
-          variable = match(variable,varnames)
-
-        } else {
-
-          stop("El nombre de la variable no es v\u00edlido")
-
-        }
-
-      }
-
-    } else{
-
-      warning("Para obtener la matriz de varianzas-covarianzas utilizar la funci\u00f3n matriz.covar()")
-      stop("Para calcular la covarianza solo puedes seleccionar dos variables")
+    variable <- match(varcuan, varnames)
+  } else {
+    if (is.character(variable)) {
+      if (!all(variable %in% varnames)) stop("El nombre de la variable no es v\u00e1lido")
+      variable <- match(variable, varnames)
+    } else if (is.numeric(variable)) {
+      if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
+    } else {
+      stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
     }
-
-  if(is.null(pesos) & !is.null(variable)){
-
-    x <- x[,variable] %>% as.data.frame()
-    varnames <- varnames[variable]
-
+    if (length(variable) != 2) stop("Solo se pueden seleccionar 2 variables")
   }
 
-  if(!is.null(pesos) & !is.null(variable)){
+  # Subconjunto de variables
+  x_sel <- x[, variable, drop = FALSE]
+  varnames <- names(x_sel)
 
-    if((length(variable) | length(pesos)) > 3){
+  # Comprobar el tipo de variables
+  if (!all(sapply(x_sel, is.numeric))) stop("Las variables deben ser cuantitativas")
 
-      stop("Para calcular la covarianza a partir de la distribuci\u00f3n de frecuencias solo puedes seleccionar dos variables y unos pesos")
-
+  # --- Correlacion ---
+  if (is.null(pesos)) {
+    # Correlacion simple eliminando NAs
+    corr_val <- cor(x_sel[[1]], x_sel[[2]], use = "complete.obs")
+  } else {
+    # Pesos
+    if (is.character(pesos)) {
+      if (!pesos %in% names(x)) stop("El nombre de los pesos no es v\u00e1lido")
+      pesos <- match(pesos, names(x))
+    } else if (is.numeric(pesos)) {
+      if (any(pesos > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de pesos")
+    } else {
+      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
     }
+    x_sel <- x[, c(variable, pesos)]
+    colnames(x_sel) <- c("var1", "var2", "pesos")
+    x_sel <- na.omit(x_sel)
 
-    if(is.numeric(pesos)){
-
-      pesos <- pesos
-
-    }
-
-    if(is.character(pesos)){
-      if(pesos %in% varnames){
-        pesos = match(pesos,varnames)
-      } else {
-        stop("El nombre de los pesos no es v\u00e1lido")
-      }
-    }
-
-    x <- x[,c(variable,pesos)] %>% as.data.frame()
-    varnames <- varnames[c(variable,pesos)]
-
+    # Correlacion ponderada
+    corr_val <- sum((x_sel$var1 - sum(x_sel$var1 * x_sel$pesos) / sum(x_sel$pesos)) *
+                      (x_sel$var2 - sum(x_sel$var2 * x_sel$pesos) / sum(x_sel$pesos)) * x_sel$pesos) /
+      sqrt(sum((x_sel$var1 - sum(x_sel$var1 * x_sel$pesos) / sum(x_sel$pesos))^2 * x_sel$pesos) *
+             sum((x_sel$var2 - sum(x_sel$var2 * x_sel$pesos) / sum(x_sel$pesos))^2 * x_sel$pesos))
   }
 
-  clase <- sapply(x, class)
+  # --- Devolver dataframe ---
+  result <- data.frame(corr_val)
+  names(result) <- paste0(varnames[1],"_",varnames[2])
 
-  if (!all(clase %in% c("numeric","integer"))) {
-
-    stop("No puede calcularse la covarianza, alguna variable que has seleccionado no es cuantitativa")
-
-  }
-
-  if(is.null(pesos)){
-    correlacion <- cor(x[1],x[2], use ="complete.obs")
-    correlacion <- as.data.frame(correlacion)
-  } else{
-    x <- x %>%
-    na.omit %>%
-    rename(variable1 = varnames[1], variable2 = varnames[2], pesos = varnames[3])
-
-  correlacion <- x %>%
-    summarize(correlacion = covarianza(x,variable=c(1,2),3) / (desviacion(x,1,3)*desviacion(x,2,3)))
-  }
-
-  correlacion <- as.numeric(correlacion) %>% round(4)
-  names(correlacion) <- paste("correlacion_",varnames[1],"_",varnames[2],sep="")
-  row.names(correlacion) <- NULL
-
-  class(correlacion) <- c("resumen", class(correlacion))
-
-  return(correlacion)
-
+  return(result)
 }
-

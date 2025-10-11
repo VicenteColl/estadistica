@@ -148,7 +148,7 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
 
   cuantiles_df <- as.data.frame(cuantiles_mat)
   rownames(cuantiles_df) <- paste0(cortes*100, "%")
-  names(cuantiles_df) <- paste0("cuantiles_", varnames)
+  names(cuantiles_df) <- varnames
 
   # --- Exportar si se solicita ---
   if (exportar) {

@@ -122,20 +122,6 @@ server <- function(input, output, session) {
     }
   })
 
-  # Asegurar que el valor máximo sea siempre mayor que el mínimo en la Uniforme Discreta
-  observeEvent(input$min_unif, {
-    if (!is.null(input$max_unif) && input$max_unif <= input$min_unif) {
-      updateNumericInput(session, "max_unif", value = input$min_unif + 1)
-    }
-  })
-
-  observeEvent(input$max_unif, {
-    if (!is.null(input$min_unif) && input$max_unif <= input$min_unif) {
-      updateNumericInput(session, "min_unif", value = input$max_unif - 1)
-    }
-  })
-
-
   # Output condicional para mostrar el gráfico
   output$mostrar_grafico_condicional <- reactive({
     contador_ayuda() %% 2 == 1

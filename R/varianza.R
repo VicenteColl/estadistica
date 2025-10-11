@@ -98,18 +98,75 @@ varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cua
     stop("No puede calcularse la varianza: alguna variable seleccionada no es cuantitativa")
   }
 
-  # --- Calcular varianza para cada columna ---
-  calcular_var <- function(col) {
-    n_eff <- sum(!is.na(col))
-    if (n_eff < 2) return(NA_real_)
-    factor <- if (tipo == "muestral") (n_eff - 1) / n_eff else 1
-    round(stats::var(col, na.rm = TRUE) * factor, 4)
+  # --- Si no hay pesos ---
+  if (is.null(pesos)) {
+
+    x_sel <- x[, varnames, drop = FALSE]
+
+    # Comprobacion tipo de variable
+    if (!all(sapply(x_sel, is.numeric))) {
+      stop("No puede calcularse la varianza: alguna variable seleccionada no es cuantitativa")
+    }
+
+    calcular_var <- function(col) {
+      n_eff <- sum(!is.na(col))
+      if (n_eff < 2) return(NA_real_)
+      factor <- if (tipo == "muestral") (n_eff - 1) / n_eff else 1
+      stats::var(col, na.rm = TRUE) * factor
+    }
+
+    var_val <- sapply(x_sel, calcular_var)
+    var_df <- as.data.frame(t(var_val))
+    names(var_df) <- varnames
+
+  } else {
+    # --- Si hay pesos ---
+
+    # Determinar indices o nombres
+    if (is.character(pesos)) {
+      if (!(pesos %in% names(x))) stop("El nombre de los pesos no es v\u00e1lido")
+      pesos_idx <- match(pesos, names(x))
+    } else if (is.numeric(pesos)) {
+      if (pesos > ncol(x)) stop("Selecci\u00f3n err\u00f3nea de pesos")
+      pesos_idx <- pesos
+    } else {
+      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
+    }
+
+    if (length(varnames) > 1) {
+      stop("Solo puede calcularse la varianza ponderada para una variable a la vez")
+    }
+
+    variable_idx <- match(varnames, names(x))
+    x_sel <- x[, c(variable_idx, pesos_idx)]
+    names(x_sel) <- c("variable2", "pesos")
+
+    if (!is.numeric(x_sel$variable2) || !is.numeric(x_sel$pesos)) {
+      stop("Tanto la variable como los pesos deben ser num\u00e9ricos")
+    }
+
+    x_sel <- na.omit(x_sel)
+
+    # Calcular media ponderada
+    media_pond <- sum(x_sel$variable2 * x_sel$pesos) / sum(x_sel$pesos)
+
+    # Suma ponderada de cuadrados
+    sumatorio <- (x_sel$variable2 - media_pond)^2 * x_sel$pesos
+
+    # Denominador segun tipo
+    if (tipo == "muestral") {
+      denom <- sum(x_sel$pesos)
+    } else {
+      denom <- sum(x_sel$pesos) - 1
+    }
+
+    var_val <- sum(sumatorio) / denom
+
+    var_df <- data.frame(varianza = var_val)
+    names(var_df) <- varnames
   }
 
-  var_val <- sapply(x_sel, calcular_var)
-  names(var_val) <- paste0("varianza_", names(x_sel))
-
-  class(var_val) <- c("resumen", class(var_val))
-
-  return(var_val)
+  class(var_df) <- c("resumen", class(var_df))
+  return(var_df)
 }
+

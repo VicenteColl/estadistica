@@ -56,13 +56,15 @@
 #'
 #' Murgui, J.S. y otros. (2002). Ejercicios de estadística Economía y Ciencias sociales. tirant lo blanch. ISBN: 9788484424673
 #'
-#'@examples
-#'
-#' ejemplo_serie <- series.temporales(turistas2,
-#' variable=2,
-#' inicio_anual=2000,
-#' periodo_inicio = 1)
-#'
+#' @examples
+#' \dontrun{
+#' ejemplo_serie <- series.temporales(
+#'   turistas2,
+#'   variable = 2,
+#'   inicio_anual = 2000,
+#'   periodo_inicio = 1
+#' )
+#' }
 #' @import dplyr tidyr
 #' @importFrom stats lm
 #'

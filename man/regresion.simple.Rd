@@ -83,8 +83,12 @@ Una observación será atípica si:
 }
 \examples{
 \dontrun{
-ejemplo_regresion <- regresion.simple(turistas,
-var_depen=2,var_indepen=3,grafico=TRUE)
+ejemplo_regresion <- regresion.simple(
+  turistas,
+  var_depen = 2,
+  var_indepen = 3,
+  grafico = TRUE
+)
 }
 }
 \references{

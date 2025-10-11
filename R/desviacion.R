@@ -108,9 +108,11 @@ desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "c
     }
 
     desv_val <- sapply(x_sel, calcular_desv)
-    names(desv_val) <- paste0("desviacion_", names(x_sel))
+    names(desv_val) <- names(x_sel)
 
-    return(desv_val)
+    desv_df <- as.data.frame(t(desv_val))
+
+    return(desv_df)
   }
 
   # --- Si hay pesos ---
@@ -139,10 +141,15 @@ desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "c
     sqrt(sum_cuad / (sum(datos$pesos) - 1))
   }
 
-  desv_val <- round(desv_val, 4)
-  names(desv_val) <- paste0("desviacion_", varnames[1])
+  # --- Convertir a data.frame con una fila ---
+  desv_df <- as.data.frame(t(desv_val))
+  names(desv_df) <- varnames
 
-  class(desv_val) <- c("resumen", class(desv_val))
 
-  return(desv_val)
+  # desv_val <- round(desv_val, 4)
+  # names(desv_val) <- paste0("desviacion_", varnames[1])
+
+  class(desv_df) <- c("resumen", class(desv_df))
+
+  return(desv_df)
 }

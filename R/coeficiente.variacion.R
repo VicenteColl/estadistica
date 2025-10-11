@@ -114,19 +114,20 @@ coeficiente.variacion <- function(x,
   if (!all(sapply(x_sel, is.numeric))) {
     stop("No puede calcularse el coeficiente de variaci\u00f3n, alguna variable que has seleccionado no es cuantitativa")
   }
-
-  # --- Calculo del coeficiente de variacion ---
+  # Calculo del coeficiente de variacion
   if (is.null(pesos)) {
-    valor_media <- media(x_sel)
-    valor_desviacion <- desviacion(x_sel, tipo = tipo)
-    coef_variacion <- valor_desviacion / valor_media
-    names(coef_variacion) <- paste0("coef_variacion_", names(x_sel))
+    valor_media <- as.numeric(media(x_sel))
+    valor_desviacion <- as.numeric(desviacion(x_sel, tipo = tipo))
   } else {
-    valor_media <- media(x_sel, variable = 1, pesos = 2)
-    valor_desviacion <- desviacion(x_sel, variable = 1, pesos = 2, tipo = tipo)
-    coef_variacion <- valor_desviacion / valor_media
-    names(coef_variacion) <- paste0("coef_variacion_", varnames[1])
+    valor_media <- as.numeric(media(x_sel, variable = 1, pesos = 2))
+    valor_desviacion <- as.numeric(desviacion(x_sel, variable = 1, pesos = 2, tipo = tipo))
   }
 
-  return(round(coef_variacion, 4))
+  coef_var <- round(valor_desviacion / valor_media, 4)
+
+  # Convertir a data.frame consistente
+  df <- as.data.frame(t(coef_var))
+  names(df) <- varnames
+
+  return(df)
 }

@@ -16,8 +16,8 @@ Description: Este paquete pretende apoyar el proceso enseñanza-aprendizaje de e
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 URL: https://www.uv.es/estadistic/
 Depends:
     R (>= 3.5.0)
-Imports: cli, dplyr, tidyr, plotly, ggplot2, rio, data.table, shiny, shinydashboard, knitr, forecast, openxlsx, e1071, cowplot
+Imports: cli, dplyr, tidyr, plotly, ggplot2, rio, shiny, shinydashboard, knitr, forecast, openxlsx, cowplot
