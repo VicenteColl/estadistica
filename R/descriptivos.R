@@ -58,52 +58,55 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
 
   x_sel <- x[, varnames, drop = FALSE]
 
-  # Calculos
-  valor_media <- media(x_sel, pesos = pesos)
-  valor_varianza <- varianza(x_sel, pesos = pesos)
+  # --- Cálculos básicos ---
+  valor_media      <- media(x_sel, pesos = pesos)
+  valor_varianza   <- varianza(x_sel, pesos = pesos)
   valor_desviacion <- desviacion(x_sel, pesos = pesos)
-  valor_coef <- coeficiente.variacion(x_sel, pesos = pesos)
-  valor_cuantiles <- cuantiles(x_sel, pesos = pesos)
-  valor_forma <- medidas.forma(x_sel, pesos = pesos)
-  # Moda sin avisos
-  valor_moda <- suppressWarnings(moda(x_sel, pesos = pesos))
+  valor_coef       <- coeficiente.variacion(x_sel, pesos = pesos)
+  valor_forma      <- medidas.forma(x_sel, pesos = pesos)
+  valor_moda       <- suppressWarnings(moda(x_sel, pesos = pesos))
 
-  # Convertir todo a data.frames si no lo son
-  valor_media <- as.data.frame(valor_media)
-  valor_varianza <- as.data.frame(valor_varianza)
+  # --- Calcular cuantiles especiales ---
+  cuantiles_todos <- cuantiles(x_sel, pesos = pesos, cortes = c(0, 0.25, 0.5, 0.75, 1))
+  ric <- cuantiles_todos[4, , drop = FALSE] - cuantiles_todos[2, , drop = FALSE]  # Q3 - Q1
+
+  # --- Convertir a data.frame si no lo son ---
+  valor_media      <- as.data.frame(valor_media)
+  valor_varianza   <- as.data.frame(valor_varianza)
   valor_desviacion <- as.data.frame(valor_desviacion)
-  valor_coef <- as.data.frame(valor_coef)
-  valor_cuantiles <- as.data.frame(valor_cuantiles)
-  valor_forma <- as.data.frame(valor_forma)
-  valor_moda <- as.data.frame(valor_moda)
+  valor_coef       <- as.data.frame(valor_coef)
+  valor_forma      <- as.data.frame(valor_forma)
+  valor_moda       <- as.data.frame(valor_moda)
+  cuantiles_todos  <- as.data.frame(cuantiles_todos)
+  ric              <- as.data.frame(ric)
 
-  # Ajustar filas de moda: si tiene menos de 1 fila, rellenar NA
-  max_moda_filas <- nrow(valor_moda)
-  if (max_moda_filas < 1) {
-    valor_moda[1, ] <- NA
-  }
+  # --- Ajustar nombres de fila ---
+  rownames(valor_media)      <- "media"
+  rownames(valor_varianza)   <- "varianza"
+  rownames(valor_desviacion) <- "desviacion"
+  rownames(valor_coef)       <- "coef_variacion"
+  rownames(cuantiles_todos)  <- c("minimo", "cuartil1", "mediana", "cuartil3", "maximo")
+  rownames(ric)              <- "RIC"
+
+  # --- Ajustar filas de moda ---
+  if (nrow(valor_moda) < 1) valor_moda[1, ] <- NA
   rownames(valor_moda) <- paste0("moda_", seq_len(nrow(valor_moda)))
 
-  # Normalizar nombres de columnas
-  colnames(valor_media) <- varnames
-  colnames(valor_varianza) <- varnames
+  # --- Normalizar nombres de columnas ---
+  colnames(valor_media)      <- varnames
+  colnames(valor_varianza)   <- varnames
   colnames(valor_desviacion) <- varnames
-  colnames(valor_coef) <- varnames
-  colnames(valor_cuantiles) <- varnames
-  colnames(valor_forma) <- varnames
-  colnames(valor_moda) <- varnames
+  colnames(valor_coef)       <- varnames
+  colnames(cuantiles_todos)  <- varnames
+  colnames(ric)              <- varnames
+  colnames(valor_forma)      <- varnames
+  colnames(valor_moda)       <- varnames
 
-  # Asignar nombres de fila
-  rownames(valor_media) <- "media"
-  rownames(valor_varianza) <- "varianza"
-  rownames(valor_desviacion) <- "desviacion"
-  rownames(valor_coef) <- "coef_variacion"
-  if (nrow(valor_cuantiles) == 3) rownames(valor_cuantiles) <- c("cuartil1","mediana","cuartil3")
-  if (nrow(valor_forma) == 2) rownames(valor_forma) <- c("asimetria","curtosis")
-
-  # Ensamblar
-  resumen <- rbind(valor_media, valor_varianza, valor_desviacion,
-                   valor_coef, valor_cuantiles, valor_forma, valor_moda)
+  # --- Ensamblar resumen final ---
+  resumen <- rbind(
+    valor_media, cuantiles_todos, ric, valor_varianza, valor_desviacion, valor_coef,
+      valor_forma, valor_moda
+  )
 
   resumen <- round(resumen, 4)
 
