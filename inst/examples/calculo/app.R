@@ -8,19 +8,114 @@ library(dplyr)
 
 ui <- fluidPage(
   # Logo y botón de cierre en la parte superior derecha
-  div(style = "position: absolute; right: 20px; top: 10px; z-index: 1000;",
-      a(href = 'https://www.youtube.com/channel/UCSE44FyVr87BEFshZAi4voQ',
-        target = '_blank',
-        img(src = 'e_R_logoB_web.jpg',
-            title = 'Canal youtube:\nLa magia de estadistica',
-            height = "30px",
-            style = "margin-right: 15px;")),
-      a(href = "javascript:window.close()",
-        title = "Cerrar",
-        icon("power-off"))
+  # div(style = "position: absolute; right: 20px; top: 10px; z-index: 1000;",
+  #     a(href = 'https://www.youtube.com/channel/UCSE44FyVr87BEFshZAi4voQ',
+  #       target = '_blank',
+  #       img(src = 'logo.jpg',
+  #           title = 'Canal youtube:\nLa magia de estadistica',
+  #           height = "60px",
+  #           style = "margin-right: 15px;")),
+  #     a(
+  #       href = "javascript:(function(){
+  #   window.location.href='https://www.youtube.com/channel/UCSE44FyVr87BEFshZAi4voQ';
+  #   setTimeout(function(){ window.close(); }, 500);
+  # })()",
+  #       title = "Cerrar aplicación",
+  #       style = "text-decoration: none; margin-left: 10px; text-align: center; display: inline-block;",
+  #       tagList(
+  #         icon("power-off", style = "font-size: 30px; color: #d9534f; vertical-align: middle;"),
+  #         tags$div("Cerrar app", style = "font-size: 12px; color: #333; margin-top: 3px;")
+  #       )
+  #     )
+  # ),
+  # --- BLOQUE REEMPLAZO CABECERA (poner en ui en lugar del div anterior) ---
+  tags$head(
+    tags$style(HTML('
+    /* header */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 20px;
+      position: relative;
+      z-index: 1000;
+      background: transparent; /* cambiar si quieres fondo */
+    }
+    /* marca (logo + titulo) */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand img {
+      height: 60px; /* tu logo 60px */
+      display: block;
+    }
+    .app-title {
+      font-size: 30px;
+      font-weight: 600;
+      margin: 0;
+      line-height: 1;
+    }
+    /* boton cerrar a la derecha */
+    .close-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+    }
+    .close-wrapper .icon {
+      font-size: 30px; /* tamaño del icono */
+      color: #d9534f;
+      display: block;
+      margin-bottom: 4px; /* separacion con el texto */
+      position: relative;
+      top: 2px; /* ajusta para bajar/subir el icono */
+    }
+    .close-wrapper .label {
+      font-size: 12px;
+      color: #333;
+    }
+
+    /* pequeño ajuste respuesta en pantallas pequeñas */
+    @media (max-width: 480px) {
+      .app-title { font-size: 16px; }
+      .brand img { height: 48px; }
+    }
+  '))
   ),
 
-  titlePanel("Aprendizaje de Distribuciones de Probabilidad"),
+  div(class = "app-header",
+      div(class = "brand",
+          a(href = 'https://www.youtube.com/channel/UCSE44FyVr87BEFshZAi4voQ',
+            target = '_blank',
+            img(src = 'logo.jpg',
+                title = 'Canal youtube:\\nLa magia de estadistica',
+                height = "60px",
+                style = "display:block;")
+          ),
+          # Título al lado del logo
+          tags$div(
+            tags$h1("Aprendizaje de Distribuciones de Probabilidad", class = "app-title")
+          )
+      ),
+
+      # Botón cerrar a la derecha (redirecciona y luego intenta cerrar ventana)
+      a(href = "javascript:(function(){
+                 window.location.href='https://www.youtube.com/channel/UCSE44FyVr87BEFshZAi4voQ';
+                 setTimeout(function(){ window.close(); }, 500);
+               })()",
+        title = "Cerrar aplicación",
+        class = "close-wrapper",
+        # icon() produce etiquetas <i>, las envolvemos para aplicar estilo
+        tags$span(class = "icon", icon("power-off")),
+        tags$div(class = "label", "Cerrar app")
+      )
+  ),
+  # --- FIN BLOQUE REEMPLAZO CABECERA ---
+
+  # titlePanel("Aprendizaje de Distribuciones de Probabilidad"),
   uiOutput("mainUI")
 )
 
