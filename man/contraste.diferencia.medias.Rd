@@ -4,15 +4,17 @@
 \alias{contraste.diferencia.medias}
 \title{Contraste de hipótesis sobre la diferencia de medias.}
 \usage{
-contraste.diferencia.medias(x,
-                 variable = NULL,
-                 introducir = FALSE,
-                 var_pob = c("conocida","desconocida"),
-                 iguales = FALSE,
-                 hipotesis_nula = 0,
-                 tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
-                 alfa = 0.05,
-                 grafico = FALSE)
+contraste.diferencia.medias(
+  x,
+  variable = NULL,
+  introducir = FALSE,
+  var_pob = c("conocida", "desconocida"),
+  iguales = FALSE,
+  hipotesis_nula = 0,
+  tipo_contraste = c("bilateral", "cola derecha", "cola izquierda"),
+  alfa = 0.05,
+  grafico = FALSE
+)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

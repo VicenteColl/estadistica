@@ -7,14 +7,6 @@
 #' \if{html}{\figure{qricdiferenciamedias.png}{options: width="25\%" alt="qricdiferenciamedias.png"}}
 #' \if{latex}{\figure{qricdiferenciamedias.png}{options: width=3cm}}
 #'
-#' @usage ic.diferencia.medias(x,
-#'                      variable = NULL,
-#'                      introducir = FALSE,
-#'                      poblacion = c("normal","desconocida"),
-#'                      var_pob = c("conocida","desconocida"),
-#'                      iguales = FALSE,
-#'                      confianza = 0.95)
-#'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere a dos variables, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.

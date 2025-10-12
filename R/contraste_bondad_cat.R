@@ -4,12 +4,6 @@
 #'
 #' Lee el código QR para video-tutorial 6666sobre el uso de la función con un ejemplo.
 #'
-#' @usage contraste_bondad_cat(x,
-#'                             introducir = FALSE,
-#'                             distribucion = "equiprobable",
-#'                             alfa = 0.05,
-#'                             grafico = FALSE)
-#'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe. En caso de haber más de una variable, el programa preguntará por la variable a seleccionar (por nombre o por posición) que debe ser un factor o carácter.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de categorías de la variable, el nombre de cada categoría. A continuación se abrirá una ventana con un editor de datos y deberá introducir los valores de las frecuencias observadas.
 #' @param distribucion Es un vector numérico. Deberá indicarse las probabilidades teóricas para cada categoría de la variable de la hipótesis nula. Por defecto, *distribucion="equiporobable"*.
@@ -64,12 +58,10 @@
 #'
 #' @export
 contraste_bondad_cat <- function(x,
-                             # variable = NULL,
-                             introducir = FALSE,
-                             distribucion = "equiprobable",
-                             # parametro = FALSE,
-                             alfa = 0.05,
-                             grafico = FALSE) {
+                                 introducir = FALSE,
+                                 distribucion = "equiprobable",
+                                 alfa = 0.05,
+                                 grafico = FALSE) {
 
 
     # Si el usuario quiere introducir los datos manualmente

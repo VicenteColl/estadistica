@@ -2,14 +2,6 @@
 #' @title Nivel de confianza.
 #'
 #' @description Esta función simula una población de tamaño 100,000 de la que se extraen diversas muestras y construye los correspondientes intervalos de confianzas. El objetivo es transmitir el concepto de nivel de confianza.
-#' @usage nivel.confianza(min.pob = 2000,
-#'                        max.pob = 45000,
-#'                        muestras = 200,
-#'                        n = 100,
-#'                        confianza = 0.95,
-#'                        grafico = TRUE,
-#'                        exportar = FALSE,
-#'                        replicar = FALSE)
 #'
 #' @param min.pob Es un valor numérico que indica el valor mínimo poblacional. Por defecto \code{min.pob = 2000}
 #' @param max.pob Es un valor numérico que indica el valor máximo poblacional. Por defecto \code{max.pob = 45000}

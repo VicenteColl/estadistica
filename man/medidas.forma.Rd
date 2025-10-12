@@ -4,11 +4,13 @@
 \alias{medidas.forma}
 \title{Medidas de forma}
 \usage{
-medidas.forma(x,
-                     variable = NULL,
-                     pesos = NULL,
-                     alternativa = FALSE,
-                     exportar = FALSE)
+medidas.forma(
+  x,
+  variable = NULL,
+  pesos = NULL,
+  alternativa = FALSE,
+  exportar = FALSE
+)
 }
 \arguments{
 \item{x}{Conjunto de datos, que puede estar formado por una o más variables.}

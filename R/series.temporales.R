@@ -8,16 +8,6 @@
 #' \if{html}{\figure{qrseriestemporales.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
 #' \if{latex}{\figure{qrseriestemporales.png}{options: width=3cm}}
 #'
-#' @usage series.temporales(x,
-#'        variable = NULL,
-#'        inicio_anual = 1,
-#'        periodo_inicio = 1,
-#'        frecuencia = 4,
-#'        orden = frecuencia,
-#'        prediccion_tendencia = FALSE,
-#'        grafico = FALSE,
-#'        exportar = FALSE)
-#'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param inicio_anual Año de inicio de la serie. Por defecto \code{inicio_anual = 1}.

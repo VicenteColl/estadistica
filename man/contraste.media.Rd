@@ -4,14 +4,16 @@
 \alias{contraste.media}
 \title{Contraste de hipótesis sobre la media.}
 \usage{
-contraste.media(x,
-                 variable = NULL,
-                 introducir = FALSE,
-                 var_pob = c("conocida","desconocida"),
-                 hipotesis_nula = NULL,
-                 tipo_contraste =  c("bilateral","cola derecha","cola izquierda"),
-                 alfa = 0.05,
-                 grafico = FALSE)
+contraste.media(
+  x,
+  variable = NULL,
+  introducir = FALSE,
+  var_pob = c("conocida", "desconocida"),
+  hipotesis_nula = NULL,
+  tipo_contraste = c("bilateral", "cola derecha", "cola izquierda"),
+  alfa = 0.05,
+  grafico = FALSE
+)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

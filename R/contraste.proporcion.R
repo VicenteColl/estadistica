@@ -7,14 +7,6 @@
 #' \if{html}{\figure{qrcproporcion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrcproporcion.png}{options: width=3cm}}
 #'
-#' @usage contraste.proporcion(x,
-#'                  variable = NULL,
-#'                  introducir = FALSE,
-#'                  hipotesis_nula = NULL,
-#'                  tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
-#'                  alfa = 0.05,
-#'                  grafico = FALSE)
-#'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.

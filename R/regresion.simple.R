@@ -9,16 +9,6 @@
 #'
 #' \if{html}{\figure{qrregresion2.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
 #' \if{latex}{\figure{qrregresion2.png}{options: width=3cm}}
-
-#'
-#' @usage regresion.simple(x,
-#'                  var_depen = NULL,
-#'                  var_indepen = NULL,
-#'                  introducir = FALSE,
-#'                  inferencia = FALSE,
-#'                  confianza = 0.95,
-#'                  grafico = FALSE,
-#'                  exportar = FALSE)
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param var_depen Es un vector (numérico o carácter) que indica la variable dependiente.

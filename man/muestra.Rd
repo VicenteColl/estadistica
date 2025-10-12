@@ -4,10 +4,12 @@
 \alias{muestra}
 \title{Tamaño de la muestra.}
 \usage{
-muestra(poblacion = c("normal","dicotomica"),
-               error_estimacion = NULL,
-               confianza = 0.95,
-               irrestricto = FALSE)
+muestra(
+  poblacion = c("normal", "dicotomica"),
+  error_estimacion = NULL,
+  confianza = 0.95,
+  irrestricto = FALSE
+)
 }
 \arguments{
 \item{poblacion}{Texto, si \code{poblacion = "normal"} (por defecto), calcula el tamaño muestral que permita estimar la media de una población normal. Si \code{poblacion = "dicotomica"}, para estimar la proporción p de una población.}

@@ -7,14 +7,6 @@
 #' \if{html}{\figure{qrcmedia.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrcmedia.png}{options: width=3cm}}
 #'
-#' @usage contraste.media(x,
-#'                  variable = NULL,
-#'                  introducir = FALSE,
-#'                  var_pob = c("conocida","desconocida"),
-#'                  hipotesis_nula = NULL,
-#'                  tipo_contraste =  c("bilateral","cola derecha","cola izquierda"),
-#'                  alfa = 0.05,
-#'                  grafico = FALSE)
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.

@@ -4,13 +4,15 @@
 \alias{contraste.diferencia.proporciones}
 \title{Contraste de hipótesis sobre la diferencia de dos proporciones.}
 \usage{
-contraste.diferencia.proporciones(x,
-                 variable = NULL,
-                 introducir = FALSE,
-                 hipotesis_nula = 0,
-                 tipo_contraste = c("bilateral","cola derecha","cola izquierda"),
-                 alfa = 0.05,
-                 grafico = FALSE)
+contraste.diferencia.proporciones(
+  x,
+  variable = NULL,
+  introducir = FALSE,
+  hipotesis_nula = 0,
+  tipo_contraste = c("bilateral", "cola derecha", "cola izquierda"),
+  alfa = 0.05,
+  grafico = FALSE
+)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

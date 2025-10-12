@@ -4,10 +4,7 @@
 \alias{contraste_independencia}
 \title{Contraste de Independencia.}
 \usage{
-contraste_independencia(x,
-                               introducir = FALSE,
-                               alfa = 0.05,
-                               grafico = FALSE)
+contraste_independencia(x, introducir = FALSE, alfa = 0.05, grafico = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser una matriz o un dataframe. Debe contener sólo 2 columnas.}

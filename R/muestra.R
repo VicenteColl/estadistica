@@ -10,11 +10,6 @@
 #' \if{html}{\figure{qrmuestra2.png}{options: width="25\%" alt="Figure: qrmuestra2.png"}}
 #' \if{latex}{\figure{qrmuestra2.png}{options: width=3cm}}
 #'
-#' @usage muestra(poblacion = c("normal","dicotomica"),
-#'                error_estimacion = NULL,
-#'                confianza = 0.95,
-#'                irrestricto = FALSE)
-#'
 #' @param poblacion Texto, si \code{poblacion = "normal"} (por defecto), calcula el tamaño muestral que permita estimar la media de una población normal. Si \code{poblacion = "dicotomica"}, para estimar la proporción p de una población.
 #' @param error_estimacion Es un valor que establece el error de estimación. Es la semiamplitud (mitad de la precisión) del intervalo de confianza. Esta aproximación solo es válida en distribuciones simétricas (normal o t-student).
 #' @param confianza Es un valor entre 0 y 1 que indica el nivel de confianza. Por defecto, \code{confianza = 0.95} (95 por ciento).

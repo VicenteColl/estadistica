@@ -7,10 +7,6 @@
 #' \if{html}{\figure{qrcorrelacion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrcorrelacion.png}{options: width=3cm}}
 #'
-#' @usage matriz.correlacion(x,
-#'                           variable = NULL,
-#'                           exportar = FALSE)
-#'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
 #' @param exportar Para exportar los resultados a una hoja de cálculo Excel (\code{exportar = TRUE}).

@@ -4,10 +4,7 @@
 \alias{covarianza}
 \title{Covarianza.}
 \usage{
-covarianza(x,
-                  variable = NULL,
-                  pesos = NULL,
-                  tipo = c("muestral","cuasi"))
+covarianza(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi"))
 }
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}

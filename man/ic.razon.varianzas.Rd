@@ -4,12 +4,14 @@
 \alias{ic.razon.varianzas}
 \title{Intervalo confianza para la razón (cociente) de varianzas.}
 \usage{
-ic.razon.varianzas(x,
-                variable = NULL,
-                introducir = FALSE,
-                media_pob = c("desconocida","conocida"),
-                confianza = 0.95,
-                grafico = FALSE)
+ic.razon.varianzas(
+  x,
+  variable = NULL,
+  introducir = FALSE,
+  media_pob = c("desconocida", "conocida"),
+  confianza = 0.95,
+  grafico = FALSE
+)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

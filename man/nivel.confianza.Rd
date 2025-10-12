@@ -5,14 +5,16 @@
 \alias{nivel.confianza}
 \title{Nivel de confianza.}
 \usage{
-nivel.confianza(min.pob = 2000,
-                       max.pob = 45000,
-                       muestras = 200,
-                       n = 100,
-                       confianza = 0.95,
-                       grafico = TRUE,
-                       exportar = FALSE,
-                       replicar = FALSE)
+nivel.confianza(
+  min.pob = 2000,
+  max.pob = 45000,
+  muestras = 200,
+  n = 100,
+  confianza = 0.95,
+  grafico = TRUE,
+  exportar = FALSE,
+  replicar = FALSE
+)
 }
 \arguments{
 \item{min.pob}{Es un valor numérico que indica el valor mínimo poblacional. Por defecto \code{min.pob = 2000}}

@@ -5,12 +5,6 @@
 #' \if{html}{\figure{qricdiferenciaproporciones.png}{options: width="25\%" alt="qricdiferenciaproporciones.png"}}
 #' \if{latex}{\figure{qricdiferenciaproporciones.png}{options: width=3cm}}
 #'
-#' @usage ic.diferencia.proporciones(x,
-#'                      variable = NULL,
-#'                      introducir = FALSE,
-#'                      confianza = 0.95,
-#'                      grafico = FALSE)
-#'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param introducir Valor lógico. Si introducir = FALSE (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos x y/o variable. Si introducir = TRUE, se le solicitará al ususario que introduzca la información relevante sobre tamaño muestral, valor de la media muestral, etc.

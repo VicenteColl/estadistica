@@ -4,9 +4,7 @@
 \alias{matriz.correlacion}
 \title{Matriz de correlación.}
 \usage{
-matriz.correlacion(x,
-                          variable = NULL,
-                          exportar = FALSE)
+matriz.correlacion(x, variable = NULL, exportar = FALSE)
 }
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}

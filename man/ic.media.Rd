@@ -4,13 +4,15 @@
 \alias{ic.media}
 \title{Intervalo confianza para la media.}
 \usage{
-ic.media(x,
-          variable = NULL,
-          introducir = FALSE,
-          poblacion = c("normal","desconocida"),
-          var_pob = c("conocida","desconocida"),
-          confianza = 0.95,
-          grafico = FALSE)
+ic.media(
+  x,
+  variable = NULL,
+  introducir = FALSE,
+  poblacion = c("normal", "desconocida"),
+  var_pob = c("conocida", "desconocida"),
+  confianza = 0.95,
+  grafico = FALSE
+)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

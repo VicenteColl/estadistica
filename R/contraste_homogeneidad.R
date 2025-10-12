@@ -4,11 +4,6 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' @usage contraste_homogeneidad(x,
-#'                               introducir = FALSE,
-#'                               alfa = 0.05,
-#'                               grafico = FALSE)
-#'
 #' @param x Conjunto de datos. Puede ser una matriz o un dataframe. Debe contener sólo 2 columnas.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de muestras, sobre el número de categorías de la variable poblacional, el nombre de cada categoría de la variable o de cada muestra en la posición de fila y el nombre de la categoría de la variable o de cada muestra en la posición de columna. A continuación se abrirá una ventana con un editor de datos y deberá introducir los valores de las frecuencias observadas de la tabla de contingencia.
 #' @param alfa Es un valor numérico entre 0 y 1. Indica el nivel de significación. Por defecto, \code{alfa = 0.05} (5 por ciento)

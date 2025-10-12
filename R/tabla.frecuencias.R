@@ -7,11 +7,6 @@
 #' \if{html}{\figure{qrtablafrecuencias.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrtablafrecuencias.png}{options: width=3cm}}
 #'
-#' @usage tabla.frecuencias(x,
-#'                          eliminar.na = TRUE,
-#'                          grafico = FALSE,
-#'                          exportar = FALSE)
-#'
 #' @param x Conjunto de datos. Puede ser un vector (numérico o factor) o un dataframe. Si el dataframe tiene más de una variable, solicitará al usuario que idenfique el nombre de la variable para la que se quiere calcular la tabla de frecuencias.
 #' @param eliminar.na Valor lógico. Por defecto \code{eliminar.na = TRUE}. Si se quiere obtener la tabla de frecuencias con NAs, cambiar el argumento a \code{eliminar.na = FALSE}.
 #' @param grafico Si \code{grafico = TRUE}, representa el histograma o el gráfico de barras de la variable seleccionada.

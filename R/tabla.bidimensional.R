@@ -7,13 +7,6 @@
 #' \if{html}{\figure{qrtablabidimensional.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrtablabidimensional.png}{options: width=3cm}}
 #'
-#' @usage tabla.bidimensional(x,
-#' var_filas = NULL,
-#' var_columnas = NULL,
-#' distribucion = c("cruzada","condicionada"),
-#' frecuencias = c("absolutas","relativas"),
-#' exportar = FALSE)
-#'
 #' @param x Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).
 #' @param var_filas Variable fila.Por defecto su valor es NUll y el usuario debe escribir el nombre o posición de la variable cuyos valores quiere representar por filas.
 #' @param var_columnas Variable columna. Por defecto su valor es NUll y el usuario debe escribir el nombre o posición de la variable cuyos valores quiere representar por columnas

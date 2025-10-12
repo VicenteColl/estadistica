@@ -4,15 +4,17 @@
 \alias{series.temporales}
 \title{Series temporales.}
 \usage{
-series.temporales(x,
-       variable = NULL,
-       inicio_anual = 1,
-       periodo_inicio = 1,
-       frecuencia = 4,
-       orden = frecuencia,
-       prediccion_tendencia = FALSE,
-       grafico = FALSE,
-       exportar = FALSE)
+series.temporales(
+  x,
+  variable = NULL,
+  inicio_anual = 1,
+  periodo_inicio = 1,
+  frecuencia = 4,
+  orden = frecuencia,
+  prediccion_tendencia = FALSE,
+  grafico = FALSE,
+  exportar = FALSE
+)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

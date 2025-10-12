@@ -4,13 +4,6 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' @usage contraste_bondad(x,
-#'                         introducir = FALSE,
-#'                         distribucion = "equiprobable",
-#'                         parametro = FALSE,
-#'                         alfa = 0.05,
-#'                         grafico = FALSE)
-#'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x} y/o \code{variable}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de filas (se abrirá una ventana con un editor de datos y deberá introducir los valores de la variable poblacional y las frecuencias observadas), valor del parámetro poblacional, etc.
 #' @param distribucion Es un carácter. Indica el tipo de distribución poblacional que se quiere contrastar en la hipótesis nula (por defecto, \code{distribucion = "equiprobable"}) o desconocida. En este último caso debería cambiarse el argumento a \code{var_pob = "desconocida"}.

@@ -4,12 +4,14 @@
 \alias{ic.varianza}
 \title{Intervalo confianza para la varianza.}
 \usage{
-ic.varianza(x,
-           variable = NULL,
-           introducir = FALSE,
-           media_poblacion = c("desconocida","conocida"),
-           confianza = 0.95,
-           grafico = FALSE)
+ic.varianza(
+  x,
+  variable = NULL,
+  introducir = FALSE,
+  media_poblacion = c("desconocida", "conocida"),
+  confianza = 0.95,
+  grafico = FALSE
+)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}

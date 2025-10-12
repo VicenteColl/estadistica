@@ -4,14 +4,16 @@
 \alias{regresion.simple}
 \title{Regresión lineal simple.}
 \usage{
-regresion.simple(x,
-                 var_depen = NULL,
-                 var_indepen = NULL,
-                 introducir = FALSE,
-                 inferencia = FALSE,
-                 confianza = 0.95,
-                 grafico = FALSE,
-                 exportar = FALSE)
+regresion.simple(
+  x,
+  var_depen = NULL,
+  var_indepen = NULL,
+  introducir = FALSE,
+  inferencia = FALSE,
+  confianza = 0.95,
+  grafico = FALSE,
+  exportar = FALSE
+)
 }
 \arguments{
 \item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}

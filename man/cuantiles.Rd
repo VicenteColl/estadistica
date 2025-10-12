@@ -4,11 +4,13 @@
 \alias{cuantiles}
 \title{Cuantiles.}
 \usage{
-cuantiles(x,
-                 variable = NULL,
-                 pesos = NULL,
-                 cortes = c(0.25,0.5,0.75),
-                 exportar = FALSE)
+cuantiles(
+  x,
+  variable = NULL,
+  pesos = NULL,
+  cortes = c(0.25, 0.5, 0.75),
+  exportar = FALSE
+)
 }
 \arguments{
 \item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
