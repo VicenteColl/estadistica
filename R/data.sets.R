@@ -12,7 +12,7 @@
 #'   \item{SALARIO.ORDINARIO.ANUAL}{Salario ordinario anual}
 #'   \item{FACTOR.ELEVACION}{Factor de elevación}
 #' }
-#' @source Instituto Nacional de Estadística \url{http://www.ine.es/}
+#' @source Instituto Nacional de Estadística \url{https://www.ine.es/}
 #'
 #' @author
 #' \strong{Vicente Coll-Serrano}.

@@ -1,10 +1,10 @@
 Package: estadistica
 Type: Package
-Title: Fundamentos deEstadística Descriptiva e Inferencial
-Version: 1.0
+Title: Fundamentos de estadística descriptiva e inferencial
+Version: 1.1
 Authors@R: 
   c(person(given = "Vicente",
-           family = "Coll-Serr-ano",
+           family = "Coll-Serrano",
            role = c("aut", "cre"),
            email = "estadistic@uv.es"),
     person(given = "Rosario",
@@ -20,4 +20,4 @@ RoxygenNote: 7.3.3
 URL: https://www.uv.es/estadistic/
 Depends:
     R (>= 3.5.0)
-Imports: cli, dplyr, tidyr, plotly, ggplot2, rio, shiny, shinydashboard, knitr, forecast, openxlsx, cowplot
+Imports: cli, dplyr, tidyr, tibble, plotly, ggplot2, rio, shiny, shinydashboard, knitr, forecast, openxlsx, cowplot

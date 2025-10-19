@@ -150,7 +150,7 @@
 #' @description Para obtener los momentos
 #' @param x Vector
 #' @param orden Orden del momento central
-#' #' @keywords internal
+#' @keywords internal
 #' @noRd
 .momento.central <- function(x, orden){
 
@@ -366,40 +366,140 @@
   return(output_matrix)
 }
 
-#' Comprueba el número el mínimo de frecuencias teóricas en contraste homogeneidad e independencia
-#'
-#' @description Comprueba que las observaciones teóricas sean mínimo 5
-#' @param obs_matrix Matriz de frecuencias observadas
-#' @param exp_matrix Matriz de frecuencias esperadas
-#' @param n_min_exp Mínimo de frecuencias teóricas para no agrupar
+#' Función interna que combina o resume data frames estadísticos
 #' @keywords internal
 #' @noRd
-.check_min_obs_extended_cols <- function(obs_matrix, exp_matrix, n_min_exp = 5) {
+#' @import tibble
+.resumir <- function(...,
+                     nombres = NULL,
+                     exportar = FALSE,
+                     archivo = NULL) {
 
-  output_obs <- obs_matrix
-  output_exp <- exp_matrix
-  n_cols <- ncol(output_exp)
+  # Captura robusta de argumentos
+  listas <- list(...)
+  llamadas <- as.list(substitute(list(...)))[-1L]
 
-  # Empezamos desde la última columna de la matriz de frecuencias esperadas
-  i <- n_cols
-  while (i > 1) {
-    # Verificamos si algún valor en la columna actual de la matriz de frecuencias esperadas es menor a 5
-    if (any(output_exp[, i] < n_min_exp)) {
-      # Acumulamos toda la columna actual en la columna anterior
-      output_exp[, i - 1] <- output_exp[, i - 1] + output_exp[, i]
-      output_obs[, i - 1] <- output_obs[, i - 1] + output_obs[, i]
-
-      # Eliminamos la columna actual en ambas matrices
-      output_exp <- output_exp[, -i]
-      output_obs <- output_obs[, -i]
-
-      # Ajustamos la cantidad de columnas
-      i <- ncol(output_exp)
-    } else {
-      # Si ningún valor en la columna actual es menor a 5, pasamos a la columna anterior
-      i <- i - 1
+  # Nombres automáticos si no se pasan
+  if (is.null(nombres)) {
+    nombres <- names(llamadas)
+    if (is.null(nombres) || any(nombres == "")) {
+      nombres <- sapply(llamadas, deparse)
     }
   }
 
-  return(list(observadas = output_obs, esperadas = output_exp))
+  if (length(nombres) != length(listas)) {
+    stop("Error interno: no se pudieron asignar los nombres a todos los objetos.")
+  }
+
+  # Preparar dataframes y conservar rownames
+  listas <- lapply(listas, function(df) {
+    rn <- rownames(df)
+    df <- as.data.frame(unclass(df)) # limpiar clases
+    df$estadístico <- if (!is.null(rn)) rn else seq_len(nrow(df))
+    df
+  })
+
+  # Comprobamos si las columnas coinciden (excepto "estadístico")
+  nombres_col <- lapply(listas, names)
+  nombres_col <- lapply(nombres_col, function(x) setdiff(x, "estadístico"))
+  mismas_columnas <- length(unique(nombres_col)) == 1
+
+  # --- CASO 1: columnas coinciden ---
+  if (mismas_columnas) {
+    tablas_etiquetadas <- Map(function(df, nom) {
+      df$medida <- as.character(nom)
+      df
+    }, listas, nombres)
+
+    tabla_final <- dplyr::bind_rows(tablas_etiquetadas)
+    tabla_final <- dplyr::select(tabla_final, "medida", "estadístico", dplyr::everything())
+
+    # Exportar a Excel
+    if (isTRUE(exportar)) {
+      if (is.null(archivo)) {
+        archivo <- paste0("resultados_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".xlsx")
+      }
+      openxlsx::write.xlsx(tabla_final, file = archivo, rowNames = FALSE)
+      message("✅ Resultados exportados a: ", archivo)
+    }
+
+    return(tabla_final)
+  }
+
+  # --- CASO 2: columnas distintas ---
+  estructura <- Map(function(df, nom) {
+    df_clean <- as.data.frame(unclass(df))  # limpiar clases
+
+    # Tomamos la última columna como 'estadístico' y la ponemos al principio
+    n_col <- ncol(df_clean)
+    df_clean <- cbind(estadístico = df_clean[[n_col]], df_clean[, -n_col, drop = FALSE])
+
+    # Mostramos todas las filas (sin usar head)
+    preview_df <- df_clean
+
+    list(
+      medida = nom,
+      preview = preview_df
+    )
+  }, listas, nombres)
+
+  names(estructura) <- nombres
+  class(estructura) <- "resumen_resultados"
+
+  # Método de impresión que muestra todas las filas
+  print.resumen_resultados <- function(x, ...) {
+    cat("Resumen de objetos estadísticos:\n\n")
+    for (i in seq_along(x)) {
+      obj <- x[[i]]
+      cat("•", obj$medida, "\n")
+      cat("  - Resultados:\n")
+      print(obj$preview, row.names = FALSE)
+      cat("\n")
+    }
+    invisible(x)
+  }
+
+  assign("print.resumen_resultados", print.resumen_resultados, envir = parent.frame())
+
+  # Exportar Excel en caso de columnas distintas
+  if (isTRUE(exportar)) {
+    if (is.null(archivo)) {
+      archivo <- paste0("resumen_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".xlsx")
+    }
+    wb <- openxlsx::createWorkbook()
+    for (i in seq_along(estructura)) {
+      sheet_name <- substr(names(estructura)[i], 1, 31)
+      openxlsx::addWorksheet(wb, sheetName = sheet_name)
+      openxlsx::writeData(wb, sheet = i, x = estructura[[i]]$preview)
+    }
+    openxlsx::saveWorkbook(wb, archivo, overwrite = TRUE)
+    message("✅ Resumen exportado a: ", archivo)
+  }
+
+  return(estructura)
 }
+
+#' Combina o resume data frames para resumen estadístico
+#'
+#' @param ... Data frames a combinar o resumir.
+#' @param nombres Vector de nombres opcionales para los objetos.
+#' @param exportar Logical. Si TRUE, exporta a Excel.
+#' @param archivo Nombre del archivo Excel; si NULL, se genera automáticamente.
+#' @return Data frame combinado si las columnas coinciden, o lista resumen si son distintas.
+#' @examples
+#' \dontrun{
+#' Ejemplo caso 1: resumir varios data frames con las mismas columnas
+#' media <- estadistica::media(mtcars)
+#' cuantiles <- estadistica::cuantiles(mtcars)
+#'
+#' resultados <- resumir(media, cuantiles, export=TRUE)
+#' resultados
+#'
+#' Ejemplo caso 2: resumir varios data frames con distintas columnas
+#' forma <- estadistica::medidas.forma(mtcars[c(1, 3, 4)])
+#' resultados <- resumir(media, cuantiles, forma, export=TRUE)
+#' resultados
+#' }
+
+#' @export
+resumir <- .resumir

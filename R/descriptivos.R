@@ -38,7 +38,56 @@
 #'
 #' @export
 resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FALSE) {
-  if (!is.data.frame(x)) x <- as.data.frame(x)
+  # Helper: extrae un nombre razonable de la expresión que el usuario pasó
+  get_name_from_expr <- function(expr) {
+    if (is.name(expr)) return(as.character(expr))
+    if (is.character(expr)) return(expr)
+    if (is.call(expr)) {
+      fn <- as.character(expr[[1]])
+      # $ and [[  -> nombre es el tercer elemento
+      if (fn %in% c("$", "[[") && length(expr) >= 3) {
+        el <- expr[[3]]
+        if (is.name(el) || is.character(el)) return(as.character(el))
+        return(deparse(el)[1])
+      }
+      # [ -> intento extraer j (columna) si usan df[ , "mpg"] o df[, 2]
+      if (fn == "[") {
+        # estructura posible: df[i, j] => j está en posición 3 o 4 dependiendo de parser
+        # comprobamos todos los elementos excepto el primero (la función)
+        for (k in seq_along(expr)[-1]) {
+          el <- expr[[k]]
+          if (is.character(el)) return(as.character(el))
+          if (is.name(el)) return(as.character(el))
+        }
+      }
+      # paréntesis: desanidar
+      if (fn == "(" && length(expr) >= 2) {
+        return(get_name_from_expr(expr[[2]]))
+      }
+    }
+    # fallback: intentar extraer la última "palabra" de la deparsed expression
+    txt <- paste(deparse(expr), collapse = "")
+    txt <- trimws(txt)
+    m <- regmatches(txt, regexpr("([A-Za-z0-9_.]+)\\s*$", txt))
+    if (length(m) >= 1 && nzchar(m[1])) return(m[1])
+    # por último, devolver la expresión entera (segura)
+    return(txt)
+  }
+
+  # Capturamos la expresión y un nombre razonable
+  expr_x <- substitute(x)
+  nombre_x <- get_name_from_expr(expr_x)
+
+  # Si no es data.frame, lo convertimos y asignamos nombre razonable cuando proceda
+  if (!is.data.frame(x)) {
+    x <- as.data.frame(x)
+    if (ncol(x) == 1) {
+      current_name <- names(x)[1]
+      if (is.null(current_name) || current_name %in% c("", "x", "X", "V1")) {
+        names(x)[1] <- nombre_x
+      }
+    }
+  }
 
   # Seleccion de variables
   if (is.null(variable)) {
@@ -100,7 +149,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
   # --- Ensamblar resumen final ---
   resumen <- rbind(
     valor_media, cuantiles_todos, ric, valor_varianza, valor_desviacion, valor_coef,
-      valor_forma, valor_moda
+    valor_forma, valor_moda
   )
 
   resumen <- round(resumen, 4)
