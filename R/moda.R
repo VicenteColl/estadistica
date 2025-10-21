@@ -32,166 +32,142 @@
 #' @import dplyr
 #'
 #' @export
-moda <- function(x, variable = NULL, pesos = NULL){
+moda <- function(x, variable = NULL, pesos = NULL) {
 
-  if(class(x) %in% c("numeric","factor","integer","logical")){
+  # Detectar si x es vector o data.frame
+  if (is.numeric(x) || is.factor(x) || is.integer(x) || is.logical(x)) {
     varnames <- "variable.x"
-  }else{
+  } else {
     varnames <- as.character(names(x))
   }
 
   x <- data.frame(x)
   names(x) <- varnames
 
-  if(is.null(variable)){
+  # Selección de variables
+  if (is.null(variable)) {
 
-    varcuan <- x %>% select_if(function(col) is.numeric(col) |
-                                 is.integer(col) |
-                                 is.factor(col) |
-                                 is.logical(col)) %>%
+    varcuan <- x %>%
+      dplyr::select_if(function(col)
+        is.numeric(col) | is.integer(col) | is.factor(col) | is.logical(col)
+      ) %>%
       names()
 
-    seleccion = match(varcuan,varnames)
+    seleccion <- match(varcuan, varnames)
     x <- x[seleccion]
     varnames <- varcuan
 
-  } else{
+  } else {
 
-    if(is.numeric(variable)){
+    if (is.numeric(variable)) {
 
-      if(all(variable <= length(x))){
-
+      if (all(variable <= length(x))) {
         variable <- variable
-
-      } else{
-
-        stop("Selecci\u00f3n err\u00f3nea de variables")
-
-      }
-    }
-
-    if(is.character(variable)){
-
-      if(all(variable %in% varnames)){
-        variable = match(variable,varnames)
       } else {
-        stop("El nombre de la variable no es v\u00e1lido")
+        stop("Selección errónea de variables")
       }
     }
 
+    if (is.character(variable)) {
+
+      if (all(variable %in% varnames)) {
+        variable <- match(variable, varnames)
+      } else {
+        stop("El nombre de la variable no es válido")
+      }
+    }
   }
 
-
-  if(is.null(pesos) & !is.null(variable)){
-
-    x <- x[,variable] %>% as.data.frame()
+  # Si hay pesos nulos y variable definida
+  if (is.null(pesos) & !is.null(variable)) {
+    x <- x[, variable, drop = FALSE]
     varnames <- varnames[variable]
-
   }
 
-  if(!is.null(pesos) & !is.null(variable)){
+  # Si hay pesos definidos
+  if (!is.null(pesos) & !is.null(variable)) {
 
-    if((length(variable) | length(pesos)) > 1){
-
-      stop("Para calcular la media a partir de la distribuci\u00fn de frecuencias solo puedes seleccionar una variable y unos pesos")
-
+    if ((length(variable) > 1) | (length(pesos) > 1)) {
+      stop("Para calcular la moda ponderada solo puedes seleccionar una variable y unos pesos")
     }
 
-    if(is.numeric(pesos)){
-
-      pesos <- pesos
-
-    }
-
-
-    if(is.character(pesos)){
-
-      if(pesos %in% varnames){
-        pesos = match(pesos,varnames)
+    if (is.character(pesos)) {
+      if (pesos %in% varnames) {
+        pesos <- match(pesos, varnames)
       } else {
-        stop("El nombre de los pesos no es v\u00e1lido")
+        stop("El nombre de los pesos no es válido")
       }
     }
 
-    if(pesos == variable){
-
+    if (pesos == variable) {
       stop("Has seleccionado la misma columna del dataframe para la variable y los pesos")
-
     }
 
-
-    x <- x[,c(variable,pesos)] %>% as.data.frame()
-    varnames <- varnames[c(variable,pesos)]
-
+    x <- x[, c(variable, pesos), drop = FALSE]
+    varnames <- varnames[c(variable, pesos)]
   }
 
   clase <- sapply(x, class)
 
-
-  if (!all(clase %in% c("numeric","integer","factor","logic"))) {
-    stop("No se puede calcular la moda, comprueba el tipo de variable seleccionada")
+  if (!all(clase %in% c("numeric", "integer", "factor", "logical"))) {
+    stop("No se puede calcular la moda: comprueba el tipo de variable seleccionada")
   }
 
-  if(is.null(pesos)){
+  # --- Moda sin pesos ---
+  if (is.null(pesos)) {
 
-    moda_vacio <- vector("list",length=length(x))
+    moda_vacio <- vector("list", length = length(x))
 
-    for(i in 1:length(x)){
+    for (i in seq_along(x)) {
 
-      x_moda <- x[i] %>%
-        na.omit
-
-      valor_moda <- table(x_moda)
-      valor_moda <- names(valor_moda)[which(valor_moda==max(valor_moda))]
-      moda <- as.numeric(valor_moda)
-
-        if(length(moda)==nrow(x_moda)){
-          warning("Esta variable no tiene moda, todos los valores tienen la misma frecuencia")
-          moda <- NA
-        }
-
-     moda_vacio[[i]] <- moda
-
-    }
-
-    max_long <-  max(lengths(moda_vacio))
-    moda <- sapply(moda_vacio, "[", seq_len(max_long))
-
-    if(is.vector(moda)){
-      moda <- matrix(moda,nrow=1,ncol=length(moda)) %>%
-        as.data.frame()
-    } else{
-      moda <- moda %>% as.data.frame()
-    }
-
-    names(moda) <- varnames
-
-  } else{
-
-       moda <- x %>%
-        na.omit %>%
-        rename(variable2 = varnames[1], pesos = varnames[2]) %>%
-        group_by(variable2) %>%
-        summarize(frecuencia = sum(pesos), .groups = 'drop') %>%
-        arrange(desc(frecuencia)) %>%
-        as.data.frame()
-
-      valores_distintos <- unique(moda$variable2)
-
-      moda <- moda %>%
-        summarize(moda = variable2[which(frecuencia == max(frecuencia))]) %>%
-        as.data.frame()
-
-      if(nrow(moda) == length(valores_distintos)){
-        warning("Esta variable no tiene moda, todos los valores tienen la misma frecuencia")
-        moda <- NA
+      x_moda <- na.omit(x[[i]])
+      if (length(x_moda) == 0) {
+        moda_vacio[[i]] <- NA
+        next
       }
 
-      names(moda) <- paste("moda_",varnames[1],sep="")
+      valor_moda <- table(x_moda)
+      valor_moda <- names(valor_moda)[valor_moda == max(valor_moda)]
+      moda_i <- suppressWarnings(as.numeric(valor_moda))
+      if (all(is.na(moda_i))) moda_i <- valor_moda
 
+      if (length(moda_i) == length(unique(x_moda))) {
+        warning("Esta variable no tiene moda: todos los valores tienen la misma frecuencia")
+        moda_i <- NA
+      }
+
+      moda_vacio[[i]] <- moda_i
+    }
+
+    max_long <- max(lengths(moda_vacio))
+    moda <- sapply(moda_vacio, "[", seq_len(max_long))
+
+    moda <- as.data.frame(moda)
+    names(moda) <- varnames
+
+  } else {
+    # --- Moda con pesos ---
+    moda <- x %>%
+      na.omit() %>%
+      dplyr::rename(variable2 = varnames[1], pesos = varnames[2]) %>%
+      dplyr::group_by(variable2) %>%
+      dplyr::summarize(frecuencia = sum(pesos), .groups = 'drop') %>%
+      dplyr::arrange(desc(frecuencia)) %>%
+      as.data.frame()
+
+    valores_distintos <- unique(moda$variable2)
+
+    moda <- moda %>%
+      dplyr::summarize(moda = variable2[frecuencia == max(frecuencia)]) %>%
+      as.data.frame()
+
+    if (nrow(moda) == length(valores_distintos)) {
+      warning("Esta variable no tiene moda: todos los valores tienen la misma frecuencia")
+      moda <- NA
+    }
+
+    names(moda) <- paste("moda_", varnames[1], sep = "")
   }
 
   return(moda)
-
 }
-

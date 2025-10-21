@@ -38,47 +38,40 @@
 #'
 #' @export
 resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FALSE) {
-  # Helper: extrae un nombre razonable de la expresión que el usuario pasó
+  # Helper: extrae un nombre razonable del objeto pasado
   get_name_from_expr <- function(expr) {
     if (is.name(expr)) return(as.character(expr))
     if (is.character(expr)) return(expr)
     if (is.call(expr)) {
       fn <- as.character(expr[[1]])
-      # $ and [[  -> nombre es el tercer elemento
       if (fn %in% c("$", "[[") && length(expr) >= 3) {
         el <- expr[[3]]
         if (is.name(el) || is.character(el)) return(as.character(el))
         return(deparse(el)[1])
       }
-      # [ -> intento extraer j (columna) si usan df[ , "mpg"] o df[, 2]
       if (fn == "[") {
-        # estructura posible: df[i, j] => j está en posición 3 o 4 dependiendo de parser
-        # comprobamos todos los elementos excepto el primero (la función)
         for (k in seq_along(expr)[-1]) {
           el <- expr[[k]]
           if (is.character(el)) return(as.character(el))
           if (is.name(el)) return(as.character(el))
         }
       }
-      # paréntesis: desanidar
       if (fn == "(" && length(expr) >= 2) {
         return(get_name_from_expr(expr[[2]]))
       }
     }
-    # fallback: intentar extraer la última "palabra" de la deparsed expression
     txt <- paste(deparse(expr), collapse = "")
     txt <- trimws(txt)
     m <- regmatches(txt, regexpr("([A-Za-z0-9_.]+)\\s*$", txt))
     if (length(m) >= 1 && nzchar(m[1])) return(m[1])
-    # por último, devolver la expresión entera (segura)
     return(txt)
   }
 
-  # Capturamos la expresión y un nombre razonable
+  # Capturar expresión de x para nombrar correctamente si es vector
   expr_x <- substitute(x)
   nombre_x <- get_name_from_expr(expr_x)
 
-  # Si no es data.frame, lo convertimos y asignamos nombre razonable cuando proceda
+  # Si no es data.frame, convertirlo
   if (!is.data.frame(x)) {
     x <- as.data.frame(x)
     if (ncol(x) == 1) {
@@ -89,29 +82,40 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     }
   }
 
-  # Seleccion de variables
+  # Selección de variables
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("El nombre de variable no es valido")
+    if (!all(variable %in% names(x))) stop("El nombre de variable no es válido")
     varnames <- variable
   } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Seleccion erronea de variables")
+    if (any(variable > ncol(x))) stop("Selección errónea de variables")
     varnames <- names(x)[variable]
-  } else stop("El argumento 'variable' debe ser numerico o caracter")
+  } else stop("El argumento 'variable' debe ser numérico o carácter")
 
   x_sel <- x[, varnames, drop = FALSE]
 
   # --- Cálculos básicos ---
-  valor_media      <- media(x_sel, pesos = pesos)
-  valor_varianza   <- varianza(x_sel, pesos = pesos)
-  valor_desviacion <- desviacion(x_sel, pesos = pesos)
-  valor_coef       <- coeficiente.variacion(x_sel, pesos = pesos)
-  valor_forma      <- medidas.forma(x_sel, pesos = pesos)
-  valor_moda       <- suppressWarnings(moda(x_sel, pesos = pesos))
+  if (!is.null(pesos)) {
+    # Si hay pesos, se pasa el data frame completo a las funciones
+    valor_media      <- media(x, variable = varnames, pesos = pesos)
+    valor_varianza   <- varianza(x, variable = varnames, pesos = pesos)
+    valor_desviacion <- desviacion(x, variable = varnames, pesos = pesos)
+    valor_coef       <- coeficiente.variacion(x, variable = varnames, pesos = pesos)
+    valor_forma      <- medidas.forma(x, variable = varnames, pesos = pesos)
+    valor_moda       <- suppressWarnings(moda(x, variable = varnames, pesos = pesos))
+    cuantiles_todos  <- cuantiles(x, variable = varnames, pesos = pesos, cortes = c(0, 0.25, 0.5, 0.75, 1))
+  } else {
+    # Si no hay pesos
+    valor_media      <- media(x_sel)
+    valor_varianza   <- varianza(x_sel)
+    valor_desviacion <- desviacion(x_sel)
+    valor_coef       <- coeficiente.variacion(x_sel)
+    valor_forma      <- medidas.forma(x_sel)
+    valor_moda       <- suppressWarnings(moda(x_sel))
+    cuantiles_todos  <- cuantiles(x_sel, cortes = c(0, 0.25, 0.5, 0.75, 1))
+  }
 
-  # --- Calcular cuantiles especiales ---
-  cuantiles_todos <- cuantiles(x_sel, pesos = pesos, cortes = c(0, 0.25, 0.5, 0.75, 1))
   ric <- cuantiles_todos[4, , drop = FALSE] - cuantiles_todos[2, , drop = FALSE]  # Q3 - Q1
 
   # --- Convertir a data.frame si no lo son ---
@@ -162,11 +166,13 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     resumen_export <- cbind('Estadistico' = rownames(resumen), resumen)
     rownames(resumen_export) <- NULL
     openxlsx::writeData(wb, "Descriptivos", resumen_export)
-    openxlsx::addStyle(wb, "Descriptivos",
-                       style = openxlsx::createStyle(numFmt = "0.0000"),
-                       rows = 2:(nrow(resumen_export)+1),
-                       cols = 2:(ncol(resumen_export)+1),
-                       gridExpand = TRUE)
+    openxlsx::addStyle(
+      wb, "Descriptivos",
+      style = openxlsx::createStyle(numFmt = "0.0000"),
+      rows = 2:(nrow(resumen_export) + 1),
+      cols = 2:(ncol(resumen_export) + 1),
+      gridExpand = TRUE
+    )
     openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
