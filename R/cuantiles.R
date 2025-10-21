@@ -64,19 +64,18 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
 
   # Asegurar data.frame
   if (!is.data.frame(x)) x <- as.data.frame(x)
-  original_names <- names(x)
 
-  # --- Seleccion de variables ---
+  # --- Selección de variables ---
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
+    if (any(variable > ncol(x))) stop("Selección errónea de variables")
     varnames <- names(x)[variable]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("El nombre de la variable no es v\u00e1lido")
+    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
     varnames <- variable
   } else {
-    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
+    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
   }
 
   x_sel <- x[, varnames, drop = FALSE]
@@ -87,13 +86,13 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
       stop("Para calcular cuantiles ponderados solo puedes seleccionar una variable y un peso")
 
     if (is.character(pesos)) {
-      if (!pesos %in% names(x)) stop("El nombre de los pesos no es v\u00e1lido")
+      if (!pesos %in% names(x)) stop("Nombre de pesos no válido")
       pesos_name <- pesos
     } else if (is.numeric(pesos)) {
-      if (any(pesos > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de pesos")
+      if (any(pesos > ncol(x))) stop("Selección errónea de pesos")
       pesos_name <- names(x)[pesos]
     } else {
-      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
+      stop("El argumento 'pesos' debe ser numérico o de tipo carácter")
     }
 
     if (pesos_name == varnames)
@@ -103,48 +102,21 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
     varnames <- varnames[1]
   }
 
-  # --- Comprobar tipo de variables ---
-  if (!all(sapply(x_sel, is.numeric))) {
-    stop("No puede calcularse la media, alguna variable seleccionada no es cuantitativa")
-  }
-
   cortes <- sort(cortes)
 
-  # --- Funcion interna para cuantiles ---
-  calcular_cuantiles <- function(col, pesos = NULL, cortes) {
-    if (all(is.na(col))) {
-      return(rep(NA_real_, length(cortes)))
-    }
-
-    if (is.null(pesos)) {
-      quant <- stats::quantile(col, probs = cortes, na.rm = TRUE, names = FALSE)
-    } else {
-      # Cuantiles ponderados
-      datos <- data.frame(val = col, w = pesos)
-      datos <- datos[!is.na(datos$val) & !is.na(datos$w), ]
-      if (nrow(datos) == 0) return(rep(NA_real_, length(cortes)))
-      datos <- datos[order(datos$val), ]
-      cum_w <- cumsum(datos$w) / sum(datos$w)
-      quant <- sapply(cortes, function(p) {
-        idx <- which(cum_w >= p)[1]
-        datos$val[idx]
-      })
-    }
-    return(quant)
-  }
-
-  # --- Calcular cuantiles ---
+  # --- Cálculo de cuantiles usando tu función interna ---
   if (is.null(pesos)) {
-    cuantiles_mat <- sapply(x_sel, calcular_cuantiles, cortes = cortes)
+    cuantiles_mat <- apply(x_sel, 2, .cuantiles.int, cortes = cortes)
   } else {
-    cuantiles_mat <- sapply(x_sel[,1, drop=FALSE], function(col) calcular_cuantiles(col, pesos = x_sel$pesos, cortes = cortes))
+    cuantiles_mat <- .cuantiles.int(x_sel$variable, pesos = x_sel$pesos, cortes = cortes)
   }
 
+  # Asegurar que es data.frame y poner nombres
   cuantiles_df <- as.data.frame(cuantiles_mat)
   rownames(cuantiles_df) <- paste0(cortes*100, "%")
-  names(cuantiles_df) <- varnames
+  names(cuantiles_df) <- paste0("cuantiles_", varnames)
 
-  # --- Exportar si se solicita ---
+  # --- Exportar a Excel ---
   if (exportar) {
     filename <- paste0("Cuantiles_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
     wb <- openxlsx::createWorkbook()
@@ -161,7 +133,5 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
   }
 
   class(cuantiles_df) <- c("resumen", class(cuantiles_df))
-
   return(cuantiles_df)
 }
-
