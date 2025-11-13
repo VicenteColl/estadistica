@@ -140,10 +140,22 @@ moda <- function(x, variable = NULL, pesos = NULL) {
     }
 
     max_long <- max(lengths(moda_vacio))
-    moda <- sapply(moda_vacio, "[", seq_len(max_long))
+    # Forzar a lista y convertir sin simplificar
+    moda <- sapply(moda_vacio, "[", seq_len(max_long), simplify = FALSE)
 
-    moda <- as.data.frame(moda)
+    # Convertir lista a data.frame columna a columna
+    moda <- as.data.frame(moda, stringsAsFactors = FALSE)
+
+    # Asegurar el mismo número de columnas que varnames
+    if (ncol(moda) != length(varnames)) {
+      # Rellenar columnas faltantes con NA
+      for (faltan in (ncol(moda) + 1):length(varnames)) {
+        moda[[varnames[faltan]]] <- NA
+      }
+    }
+
     names(moda) <- varnames
+
 
   } else {
     # --- Moda con pesos ---
