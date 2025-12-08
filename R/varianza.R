@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrdispersion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrdispersion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -30,14 +30,14 @@
 #'
 #' (1) La expresión de la varianza muestral es:
 #'
-#' \if{html}{\figure{varianza.png}{options: width="40\%" alt="Figure: varianza.png"}}
+#' \if{html}{\figure{varianza.png}{options: style="width: 40\%;" alt="Figure: varianza.png"}}
 #' \if{latex}{\figure{varianza.png}{options: width=5cm}}
 #'
 #' La varianza muestral así definida es el estimador máximo verosímil de la varianza de una población normal
 #'
 #' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
 #'
-#' \if{html}{\figure{cuasivarianza.png}{options: width="40\%" alt="Figure: cuasivarianza.png"}}
+#' \if{html}{\figure{cuasivarianza.png}{options: style="width: 40\%;" alt="Figure: cuasivarianza.png"}}
 #' \if{latex}{\figure{cuasivarianza.png}{options: width=5cm}}
 #'
 #' Nosotros llamamos a esta medida: cuasi-varianza muestral y es un estimador insesgado de la varianza poblacional.
@@ -46,7 +46,7 @@
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la varianza poblacional:
 #'
 #'
-#' \if{html}{\figure{varianzapob.png}{options: width="40\%" alt="Figure: varianzapob.png"}}
+#' \if{html}{\figure{varianzapob.png}{options: style="width: 40\%;" alt="Figure: varianzapob.png"}}
 #' \if{latex}{\figure{varianzapob.png}{options: width=5cm}}
 #'
 #' @seealso \code{\link{media}}, \code{\link{desviacion}}, \code{\link{coeficiente.variacion}}

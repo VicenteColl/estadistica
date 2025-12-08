@@ -23,7 +23,7 @@ Esta función presenta la distribución de frecuencias de una variable cuantitat
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrtablafrecuencias.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{html}{\figure{qrtablafrecuencias.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qrtablafrecuencias.png}{options: width=3cm}}
 }
 \references{

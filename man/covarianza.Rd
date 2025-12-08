@@ -23,18 +23,18 @@ Calcula la covarianza.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcovarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{html}{\figure{qrcovarianza.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qrcovarianza.png}{options: width=3cm}}
 }
 \details{
 (1) La covarianza muestral se obtiene a partir de la siguiente expresión:
 
-\if{html}{\figure{covarianzamuestra.png}{options: width="50\%" alt="Figure: covarianzamuestra.png"}}
+\if{html}{\figure{covarianzamuestra.png}{options: style="width: 50\%;" alt="Figure: covarianzamuestra.png"}}
 \if{latex}{\figure{covarianzamuestra.png}{options: width=6cm}}
 
 (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la covarianza a partir de la expresión:
 
-\if{html}{\figure{covarianzacuasi.png}{options: width="50\%" alt="Figure: covarianzacuasi.png"}}
+\if{html}{\figure{covarianzacuasi.png}{options: style="width: 50\%;" alt="Figure: covarianzacuasi.png"}}
 \if{latex}{\figure{covarianzacuasi.png}{options: width=6cm}}
 
 Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
@@ -42,7 +42,7 @@ Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la covarianza poblacional:
 
-\if{html}{\figure{covarianzapob.png}{options: width="50\%" alt="Figure: covarianzapob.png"}}
+\if{html}{\figure{covarianzapob.png}{options:style="width: 50\%;" alt="Figure: covarianzapob.png"}}
 \if{latex}{\figure{covarianzapob.png}{options: width=6cm}}
 }
 \references{

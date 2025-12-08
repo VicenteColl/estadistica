@@ -27,12 +27,12 @@ Ejemplo caso 1: resumir varios data frames con las mismas columnas
 media <- estadistica::media(mtcars)
 cuantiles <- estadistica::cuantiles(mtcars)
 
-resultados <- resumir(media, cuantiles, export=TRUE)
+resultados <- resumir(media, cuantiles, exportar=TRUE)
 resultados
 
 Ejemplo caso 2: resumir varios data frames con distintas columnas
 forma <- estadistica::medidas.forma(mtcars[c(1, 3, 4)])
-resultados <- resumir(media, cuantiles, forma, export=TRUE)
+resultados <- resumir(media, cuantiles, forma, exportar=TRUE)
 resultados
 }
 }

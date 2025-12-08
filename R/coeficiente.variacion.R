@@ -5,7 +5,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrdispersion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrdispersion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -28,7 +28,7 @@
 #'
 #' El coeficiente de variación (muestral) se obtiene a partir de la siguiente expresión:
 #'
-#' \if{html}{\figure{coeficientevariacion.png}{options: width="20\%" alt="Figure: coeficientevariacion.png"}}
+#' \if{html}{\figure{coeficientevariacion.png}{options: style="width: 20\%;" alt="Figure: coeficientevariacion.png"}}
 #' \if{latex}{\figure{coeficientevariacion.png}{options: width=2cm}}
 #'
 #' donde S es la desviación típica muestral. También puede calcularse utilizando la cuasi-desviación típica (Sc).
@@ -36,7 +36,7 @@
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N), se obtiene el coeficiente de variación poblacional:
 #'
-#' \if{html}{\figure{coeficientevariacionpob.png}{options: width="20\%" alt="Figure: coeficientevariacionpob.png"}}
+#' \if{html}{\figure{coeficientevariacionpob.png}{options: style="width: 20\%;" alt="Figure: coeficientevariacionpob.png"}}
 #' \if{latex}{\figure{coeficientevariacionpob.png}{options: width=2cm}}
 #'
 #' @references

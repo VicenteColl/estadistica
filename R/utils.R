@@ -224,7 +224,7 @@
     if (inherits(data, "data.frame")) {
       openxlsx::writeData(wb, sheet_name, data, rowNames = TRUE)
 
-      # Aplicar formato numérico
+      # Aplicar formato numerico
       numeric_cols <- which(sapply(data, is.numeric))
       if (length(numeric_cols) > 0) {
         openxlsx::addStyle(
@@ -256,7 +256,7 @@
 #' @noRd
 .format_consola <- function(x, decimales = 4) {
   if (is.numeric(x)) {
-    # Formato fijo sin notación científica para todo el vector
+    # Formato fijo sin notacióo científica para todo el vector
     formatted <- format(x, scientific = FALSE, digits = 12, nsmall = decimales)
 
     # Limpieza de ceros decimales (vectorizado)
@@ -295,7 +295,7 @@
       stop("El objeto no es una lista")
     }
 
-    # Mostrar título si se proporciona
+    # Mostrar titulo si se proporciona
     if (!is.null(titulo)) {
       cat("\n", toupper(titulo), "\n", sep = "")
       cat(paste(rep("=", nchar(titulo)), collapse = ""), "\n\n")
@@ -313,7 +313,7 @@
 
   }, error = function(e) {
     warning("Error al formatear lista: ", e$message)
-    print(x)  # Mostrar versión sin formatear como fallback
+    print(x)  # Mostrar version sin formatear como fallback
   })
 
   invisible(x)
@@ -330,23 +330,23 @@
   output_matrix <- m
   n <- nrow(output_matrix)
 
-  # Empezamos desde la última fila y vamos hacia arriba
+  # Empezamos desde la ultima fila y vamos hacia arriba
   i <- n
   while (i > 1) {
     # Si el valor en la fila actual es menor a n_min_obs
     if (output_matrix$Freq_esp[i] < n_min_obs) {
-      acum_freq <- output_matrix$Freq_esp[i]  # Empezamos la acumulación en Frey_obs
-      acum_suma <- output_matrix$Freq_obs[i]      # Empezamos la acumulación en Freq_obs
+      acum_freq <- output_matrix$Freq_esp[i]  # Empezamos la acumulacion en Frey_obs
+      acum_suma <- output_matrix$Freq_obs[i]      # Empezamos la acumulacion en Freq_obs
       j <- i - 1
 
-      # Seguimos hacia arriba sumando hasta que la acumulación sea >= n_min_obs
+      # Seguimos hacia arriba sumando hasta que la acumulacion sea >= n_min_obs
       while (acum_freq < n_min_obs && j > 0) {
         acum_freq <- acum_freq + output_matrix$Freq_esp[j]  # Acumulamos en Frey_obs
         acum_suma <- acum_suma + output_matrix$Freq_obs[j]      # Acumulamos en SUMA
         j <- j - 1
       }
 
-      # Actualizamos la fila donde terminó la acumulación
+      # Actualizamos la fila donde termina la acumulacion
       output_matrix$Freq_esp[j + 1] <- acum_freq
       output_matrix$Freq_obs[j + 1] <- acum_suma
 
@@ -355,7 +355,7 @@
         output_matrix <- output_matrix[-((j + 2):i), ]
       }
 
-      # Ajustamos el valor de i para continuar desde la fila donde se terminó la acumulación
+      # Ajustamos el valor de i para continuar desde la fila donde se termina la acumulacion
       i <- j + 1
     } else {
       # Si la fila actual ya es >= n_min_obs, seguimos con la fila anterior
@@ -365,6 +365,45 @@
 
   return(output_matrix)
 }
+
+#' Comprueba el número el mínimo de frecuencias teóricas en contraste homogeneidad e independencia
+#'
+#' @description Comprueba que las observaciones teóricas sean mínimo 5
+#' @param obs_matrix Matriz de frecuencias observadas
+#' @param exp_matrix Matriz de frecuencias esperadas
+#' @param n_min_exp Mínimo de frecuencias teóricas para no agrupar
+#' @keywords internal
+#' @noRd
+.check_min_obs_extended_cols <- function(obs_matrix, exp_matrix, n_min_exp = 5) {
+
+  output_obs <- obs_matrix
+  output_exp <- exp_matrix
+  n_cols <- ncol(output_exp)
+
+  # Empezamos desde la ultima columna de la matriz de frecuencias esperadas
+  i <- n_cols
+  while (i > 1) {
+    # Verificamos si algun valor en la columna actual de la matriz de frecuencias esperadas es menor a 5
+    if (any(output_exp[, i] < n_min_exp)) {
+      # Acumulamos toda la columna actual en la columna anterior
+      output_exp[, i - 1] <- output_exp[, i - 1] + output_exp[, i]
+      output_obs[, i - 1] <- output_obs[, i - 1] + output_obs[, i]
+
+      # Eliminamos la columna actual en ambas matrices
+      output_exp <- output_exp[, -i]
+      output_obs <- output_obs[, -i]
+
+      # Ajustamos la cantidad de columnas
+      i <- ncol(output_exp)
+    } else {
+      # Si ningun valor en la columna actual es menor a 5, pasamos a la columna anterior
+      i <- i - 1
+    }
+  }
+
+  return(list(observadas = output_obs, esperadas = output_exp))
+}
+
 
 #' Función interna que combina o resume data frames estadísticos
 #' @keywords internal
@@ -379,7 +418,7 @@
   listas <- list(...)
   llamadas <- as.list(substitute(list(...)))[-1L]
 
-  # Nombres automáticos si no se pasan
+  # Nombres automaticos si no se pasan
   if (is.null(nombres)) {
     nombres <- names(llamadas)
     if (is.null(nombres) || any(nombres == "")) {
@@ -395,13 +434,13 @@
   listas <- lapply(listas, function(df) {
     rn <- rownames(df)
     df <- as.data.frame(unclass(df)) # limpiar clases
-    df$estadístico <- if (!is.null(rn)) rn else seq_len(nrow(df))
+    df$estadistico <- if (!is.null(rn)) rn else seq_len(nrow(df))
     df
   })
 
-  # Comprobamos si las columnas coinciden (excepto "estadístico")
+  # Comprobamos si las columnas coinciden (excepto "estadistico")
   nombres_col <- lapply(listas, names)
-  nombres_col <- lapply(nombres_col, function(x) setdiff(x, "estadístico"))
+  nombres_col <- lapply(nombres_col, function(x) setdiff(x, "estadistico"))
   mismas_columnas <- length(unique(nombres_col)) == 1
 
   # --- CASO 1: columnas coinciden ---
@@ -412,7 +451,7 @@
     }, listas, nombres)
 
     tabla_final <- dplyr::bind_rows(tablas_etiquetadas)
-    tabla_final <- dplyr::select(tabla_final, "medida", "estadístico", dplyr::everything())
+    tabla_final <- dplyr::select(tabla_final, "medida", "estadistico", dplyr::everything())
 
     # Exportar a Excel
     if (isTRUE(exportar)) {
@@ -420,7 +459,7 @@
         archivo <- paste0("resultados_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".xlsx")
       }
       openxlsx::write.xlsx(tabla_final, file = archivo, rowNames = FALSE)
-      message("✅ Resultados exportados a: ", archivo)
+      message("Resultados exportados a: ", archivo)
     }
 
     return(tabla_final)
@@ -430,11 +469,11 @@
   estructura <- Map(function(df, nom) {
     df_clean <- as.data.frame(unclass(df))  # limpiar clases
 
-    # Tomamos la última columna como 'estadístico' y la ponemos al principio
+    # Tomamos la ultima columna como 'estadistico' y la ponemos al principio
     n_col <- ncol(df_clean)
-    df_clean <- cbind(estadístico = df_clean[[n_col]], df_clean[, -n_col, drop = FALSE])
+    df_clean <- cbind(estadsitico = df_clean[[n_col]], df_clean[, -n_col, drop = FALSE])
 
-    # Mostramos todas las filas (sin usar head)
+    # Mostramos todas las filas
     preview_df <- df_clean
 
     list(
@@ -446,12 +485,12 @@
   names(estructura) <- nombres
   class(estructura) <- "resumen_resultados"
 
-  # Método de impresión que muestra todas las filas
+  # Metodo de impresion que muestra todas las filas
   print.resumen_resultados <- function(x, ...) {
-    cat("Resumen de objetos estadísticos:\n\n")
+    cat("Resumen de objetos estad\u00edsticos:\n\n")
     for (i in seq_along(x)) {
       obj <- x[[i]]
-      cat("•", obj$medida, "\n")
+      cat("-", obj$medida, "\n")
       cat("  - Resultados:\n")
       print(obj$preview, row.names = FALSE)
       cat("\n")
@@ -473,7 +512,7 @@
       openxlsx::writeData(wb, sheet = i, x = estructura[[i]]$preview)
     }
     openxlsx::saveWorkbook(wb, archivo, overwrite = TRUE)
-    message("✅ Resumen exportado a: ", archivo)
+    message("Resumen exportado a: ", archivo)
   }
 
   return(estructura)
@@ -492,12 +531,12 @@
 #' media <- estadistica::media(mtcars)
 #' cuantiles <- estadistica::cuantiles(mtcars)
 #'
-#' resultados <- resumir(media, cuantiles, export=TRUE)
+#' resultados <- resumir(media, cuantiles, exportar=TRUE)
 #' resultados
 #'
 #' Ejemplo caso 2: resumir varios data frames con distintas columnas
 #' forma <- estadistica::medidas.forma(mtcars[c(1, 3, 4)])
-#' resultados <- resumir(media, cuantiles, forma, export=TRUE)
+#' resultados <- resumir(media, cuantiles, forma, exportar=TRUE)
 #' resultados
 #' }
 

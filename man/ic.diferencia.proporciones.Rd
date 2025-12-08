@@ -26,13 +26,13 @@ ic.diferencia.proporciones(
 \description{
 Calcula el intervalo de confianza de la diferencia de dos proporciones.
 
-\if{html}{\figure{qricdiferenciaproporciones.png}{options: width="25\%" alt="qricdiferenciaproporciones.png"}}
+\if{html}{\figure{qricdiferenciaproporciones.png}{options: style="width: 25\%;" alt="qricdiferenciaproporciones.png"}}
 \if{latex}{\figure{qricdiferenciaproporciones.png}{options: width=3cm}}
 }
 \details{
 Se obtiene el intervalo:
 
-\if{html}{\figure{icdifproporciones.png}{options: width="65\%" alt="icdifproporciones.png"}}
+\if{html}{\figure{icdifproporciones.png}{options: style="width: 65\%;" alt="icdifproporciones.png"}}
 \if{latex}{\figure{icdifproporciones.png}{options: width=12cm}}
 
 Nota: El usuario puede seguir dos estrategias:

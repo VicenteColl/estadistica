@@ -23,7 +23,7 @@ Calcula un resumen de los principales estadísticos descriptivos.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrdescriptivos.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{html}{\figure{qrdescriptivos.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qrdescriptivos.png}{options: width=3cm}}
 }
 \examples{

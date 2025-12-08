@@ -4,10 +4,10 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrmuestra1.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
+#' \if{html}{\figure{qrmuestra1.png}{options: style="width: 25\%;"alt="Figure: qrmuestra1.png"}}
 #' \if{latex}{\figure{qrmuestra1.png}{options: width=3cm}}
 #'
-#' \if{html}{\figure{qrmuestra2.png}{options: width="25\%" alt="Figure: qrmuestra2.png"}}
+#' \if{html}{\figure{qrmuestra2.png}{options: style="width: 25\%;" alt="Figure: qrmuestra2.png"}}
 #' \if{latex}{\figure{qrmuestra2.png}{options: width=3cm}}
 #'
 #' @param poblacion Texto, si \code{poblacion = "normal"} (por defecto), calcula el tamaño muestral que permita estimar la media de una población normal. Si \code{poblacion = "dicotomica"}, para estimar la proporción p de una población.
@@ -33,24 +33,24 @@
 #'
 #' (1) El tamaño muestral para estimar la media poblacional se obtiene a partir de la siguiente expresión:
 #'
-#' \if{html}{\figure{tamanomedia.png}{options: width="30\%" alt="Figure: tamanomedia.png"}}
+#' \if{html}{\figure{tamanomedia.png}{options: style="width: 30\%;" alt="Figure: tamanomedia.png"}}
 #' \if{latex}{\figure{tamanomedia.png}{options: width=4cm}}
 #'
 #' y si el muestreo es irrestricto:
 #'
-#' \if{html}{\figure{tamanomediairrestricto.png}{options: width="60\%" alt="tamanomediairrestricto.png"}}
+#' \if{html}{\figure{tamanomediairrestricto.png}{options: style="width: 60\%;" alt="tamanomediairrestricto.png"}}
 #' \if{latex}{\figure{tamanomediairrestricto.png}{options: width=8cm}}
 #'
 #' Nota: si la varianza poblacional no es conocida puede estimarse a través de la varianza (o cuasi-varianza) muestral.
 #'
 #' (2) El tamaño muestral para estimar la proporción de una característica se obtiene a partir de la expresión:
 #'
-#' \if{html}{\figure{tamanoproporcion.png}{options: width="35\%" alt="Figure: tamanoproporcion.png"}}
+#' \if{html}{\figure{tamanoproporcion.png}{options:style="width: 35\%;" alt="Figure: tamanoproporcion.png"}}
 #' \if{latex}{\figure{tamanoproporcion.png}{options: width=4.5cm}}
 #'
 #' y si el muestreo es irrectricto:
 #'
-#' \if{html}{\figure{tamanoproporcionirrestricto.png}{options: width="65\%" alt="Figure: tamanoproporcionirrestricto.png"}}
+#' \if{html}{\figure{tamanoproporcionirrestricto.png}{options: style="width: 65\%;" alt="Figure: tamanoproporcionirrestricto.png"}}
 #' \if{latex}{\figure{tamanoproporcionirrestricto.png}{options: width=10cm}}
 #'
 #' Nota: puede estimarse la proporción poblacional por la proporción muestral o, en caso

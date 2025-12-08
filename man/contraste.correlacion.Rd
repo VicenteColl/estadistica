@@ -38,7 +38,7 @@ Realiza el contraste de hipótesis sobre el coeficiente de correlación.
 \details{
 El estadístico del contraste es:
 
-\if{html}{\figure{ccorrelacion.png}{options: width="30\%" alt="Figure: ccorrelacion.png"}}
+\if{html}{\figure{ccorrelacion.png}{options:style="width: 30\%;" alt="Figure: ccorrelacion.png"}}
 \if{latex}{\figure{ccorrelacion.png}{options: width=4cm}}
 
 que se distribuye como una t con n-2 grados de libertad.

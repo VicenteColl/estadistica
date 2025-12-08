@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrcrazonvarianzas.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrcrazonvarianzas.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrcrazonvarianzas.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -33,7 +33,7 @@
 #'
 #' La hipótesis nula que se considera en el contraste bilateral es:
 #'
-#' \if{html}{\figure{crazonvar.png}{options: width="30\%" alt="Figure: contrastecocientevar.png"}}
+#' \if{html}{\figure{crazonvar.png}{options: style="width: 30\%;" alt="Figure: contrastecocientevar.png"}}
 #' \if{latex}{\figure{crazonvar.png}{options: width=3cm}}
 #'
 #' El estadístico F es:

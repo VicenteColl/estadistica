@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrposicion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -44,7 +44,7 @@ moda <- function(x, variable = NULL, pesos = NULL) {
   x <- data.frame(x)
   names(x) <- varnames
 
-  # Selección de variables
+  # Seleccion de variables
   if (is.null(variable)) {
 
     varcuan <- x %>%
@@ -64,7 +64,7 @@ moda <- function(x, variable = NULL, pesos = NULL) {
       if (all(variable <= length(x))) {
         variable <- variable
       } else {
-        stop("Selección errónea de variables")
+        stop("Selecci\u00f3n err\u00f3nea de variables")
       }
     }
 
@@ -73,7 +73,7 @@ moda <- function(x, variable = NULL, pesos = NULL) {
       if (all(variable %in% varnames)) {
         variable <- match(variable, varnames)
       } else {
-        stop("El nombre de la variable no es válido")
+        stop("El nombre de la variable no es v\u00e1lido")
       }
     }
   }
@@ -95,7 +95,7 @@ moda <- function(x, variable = NULL, pesos = NULL) {
       if (pesos %in% varnames) {
         pesos <- match(pesos, varnames)
       } else {
-        stop("El nombre de los pesos no es válido")
+        stop("El nombre de los pesos no es v\u00e1lido")
       }
     }
 
@@ -146,7 +146,7 @@ moda <- function(x, variable = NULL, pesos = NULL) {
     # Convertir lista a data.frame columna a columna
     moda <- as.data.frame(moda, stringsAsFactors = FALSE)
 
-    # Asegurar el mismo número de columnas que varnames
+    # Asegurar el mismo numero de columnas que varnames
     if (ncol(moda) != length(varnames)) {
       # Rellenar columnas faltantes con NA
       for (faltan in (ncol(moda) + 1):length(varnames)) {

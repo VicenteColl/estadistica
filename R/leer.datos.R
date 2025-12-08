@@ -2,12 +2,12 @@
 #'
 #' @description Carga un conjunto de datos.
 #'
-#' \if{html}{\figure{qrleerdatos.png}{options: width="25\%" alt="Figure: qrleerdatos.png"}}
+#' \if{html}{\figure{qrleerdatos.png}{options: style="width: 25\%;" alt="Figure: qrleerdatos.png"}}
 #' \if{latex}{\figure{qrleerdatos.png}{options: width=3cm}}
 #'
 #' @usage leer.datos(introducir = FALSE, pos = 1)
 #'
-#' @param introducir Valor lógico. Si \code{introducir = } (por defecto), se abrirá una ventana para que el usuario seleccione el fichero de datos que quiere cargar. Si \code{introducir = TRUE}, el usuario introducirá él mismo los datos.
+#' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), se abrirá una ventana para que el usuario seleccione el fichero de datos que quiere cargar. Si \code{introducir = TRUE}, el usuario introducirá él mismo los datos.
 #' @param pos Es un valor fijo utilizado para mostrar el dataframe del usuario en el Global Environment.
 #'
 #' @return Al finalizar el proceso de lectura de datos se mostrará el dataframe cargado en el environment.

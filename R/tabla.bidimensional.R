@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrtablabidimensional.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrtablabidimensional.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrtablabidimensional.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Tiene que ser un dataframe (al menos dos variables, es decir, dos columnas).

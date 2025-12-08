@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrposicion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrposicion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -29,7 +29,7 @@
 #'
 #' La mediana se obtiene a partir de la siguiente regla de decisión:
 #'
-#' \if{html}{\figure{mediana.png}{options: width="80\%" alt="Figure: mediana.png"}}
+#' \if{html}{\figure{mediana.png}{options: style="width: 80\%;" alt="Figure: mediana.png"}}
 #' \if{latex}{\figure{mediana.png}{options: scale=.8}}
 #'
 #' donde: Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).

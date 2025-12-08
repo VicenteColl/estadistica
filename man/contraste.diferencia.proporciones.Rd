@@ -40,7 +40,7 @@ Realiza el contraste de hipótesis sobre la diferencia de dos proporciones.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcdifproporciones.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{html}{\figure{qrcdifproporciones.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qrcdifproporciones.png}{options: width=3cm}}
 }
 \details{
@@ -48,17 +48,17 @@ El estadístico Z del contraste, que se distribuye N(0,1), es:
 
 (1) Si se consideran las proporciones muestrales:
 
-\if{html}{\figure{cdifpromuestra.png}{options: width="60\%" alt="Figure: cdifpromuestra.png"}}
+\if{html}{\figure{cdifpromuestra.png}{options: style="width: 60\%;" alt="Figure: cdifpromuestra.png"}}
 \if{latex}{\figure{cdifpromuestra.png}{options: width=8cm}}
 
 (2) si se estima p como media ponderada de las proporciones muestrales, la ponderación es:
 
-\if{html}{\figure{cproponderacion.png}{options: width="50\%" alt="Figure: cproponderacion.png"}}
+\if{html}{\figure{cproponderacion.png}{options:style="width: 50\%;" alt="Figure: cproponderacion.png"}}
 \if{latex}{\figure{cproponderacion.png}{options: width=6cm}}
 
 y el estadístico resulta:
 
-\if{html}{\figure{cdifpropond.png}{options: width="60\%" alt="Figure: cdifpropond.png"}}
+\if{html}{\figure{cdifpropond.png}{options: style="width: 60\%;" alt="Figure: cdifpropond.png"}}
 \if{latex}{\figure{cdifpropond.png}{options: width=7cm}}
 }
 \references{

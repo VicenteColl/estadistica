@@ -21,13 +21,13 @@ Calcula el coeficiente de correlación de Pearson.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcorrelacion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{html}{\figure{qrcorrelacion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qrcorrelacion.png}{options: width=3cm}}
 }
 \details{
 El coeficiente de correlación muestral se obtiene a partir de la siguiente expresión:
 
-\if{html}{\figure{correlacion.png}{options: width="50\%" alt="Figure: correlacion.png"}}
+\if{html}{\figure{correlacion.png}{options: style="width: 50\%;" alt="Figure: correlacion.png"}}
 \if{latex}{\figure{correlacion.png}{options: width=5.5cm}}
 
 Por su construcción, el valor del coeficiente de correlación muestral es el mismo tanto si se calcula a partir de la covarianza y desviaciones típicas muestrales como si se hace a partir de la cuasi-covarianza y cuasi-desviaciones típicas muestrales.
@@ -35,7 +35,7 @@ Por su construcción, el valor del coeficiente de correlación muestral es el mi
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene el coeficiente de correlació poblacional:
 
-\if{html}{\figure{correlacionpob.png}{options: width="30\%" alt="Figure: correlacionpob.png"}}
+\if{html}{\figure{correlacionpob.png}{options: style="width: 30\%;" alt="Figure: correlacionpob.png"}}
 \if{latex}{\figure{correlacionpob.png}{options: width=3.5cm}}
 }
 \examples{

@@ -29,7 +29,7 @@ La función devuelve un objeto de la clase \code{list}. La lista contendrá info
 \description{
 Contrasta si las probabilidades de que una observación pertenezca a cada una de las categorías de una variable categórica o criterio de clasificación se ajusta o no a unas probabilidades propuestas.
 
-Lee el código QR para video-tutorial 6666sobre el uso de la función con un ejemplo.
+Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 }
 \details{
 (1) El estadístico del contraste de bondad de ajuste para datos categóricos es:

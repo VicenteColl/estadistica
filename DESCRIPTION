@@ -1,7 +1,7 @@
 Package: estadistica
 Type: Package
 Title: Fundamentos de estadística descriptiva e inferencial
-Version: 1.1
+Version: 1.2
 Authors@R: 
   c(person(given = "Vicente",
            family = "Coll-Serrano",

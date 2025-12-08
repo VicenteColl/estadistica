@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrdescriptivos.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrdescriptivos.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrdescriptivos.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -38,7 +38,7 @@
 #'
 #' @export
 resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FALSE) {
-  # Helper: extrae un nombre razonable del objeto pasado
+  # extrae nombre del objeto pasado
   get_name_from_expr <- function(expr) {
     if (is.name(expr)) return(as.character(expr))
     if (is.character(expr)) return(expr)
@@ -67,7 +67,7 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     return(txt)
   }
 
-  # Capturar expresión de x para nombrar correctamente si es vector
+  # Capturar expresion de x para nombrar correctamente si es vector
   expr_x <- substitute(x)
   nombre_x <- get_name_from_expr(expr_x)
 
@@ -82,20 +82,20 @@ resumen.descriptivos <- function(x, variable = NULL, pesos = NULL, exportar = FA
     }
   }
 
-  # Selección de variables
+  # Seleccion de variables
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("El nombre de variable no es válido")
+    if (!all(variable %in% names(x))) stop("El nombre de variable no es v\u00e1lido")
     varnames <- variable
   } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selección errónea de variables")
+    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     varnames <- names(x)[variable]
-  } else stop("El argumento 'variable' debe ser numérico o carácter")
+  } else stop("El argumento 'variable' debe ser num\u00e9rico o car\u00e1cter")
 
   x_sel <- x[, varnames, drop = FALSE]
 
-  # --- Cálculos básicos ---
+  # --- Calculos basicos ---
   if (!is.null(pesos)) {
     # Si hay pesos, se pasa el data frame completo a las funciones
     valor_media      <- media(x, variable = varnames, pesos = pesos)

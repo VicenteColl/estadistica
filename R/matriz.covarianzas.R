@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrcovarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrcovarianza.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrcovarianza.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
@@ -27,12 +27,12 @@
 #'
 #' (1) Se obtiene la matriz de varianzas y covarianzas muestrales:
 #'
-#' \if{html}{\figure{matrizvarcovmuestra.png}{options: width="50\%" alt="Figure: matrizvarcovmuestra.png"}}
+#' \if{html}{\figure{matrizvarcovmuestra.png}{options: style="width: 50\%;" alt="Figure: matrizvarcovmuestra.png"}}
 #' \if{latex}{\figure{matrizvarcovmuestra.png}{options: width=8cm}}
 #'
 #' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) facilitan la matriz de cuasi-varianzas y cuasi-covarianzas muestrales:
 #'
-#' \if{html}{\figure{matrizvarcovcuasi.png}{options: width="55\%" alt="Figure: matrizvarcovcuasi.png"}}
+#' \if{html}{\figure{matrizvarcovcuasi.png}{options: style="width: 55\%;" alt="Figure: matrizvarcovcuasi.png"}}
 #' \if{latex}{\figure{matrizvarcovcuasi.png}{options: width=8cm}}
 #'
 #' Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
@@ -40,7 +40,7 @@
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de varianzas y covarianzas poblacional:
 #'
-#' \if{html}{\figure{matrizvarcovpob.png}{options: width="55\%" alt="Figure: matrizvarcovpob.png"}}
+#' \if{html}{\figure{matrizvarcovpob.png}{options:style="width: 55\%;" alt="Figure: matrizvarcovpob.png"}}
 #' \if{latex}{\figure{matrizvarcovpob.png}{options: width=8cm}}
 #'
 #' @seealso \code{\link{varianza}}, \code{\link{desviacion}}

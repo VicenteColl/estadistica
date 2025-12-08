@@ -31,13 +31,13 @@ Calcula los cuantiles.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcuantiles.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{html}{\figure{qrcuantiles.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qrcuantiles.png}{options: width=3cm}}
 }
 \details{
 Los cuantiles se obtienen a partir de la siguiente regla de decisión:
 
-\if{html}{\figure{cuantiles.png}{options: width="85\%" alt="Figure: cuantiles.png"}}
+\if{html}{\figure{cuantiles.png}{options:style="width: 85\%;" alt="Figure: cuantiles.png"}}
 \if{latex}{\figure{cuantiles.png}{options: scale=.85}}
 
 Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).

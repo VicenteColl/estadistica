@@ -37,30 +37,30 @@ Calcula el intervalo de confianza de la media poblacional.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qricmedia.png}{options: width="25\%" alt="Figure: qricmedia.png"}}
+\if{html}{\figure{qricmedia.png}{options: style="width: 25\%;" alt="Figure: qricmedia.png"}}
 \if{latex}{\figure{qricmedia.png}{options: width=3cm}}
 }
 \details{
 (1) Si población desconocida, varianza poblacial conocida y muestra pequeña:
 
-\if{html}{\figure{icmediadesconocidavarcon.png}{options: width="50\%" alt="Figure: icmediadesconocidavarcon.png"}}
+\if{html}{\figure{icmediadesconocidavarcon.png}{options: style="width: 50\%;" alt="Figure: icmediadesconocidavarcon.png"}}
 \if{latex}{\figure{icmediadesconocidavarcon.png}{options: width=10cm}}
 
 (2) Si población normal, varianza poblacional conocida (muestra pequeña y grande)
 
-\if{html}{\figure{icmediavarcon.png}{options: width="55\%" alt="Figure: icmediavarcon.png"}}
+\if{html}{\figure{icmediavarcon.png}{options: style="width: 55\%;" alt="Figure: icmediavarcon.png"}}
 \if{latex}{\figure{icmediavarcon.png}{options: width=10cm}}
 
 (3) Si población normal, varianza poblacional desconocida y muestra pequeña
 
 Con la varianza muestral:
 
-\if{html}{\figure{icmediavardescmuestral.png}{options: width="50\%" alt="Figure: icmediavardescmuestral.png"}}
+\if{html}{\figure{icmediavardescmuestral.png}{options: style="width: 50\%;" alt="Figure: icmediavardescmuestral.png"}}
 \if{latex}{\figure{icmediavardescmuestral.png}{options: width=10cm}}
 
 Con la cuasivarianza muestral:
 
-\if{html}{\figure{icmediavardesccuasi.png}{options: width="50\%" alt="Figure: icmediavardesccuasi.png"}}
+\if{html}{\figure{icmediavardesccuasi.png}{options: style="width: 50\%;" alt="Figure: icmediavardesccuasi.png"}}
 \if{latex}{\figure{icmediavardesccuasi.png}{options: width=10cm}}
 
 Nota: En ambos casos, el valor crítico sigue una distribución t con n-1 grados de libertad

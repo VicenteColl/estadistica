@@ -37,7 +37,7 @@ Calcula el intervalo de confianza de la diferencia de medias poblacionales.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qricdiferenciamedias.png}{options: width="25\%" alt="qricdiferenciamedias.png"}}
+\if{html}{\figure{qricdiferenciamedias.png}{options: style="width: 25\%;" alt="qricdiferenciamedias.png"}}
 \if{latex}{\figure{qricdiferenciamedias.png}{options: width=3cm}}
 }
 \details{
@@ -45,7 +45,7 @@ Se obtienen los intervalos según los siguientes casos:
 
 Caso 1: Varianzas poblacionales conocidas
 
-\if{html}{\figure{icdifmedias1.png}{options: width="75\%" alt="icdifmedias1.png"}}
+\if{html}{\figure{icdifmedias1.png}{options: style="width: 75\%;" alt="icdifmedias1.png"}}
 \if{latex}{\figure{icdifmedias1.png}{options: width=10cm}}
 
 Nota: Si los tamaños muestrales nx y ny son suficientemente grandes, pueden estimarse las varianzas poblacionales
@@ -56,12 +56,12 @@ Caso 2. Varianzas poblacionales desconocidas pero iguales
 
 (2.1) con varianza muestral:
 
-\if{html}{\figure{icdifmedias2.png}{options: width="70\%" alt="icdifproporciones.png"}}
+\if{html}{\figure{icdifmedias2.png}{options: style="width: 70\%;" alt="icdifproporciones.png"}}
 \if{latex}{\figure{icdifmedias2.png}{options: width=10cm}}
 
 (2.2) con cuasivarianza muestral:
 
-\if{html}{\figure{icdifmedias2cuasi.png}{options: width="75\%" alt="icdifproporciones.png"}}
+\if{html}{\figure{icdifmedias2cuasi.png}{options: style="width: 75\%;" alt="icdifproporciones.png"}}
 \if{latex}{\figure{icdifmedias2cuasi.png}{options: width=10cm}}
 
 Nota: Tanto en el caso (2.1) como (2.2) la distribución t tiene (nx+ny-2) grados de libertad.
@@ -70,22 +70,22 @@ Caso 3. Varianzas poblacionales desconocidas y distintas
 
 (3.1) con varianza muestral:
 
-\if{html}{\figure{icdifmedias3.png}{options: width="60\%" alt="icdifproporciones.png"}}
+\if{html}{\figure{icdifmedias3.png}{options: style="width: 60\%;" alt="icdifproporciones.png"}}
 \if{latex}{\figure{icdifmedias3.png}{options: width=8cm}}
 
 la distribución t con grados de libertad igual al entero más próximo de v.
 
-\if{html}{\figure{icdifmedias3gl.png}{options: width="65\%" alt="icdifproporciones.png"}}
+\if{html}{\figure{icdifmedias3gl.png}{options:style="width: 65\%;" alt="icdifproporciones.png"}}
 \if{latex}{\figure{icdifmedias3gl.png}{options: width=8cm}}
 
 (3.2) con cuasivarianza muestral:
 
-\if{html}{\figure{icdifmedias3cuasi.png}{options: width="60\%" alt="icdifproporciones.png"}}
+\if{html}{\figure{icdifmedias3cuasi.png}{options: style="width: 60\%;" alt="icdifproporciones.png"}}
 \if{latex}{\figure{icdifmedias3cuasi.png}{options: width=7cm}}
 
 la distribución t con grados de libertad igual a v, donde v = (parte entera de v*) + 1
 
-\if{html}{\figure{icdifmedias3cuasigl.png}{options: width="65\%" alt="icdifproporciones.png"}}
+\if{html}{\figure{icdifmedias3cuasigl.png}{options: style="width: 65\%;" alt="icdifproporciones.png"}}
 \if{latex}{\figure{icdifmedias3cuasigl.png}{options: width=6cm}}
 }
 \references{

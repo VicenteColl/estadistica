@@ -1,8 +1,8 @@
 #' Data: Encuesta cuatrienal de estructura salarial (2018)
 #'
-#' Datos del Instituto Nacional de Estadística. Hay un total de 216,726 observaciones de 10 variables seleccionadas. Los datos han sido tratados siguiendo las instrucciones que el INE adjunta con los microdatos.
+#' Datos del Instituto Nacional de Estadística. Los microdatos originales constan de 216,726 observaciones. A efectos de practicar, se han seleccionado aleatoriamente 1000 observaciones y 7 variables de interés.
 #' @usage data("salarios2018")
-#' @format Dataframe con 216,726 observaciones de 7 variables.
+#' @format Dataframe con 1000 observaciones 7 7 variables.
 #' \describe{
 #'   \item{SEXO}{Sexo (1=hombre, 6=mujer)}
 #'   \item{ESTUDIOS}{Nivel de estudios. 1=Menos que primaria,2=Primaria,3=Primera etapa secundaria,4=Segunda etapa secundaria,5=FP superior o similar,6=Diplomado o similar,7=Licenciados o similares y doctores}

@@ -21,19 +21,19 @@ Obtiene la matriz de correlación (de Pearson) entre 2 o más variables cuantita
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcorrelacion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{html}{\figure{qrcorrelacion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qrcorrelacion.png}{options: width=3cm}}
 }
 \details{
 Se obtiene la matriz de correlación muestral:
 
-\if{html}{\figure{matrizcorrelacion.png}{options: width="50\%" alt="Figure: matrizcorrelacion.png"}}
+\if{html}{\figure{matrizcorrelacion.png}{options: style="width: 50\%;" alt="Figure: matrizcorrelacion.png"}}
 \if{latex}{\figure{matrizcorrelacion.png}{options: width=8cm}}
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de correlació poblacional:
 
-\if{html}{\figure{matrizcorrelacionpob.png}{options: width="55\%" alt="Figure: matrizcorrelacionpob.png"}}
+\if{html}{\figure{matrizcorrelacionpob.png}{options: style="width: 55\%;" alt="Figure: matrizcorrelacionpob.png"}}
 \if{latex}{\figure{matrizcorrelacionpob.png}{options: width=8cm}}
 }
 \examples{

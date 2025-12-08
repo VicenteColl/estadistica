@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrcuantiles.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrcuantiles.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrcuantiles.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -29,7 +29,7 @@
 #'
 #' Los cuantiles se obtienen a partir de la siguiente regla de decisión:
 #'
-#' \if{html}{\figure{cuantiles.png}{options: width="85\%" alt="Figure: cuantiles.png"}}
+#' \if{html}{\figure{cuantiles.png}{options:style="width: 85\%;" alt="Figure: cuantiles.png"}}
 #' \if{latex}{\figure{cuantiles.png}{options: scale=.85}}
 #'
 #' Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
@@ -65,17 +65,17 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
   # Asegurar data.frame
   if (!is.data.frame(x)) x <- as.data.frame(x)
 
-  # --- Selección de variables ---
+  # --- Seleccion de variables ---
   if (is.null(variable)) {
     varnames <- names(x)[sapply(x, is.numeric)]
   } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selección errónea de variables")
+    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
     varnames <- names(x)[variable]
   } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("Nombre de variable no válido")
+    if (!all(variable %in% names(x))) stop("Nombre de variable no v\u00e1lido")
     varnames <- variable
   } else {
-    stop("El argumento 'variable' debe ser numérico o de tipo carácter")
+    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
   }
 
   x_sel <- x[, varnames, drop = FALSE]
@@ -86,13 +86,13 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
       stop("Para calcular cuantiles ponderados solo puedes seleccionar una variable y un peso")
 
     if (is.character(pesos)) {
-      if (!pesos %in% names(x)) stop("Nombre de pesos no válido")
+      if (!pesos %in% names(x)) stop("Nombre de pesos no vl\u00e1ido")
       pesos_name <- pesos
     } else if (is.numeric(pesos)) {
-      if (any(pesos > ncol(x))) stop("Selección errónea de pesos")
+      if (any(pesos > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de pesos")
       pesos_name <- names(x)[pesos]
     } else {
-      stop("El argumento 'pesos' debe ser numérico o de tipo carácter")
+      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
     }
 
     if (pesos_name == varnames)
@@ -104,7 +104,7 @@ cuantiles <- function(x, variable = NULL, pesos = NULL,
 
   cortes <- sort(cortes)
 
-  # --- Cálculo de cuantiles usando tu función interna ---
+  # --- Calculo de cuantiles usando tu funcion interna ---
   if (is.null(pesos)) {
     cuantiles_mat <- apply(x_sel, 2, .cuantiles.int, cortes = cortes)
   } else {

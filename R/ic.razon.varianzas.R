@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qricrazonvarianzas.png}{options: width="25\%" alt="Figure: qricrazonvarianzas.png"}}
+#' \if{html}{\figure{qricrazonvarianzas.png}{options: style="width: 25\%;" alt="Figure: qricrazonvarianzas.png"}}
 #' \if{latex}{\figure{qricrazonvarianzas.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -29,7 +29,7 @@
 #'
 #' Esta función calcula el intervalo de confianza para el cociente entre la varianza poblacional de la muestra 1 y la de la muestra 2, es decir:
 #'
-#' \if{html}{\figure{iccocientevar.png}{options: width="6\%" alt="Figure: iccocientevar.png"}}
+#' \if{html}{\figure{iccocientevar.png}{options: style="width: 6\%;" alt="Figure: iccocientevar.png"}}
 #' \if{latex}{\figure{iccocientevar.png}{options: width=1cm}}
 #'
 #' Para obtener los intervalos de confianza se opera sobre el estadístico F que se facilita en la nota y que se utiliza para obtener el intervalo del cociente de la varianza de la muestra 2 y la muestra 1.
@@ -38,34 +38,34 @@
 #'
 #' (1) si se trabaja con las varianzas muestrales
 #'
-#' \if{html}{\figure{iccocientevarmuestra.png}{options: width="110\%" alt="Figure: iccocientevarmuestra.png"}}
+#' \if{html}{\figure{iccocientevarmuestra.png}{options: style="width: 110\%;" alt="Figure: iccocientevarmuestra.png"}}
 #' \if{latex}{\figure{iccocientevarmuestra.png}{options: width=14cm}}
 #'
 #' (2) si se trabaja con las cuasi-varianzas muestrales
 #'
-#' \if{html}{\figure{iccocientevarcuasi.png}{options: width="80\%" alt="Figure: iccocientevarcuasi.png"}}
+#' \if{html}{\figure{iccocientevarcuasi.png}{options: style="width: 80\%;" alt="Figure: iccocientevarcuasi.png"}}
 #' \if{latex}{\figure{iccocientevarcuasi.png}{options: width=14cm}}
 #'
 #'
 #' @note
 #' En el caso de querer deducir el intervalo recíproco, es decir:
 #'
-#' \if{html}{\figure{iccocientevar2.png}{options: width="6\%" alt="Figure: iccocientevar.png"}}
+#' \if{html}{\figure{iccocientevar2.png}{options: style="width: 6\%;" alt="Figure: iccocientevar.png"}}
 #' \if{latex}{\figure{iccocientevar2.png}{options: width=1cm}}
 #'
 #' se parte del estadístico:
 #'
-#' \if{html}{\figure{Frazonvar.png}{options: width="50\%" alt="Figure: iccocientevar.png"}}
+#' \if{html}{\figure{Frazonvar.png}{options: style="width: 50\%;" alt="Figure: iccocientevar.png"}}
 #' \if{latex}{\figure{Frazonvar.png}{options: width=8cm}}
 #'
 #' (3) si se trabaja con las varianzas muestrales
 #'
-#' \if{html}{\figure{iccocientevarmuestra2.png}{options: width="110\%" alt="Figure: iccocientevarmuestra.png"}}
+#' \if{html}{\figure{iccocientevarmuestra2.png}{options: style="width: 110\%;" alt="Figure: iccocientevarmuestra.png"}}
 #' \if{latex}{\figure{iccocientevarmuestra2.png}{options: width=14cm}}
 #'
 #' (4) si se trabaja con las cuasi-varianzas muestrales
 #'
-#' \if{html}{\figure{iccocientevarcuasi2.png}{options: width="80\%" alt="Figure: iccocientevarcuasi.png"}}
+#' \if{html}{\figure{iccocientevarcuasi2.png}{options: style="width: 80\%;" alt="Figure: iccocientevarcuasi.png"}}
 #' \if{latex}{\figure{iccocientevarcuasi2.png}{options: width=13cm}}
 #'
 #' @references

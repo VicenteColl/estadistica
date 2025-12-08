@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrforma.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrforma.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrforma.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos, que puede estar formado por una o más variables.
@@ -26,32 +26,32 @@
 #'
 #' El coeficiente de asimetría se obtiene a partir de la expresión:
 #'
-#' \if{html}{\figure{asimetriamuestra.png}{options: width="20\%" alt="Figure: asimetriamuestra.png"}}
+#' \if{html}{\figure{asimetriamuestra.png}{options: style="width: 20\%;" alt="Figure: asimetriamuestra.png"}}
 #' \if{latex}{\figure{asimetriamuestra.png}{options: width=3cm}}
 #'
 #' y el coeficiente de curtosis:
 #'
-#' \if{html}{\figure{curtosismuestra.png}{options: width="35\%" alt="Figure: curtosismuestra.png"}}
+#' \if{html}{\figure{curtosismuestra.png}{options: style="width: 35\%;" alt="Figure: curtosismuestra.png"}}
 #' \if{latex}{\figure{curtosismuestra.png}{options: width=4cm}}
 #'
 #' @note
 #' (1) El coeficiente de asimetría poblacional es:
 #'
-#' \if{html}{\figure{asimetriapob.png}{options: width="20\%" alt="Figure: asimetriapob.png"}}
+#' \if{html}{\figure{asimetriapob.png}{options: style="width: 20\%;" alt="Figure: asimetriapob.png"}}
 #' \if{latex}{\figure{asimetriapob.png}{options: width=3cm}}
 #'
 #' (2) El coeficiente de curtosis poblacional es:
 #'
-#' \if{html}{\figure{curtosispob.png}{options: width="35\%" alt="Figure: curtosispob.png"}}
+#' \if{html}{\figure{curtosispob.png}{options:style="width: 35\%;"alt="Figure: curtosispob.png"}}
 #' \if{latex}{\figure{curtosispob.png}{options: width=4cm}}
 #'
 #' (3) Si el argumento alternativa = TRUE, se obtienen los resultados de asimetría y curtosis que generalmente ofrecen softwares como: SPSS, Stata, SAS, Excel, etc.
 #'
 #'
-#' \if{html}{\figure{asimetriasoft.png}{options: width="60\%" alt="Figure: asimetriasoft.png"}}
+#' \if{html}{\figure{asimetriasoft.png}{options: style="width: 60\%;" alt="Figure: asimetriasoft.png"}}
 #' \if{latex}{\figure{asimetriasoft.png}{options: width=8cm}}
 #'
-#'  \if{html}{\figure{curtosissoft.png}{options: width="120\%" alt="Figure: curtosissoft.png"}}
+#'  \if{html}{\figure{curtosissoft.png}{options:style="width: 120\%;" alt="Figure: curtosissoft.png"}}
 #' \if{latex}{\figure{curtosissoft.png}{options: width=13cm}}
 #'
 #' @seealso \code{\link{varianza}},\code{\link{desviacion}}

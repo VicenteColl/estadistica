@@ -34,25 +34,25 @@ Calcula el intervalo de confianza de la varianza poblacional.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qricvarianza.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{html}{\figure{qricvarianza.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qricvarianza.png}{options: width=3cm}}
 }
 \details{
 (1) Si la media poblacional es conocida:
 
-\if{html}{\figure{icvarianzamedcon.png}{options: width="50\%" alt="Figure: icvarianzamedcon.png"}}
+\if{html}{\figure{icvarianzamedcon.png}{options: style="width: 25\%;"alt="Figure: icvarianzamedcon.png"}}
 \if{latex}{\figure{icvarianzamedcon.png}{options: width=8cm}}
 
 (2) Si la media poblacional es desconocida.
 
 Con la varianza muestral:
 
-\if{html}{\figure{icvarianzameddescmuestra.png}{options: width="30\%" alt="Figure: icvarianzameddescmuestra.png"}}
+\if{html}{\figure{icvarianzameddescmuestra.png}{options: style="width: 25\%;" alt="Figure: icvarianzameddescmuestra.png"}}
 \if{latex}{\figure{icvarianzameddescmuestra.png}{options: width=6cm}}
 
 Con la cuasivarianza muestral:
 
-\if{html}{\figure{icvarianzameddesccuasi.png}{options: width="50\%" alt="Figure: icvarianzameddesccuasi.png"}}
+\if{html}{\figure{icvarianzameddesccuasi.png}{options:style="width: 25\%;" alt="Figure: icvarianzameddesccuasi.png"}}
 \if{latex}{\figure{icvarianzameddesccuasi.png}{options: width=8cm}}
 
 Nota: En todos los casos se obtiene el valor de la chi-dos con n grados de libertad que deja a su derecha una probabilidad de alfa y 1-alfa.

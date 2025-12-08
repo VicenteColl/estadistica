@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qricproporcion.png}{options: width="25\%" alt="Figure: qricproporcion.png"}}
+#' \if{html}{\figure{qricproporcion.png}{options: style="width: 25\%;" alt="Figure: qricproporcion.png"}}
 #' \if{latex}{\figure{qricproporcion.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -29,7 +29,7 @@
 #'
 #' (1) Para tamaños muestrales muy grandes (n>100):
 #'
-#' \if{html}{\figure{icproporcion3.png}{options: width="80\%"}}
+#' \if{html}{\figure{icproporcion3.png}{options: style="width: 80\%;"}}
 #' \if{latex}{\figure{icproporcion3.png}{options: width=12cm}}
 #'
 #' El usuario puede elegir entre tres estrategias:
@@ -40,12 +40,12 @@
 #'
 #' (2) Para cualquier tamaño muestral puede obtenerse el intervalo:
 #'
-#' \if{html}{\figure{icproporcion1.png}{options: width="15\%"}}
+#' \if{html}{\figure{icproporcion1.png}{options: style="width: 15\%;"}}
 #' \if{latex}{\figure{icproporcion1.png}{options: width=2.5cm}}
 #'
 #' correspondiendo los valores a las raíces de:
 #'
-#' \if{html}{\figure{icproporcion2.png}{options: width="80\%"}}
+#' \if{html}{\figure{icproporcion2.png}{options: style="width: 80\%;"}}
 #' \if{latex}{\figure{icproporcion2.png}{options: width=12cm}}
 #'
 #' @references

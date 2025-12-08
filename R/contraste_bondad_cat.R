@@ -2,7 +2,7 @@
 #'
 #' @description Contrasta si las probabilidades de que una observación pertenezca a cada una de las categorías de una variable categórica o criterio de clasificación se ajusta o no a unas probabilidades propuestas.
 #'
-#' Lee el código QR para video-tutorial 6666sobre el uso de la función con un ejemplo.
+#' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe. En caso de haber más de una variable, el programa preguntará por la variable a seleccionar (por nombre o por posición) que debe ser un factor o carácter.
 #' @param introducir Valor lógico. Si \code{introducir = FALSE} (por defecto), el usuario debe indicar el conjunto de datos que desea analizar usando los argumentos \code{x}. Si \code{introducir = TRUE}, se le solicitará al ususario que introduzca la información relevante sobre el número de categorías de la variable, el nombre de cada categoría. A continuación se abrirá una ventana con un editor de datos y deberá introducir los valores de las frecuencias observadas.

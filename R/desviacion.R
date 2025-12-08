@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrdispersion.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrdispersion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 #' \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 #'
 #'
@@ -31,14 +31,14 @@
 #'
 #' (1) La expresión de la de la desviación típica muestral es:
 #'
-#' \if{html}{\figure{desviacion.png}{options: width="40\%"}}
+#' \if{html}{\figure{desviacion.png}{options: style="width: 40\%;"}}
 #' \if{latex}{\figure{desviacion.png}{options: width=5cm}}
 #'
 #' La desviación típica muestral así definida es el estimador máximo verosímil de la desviación típica de una población normal
 #'
 #' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
 #'
-#' \if{html}{\figure{cuasidesviacion.png}{options: width="40\%"}}
+#' \if{html}{\figure{cuasidesviacion.png}{options: style="width: 40\%;"}}
 #' \if{latex}{\figure{cuasidesviacion.png}{options: width=5cm}}
 #'
 #' Nosotros llamamos a esta medida: cuasi-desviación típica muestral y es un estimador insesgado de la desviación típica poblacional.
@@ -46,7 +46,7 @@
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la desviación típica poblacional:
 #'
-#' \if{html}{\figure{desviacionpob.png}{options: width="40\%"}}
+#' \if{html}{\figure{desviacionpob.png}{options: style="width: 40\%;"}}
 #' \if{latex}{\figure{desviacionpob.png}{options: width=5cm}}
 #'
 #' @seealso \code{\link{media}}, \code{\link{varianza}}, \code{\link{coeficiente.variacion}}

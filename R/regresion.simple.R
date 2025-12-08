@@ -4,10 +4,10 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrregresion1.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
+#' \if{html}{\figure{qrregresion1.png}{options: style="width: 25\%;" alt="Figure: qrmuestra1.png"}}
 #' \if{latex}{\figure{qrregresion1.png}{options: width=3cm}}
 #'
-#' \if{html}{\figure{qrregresion2.png}{options: width="25\%" alt="Figure: qrmuestra1.png"}}
+#' \if{html}{\figure{qrregresion2.png}{options: style="width: 25\%;" alt="Figure: qrmuestra1.png"}}
 #' \if{latex}{\figure{qrregresion2.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
@@ -36,34 +36,34 @@
 #' Se obtiene la recta de regresión minimocuadrática de Y (variable dependiente) en función de X (variable independiente).
 #' La recta de regresión puede expresarse como:
 #'
-#' \if{html}{\figure{regresion1.png}{options: width="50\%" alt="Figure: regresion1.png"}}
+#' \if{html}{\figure{regresion1.png}{options: style="width: 50\%;" alt="Figure: regresion1.png"}}
 #' \if{latex}{\figure{regresion1.png}{options: width=7cm}}
 #'
 #' o alternativamente:
 #'
-#' \if{html}{\figure{regresion2.png}{options: width="75\%" alt="Figure: regresion2"}}
+#' \if{html}{\figure{regresion2.png}{options: style="width: 75\%;" alt="Figure: regresion2"}}
 #' \if{latex}{\figure{regresion2.png}{options: width=10cm}}
 #'
 #' En las representaciones gráficas las observaciones anómals se detectan a partir del punto leverage:
 #'
-#' \if{html}{\figure{influyente.png}{options: width="50\%" alt="Figure: influyente.png"}}
+#' \if{html}{\figure{influyente.png}{options: style="width: 50\%;" alt="Figure: influyente.png"}}
 #' \if{latex}{\figure{influyente.png}{options: width=6cm}}
 #'
 #' de forma que una observación tendrá efecto de apalancamiento si:
 #'
-#' \if{html}{\figure{obsinfluyente.png}{options: width="25\%" alt="Figure: obsinfluyente.png"}}
+#' \if{html}{\figure{obsinfluyente.png}{options: style="width: 25\%;" alt="Figure: obsinfluyente.png"}}
 #' \if{latex}{\figure{obsinfluyente.png}{options: width=2.5cm}}
 #'
 #'  donde p=2 (en el caso de la regresión simple). En general, p es igual al número de variables independientes más la constante.
 #'
 #' Por otra parte, las observaciones atípicas se identifican a partir de los errores estandarizados (se). Estos errores se obtienen a partir de:
 #'
-#' \if{html}{\figure{errorstandarizado.png}{options: width="45\%" alt="Figure: errorstandarizado.png"}}
+#' \if{html}{\figure{errorstandarizado.png}{options: style="width: 45\%;"alt="Figure: errorstandarizado.png"}}
 #' \if{latex}{\figure{errorstandarizado.png}{options: width=6cm}}
 #'
 #' Una observación será atípica si:
 #'
-#' \if{html}{\figure{obsatipica.png}{options: width="20\%" alt="Figure: obsatipica.png"}}
+#' \if{html}{\figure{obsatipica.png}{options: style="width: 20\%;" alt="Figure: obsatipica.png"}}
 #' \if{latex}{\figure{obsatipica.png}{options: width=2cm}}
 #'
 #'  @seealso \code{\link{matriz.covar}}, \code{\link{matriz.correlacion}}

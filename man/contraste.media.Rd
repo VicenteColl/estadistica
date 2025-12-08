@@ -43,13 +43,13 @@ Realiza el contraste de hipótesis sobre la media poblacional.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcmedia.png}{options: width="25\%" alt="Figure: qricvarianza.png"}}
+\if{html}{\figure{qrcmedia.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
 \if{latex}{\figure{qrcmedia.png}{options: width=3cm}}
 }
 \details{
 (1) Si la varianza poblacional es conocida, el estadístico Z es:
 
-\if{html}{\figure{cmediavarcon.png}{options: width="30\%" alt="Figure: cmediavarcon.png"}}
+\if{html}{\figure{cmediavarcon.png}{options: style="width: 30\%;" alt="Figure: cmediavarcon.png"}}
 \if{latex}{\figure{cmediavarcon.png}{options: width=3cm}}
 
 y se distribuye como una N(0,1)
@@ -60,12 +60,12 @@ Si la varianza poblacional es desconocida pero la muesta es grande, puede utiliz
 
 (2.1) usando la varianza muestral
 
-\if{html}{\figure{cmediavardescmuestra.png}{options: width="30\%" alt="Figure: cmediavardescmuestra.png"}}
+\if{html}{\figure{cmediavardescmuestra.png}{options: style="width: 30\%;" alt="Figure: cmediavardescmuestra.png"}}
 \if{latex}{\figure{cmediavardescmuestra.png}{options: width=3cm}}
 
 (2.2) usando la cuasi-varianza muestral
 
-\if{html}{\figure{cmediavardesccuasi.png}{options: width="30\%" alt="Figure: cmediavardesccuasi.png"}}
+\if{html}{\figure{cmediavardesccuasi.png}{options: style="width: 30\%;" alt="Figure: cmediavardesccuasi.png"}}
 \if{latex}{\figure{cmediavardesccuasi.png}{options: width=3cm}}
 
 Nota: en ambos casos el estadístico T se distrubuye como un t con n-1 grados de libertad.

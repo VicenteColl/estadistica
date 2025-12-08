@@ -15,7 +15,7 @@ La función devuelve un dataframe.
 \description{
 Une dos o más vectores numéricos de igual o distinta longitud.
 
-\if{html}{\figure{qrleerdatos.png}{options: width="25\%" alt="Figure: qrleerdatos.png"}}
+\if{html}{\figure{qrleerdatos.png}{options: style="width: 25\%;" alt="Figure: qrleerdatos.png"}}
 \if{latex}{\figure{qrleerdatos.png}{options: width=3cm}}
 }
 \author{
