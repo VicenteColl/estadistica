@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrcrazonvarianzas.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrcrazonvarianzas.png}{width = 200px}}
 #' \if{latex}{\figure{qrcrazonvarianzas.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -33,7 +33,7 @@
 #'
 #' La hipótesis nula que se considera en el contraste bilateral es:
 #'
-#' \if{html}{\figure{crazonvar.png}{options: style="width: 30\%;" alt="Figure: contrastecocientevar.png"}}
+#' \if{html}{\figure{crazonvar.png}{width = 240px}}
 #' \if{latex}{\figure{crazonvar.png}{options: width=3cm}}
 #'
 #' El estadístico F es:
@@ -41,12 +41,12 @@
 #' (1) Si trabajamos con la varianza muestral:
 #'
 #'
-#' \if{html}{\figure{crazonvarmuestra.png}{options: width="50\%" alt="Figure: contrastecocientevarmuestra.png"}}
+#' \if{html}{\figure{crazonvarmuestra.png}{width = 400px}}
 #' \if{latex}{\figure{crazonvarmuestra.png}{options: width=5cm}}
 #'
 #' (2) si trabajamos con la cuasi-varianza muestral:
 #'
-#' \if{html}{\figure{crazonvarcuasi.png}{options: width="25\%" alt="Figure: contrastecocientevarcuasi.png"}}
+#' \if{html}{\figure{crazonvarcuasi.png}{width = 200px}}
 #' \if{latex}{\figure{crazonvarcuasi.png}{options: width=3cm}}
 #'
 #' Tanto en (1) como en (2) el estadístico F se distribuye como una F con (n1-1) grados de libertad en el numerador y (n2-1) grados de libertad en el denominador.
