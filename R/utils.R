@@ -1,3 +1,63 @@
+#' Facilita cálculo de moda
+#'
+#' @description Para obtener la moda
+#' @param x Vector
+#' @keywords internal
+#' @noRd
+
+.moda_int <- function(x) {
+  x <- na.omit(x)
+  if (length(x) == 0) return(data.frame(moda = NA_real_))
+  tbl <- table(x)
+  max_freq <- max(tbl)
+  modas <- names(tbl)[tbl == max_freq]
+  # Si todos los valores tienen la misma frecuencia (cada uno aparece igual veces)
+  if (length(modas) == length(unique(x))) {
+    warning("Esta variable no tiene moda: todos los valores tienen la misma frecuencia")
+    return(data.frame(moda = NA))
+  }
+  # Convertir modas a tipo apropiado (numérico si se puede, sino carácter)
+  modas_num <- suppressWarnings(as.numeric(modas))
+  if (all(!is.na(modas_num))) {
+    modas <- modas_num
+  }
+  data.frame(moda = modas, stringsAsFactors = FALSE)
+}
+
+#' Facilita cálculo de moda ponderada
+#' @description Para obtener la moda ponderada
+#' @param x Vector
+#' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias
+#' @keywords internal
+#' @noRd
+
+.moda_pond_int <- function(x, pesos) {
+  ok <- !is.na(x) & !is.na(pesos)
+  x <- x[ok]
+  pesos <- pesos[ok]
+  if (length(x) == 0) return(data.frame(moda = NA_real_))
+  # Agrupar por valor y sumar pesos
+  df <- data.frame(x = x, p = pesos)
+  freqs <- df %>%
+    group_by(x) %>%
+    summarise(f = sum(p), .groups = "drop")
+  max_freq <- max(freqs$f)
+  modas <- freqs$x[freqs$f == max_freq]
+  if (length(modas) == nrow(freqs)) {
+    warning("Esta variable no tiene moda ponderada: todos los valores tienen la misma frecuencia")
+    return(data.frame(moda = NA))
+  }
+  # Si hay múltiples modas, tomar la primera (por orden de aparición en x original)
+  # Para mantener consistencia con .moda_int, devolvemos todas? Mejor todas.
+  # Pero .moda_pond_int original (en el código del usuario) solo devolvía una.
+  # Por coherencia, devolvemos todas.
+  modas <- as.character(modas)
+  modas_num <- suppressWarnings(as.numeric(modas))
+  if (all(!is.na(modas_num))) modas <- modas_num
+  data.frame(moda = modas, stringsAsFactors = FALSE)
+}
+
+
 #' Facilita cálculo de cuantiles
 #'
 #' @description Para obtener los cuantiles
@@ -7,77 +67,56 @@
 #' @keywords internal
 #' @noRd
 #' @importFrom stats setNames
-.cuantiles.int <- function(x, pesos = NULL, cortes = 0.5){
+.cuantiles.int <- function(x, pesos = NULL, cortes = 0.5) {
+  # x: vector numérico
+  # pesos: vector de pesos (opcional)
+  # cortes: vector de probabilidades (0-1)
 
-  if(is.numeric(x)){
-    varnames <- "variable.x"
-  }else{
-    varnames <- as.character(names(x))
-  }
-
-  x <- data.frame(x)
-
-  clase <- sapply(x, class)
-
-  if (!all(clase %in% c("numeric","integer"))) {
-    stop("No pueden calcularse los cuantiles, alguna variable que has seleccionado no es cuantitativa")
-  }
-
-  if(is.null(pesos)){
-
-    x <- tidyr::drop_na(x)
-    #y <- names(x)
-    #names(x) <- varnames
-
-    N <- nrow(x)
-    tabla <- x %>% group_by(x) %>%
-      count() %>%
-      ungroup() %>%
-      mutate(Ni = cumsum(n))
-
-  } else{
-
-    N <- sum(pesos)
-
-    tabla <- data.frame(x,pesos) %>%
-      na.omit
-    #y <- names(tabla)
-    names(tabla) <- c("x","pesos")
-
-    tabla <- tabla %>%
-      arrange(x) %>%
-      mutate(Ni = cumsum(pesos))
-
-  }
-
+  # Convertir a data.frame y verificar tipo
+  x_df <- data.frame(x = x)
+  if (!is.numeric(x_df$x)) stop("Los datos deben ser numéricos")
 
   cortes <- sort(cortes)
 
-  cuantiles <- c()
-
-  for(i in 1:length(cortes)){
-
-    posicion <- min(which(tabla$Ni >= cortes[i]* N))
-
-    if(cortes[i]* N == tabla$Ni[posicion]){
-
-      cuantil <- mean(c(tabla$x[posicion],tabla$x[posicion+1]),na.rm=TRUE)
-
-    } else {
-
-      cuantil <- tabla$x[posicion]
-
-    }
-
-    cuantiles <- rbind(cuantiles,cuantil)
-
-
+  # Construir tabla de frecuencias o pesos acumulados
+  if (is.null(pesos)) {
+    datos <- na.omit(x_df)
+    if (nrow(datos) == 0) return(data.frame(prob = cortes, value = NA_real_))
+    N <- nrow(datos)
+    tabla <- datos %>%
+      group_by(x) %>%
+      summarise(n = n(), .groups = "drop") %>%
+      mutate(Ni = cumsum(n))
+  } else {
+    if (length(pesos) != length(x)) stop("Longitud de pesos no coincide con x")
+    datos <- data.frame(x = x, pesos = pesos) %>% na.omit()
+    if (nrow(datos) == 0) return(data.frame(prob = cortes, value = NA_real_))
+    N <- sum(datos$pesos)
+    tabla <- datos %>%
+      arrange(x) %>%
+      mutate(Ni = cumsum(pesos))
   }
 
-  cuantiles <- as.data.frame(cuantiles)
-  row.names(cuantiles) <- paste(cortes*100,"%",sep="")
+  # Calcular cada cuantil
+  cuantiles <- vector("numeric", length(cortes))
+  for (i in seq_along(cortes)) {
+    p <- cortes[i]
+    posicion <- min(which(tabla$Ni >= p * N))
+    if (p * N == tabla$Ni[posicion]) {
+      if (posicion + 1 <= nrow(tabla)) {
+        cuantil <- mean(c(tabla$x[posicion], tabla$x[posicion + 1]), na.rm = TRUE)
+      } else {
+        cuantil <- tabla$x[posicion]
+      }
+    } else {
+      cuantil <- tabla$x[posicion]
+    }
+    cuantiles[i] <- cuantil
+  }
 
-  return(cuantiles)
+  # Devolver data.frame con dos columnas: prob (corte) y value
+  result <- data.frame(prob = cortes, value = cuantiles)
+  return(result)
 }
 
 
@@ -87,63 +126,43 @@
 #' @param x Vector
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias
 #' @noRd
-.mediana.int <- function(x, pesos = NULL){
-
-  if(is.numeric(x)){
-    varnames <- "variable.x"
-  }else{
-    varnames <- as.character(names(x))
-  }
-
-  x <- data.frame(x)
-
-  clase <- sapply(x, class)
-
-  if (!all(clase %in% c("numeric","integer"))) {
-    stop("No puede calcularse la median, alguna variable que has seleccionado no es cuantitativa")
-  }
-
-  if(is.null(pesos)){
-
-    x <- tidyr::drop_na(x)
-    y <- names(x)
-    names(x) <- "x"
-
-    N <- nrow(x)
-    tabla <- x %>% group_by(x) %>%
-      count() %>%
-      ungroup() %>%
+.mediana_int <- function(x, pesos = NULL) {
+  # Eliminar NAs
+  if (is.null(pesos)) {
+    datos <- data.frame(x = x)
+    datos <- na.omit(datos)
+    if (nrow(datos) == 0) return(NA_real_)
+    N <- nrow(datos)
+    tabla <- datos %>%
+      group_by(x) %>%
+      summarise(n = n(), .groups = "drop") %>%
       mutate(Ni = cumsum(n))
-
-  } else{
-
-    N <- sum(pesos)
-
-    tabla <- data.frame(x,pesos) %>%
-      na.omit
-    y <- names(tabla)
-    names(tabla) <- c("x","pesos")
-
-    tabla <- tabla %>%
+  } else {
+    if (length(pesos) != length(x)) stop("Longitud de pesos no coincide con x")
+    datos <- data.frame(x = x, pesos = pesos)
+    datos <- na.omit(datos)
+    if (nrow(datos) == 0) return(NA_real_)
+    N <- sum(datos$pesos)
+    tabla <- datos %>%
       arrange(x) %>%
       mutate(Ni = cumsum(pesos))
-
   }
 
   posicion <- min(which(tabla$Ni >= N/2))
 
-  if(N/2 == tabla$Ni[posicion]){
-
-    mediana <- mean(c(tabla$x[posicion],tabla$x[posicion+1]),na.rm=TRUE)
-
+  if (N/2 == tabla$Ni[posicion]) {
+    if (posicion + 1 <= nrow(tabla)) {
+      mediana <- mean(c(tabla$x[posicion], tabla$x[posicion + 1]), na.rm = TRUE)
+    } else {
+      mediana <- tabla$x[posicion]
+    }
   } else {
-
     mediana <- tabla$x[posicion]
-
   }
 
   return(mediana)
 }
+
 
 #' Facilita cálculo de los momentos
 #'
@@ -152,58 +171,42 @@
 #' @param orden Orden del momento central
 #' @keywords internal
 #' @noRd
-.momento.central <- function(x, orden){
-
-  if(is.numeric(x)){
+.momento.central <- function(x, orden) {
+  if (is.numeric(x)) {
     varnames <- "variable.x"
-  }else{
+  } else {
     varnames <- as.character(names(x))
   }
-
   x <- data.frame(x)
   names(x) <- varnames
-
   orden <- as.integer(orden)
-
-  if(!is.integer(orden)){
-
-    stop("El orden del momento central debe ser un valor num\u00e9rico entero")
-
+  if (!is.integer(orden)) {
+    stop("El orden del momento central debe ser un valor numérico entero")
   }
-
-  x <- data.frame(x)
-
   clase <- sapply(x, class)
-
-  if (!all(clase %in% c("numeric","integer"))) {
-    stop("No pueden calcularse las medidas de forma, alguna variable que has seleccionado no es cuantitativa")
+  if (!all(clase %in% c("numeric", "integer"))) {
+    stop("No pueden calcularse las medidas de forma, alguna variable seleccionada no es cuantitativa")
   }
-
-  momento_vacio <- vector("list",length=length(x))
-
-  for(i in 1:length(x)){
-
-    x2 <- x[i] %>% na.omit
-
+  momento_vacio <- vector("list", length = length(x))
+  for (i in seq_along(x)) {
+    x2 <- x[i] %>% na.omit()
+    if (nrow(x2) == 0) {
+      momento_vacio[[i]] <- NA_real_
+      next
+    }
+    media_x <- media(x2)[[1]]   # extraer media de la única columna
     momento <- x2 %>%
-      mutate(media_x = media(x2),
-             momento = (x2-media_x)^orden) %>%
-      summarize(momento = sum(momento)/n()) %>%
+      mutate(momento = (x2[[1]] - media_x)^orden) %>%
+      summarise(momento = sum(momento) / n()) %>%
       as.numeric()
-
     momento_vacio[[i]] <- momento
-
   }
-
-  max_long <-  max(lengths(momento_vacio))
-  momento <- sapply(momento_vacio, "[", seq_len(max_long)) %>%
-    t() %>%
-    as.numeric()
+  momento <- unlist(momento_vacio)
   names(momento) <- varnames
-
   return(momento)
-
 }
+
+
 
 #' Crear hojas excel para exportar resultados de series temporales
 #'

@@ -17,7 +17,7 @@ Al finalizar el proceso de lectura de datos se mostrará el dataframe cargado en
 \description{
 Carga un conjunto de datos.
 
-\if{html}{\figure{qrleerdatos.png}{options: style="width: 25\%;" alt="Figure: qrleerdatos.png"}}
+\if{html}{\figure{qrleerdatos.png}{width = 200px}}
 \if{latex}{\figure{qrleerdatos.png}{options: width=3cm}}
 }
 \references{

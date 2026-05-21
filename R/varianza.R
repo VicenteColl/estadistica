@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrdispersion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrdispersion.png}{width = 200px}}
 #' \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -30,14 +30,14 @@
 #'
 #' (1) La expresión de la varianza muestral es:
 #'
-#' \if{html}{\figure{varianza.png}{options: style="width: 40\%;" alt="Figure: varianza.png"}}
+#' \if{html}{\figure{varianza.png}{width = 320px}}
 #' \if{latex}{\figure{varianza.png}{options: width=5cm}}
 #'
 #' La varianza muestral así definida es el estimador máximo verosímil de la varianza de una población normal
 #'
 #' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
 #'
-#' \if{html}{\figure{cuasivarianza.png}{options: style="width: 40\%;" alt="Figure: cuasivarianza.png"}}
+#' \if{html}{\figure{cuasivarianza.png}{width = 320px}}
 #' \if{latex}{\figure{cuasivarianza.png}{options: width=5cm}}
 #'
 #' Nosotros llamamos a esta medida: cuasi-varianza muestral y es un estimador insesgado de la varianza poblacional.
@@ -46,7 +46,7 @@
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la varianza poblacional:
 #'
 #'
-#' \if{html}{\figure{varianzapob.png}{options: style="width: 40\%;" alt="Figure: varianzapob.png"}}
+#' \if{html}{\figure{varianzapob.png}{width = 320px}}
 #' \if{latex}{\figure{varianzapob.png}{options: width=5cm}}
 #'
 #' @seealso \code{\link{media}}, \code{\link{desviacion}}, \code{\link{coeficiente.variacion}}
@@ -67,101 +67,141 @@
 #' @importFrom stats var
 #'
 #' @export
-varianza <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi")) {
-
+varianza <- function(data, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi")) {
+  
   tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
-
-  if (!is.data.frame(x)) x <- data.frame(x)
-
-  # --- Seleccion de variables ---
-  if (is.null(variable)) {
-    varnames <- names(x)[sapply(x, is.numeric)]
-  } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
-    varnames <- names(x)[variable]
-  } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("Nombre de variable no v\u00e1lido")
-    varnames <- variable
+  
+  # Si no es data.frame, convertir (caso vector)
+  if (!is.data.frame(data)) {
+    data <- data.frame(variable = data)
+  }
+  # No convertir a tibble para preservar grupos
+  
+  # Capturar argumentos
+  var_quo <- enquo(variable)
+  pesos_quo <- enquo(pesos)
+  
+  # --- Procesar 'variable' (legacy vs tidy) ---
+  legacy_var <- FALSE
+  varnames <- NULL
+  vars_expr <- NULL
+  
+  if (quo_is_null(var_quo)) {
+    vars_expr <- where(is.numeric)
+    legacy_var <- FALSE
   } else {
-    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
-  }
-
-  x_sel <- x[, varnames, drop = FALSE]
-
-  # --- Comprobar tipo de variables ---
-  if (!all(sapply(x_sel, is.numeric))) {
-    stop("No puede calcularse la varianza: alguna variable seleccionada no es cuantitativa")
-  }
-
-  # --- Si no hay pesos ---
-  if (is.null(pesos)) {
-
-    x_sel <- x[, varnames, drop = FALSE]
-
-    # Comprobacion tipo de variable
-    if (!all(sapply(x_sel, is.numeric))) {
-      stop("No puede calcularse la varianza: alguna variable seleccionada no es cuantitativa")
+    eval_res <- tryCatch(
+      eval_tidy(var_quo, env = caller_env()),
+      error = function(e) NULL
+    )
+    if (is.numeric(eval_res) || is.character(eval_res)) {
+      legacy_var <- TRUE
+      if (is.numeric(eval_res)) {
+        if (any(eval_res > ncol(data))) stop("Selecci\u00f3n err\u00f3nea de variables")
+        varnames <- names(data)[eval_res]
+      } else {
+        if (!all(eval_res %in% names(data))) stop("Nombre de variable no v\u00e1lido")
+        varnames <- eval_res
+      }
+    } else {
+      legacy_var <- FALSE
+      vars_expr <- var_quo
     }
-
-    calcular_var <- function(col) {
-      n_eff <- sum(!is.na(col))
-      if (n_eff < 2) return(NA_real_)
-      factor <- if (tipo == "muestral") (n_eff - 1) / n_eff else 1
-      stats::var(col, na.rm = TRUE) * factor
+  }
+  
+  # --- Procesar 'pesos' ---
+  peso_name <- NULL
+  if (!quo_is_null(pesos_quo)) {
+    pesos_eval <- tryCatch(
+      eval_tidy(pesos_quo, env = caller_env()),
+      error = function(e) NULL
+    )
+    if (is.numeric(pesos_eval) || is.character(pesos_eval)) {
+      if (is.numeric(pesos_eval)) {
+        if (pesos_eval > ncol(data)) stop("Selecci\u00f3n err\u00f3nea de pesos")
+        peso_name <- names(data)[pesos_eval[1]]
+      } else {
+        if (!(pesos_eval[1] %in% names(data))) stop("El nombre de los pesos no es v\u00e1lido")
+        peso_name <- pesos_eval[1]
+      }
+    } else {
+      peso_name <- tryCatch(
+        as_name(pesos_quo),
+        error = function(e) stop("El argumento 'pesos' debe ser una columna única o su nombre/índice")
+      )
+      if (!peso_name %in% names(data)) stop("La columna de pesos no existe en los datos")
     }
-
-    var_val <- sapply(x_sel, calcular_var)
-    var_df <- as.data.frame(t(var_val))
-    names(var_df) <- varnames
-
+  }
+  
+  # --- Funciones auxiliares para la varianza ---
+  var_no_pond <- function(x, tipo_var) {
+    n_eff <- sum(!is.na(x))
+    if (n_eff < 2) return(NA_real_)
+    v <- stats::var(x, na.rm = TRUE)
+    if (tipo_var == "muestral") {
+      v * (n_eff - 1) / n_eff
+    } else {
+      v
+    }
+  }
+  
+  var_pond <- function(valor, peso, tipo_var) {
+    ok <- !is.na(valor) & !is.na(peso)
+    valor <- valor[ok]
+    peso <- peso[ok]
+    if (length(valor) < 2) return(NA_real_)
+    media_pond <- sum(valor * peso) / sum(peso)
+    sum_cuad <- sum((valor - media_pond)^2 * peso)
+    if (tipo_var == "muestral") {
+      denom <- sum(peso)
+    } else {
+      denom <- sum(peso) - 1
+    }
+    if (denom <= 0) return(NA_real_)
+    sum_cuad / denom
+  }
+  
+  # --- Cálculo final respetando grupos ---
+  if (is.null(peso_name)) {
+    # Sin pesos
+    if (legacy_var) {
+      result <- data %>%
+        dplyr::select(dplyr::all_of(varnames)) %>%
+        dplyr::summarise(dplyr::across(dplyr::everything(),
+                                       ~ var_no_pond(.x, tipo_var = tipo)))
+    } else {
+      result <- data %>%
+        dplyr::summarise(dplyr::across({{ vars_expr }},
+                                       ~ var_no_pond(.x, tipo_var = tipo)))
+    }
   } else {
-    # --- Si hay pesos ---
-
-    # Determinar indices o nombres
-    if (is.character(pesos)) {
-      if (!(pesos %in% names(x))) stop("El nombre de los pesos no es v\u00e1lido")
-      pesos_idx <- match(pesos, names(x))
-    } else if (is.numeric(pesos)) {
-      if (pesos > ncol(x)) stop("Selecci\u00f3n err\u00f3nea de pesos")
-      pesos_idx <- pesos
+    # Con pesos: solo una variable
+    if (legacy_var) {
+      if (length(varnames) != 1) {
+        stop("Solo puede calcularse la varianza ponderada para una variable a la vez")
+      }
+      var_name <- varnames[1]
     } else {
-      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
+      sel_vars <- tryCatch(
+        tidyselect::eval_select(vars_expr, data = data),
+        error = function(e) stop("Selección inválida para ponderación")
+      )
+      if (length(sel_vars) != 1) {
+        stop("Solo puede calcularse la varianza ponderada para una variable a la vez")
+      }
+      var_name <- names(sel_vars)[1]
     }
-
-    if (length(varnames) > 1) {
-      stop("Solo puede calcularse la varianza ponderada para una variable a la vez")
+    
+    if (var_name == peso_name) {
+      stop("No puedes usar la misma variable como dato y como peso.")
     }
-
-    variable_idx <- match(varnames, names(x))
-    x_sel <- x[, c(variable_idx, pesos_idx)]
-    names(x_sel) <- c("variable2", "pesos")
-
-    if (!is.numeric(x_sel$variable2) || !is.numeric(x_sel$pesos)) {
-      stop("Tanto la variable como los pesos deben ser num\u00e9ricos")
-    }
-
-    x_sel <- na.omit(x_sel)
-
-    # Calcular media ponderada
-    media_pond <- sum(x_sel$variable2 * x_sel$pesos) / sum(x_sel$pesos)
-
-    # Suma ponderada de cuadrados
-    sumatorio <- (x_sel$variable2 - media_pond)^2 * x_sel$pesos
-
-    # Denominador segun tipo
-    if (tipo == "muestral") {
-      denom <- sum(x_sel$pesos)
-    } else {
-      denom <- sum(x_sel$pesos) - 1
-    }
-
-    var_val <- sum(sumatorio) / denom
-
-    var_df <- data.frame(varianza = var_val)
-    names(var_df) <- varnames
+    
+    result <- data %>%
+      dplyr::summarise(
+        !!var_name := var_pond(.data[[var_name]], .data[[peso_name]], tipo_var = tipo)
+      )
   }
-
-  class(var_df) <- c("resumen", class(var_df))
-  return(var_df)
+  
+  class(result) <- c("resumen", class(result))
+  return(result)
 }
-

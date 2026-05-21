@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrforma.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrforma.png}{width = 200px}}
 #' \if{latex}{\figure{qrforma.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos, que puede estar formado por una o más variables.
@@ -26,32 +26,32 @@
 #'
 #' El coeficiente de asimetría se obtiene a partir de la expresión:
 #'
-#' \if{html}{\figure{asimetriamuestra.png}{options: style="width: 20\%;" alt="Figure: asimetriamuestra.png"}}
+#' \if{html}{\figure{asimetriamuestra.png}{width = 160px}}
 #' \if{latex}{\figure{asimetriamuestra.png}{options: width=3cm}}
 #'
 #' y el coeficiente de curtosis:
 #'
-#' \if{html}{\figure{curtosismuestra.png}{options: style="width: 35\%;" alt="Figure: curtosismuestra.png"}}
+#' \if{html}{\figure{curtosismuestra.png}{width = 280px}}
 #' \if{latex}{\figure{curtosismuestra.png}{options: width=4cm}}
 #'
 #' @note
 #' (1) El coeficiente de asimetría poblacional es:
 #'
-#' \if{html}{\figure{asimetriapob.png}{options: style="width: 20\%;" alt="Figure: asimetriapob.png"}}
+#' \if{html}{\figure{asimetriapob.png}{width = 160px}}
 #' \if{latex}{\figure{asimetriapob.png}{options: width=3cm}}
 #'
 #' (2) El coeficiente de curtosis poblacional es:
 #'
-#' \if{html}{\figure{curtosispob.png}{options:style="width: 35\%;"alt="Figure: curtosispob.png"}}
+#' \if{html}{\figure{curtosispob.png}{width = 2800px}}
 #' \if{latex}{\figure{curtosispob.png}{options: width=4cm}}
 #'
 #' (3) Si el argumento alternativa = TRUE, se obtienen los resultados de asimetría y curtosis que generalmente ofrecen softwares como: SPSS, Stata, SAS, Excel, etc.
 #'
 #'
-#' \if{html}{\figure{asimetriasoft.png}{options: style="width: 60\%;" alt="Figure: asimetriasoft.png"}}
+#' \if{html}{\figure{asimetriasoft.png}{width = 4800px}}
 #' \if{latex}{\figure{asimetriasoft.png}{options: width=8cm}}
 #'
-#'  \if{html}{\figure{curtosissoft.png}{options:style="width: 120\%;" alt="Figure: curtosissoft.png"}}
+#'  \if{html}{\figure{curtosissoft.png}{width = 920px}}
 #' \if{latex}{\figure{curtosissoft.png}{options: width=13cm}}
 #'
 #' @seealso \code{\link{varianza}},\code{\link{desviacion}}
@@ -70,249 +70,266 @@
 #' forma2 <- medidas.forma(startup, alternativa= TRUE)
 #'
 #' @export
-medidas.forma <- function(x,
-                          variable = NULL,
-                          pesos = NULL,
-                          alternativa = FALSE,
-                          exportar = FALSE){
+medidas.forma <- function(data, variable = NULL, pesos = NULL,
+                          alternativa = FALSE, exportar = FALSE) {
 
-  if(is.numeric(x)){
-    varnames <- "variable.x"
-  }else{
-    varnames <- as.character(names(x))
+  # Si no es data.frame, convertir (vector simple)
+  if (!is.data.frame(data)) {
+    data <- data.frame(variable = data)
   }
 
-  x <- data.frame(x)
-  names(x) <- varnames
+  # Capturar argumentos
+  var_quo <- enquo(variable)
+  pesos_quo <- enquo(pesos)
 
-  if(is.null(variable)){
+  # --- Procesar 'variable' (legacy vs tidy) ---
+  legacy_var <- FALSE
+  varnames <- NULL
+  vars_expr <- NULL
 
-    varcuan <-  names(x)[which(sapply(x[varnames], is.numeric))]
-    #seleccion = match(varcuan,varnames)
-    x <- x[varcuan]
-    varnames <- varcuan
-
-  } else{
-
-    if(is.numeric(variable)){
-
-      if(all(variable <= length(x))){
-
-        variable <- variable
-
-      } else{
-
-        stop("Selecci\u00f3n err\u00f3nea de variables")
-
-      }
-    }
-
-    if(is.character(variable)){
-
-      if(all(variable %in% varnames)){
-        variable = match(variable,varnames)
+  if (quo_is_null(var_quo)) {
+    vars_expr <- where(is.numeric)
+    legacy_var <- FALSE
+  } else {
+    eval_res <- tryCatch(eval_tidy(var_quo, env = caller_env()),
+                         error = function(e) NULL)
+    if (is.numeric(eval_res) || is.character(eval_res)) {
+      legacy_var <- TRUE
+      if (is.numeric(eval_res)) {
+        if (any(eval_res > ncol(data))) stop("Selección errónea de variables")
+        varnames <- names(data)[eval_res]
       } else {
-        stop("El nombre de la variable no es v\u00e1lido")
+        if (!all(eval_res %in% names(data))) stop("Nombre de variable no válido")
+        varnames <- eval_res
       }
+    } else {
+      legacy_var <- FALSE
+      vars_expr <- var_quo
     }
-
   }
 
-
-  if(is.null(pesos) & !is.null(variable)){
-
-    x <- x[,variable] %>% as.data.frame()
-    varnames <- varnames[variable]
-    names(x) <- varnames
-
-  }
-
-  if(!is.null(pesos) & !is.null(variable)){
-
-    if((length(variable) | length(pesos)) > 1){
-
-      stop("Para calcular la media a partir de la distribuci\u00fn de frecuencias solo puedes seleccionar una variable y unos pesos")
-
-    }
-
-    if(is.numeric(pesos)){
-
-      pesos <- pesos
-
-    }
-
-
-    if(is.character(pesos)){
-
-      if(pesos %in% varnames){
-        pesos = match(pesos,varnames)
+  # --- Procesar 'pesos' ---
+  peso_name <- NULL
+  if (!quo_is_null(pesos_quo)) {
+    pesos_eval <- tryCatch(eval_tidy(pesos_quo, env = caller_env()),
+                           error = function(e) NULL)
+    if (is.numeric(pesos_eval) || is.character(pesos_eval)) {
+      if (is.numeric(pesos_eval)) {
+        if (pesos_eval > ncol(data)) stop("Selección errónea de pesos")
+        peso_name <- names(data)[pesos_eval[1]]
       } else {
-        stop("El nombre de los pesos no es v\u00e1lido")
+        if (!(pesos_eval[1] %in% names(data))) stop("Nombre de pesos no válido")
+        peso_name <- pesos_eval[1]
       }
+    } else {
+      peso_name <- tryCatch(as_name(pesos_quo),
+                            error = function(e) stop("El argumento 'pesos' debe ser una columna única o su nombre/índice"))
+      if (!peso_name %in% names(data)) stop("La columna de pesos no existe en los datos")
     }
+  }
 
-    if(pesos == variable){
-
-      stop("Has seleccionado la misma columna del dataframe para la variable y los pesos")
-
+  # --- Validar reglas de ponderación ---
+  if (!is.null(peso_name)) {
+    if (legacy_var) {
+      if (length(varnames) != 1) stop("Para medidas de forma ponderadas solo puedes seleccionar una variable")
+    } else {
+      sel_vars <- tryCatch(tidyselect::eval_select(vars_expr, data = data),
+                           error = function(e) stop("Selección inválida para ponderación"))
+      if (length(sel_vars) != 1) stop("Para medidas de forma ponderadas solo puedes seleccionar una variable")
     }
-
-
-    x <- x[,c(variable,pesos)] %>% as.data.frame()
-    varnames <- varnames[c(variable,pesos)]
-    names(x) <- varnames
-
   }
 
-  clase <- sapply(x, class)
-
-  if (!all(clase %in% c("numeric","integer"))) {
-    stop("No pueden calcularse las medidas de forma, alguna variable que has seleccionado no es cuantitativa")
+  # --- Obtener nombres de las columnas seleccionadas ---
+  if (legacy_var) {
+    selected_vars <- varnames
+  } else {
+    selected_vars <- names(tidyselect::eval_select(vars_expr, data = data))
   }
 
-
-  if(is.null(pesos)){
-
-    #N <- nrow(x)
-    momento3 <- .momento.central(x,orden = 3)
-    momento4 <- .momento.central(x,orden = 4)
-    desv.x <- desviacion(x)
-
-    asimetria <- momento3/desv.x^3
-    curtosis <- momento4/desv.x^4 - 3
-
-    forma <- bind_rows(asimetria,curtosis) %>%
-      as.data.frame()
-    row.names(forma) <- c("asimetria","curtosis")
-
-
-  } else{
-
-    desv.x <- desviacion(x,variable=1,pesos=2)
-    forma <-  x %>%
-        na.omit %>%
-        rename(variable2 = varnames[1], pesos = varnames[2]) %>%
-        mutate(media = media(x,variable=1,pesos=2),
-                    sumatorio3 = (variable2-media)^3*pesos,
-                    sumatorio4 = (variable2-media)^4*pesos) %>%
-        summarize(momento3 = sum(sumatorio3)/sum(pesos),
-                  momento4 = sum(sumatorio4)/sum(pesos),
-                  asimetria = sum(sumatorio3)/(sum(pesos)*desv.x^3),
-                  curtosis = sum(sumatorio4)/(sum(pesos)*desv.x^4) - 3)
-
-    N <- sum(x[2])
-
-    asimetria <- as.numeric(forma[3])
-    curtosis <- as.numeric(forma[4])
-    momento3 <- as.numeric(forma[1])
-    momento4 <- as.numeric(forma[2])
-
-    forma <- forma %>%
-      select(asimetria,curtosis) %>%
-      t() %>%
-      as.data.frame()
-
-    names(forma) <- varnames[1]
-    row.names(forma) <- c("asimetria","curtosis")
-
-  }
-  if (isTRUE(alternativa) & is.null(pesos)) {
-
-    # Convertir a formato largo
-    xalt <- x %>%
-      tidyr::gather(key = "var_coef", value = "value") %>%
-      dplyr::filter(complete.cases(.)) %>%
-      dplyr::group_by(var_coef) %>%
-      dplyr::summarize(
-        N = dplyr::n(),
-        c1 = (N * (N + 1)) / ((N - 1) * (N - 2) * (N - 3)),
-        c3 = (3 * (N - 1)^2) / ((N - 2) * (N - 3)),
-        error_asimetria = sqrt((6 * N * (N - 1)) / ((N - 2) * (N + 1) * (N + 3))),
-        error_curtosis = 2 * sqrt((6 * N * (N - 1)) / ((N - 2) * (N + 1) * (N + 3))) *
-          sqrt((N^2 - 1) / ((N - 3) * (N + 5)))
-      ) %>%
-      dplyr::ungroup()
-
-    # Calcular los momentos y desviaciones
-    momento3_df <- .momento.central(x, orden = 3)
-    momento4_df <- .momento.central(x, orden = 4)
-    desv_df <- desviacion(x, tipo = "cuasi")
-
-    # Asegurar que los resultados son vectores numericos
-    momento3_vec <- if (is.data.frame(momento3_df)) as.numeric(momento3_df[1, ]) else as.numeric(momento3_df)
-    momento4_vec <- if (is.data.frame(momento4_df)) as.numeric(momento4_df[1, ]) else as.numeric(momento4_df)
-    desv_vec     <- if (is.data.frame(desv_df)) as.numeric(desv_df[1, ]) else as.numeric(desv_df)
-
-    # Anadir calculos alternativos
-    xalt <- xalt %>%
-      dplyr::mutate(
-        desv.x.muestra = desv_vec,
-        c2 = (N * momento4_vec) / desv.x.muestra^4,
-        curtosis_soft = (c1 * c2) - c3,
-        A1 = N / ((N - 1) * (N - 2)),
-        A2 = (N * momento3_vec) / desv.x.muestra^3,
-        asimetria_soft = A1 * A2,
-        asimetria = as.numeric(asimetria[1, ]),
-        curtosis = as.numeric(curtosis[1, ])
-      )
-
-    # Seleccionar columnas finales
-    forma <- xalt %>%
-      dplyr::select(
-        N,
-        asimetria,
-        curtosis,
-        asimetria2 = asimetria_soft,
-        error_asimetria2 = error_asimetria,
-        curtosis2 = curtosis_soft,
-        error_curtosis2 = error_curtosis
-      )
-
-    # Convertir a formato "medidas en filas / variables en columnas"
-    forma_t <- as.data.frame(t(forma))
-    colnames(forma_t) <- varnames
-    rownames(forma_t) <- c(
-      "N",
-      "Asimetr\u00eda (muestral)",
-      "Curtosis (muestral)",
-      "Asimetr\u00eda (alternativa)",
-      "Error asimetr\u00eda (alt)",
-      "Curtosis (alternativa)",
-      "Error curtosis (alt)"
-    )
-
-    forma <- forma_t
-
+  # --- Advertencia sobre alternativa con grupos ---
+  has_groups <- inherits(data, "grouped_df")
+  if (alternativa && has_groups) {
+    message("La opción 'alternativa = TRUE' solo está implementada para datos no agrupados. Se ignorará.")
+    alternativa <- FALSE
   }
 
+  # ------------------------------------------------------------------
+  # Funciones auxiliares para el cálculo (sin usar group_modify internamente)
+  # Estas funciones devuelven un data.frame de una fila con las estadísticas
+  # ------------------------------------------------------------------
+  compute_shape_no_weights <- function(df, vars) {
+    # df: data.frame (puede ser un grupo, pero se usa como tal)
+    # vars: vector de nombres de columnas numéricas
+    # Retorna data.frame de 1 fila con columnas: asimetria_var1, curtosis_var1, ...
+    res <- list()
+    for (v in vars) {
+      x <- df[[v]]
+      x <- x[!is.na(x)]
+      if (length(x) < 3) {
+        res[[paste0("asimetria_", v)]] <- NA_real_
+        res[[paste0("curtosis_", v)]] <- NA_real_
+        next
+      }
+      momento3 <- .momento.central(data.frame(x), orden = 3)[1]
+      momento4 <- .momento.central(data.frame(x), orden = 4)[1]
+      desv <- sd(x)
+      asimetria <- momento3 / desv^3
+      curtosis <- momento4 / desv^4 - 3
+      res[[paste0("asimetria_", v)]] <- asimetria
+      res[[paste0("curtosis_", v)]] <- curtosis
+    }
+    as.data.frame(res)
+  }
 
-  # Exportar
+  compute_shape_with_weights <- function(df, var, peso) {
+    x <- df[[var]]
+    w <- df[[peso]]
+    ok <- !is.na(x) & !is.na(w)
+    x <- x[ok]
+    w <- w[ok]
+    if (length(x) < 3) {
+      return(data.frame(asimetria = NA_real_, curtosis = NA_real_))
+    }
+    media <- sum(x * w) / sum(w)
+    m3 <- sum((x - media)^3 * w) / sum(w)
+    m4 <- sum((x - media)^4 * w) / sum(w)
+    desv <- desviacion(df, variable = !!rlang::sym(var), pesos = !!rlang::sym(peso), tipo = "cuasi")
+    desv <- desv[[1]]
+    asimetria <- m3 / desv^3
+    curtosis <- m4 / desv^4 - 3
+    data.frame(asimetria = asimetria, curtosis = curtosis)
+  }
+
+  # ------------------------------------------------------------------
+  # Cálculo principal
+  # ------------------------------------------------------------------
+  if (is.null(peso_name)) {
+    # Sin pesos
+    if (has_groups) {
+      result <- data %>%
+        dplyr::group_modify(~ compute_shape_no_weights(.x, selected_vars)) %>%
+        dplyr::ungroup()
+    } else {
+      result <- compute_shape_no_weights(data, selected_vars)
+    }
+  } else {
+    # Con pesos (una variable)
+    var_name <- selected_vars[1]
+    if (has_groups) {
+      result <- data %>%
+        dplyr::group_modify(~ compute_shape_with_weights(.x, var_name, peso_name)) %>%
+        dplyr::ungroup()
+      # Renombrar columnas asimetria -> asimetria_var, curtosis -> curtosis_var
+      names(result)[names(result) == "asimetria"] <- paste0("asimetria_", var_name)
+      names(result)[names(result) == "curtosis"] <- paste0("curtosis_", var_name)
+    } else {
+      result <- compute_shape_with_weights(data, var_name, peso_name)
+      names(result) <- c(paste0("asimetria_", var_name), paste0("curtosis_", var_name))
+    }
+  }
+
+  # ------------------------------------------------------------------
+  # Transformación final según haya grupos o no
+  # ------------------------------------------------------------------
+  if (!has_groups) {
+    # Caso sin grupos: convertir a formato filas (asimetría, curtosis) o alternativa
+    if (!alternativa) {
+      # Formato clásico: dos filas, columnas = variables
+      asim_row <- sapply(selected_vars, function(v) result[[paste0("asimetria_", v)]])
+      curt_row <- sapply(selected_vars, function(v) result[[paste0("curtosis_", v)]])
+      result <- rbind(asim_row, curt_row)
+      rownames(result) <- c("asimetria", "curtosis")
+      colnames(result) <- selected_vars
+      result <- as.data.frame(result)
+    } else {
+      # Modo alternativa: generar tabla con N, asimetría alternativa, errores, etc.
+      alt_list <- list()
+      for (v in selected_vars) {
+        x <- data[[v]]
+        x <- x[!is.na(x)]
+        n <- length(x)
+        if (n < 4) {
+          alt_df <- data.frame(
+            N = n,
+            asimetria_muestral = result[[paste0("asimetria_", v)]],
+            asimetria_alt = NA_real_,
+            error_asimetria = NA_real_,
+            curtosis_muestral = result[[paste0("curtosis_", v)]],
+            curtosis_alt = NA_real_,
+            error_curtosis = NA_real_
+          )
+        } else {
+          c1 <- (n * (n + 1)) / ((n - 1) * (n - 2) * (n - 3))
+          c3 <- (3 * (n - 1)^2) / ((n - 2) * (n - 3))
+          error_asim <- sqrt((6 * n * (n - 1)) / ((n - 2) * (n + 1) * (n + 3)))
+          error_curt <- 2 * sqrt((6 * n * (n - 1)) / ((n - 2) * (n + 1) * (n + 3))) *
+            sqrt((n^2 - 1) / ((n - 3) * (n + 5)))
+          m3 <- .momento.central(data.frame(x), orden = 3)[1]
+          m4 <- .momento.central(data.frame(x), orden = 4)[1]
+          desv <- sd(x)
+          c2 <- (n * m4) / desv^4
+          asim_alt <- (n / ((n - 1) * (n - 2))) * (n * m3) / desv^3
+          curt_alt <- c1 * c2 - c3
+          alt_df <- data.frame(
+            N = n,
+            asimetria_muestral = result[[paste0("asimetria_", v)]],
+            asimetria_alt = asim_alt,
+            error_asimetria = error_asim,
+            curtosis_muestral = result[[paste0("curtosis_", v)]],
+            curtosis_alt = curt_alt,
+            error_curtosis = error_curt
+          )
+        }
+        alt_list[[v]] <- alt_df
+      }
+      alt_result <- dplyr::bind_rows(alt_list, .id = "variable")
+      # Reorganizar: filas = estadísticas, columnas = variables
+      stats_order <- c("N", "asimetria_muestral", "asimetria_alt", "error_asimetria",
+                       "curtosis_muestral", "curtosis_alt", "error_curtosis")
+      final_rows <- list()
+      for (stat in stats_order) {
+        row_vals <- sapply(selected_vars, function(v) alt_result[alt_result$variable == v, stat])
+        final_rows[[stat]] <- row_vals
+      }
+      result <- as.data.frame(do.call(rbind, final_rows))
+      rownames(result) <- c("N", "Asimetría (muestral)", "Asimetría (alternativa)", "Error asimetría (alt)",
+                            "Curtosis (muestral)", "Curtosis (alternativa)", "Error curtosis (alt)")
+      colnames(result) <- selected_vars
+    }
+  } else {
+    # Caso con grupos: ya está en formato ancho con grupos. No se transforma.
+    # Solo redondeamos y ya.
+    result <- result
+  }
+
+  # Redondear valores numéricos a 4 decimales
+  result <- result %>%
+    dplyr::mutate(dplyr::across(where(is.numeric), ~ round(.x, 4)))
+
+  # Exportar a Excel si se solicita
   if (exportar) {
-
     filename <- paste0("Medidas_de_forma_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
-
     wb <- openxlsx::createWorkbook()
     openxlsx::addWorksheet(wb, "Medidas_de_forma")
-
-    # nombres de fila a columna
-    resumen_export <- cbind(forma = row.names(forma), forma)
-    row.names(resumen_export) <- NULL
-
+    if (has_groups || (!has_groups && !alternativa)) {
+      resumen_export <- cbind(Estadística = rownames(result), result)
+      rownames(resumen_export) <- NULL
+    } else {
+      resumen_export <- result
+      rownames(resumen_export) <- NULL
+    }
     openxlsx::writeData(wb, "Medidas_de_forma", resumen_export)
-
-    # formato numerico decimal en Excel
-    addStyle(wb, "Medidas_de_forma",
-             style = createStyle(numFmt = "0.0000"),
-             rows = 2:(nrow(resumen_export)+1),
-             cols = 2:(ncol(resumen_export)+1),
-             gridExpand = TRUE)
-
-    saveWorkbook(wb, filename, overwrite = TRUE)
+    # Aplicar formato numérico a todas las columnas excepto la primera (nombres de fila)
+    if (ncol(resumen_export) > 1) {
+      openxlsx::addStyle(wb, "Medidas_de_forma",
+                         style = openxlsx::createStyle(numFmt = "0.0000"),
+                         rows = 2:(nrow(resumen_export) + 1),
+                         cols = 2:(ncol(resumen_export) + 1),
+                         gridExpand = TRUE)
+    }
+    openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   }
 
-  class(forma) <- c("resumen", class(forma))
-
-
-  return(forma)
-
+  class(result) <- c("resumen", class(result))
+  return(result)
 }

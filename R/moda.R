@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrposicion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrposicion.png}{width = 200px}}
 #' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -32,154 +32,131 @@
 #' @import dplyr
 #'
 #' @export
-moda <- function(x, variable = NULL, pesos = NULL) {
-
-  # Detectar si x es vector o data.frame
-  if (is.numeric(x) || is.factor(x) || is.integer(x) || is.logical(x)) {
-    varnames <- "variable.x"
+moda <- function(data, variable = NULL, pesos = NULL) {
+  
+  # Si no es data.frame, convertir (vector simple)
+  if (!is.data.frame(data)) {
+    data <- data.frame(variable = data)
+  }
+  
+  # Capturar argumentos
+  var_quo <- enquo(variable)
+  pesos_quo <- enquo(pesos)
+  
+  # --- Procesar 'variable' (legacy vs tidy) ---
+  legacy_var <- FALSE
+  varnames <- NULL
+  vars_expr <- NULL
+  
+  if (quo_is_null(var_quo)) {
+    # Por defecto: todas las columnas numéricas, enteras, factor o lógicas
+    vars_expr <- where(~ is.numeric(.x) || is.integer(.x) || is.factor(.x) || is.logical(.x))
+    legacy_var <- FALSE
   } else {
-    varnames <- as.character(names(x))
+    eval_res <- tryCatch(
+      eval_tidy(var_quo, env = caller_env()),
+      error = function(e) NULL
+    )
+    if (is.numeric(eval_res) || is.character(eval_res)) {
+      legacy_var <- TRUE
+      if (is.numeric(eval_res)) {
+        if (any(eval_res > ncol(data))) stop("Selecci\u00f3n err\u00f3nea de variables")
+        varnames <- names(data)[eval_res]
+      } else {
+        if (!all(eval_res %in% names(data))) stop("Nombre de variable no v\u00e1lido")
+        varnames <- eval_res
+      }
+    } else {
+      legacy_var <- FALSE
+      vars_expr <- var_quo
+    }
   }
-
-  x <- data.frame(x)
-  names(x) <- varnames
-
-  # Seleccion de variables
-  if (is.null(variable)) {
-
-    varcuan <- x %>%
-      dplyr::select_if(function(col)
-        is.numeric(col) | is.integer(col) | is.factor(col) | is.logical(col)
-      ) %>%
-      names()
-
-    seleccion <- match(varcuan, varnames)
-    x <- x[seleccion]
-    varnames <- varcuan
-
+  
+  # --- Procesar 'pesos' ---
+  peso_name <- NULL
+  if (!quo_is_null(pesos_quo)) {
+    pesos_eval <- tryCatch(
+      eval_tidy(pesos_quo, env = caller_env()),
+      error = function(e) NULL
+    )
+    if (is.numeric(pesos_eval) || is.character(pesos_eval)) {
+      if (is.numeric(pesos_eval)) {
+        if (pesos_eval > ncol(data)) stop("Selecci\u00f3n err\u00f3nea de pesos")
+        peso_name <- names(data)[pesos_eval[1]]
+      } else {
+        if (!(pesos_eval[1] %in% names(data))) stop("Nombre de pesos no v\u00e1lido")
+        peso_name <- pesos_eval[1]
+      }
+    } else {
+      peso_name <- tryCatch(
+        as_name(pesos_quo),
+        error = function(e) stop("El argumento 'pesos' debe ser una columna única o su nombre/índice")
+      )
+      if (!peso_name %in% names(data)) stop("La columna de pesos no existe en los datos")
+    }
+  }
+  
+  # --- Validar reglas de ponderación ---
+  if (!is.null(peso_name)) {
+    # Solo una variable permitida con pesos
+    if (legacy_var) {
+      if (length(varnames) != 1) stop("Para moda ponderada solo puedes seleccionar una variable")
+    } else {
+      sel_vars <- tryCatch(
+        tidyselect::eval_select(vars_expr, data = data),
+        error = function(e) stop("Selección inválida para ponderación")
+      )
+      if (length(sel_vars) != 1) stop("Para moda ponderada solo puedes seleccionar una variable")
+    }
+  }
+  
+  # --- Obtener nombres de las columnas seleccionadas ---
+  if (legacy_var) {
+    selected_vars <- varnames
   } else {
-
-    if (is.numeric(variable)) {
-
-      if (all(variable <= length(x))) {
-        variable <- variable
-      } else {
-        stop("Selecci\u00f3n err\u00f3nea de variables")
+    selected_vars <- names(tidyselect::eval_select(vars_expr, data = data))
+  }
+  
+  # --- Función para aplicar moda a un data frame (con o sin pesos) ---
+  compute_mode <- function(df, vars, peso_name = NULL) {
+    # df: data frame (puede ser grouped o no)
+    # vars: vector de nombres de columnas
+    # Retorna un data.frame con columnas: variable, moda
+    if (is.null(peso_name)) {
+      # Sin pesos: calcular moda para cada variable
+      res <- list()
+      for (v in vars) {
+        modas_df <- .moda_int(df[[v]])
+        modas_df$variable <- v
+        res[[v]] <- modas_df
       }
-    }
-
-    if (is.character(variable)) {
-
-      if (all(variable %in% varnames)) {
-        variable <- match(variable, varnames)
-      } else {
-        stop("El nombre de la variable no es v\u00e1lido")
-      }
+      bind_rows(res)
+    } else {
+      # Con pesos: solo una variable
+      v <- vars[1]
+      modas_df <- .moda_pond_int(df[[v]], pesos = df[[peso_name]])
+      modas_df$variable <- v
+      modas_df
     }
   }
-
-  # Si hay pesos nulos y variable definida
-  if (is.null(pesos) & !is.null(variable)) {
-    x <- x[, variable, drop = FALSE]
-    varnames <- varnames[variable]
-  }
-
-  # Si hay pesos definidos
-  if (!is.null(pesos) & !is.null(variable)) {
-
-    if ((length(variable) > 1) | (length(pesos) > 1)) {
-      stop("Para calcular la moda ponderada solo puedes seleccionar una variable y unos pesos")
-    }
-
-    if (is.character(pesos)) {
-      if (pesos %in% varnames) {
-        pesos <- match(pesos, varnames)
-      } else {
-        stop("El nombre de los pesos no es v\u00e1lido")
-      }
-    }
-
-    if (pesos == variable) {
-      stop("Has seleccionado la misma columna del dataframe para la variable y los pesos")
-    }
-
-    x <- x[, c(variable, pesos), drop = FALSE]
-    varnames <- varnames[c(variable, pesos)]
-  }
-
-  clase <- sapply(x, class)
-
-  if (!all(clase %in% c("numeric", "integer", "factor", "logical"))) {
-    stop("No se puede calcular la moda: comprueba el tipo de variable seleccionada")
-  }
-
-  # --- Moda sin pesos ---
-  if (is.null(pesos)) {
-
-    moda_vacio <- vector("list", length = length(x))
-
-    for (i in seq_along(x)) {
-
-      x_moda <- na.omit(x[[i]])
-      if (length(x_moda) == 0) {
-        moda_vacio[[i]] <- NA
-        next
-      }
-
-      valor_moda <- table(x_moda)
-      valor_moda <- names(valor_moda)[valor_moda == max(valor_moda)]
-      moda_i <- suppressWarnings(as.numeric(valor_moda))
-      if (all(is.na(moda_i))) moda_i <- valor_moda
-
-      if (length(moda_i) == length(unique(x_moda))) {
-        warning("Esta variable no tiene moda: todos los valores tienen la misma frecuencia")
-        moda_i <- NA
-      }
-
-      moda_vacio[[i]] <- moda_i
-    }
-
-    max_long <- max(lengths(moda_vacio))
-    # Forzar a lista y convertir sin simplificar
-    moda <- sapply(moda_vacio, "[", seq_len(max_long), simplify = FALSE)
-
-    # Convertir lista a data.frame columna a columna
-    moda <- as.data.frame(moda, stringsAsFactors = FALSE)
-
-    # Asegurar el mismo numero de columnas que varnames
-    if (ncol(moda) != length(varnames)) {
-      # Rellenar columnas faltantes con NA
-      for (faltan in (ncol(moda) + 1):length(varnames)) {
-        moda[[varnames[faltan]]] <- NA
-      }
-    }
-
-    names(moda) <- varnames
-
-
+  
+  # --- Aplicar respetando grupos ---
+  if (inherits(data, "grouped_df")) {
+    # Datos agrupados: usar group_modify
+    result <- data %>%
+      dplyr::group_modify(~ {
+        compute_mode(.x, vars = selected_vars, peso_name = peso_name)
+      }) %>%
+      dplyr::ungroup()
   } else {
-    # --- Moda con pesos ---
-    moda <- x %>%
-      na.omit() %>%
-      dplyr::rename(variable2 = varnames[1], pesos = varnames[2]) %>%
-      dplyr::group_by(variable2) %>%
-      dplyr::summarize(frecuencia = sum(pesos), .groups = 'drop') %>%
-      dplyr::arrange(desc(frecuencia)) %>%
-      as.data.frame()
-
-    valores_distintos <- unique(moda$variable2)
-
-    moda <- moda %>%
-      dplyr::summarize(moda = variable2[frecuencia == max(frecuencia)]) %>%
-      as.data.frame()
-
-    if (nrow(moda) == length(valores_distintos)) {
-      warning("Esta variable no tiene moda: todos los valores tienen la misma frecuencia")
-      moda <- NA
-    }
-
-    names(moda) <- paste("moda_", varnames[1], sep = "")
+    # Datos no agrupados
+    result <- compute_mode(data, vars = selected_vars, peso_name = peso_name)
   }
-
-  return(moda)
+  
+  # Reordenar columnas: poner primero las de grupo si existen, luego variable, luego moda
+  # No es necesario porque ya group_modify mantiene las columnas de grupo al inicio.
+  
+  class(result) <- c("resumen", class(result))
+  return(result)
 }
+

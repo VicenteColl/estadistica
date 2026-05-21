@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrposicion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrposicion.png}{width = 200px}}
 #' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -29,13 +29,12 @@
 #'
 #' La mediana se obtiene a partir de la siguiente regla de decisión:
 #'
-#' \if{html}{\figure{mediana.png}{options: style="width: 80\%;" alt="Figure: mediana.png"}}
+#' \if{html}{\figure{mediana.png}{width = 640px}}
 #' \if{latex}{\figure{mediana.png}{options: scale=.8}}
 #'
 #' donde: Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
 #'
 #' @seealso \code{\link{media}}, \code{\link{cuantiles}}
-#'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
 #'
@@ -52,62 +51,93 @@
 #' @import dplyr
 #'
 #' @export
-mediana <- function(x, variable = NULL, pesos = NULL) {
-
-  var_name <- deparse(substitute(x))
-
-  # Convertir a data.frame
-  if (!is.data.frame(x)) x <- as.data.frame(x)
-
-  # --- Selecci\u00f3n de variables ---
-  if (is.null(variable)) {
-    varnames <- names(x)[sapply(x, is.numeric)]
-  } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
-    varnames <- names(x)[variable]
-  } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("Nombre de variable no v\u00e1lido")
-    varnames <- variable
+mediana <- function(data, variable = NULL, pesos = NULL) {
+  
+  if (!is.data.frame(data)) {
+    data <- data.frame(variable = data)
+  }
+  
+  var_quo <- enquo(variable)
+  pesos_quo <- enquo(pesos)
+  
+  # --- Procesar variable ---
+  legacy_var <- FALSE
+  varnames <- NULL
+  vars_expr <- NULL
+  
+  if (quo_is_null(var_quo)) {
+    vars_expr <- where(is.numeric)
+    legacy_var <- FALSE
   } else {
-    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
-  }
-
-  # Subconjunto de variables seleccionadas
-  x_sel <- x[, varnames, drop = FALSE]
-
-  # --- Manejo de pesos ---
-  if (!is.null(pesos)) {
-    if (length(varnames) > 1)
-      stop("Solo puedes seleccionar una variable con pesos")
-
-    # Buscar columna de pesos en el data.frame original, no en x_sel
-    if (is.character(pesos)) {
-      if (!pesos %in% names(x)) stop("Nombre de pesos no v\u00e1lido")
-      pesos_col <- pesos
-    } else if (is.numeric(pesos)) {
-      if (pesos > ncol(x)) stop("Selecci\u00f3n de pesos no v\u00e1lida")
-      pesos_col <- names(x)[pesos]
+    eval_res <- tryCatch(
+      eval_tidy(var_quo, env = caller_env()),
+      error = function(e) NULL
+    )
+    if (is.numeric(eval_res) || is.character(eval_res)) {
+      legacy_var <- TRUE
+      if (is.numeric(eval_res)) {
+        if (any(eval_res > ncol(data))) stop("Selecci\u00f3n err\u00f3nea de variables")
+        varnames <- names(data)[eval_res]
+      } else {
+        if (!all(eval_res %in% names(data))) stop("Nombre de variable no v\u00e1lido")
+        varnames <- eval_res
+      }
     } else {
-      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
+      legacy_var <- FALSE
+      vars_expr <- var_quo
     }
-
-    datos <- na.omit(data.frame(variable = x[[varnames]], pesos = x[[pesos_col]]))
-    if (nrow(datos) == 0) return(data.frame(matrix(NA, ncol = 1, dimnames = list(NULL, varnames))))
-
-    result <- .mediana.int(datos$variable, datos$pesos)
-    result_df <- data.frame(result)
-    colnames(result_df) <- varnames
-
-    class(result_df) <- c("resumen", class(result_df))
-    return(round(result_df, 4))
   }
-
-  # --- Mediana simple ---
-  result <- sapply(x_sel, .mediana.int)
-  result_df <- as.data.frame(t(result))  # convertimos a data.frame con columnas como variables
-  colnames(result_df) <- varnames
-  rownames(result_df) <- NULL
-
-  class(result_df) <- c("resumen", class(result_df))
-  return(result_df)
+  
+  # --- Procesar pesos ---
+  peso_name <- NULL
+  if (!quo_is_null(pesos_quo)) {
+    pesos_eval <- tryCatch(
+      eval_tidy(pesos_quo, env = caller_env()),
+      error = function(e) NULL
+    )
+    if (is.numeric(pesos_eval) || is.character(pesos_eval)) {
+      if (is.numeric(pesos_eval)) {
+        if (pesos_eval > ncol(data)) stop("Selecci\u00f3n err\u00f3nea de pesos")
+        peso_name <- names(data)[pesos_eval[1]]
+      } else {
+        if (!(pesos_eval[1] %in% names(data))) stop("Nombre de pesos no v\u00e1lido")
+        peso_name <- pesos_eval[1]
+      }
+    } else {
+      peso_name <- tryCatch(
+        as_name(pesos_quo),
+        error = function(e) stop("El argumento 'pesos' debe ser una columna única o su nombre/índice")
+      )
+      if (!peso_name %in% names(data)) stop("La columna de pesos no existe en los datos")
+    }
+  }
+  
+  # --- Cálculo de la mediana ---
+  if (is.null(peso_name)) {
+    if (legacy_var) {
+      result <- data %>%
+        select(all_of(varnames)) %>%
+        summarise(across(everything(), ~ .mediana_int(.x, pesos = NULL)))
+    } else {
+      result <- data %>%
+        summarise(across({{ vars_expr }}, ~ .mediana_int(.x, pesos = NULL)))
+    }
+  } else {
+    if (legacy_var) {
+      if (length(varnames) != 1) stop("Para mediana ponderada solo una variable")
+      var_name <- varnames[1]
+    } else {
+      sel_vars <- tidyselect::eval_select(vars_expr, data = data)
+      if (length(sel_vars) != 1) stop("Para mediana ponderada solo una variable")
+      var_name <- names(sel_vars)[1]
+    }
+    if (var_name == peso_name) stop("La variable y los pesos no pueden ser la misma columna")
+    
+    result <- data %>%
+      summarise(!!var_name := .mediana_int(.data[[var_name]], pesos = .data[[peso_name]]))
+  }
+  
+  result <- result %>% mutate(across(where(is.numeric), ~ round(.x, 4)))
+  class(result) <- c("resumen", class(result))
+  return(result)
 }

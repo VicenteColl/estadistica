@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrdispersion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrdispersion.png}{width = 200px}}
 #' \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 #'
 #'
@@ -31,14 +31,14 @@
 #'
 #' (1) La expresión de la de la desviación típica muestral es:
 #'
-#' \if{html}{\figure{desviacion.png}{options: style="width: 40\%;"}}
+#' \if{html}{\figure{desviacion.png}{width = 32px}}
 #' \if{latex}{\figure{desviacion.png}{options: width=5cm}}
 #'
 #' La desviación típica muestral así definida es el estimador máximo verosímil de la desviación típica de una población normal
 #'
 #' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
 #'
-#' \if{html}{\figure{cuasidesviacion.png}{options: style="width: 40\%;"}}
+#' \if{html}{\figure{cuasidesviacion.png}{width = 320px}}
 #' \if{latex}{\figure{cuasidesviacion.png}{options: width=5cm}}
 #'
 #' Nosotros llamamos a esta medida: cuasi-desviación típica muestral y es un estimador insesgado de la desviación típica poblacional.
@@ -46,7 +46,7 @@
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la desviación típica poblacional:
 #'
-#' \if{html}{\figure{desviacionpob.png}{options: style="width: 40\%;"}}
+#' \if{html}{\figure{desviacionpob.png}{width = 320px}}
 #' \if{latex}{\figure{desviacionpob.png}{options: width=5cm}}
 #'
 #' @seealso \code{\link{media}}, \code{\link{varianza}}, \code{\link{coeficiente.variacion}}
@@ -67,85 +67,143 @@
 #' @importFrom stats sd na.omit
 #'
 #' @export
-desviacion <- function(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi")) {
-
+desviacion <- function(data, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi")) {
+  
   tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
-
-  # --- Asegurar data.frame ---
-  if (!is.data.frame(x)) x <- data.frame(x)
-
-  # --- Seleccion de variables ---
-  if (is.null(variable)) {
-    varnames <- names(x)[sapply(x, is.numeric)]
-  } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
-    varnames <- names(x)[variable]
-  } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("Nombre de variable no v\u00e1lido")
-    varnames <- variable
+  
+  # Si no es data.frame, convertir (caso vector simple)
+  if (!is.data.frame(data)) {
+    data <- data.frame(variable = data)
+  }
+  # No convertir a tibble para preservar grupos
+  
+  # Capturar argumentos
+  var_quo <- enquo(variable)
+  pesos_quo <- enquo(pesos)
+  
+  # --- Procesar 'variable' (legacy vs tidy) ---
+  legacy_var <- FALSE
+  varnames <- NULL
+  vars_expr <- NULL
+  
+  if (quo_is_null(var_quo)) {
+    vars_expr <- where(is.numeric)
+    legacy_var <- FALSE
   } else {
-    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
-  }
-
-  x_sel <- x[, varnames, drop = FALSE]
-
-  # --- Comprobar tipo de variables ---
-  if (!all(sapply(x_sel, is.numeric))) {
-    stop("No puede calcularse la desviaci\u00f3n: alguna variable no es cuantitativa")
-  }
-
-  # --- Si no hay pesos, calculamos desviacion simple ---
-  if (is.null(pesos)) {
-    calcular_desv <- function(col) {
-      n_eff <- sum(!is.na(col))
-      if (n_eff < 2) return(NA_real_)
-      factor <- if (tipo == "muestral") sqrt((n_eff - 1) / n_eff) else 1
-      round(sqrt(stats::var(col, na.rm = TRUE)) * factor, 4)
+    eval_res <- tryCatch(
+      eval_tidy(var_quo, env = caller_env()),
+      error = function(e) NULL
+    )
+    if (is.numeric(eval_res) || is.character(eval_res)) {
+      legacy_var <- TRUE
+      if (is.numeric(eval_res)) {
+        if (any(eval_res > ncol(data))) stop("Selecci\u00f3n err\u00f3nea de variables")
+        varnames <- names(data)[eval_res]
+      } else {
+        if (!all(eval_res %in% names(data))) stop("Nombre de variable no v\u00e1lido")
+        varnames <- eval_res
+      }
+    } else {
+      legacy_var <- FALSE
+      vars_expr <- var_quo
     }
-
-    desv_val <- sapply(x_sel, calcular_desv)
-    names(desv_val) <- names(x_sel)
-
-    desv_df <- as.data.frame(t(desv_val))
-
-    return(desv_df)
   }
-
-  # --- Si hay pesos ---
-  if (length(pesos) != 1 || length(varnames) != 1) {
-    stop("Para desviaci\u00f3n ponderada solo puedes seleccionar una variable y un vector de pesos")
+  
+  # --- Procesar 'pesos' ---
+  peso_name <- NULL
+  if (!quo_is_null(pesos_quo)) {
+    pesos_eval <- tryCatch(
+      eval_tidy(pesos_quo, env = caller_env()),
+      error = function(e) NULL
+    )
+    if (is.numeric(pesos_eval) || is.character(pesos_eval)) {
+      if (is.numeric(pesos_eval)) {
+        if (pesos_eval > ncol(data)) stop("Selecci\u00f3n err\u00f3nea de pesos")
+        peso_name <- names(data)[pesos_eval[1]]
+      } else {
+        if (!(pesos_eval[1] %in% names(data))) stop("El nombre de los pesos no es v\u00e1lido")
+        peso_name <- pesos_eval[1]
+      }
+    } else {
+      peso_name <- tryCatch(
+        as_name(pesos_quo),
+        error = function(e) stop("El argumento 'pesos' debe ser una columna única o su nombre/índice")
+      )
+      if (!peso_name %in% names(data)) stop("La columna de pesos no existe en los datos")
+    }
   }
-
-  # Determinar la columna de pesos
-  if (is.character(pesos)) {
-    if (!pesos %in% names(x)) stop("Nombre de pesos no v\u00e1lido")
-    pesos_col <- x[[pesos]]
-  } else if (is.numeric(pesos)) {
-    if (pesos > ncol(x)) stop("Indice de pesos inv\u00e1lido")
-    pesos_col <- x[[pesos]]
+  
+  # --- Funciones auxiliares para la desviación (con redondeo a 4 decimales) ---
+  desv_no_pond <- function(x, tipo_var) {
+    n_eff <- sum(!is.na(x))
+    if (n_eff < 2) return(NA_real_)
+    v <- stats::var(x, na.rm = TRUE)
+    desv <- sqrt(v)
+    if (tipo_var == "muestral") {
+      factor <- sqrt((n_eff - 1) / n_eff)
+      desv <- desv * factor
+    }
+    round(desv, 4)
+  }
+  
+  desv_pond <- function(valor, peso, tipo_var) {
+    ok <- !is.na(valor) & !is.na(peso)
+    valor <- valor[ok]
+    peso <- peso[ok]
+    if (length(valor) < 2) return(NA_real_)
+    media_pond <- sum(valor * peso) / sum(peso)
+    sum_cuad <- sum((valor - media_pond)^2 * peso)
+    if (tipo_var == "muestral") {
+      denom <- sum(peso)
+    } else {
+      denom <- sum(peso) - 1
+    }
+    if (denom <= 0) return(NA_real_)
+    desv <- sqrt(sum_cuad / denom)
+    round(desv, 4)
+  }
+  
+  # --- Cálculo final respetando grupos ---
+  if (is.null(peso_name)) {
+    # Sin pesos
+    if (legacy_var) {
+      result <- data %>%
+        dplyr::select(dplyr::all_of(varnames)) %>%
+        dplyr::summarise(dplyr::across(dplyr::everything(),
+                                       ~ desv_no_pond(.x, tipo_var = tipo)))
+    } else {
+      result <- data %>%
+        dplyr::summarise(dplyr::across({{ vars_expr }},
+                                       ~ desv_no_pond(.x, tipo_var = tipo)))
+    }
   } else {
-    stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
+    # Con pesos: solo una variable
+    if (legacy_var) {
+      if (length(varnames) != 1) {
+        stop("Para desviaci\u00f3n ponderada solo puedes seleccionar una variable")
+      }
+      var_name <- varnames[1]
+    } else {
+      sel_vars <- tryCatch(
+        tidyselect::eval_select(vars_expr, data = data),
+        error = function(e) stop("Selección inválida para ponderación")
+      )
+      if (length(sel_vars) != 1) {
+        stop("Para desviaci\u00f3n ponderada solo puedes seleccionar una variable")
+      }
+      var_name <- names(sel_vars)[1]
+    }
+    
+    if (var_name == peso_name) {
+      stop("No puedes usar la misma variable como dato y como peso.")
+    }
+    
+    result <- data %>%
+      dplyr::summarise(
+        !!var_name := desv_pond(.data[[var_name]], .data[[peso_name]], tipo_var = tipo)
+      )
   }
-
-  datos <- na.omit(data.frame(variable = x_sel[[1]], pesos = pesos_col))
-  media_pond <- sum(datos$variable * datos$pesos) / sum(datos$pesos)
-  sum_cuad <- sum((datos$variable - media_pond)^2 * datos$pesos)
-
-  desv_val <- if (tipo == "muestral") {
-    sqrt(sum_cuad / sum(datos$pesos))
-  } else {
-    sqrt(sum_cuad / (sum(datos$pesos) - 1))
-  }
-
-  # --- Convertir a data.frame con una fila ---
-  desv_df <- as.data.frame(t(desv_val))
-  names(desv_df) <- varnames
-
-
-  # desv_val <- round(desv_val, 4)
-  # names(desv_val) <- paste0("desviacion_", varnames[1])
-
-  class(desv_df) <- c("resumen", class(desv_df))
-
-  return(desv_df)
+  
+  class(result) <- c("resumen", class(result))
+  return(result)
 }

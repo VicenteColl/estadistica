@@ -5,7 +5,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrdispersion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrdispersion.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -28,7 +28,7 @@
 #'
 #' El coeficiente de variación (muestral) se obtiene a partir de la siguiente expresión:
 #'
-#' \if{html}{\figure{coeficientevariacion.png}{options: style="width: 20\%;" alt="Figure: coeficientevariacion.png"}}
+#' \if{html}{\figure{coeficientevariacion.png}{options: style="width: 20\%;"}}
 #' \if{latex}{\figure{coeficientevariacion.png}{options: width=2cm}}
 #'
 #' donde S es la desviación típica muestral. También puede calcularse utilizando la cuasi-desviación típica (Sc).
@@ -36,7 +36,7 @@
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N), se obtiene el coeficiente de variación poblacional:
 #'
-#' \if{html}{\figure{coeficientevariacionpob.png}{options: style="width: 20\%;" alt="Figure: coeficientevariacionpob.png"}}
+#' \if{html}{\figure{coeficientevariacionpob.png}{options: style="width: 20\%;"}}
 #' \if{latex}{\figure{coeficientevariacionpob.png}{options: width=2cm}}
 #'
 #' @references
@@ -54,75 +54,47 @@
 #' @import dplyr
 #'
 #' @export
-coeficiente.variacion <- function(x,
-                                  variable = NULL,
-                                  pesos = NULL,
-                                  tipo = c("muestral", "cuasi")) {
+coeficiente.variacion <- function(data, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi")) {
 
-  tipo <- tolower(tipo)
-  tipo <- match.arg(tipo)
+  tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
 
-  # --- Asegurar que sea data.frame ---
-  if (!is.data.frame(x)) {
-    x <- data.frame(variable = x)
+  # Si no es data.frame, convertir (vector simple)
+  if (!is.data.frame(data)) {
+    data <- data.frame(variable = data)
   }
 
-  # --- Seleccionar variable(s) ---
-  if (is.null(variable)) {
-    varnames <- names(x)[sapply(x, is.numeric)]
-  } else if (is.numeric(variable)) {
-    if (any(variable > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de variables")
-    varnames <- names(x)[variable]
-  } else if (is.character(variable)) {
-    if (!all(variable %in% names(x))) stop("El nombre de la variable no es v\u00e1lido")
-    varnames <- variable
-  } else {
-    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
-  }
+  # Capturar argumentos para pasarlos a las funciones internas
+  var_quo <- enquo(variable)
+  pesos_quo <- enquo(pesos)
 
-  # Subconjunto con las variables seleccionadas
-  x_sel <- x[, varnames, drop = FALSE]
+  # Calcular la media
+  medias <- media(data, variable = !!var_quo, pesos = !!pesos_quo)
 
-  # --- Manejo de pesos ---
-  if (!is.null(pesos)) {
-    if (length(varnames) > 1 || length(pesos) > 1)
-      stop("Para el c\u00e1lculo ponderado solo puedes seleccionar una variable y unos pesos")
+  # Calcular la desviación
+  desviaciones <- desviacion(data, variable = !!var_quo, pesos = !!pesos_quo, tipo = tipo)
 
-    if (is.character(pesos)) {
-      if (!pesos %in% names(x)) stop("El nombre de los pesos no es v\u00e1lido")
-      pesos_name <- pesos
-    } else if (is.numeric(pesos)) {
-      if (any(pesos > ncol(x))) stop("Selecci\u00f3n err\u00f3nea de pesos")
-      pesos_name <- names(x)[pesos]
+  # Obtener los nombres de las columnas de grupo (si las hay)
+  grupos <- dplyr::group_vars(data)
+
+  # Combinar medias y desviaciones
+  # Ambas tienen las mismas columnas de grupo y las mismas columnas de variables
+  resultado <- medias
+
+  # Para cada variable numérica (excepto grupos), calcular CV = desv / media
+  vars_numericas <- setdiff(names(medias), grupos)
+
+  for (var in vars_numericas) {
+    # Asegurar que la desviación existe
+    if (var %in% names(desviaciones)) {
+      resultado[[var]] <- round(desviaciones[[var]] / medias[[var]], 4)
     } else {
-      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
+      warning(paste("No se encontró desviación para", var))
     }
-
-    if (pesos_name == varnames)
-      stop("No puedes usar la misma variable como dato y como peso")
-
-    x_sel <- data.frame(variable = x[[varnames]], pesos = x[[pesos_name]])
-    varnames <- varnames[1]
   }
 
-  # --- Comprobacion tipo de variable ---
-  if (!all(sapply(x_sel, is.numeric))) {
-    stop("No puede calcularse el coeficiente de variaci\u00f3n, alguna variable que has seleccionado no es cuantitativa")
-  }
-  # Calculo del coeficiente de variacion
-  if (is.null(pesos)) {
-    valor_media <- as.numeric(media(x_sel))
-    valor_desviacion <- as.numeric(desviacion(x_sel, tipo = tipo))
-  } else {
-    valor_media <- as.numeric(media(x_sel, variable = 1, pesos = 2))
-    valor_desviacion <- as.numeric(desviacion(x_sel, variable = 1, pesos = 2, tipo = tipo))
-  }
+  # Quedarse solo con las columnas de grupo y los coeficientes
+  resultado <- resultado[, c(grupos, vars_numericas), drop = FALSE]
 
-  coef_var <- round(valor_desviacion / valor_media, 4)
-
-  # Convertir a data.frame consistente
-  df <- as.data.frame(t(coef_var))
-  names(df) <- varnames
-
-  return(df)
+  class(resultado) <- c("resumen", class(resultado))
+  return(resultado)
 }

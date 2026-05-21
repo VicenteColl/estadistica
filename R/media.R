@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrposicion.png}{options: style="width: 25\%;" alt="Figure: qricvarianza.png"}}
+#' \if{html}{\figure{qrposicion.png}{width = 200px}}
 #' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -29,18 +29,18 @@
 #'
 #' Si se obtiene la media (muestral) a partir de los datos brutos, como generalmente hacen los softwares:
 #'
-#' \if{html}{\figure{media.png}{options: style="width: 80\%;" alt="Figure: media.png"}}
+#' \if{html}{\figure{media.png}{width = 640px}}
 #' \if{latex}{\figure{media.png}{options: width=3.5cm}}
 #'
 #' Si se desea obtener la media (muestral) a partir de una tabla estadística se utiliza la expresión:
 #'
-#' \if{html}{\figure{media2.png}{options: style="width: 80\%;" alt="Figure: media2.png"}}
+#' \if{html}{\figure{media2.png}{width = 64px}}
 #' \if{latex}{\figure{media2.png}{options: width=3.5cm}}
 #'
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la media poblacional:
 #'
-#' \if{html}{\figure{mediapob.png}{options: style="width: 80\%;" alt="Figure: mediapob.png"}}
+#' \if{html}{\figure{mediapob.png}{width = 640px}}
 #' \if{latex}{\figure{mediapob.png}{options: width=3cm}}
 #'
 #' @references
@@ -58,83 +58,121 @@
 #'
 #' @importFrom stats na.omit
 #'
-#' @import dplyr
+#' @import dplyr rlang tidyselect
 #'
 #' @export
-media <- function(x,
-                  variable = NULL,
-                  pesos = NULL) {
+media <- function(data, variable = NULL, pesos = NULL) {
 
-  # Si es un vector, convertirlo a data.frame
-  if (!is.data.frame(x)) {
-    x <- data.frame(variable = x)
+  # Solo convertir a data.frame si no lo es (para vectores simples)
+  if (!is.data.frame(data)) {
+    data <- data.frame(variable = data)
   }
+  # ¡No convertimos a tibble ni tocamos la clase original!
 
-  # Determinar variables seleccionadas
-  if (is.null(variable)) {
-    varnames <- names(x)[sapply(x, is.numeric)]
-  } else if (is.numeric(variable)) {
-    varnames <- names(x)[variable]
-  } else if (is.character(variable)) {
-    varnames <- variable
+  # Capturar argumentos
+  var_quo <- enquo(variable)
+  pesos_quo <- enquo(pesos)
+
+  # Determinar si 'variable' es legacy (índices o nombres) o tidy
+  legacy_var <- FALSE
+  varnames <- NULL
+  vars_expr <- NULL
+
+  if (quo_is_null(var_quo)) {
+    vars_expr <- where(is.numeric)
+    legacy_var <- FALSE
   } else {
-    stop("El argumento 'variable' debe ser num\u00e9rico o de tipo car\u00e1cter")
-  }
+    eval_res <- tryCatch(
+      eval_tidy(var_quo, env = caller_env()),
+      error = function(e) NULL
+    )
 
-  # Verificar que las columnas seleccionadas existen
-  if (!all(varnames %in% names(x))) {
-    stop("Alguna variable seleccionada no existe en el data.frame")
-  }
-
-  # Subconjunto con las variables seleccionadas
-  x_sel <- x[, varnames, drop = FALSE]
-
-  # Manejo de pesos (si existen)
-  if (!is.null(pesos)) {
-    if (length(varnames) > 1 || length(pesos) > 1) {
-      stop("Para el cl\u00e1culo ponderado solo puedes seleccionar una variable y un vector de pesos")
-    }
-
-    if (is.character(pesos)) {
-      pesos_name <- pesos
-    } else if (is.numeric(pesos)) {
-      pesos_name <- names(x)[pesos]
+    if (is.numeric(eval_res) || is.character(eval_res)) {
+      legacy_var <- TRUE
+      if (is.numeric(eval_res)) {
+        varnames <- names(data)[eval_res]
+      } else {
+        varnames <- eval_res
+      }
+      if (!all(varnames %in% names(data))) {
+        stop("Alguna variable seleccionada no existe en el data.frame")
+      }
     } else {
-      stop("El argumento 'pesos' debe ser num\u00e9rico o de tipo car\u00e1cter")
+      legacy_var <- FALSE
+      vars_expr <- var_quo
     }
-
-    if (!pesos_name %in% names(x)) {
-      stop("El nombre de los pesos no es v\u00e1lido")
-    }
-
-    if (pesos_name == varnames) {
-      stop("No puedes usar la misma variable como dato y como peso")
-    }
-
-    x_sel <- data.frame(variable = x[[varnames]], pesos = x[[pesos_name]])
   }
 
-  # Comprobacion tipo de variable
-  if (!all(sapply(x_sel, is.numeric))) {
-    stop("No puede calcularse la media: alguna variable seleccionada no es cuantitativa")
+  # Manejo de pesos
+  peso_name <- NULL
+  if (!quo_is_null(pesos_quo)) {
+    pesos_eval <- tryCatch(
+      eval_tidy(pesos_quo, env = caller_env()),
+      error = function(e) NULL
+    )
+
+    if (is.numeric(pesos_eval) || is.character(pesos_eval)) {
+      if (is.numeric(pesos_eval)) {
+        peso_name <- names(data)[pesos_eval[1]]
+      } else {
+        peso_name <- pesos_eval[1]
+      }
+      if (!peso_name %in% names(data)) {
+        stop("El nombre de los pesos no es válido")
+      }
+    } else {
+      peso_name <- tryCatch(
+        as_name(pesos_quo),
+        error = function(e) {
+          stop("El argumento 'pesos' debe ser una columna única (ej. wt) o su nombre/índice")
+        }
+      )
+      if (!peso_name %in% names(data)) {
+        stop("La columna de pesos no existe en los datos")
+      }
+    }
   }
 
-  # Calculo de la media
-  if (is.null(pesos)) {
-    result <- sapply(x_sel, mean, na.rm = TRUE)
-    names(result) <- paste0("media_", names(x_sel))
+  # Cálculo de medias (respetando grupos automáticamente)
+  if (is.null(peso_name)) {
+    if (legacy_var) {
+      result <- data %>%
+        select(all_of(varnames)) %>%
+        summarise(across(everything(), \(x) mean(x, na.rm = TRUE)))
+    } else {
+      result <- data %>%
+        summarise(across({{ vars_expr }}, \(x) mean(x, na.rm = TRUE)))
+    }
   } else {
-    result <- sum(x_sel[[1]] * x_sel[[2]], na.rm = TRUE) / sum(x_sel[[2]], na.rm = TRUE)
-    names(result) <- paste0("media_", varnames)
+    # Media ponderada (solo una variable)
+    if (legacy_var) {
+      if (length(varnames) != 1) {
+        stop("Para el cálculo ponderado solo puedes seleccionar una variable.")
+      }
+      var_name <- varnames[1]
+    } else {
+      sel_vars <- tryCatch(
+        tidyselect::eval_select(vars_expr, data = data),
+        error = function(e) stop("Selección inválida para ponderación")
+      )
+      if (length(sel_vars) != 1) {
+        stop("Para el cálculo ponderado solo puedes seleccionar una variable.")
+      }
+      var_name <- names(sel_vars)[1]
+    }
+
+    if (var_name == peso_name) {
+      stop("No puedes usar la misma variable como dato y como peso.")
+    }
+
+    result <- data %>%
+      summarise(
+        !!var_name := weighted.mean(.data[[var_name]], .data[[peso_name]], na.rm = TRUE)
+      )
   }
 
-  # --- Convertir a data.frame con una fila ---
-  media_df <- as.data.frame(t(result))
-  names(media_df) <- varnames
-
-  class(media_df) <- c("resumen", class(media_df))
-
-
-  return(media_df)
-
+  class(result) <- c("resumen", class(result))
+  return(result)
 }
+
+
