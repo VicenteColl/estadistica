@@ -19,7 +19,6 @@
 #' \emph{Economía Aplicada.}
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
-#'
 #' @export
 unir.vectores <- function(...){
 

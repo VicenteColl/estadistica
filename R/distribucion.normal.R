@@ -18,7 +18,6 @@
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @import shiny
-#'
 #' @export
 distribucion.normal <- function() {
   appDir <- system.file("examples/normal", package = "estadistica")

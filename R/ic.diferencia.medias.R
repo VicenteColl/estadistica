@@ -86,7 +86,6 @@
 #'
 #' @importFrom stats pnorm qnorm pt qt na.omit
 #' @import dplyr ggplot2
-#'
 #' @export
 ic.diferencia.medias <- function(x,
                                  variable = NULL,

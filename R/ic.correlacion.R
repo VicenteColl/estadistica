@@ -43,7 +43,6 @@
 #'
 #' @importFrom stats pnorm qnorm pt qt na.omit
 #' @import dplyr
-#'
 #' @export
 ic.correlacion <- function(x,
                            variable = NULL,

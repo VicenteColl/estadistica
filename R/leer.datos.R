@@ -30,7 +30,6 @@
 #' @importFrom stats na.omit
 #'
 #' @import dplyr
-#'
 #' @export
 leer.datos <- function(introducir = FALSE, pos=1){
 

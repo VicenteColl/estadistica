@@ -18,7 +18,6 @@
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @import shiny shinydashboard
-#'
 #' @export
 distribuciones.probabilidad <- function() {
 

@@ -14,3 +14,4 @@ tema_blanco <- theme(
   axis.text.y=element_blank(),
   legend.title = element_blank()
 )
+

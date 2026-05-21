@@ -46,7 +46,6 @@
 #' \if{html}{\figure{iccocientevarcuasi.png}{width = 640px}}
 #' \if{latex}{\figure{iccocientevarcuasi.png}{options: width=14cm}}
 #'
-#'
 #' @note
 #' En el caso de querer deducir el intervalo recíproco, es decir:
 #'

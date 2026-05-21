@@ -57,7 +57,6 @@
 #'
 #' @importFrom stats pchisq qchisq na.omit
 #' @import dplyr ggplot2 cowplot
-#'
 #' @export
 ic.varianza <- function(x,
                         variable = NULL,

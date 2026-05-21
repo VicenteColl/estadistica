@@ -25,6 +25,7 @@
 #'
 "salarios2018"
 
+
 #' Data: Datos de empresas emergentes (startups)
 #'
 #' Datos simulados. Muestra de 21 empresas emergentes

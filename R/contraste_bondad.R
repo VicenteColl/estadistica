@@ -50,6 +50,7 @@
 #' \code{\link{contraste_homogeneidad}}
 #'
 #' @references
+#'
 #' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 #'
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
@@ -189,7 +190,7 @@ contraste_bondad <- function(x,
 
   # reagrupar si frecuencias esperadas es menor a 5
   if(sum(matriz$Freq_esp < 5) > 0){
-    message("Aqu\u00ed tienes la tabla recalculkada de frecuencias esperadas porque alguna de las frecuencias te\u00f3ricas era menor a 5. Para llevar a cabo el test es necesario reagrupar las categor\u00edas.")
+    message("Aqu\u00ed tienes la tabla recalculada de frecuencias esperadas porque alguna de las frecuencias te\u00f3ricas era menor a 5. Para llevar a cabo el test es necesario reagrupar las categor\u00edas.")
     matriz <- .check_min_obs(matriz)
     print(matriz)
   }

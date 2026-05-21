@@ -34,7 +34,6 @@
 #'
 #' @importFrom stats addmargins na.omit
 #' @import dplyr
-#'
 #' @export
 tabla.bidimensional <- function(x,
                                 var_filas = NULL,

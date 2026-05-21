@@ -52,7 +52,6 @@
 #' Tanto en (1) como en (2) el estadístico F se distribuye como una F con (n1-1) grados de libertad en el numerador y (n2-1) grados de libertad en el denominador.
 #'
 #' @seealso \code{\link{ic.razon.varianzas}}
-#'
 #' @references
 #' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 #'

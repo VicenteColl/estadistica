@@ -41,7 +41,6 @@
 #'
 #' @importFrom tidyr pivot_longer
 #' @import dplyr ggplot2
-#'
 #' @export
 nivel.confianza <- function(min.pob = 2000,
                             max.pob = 45000,

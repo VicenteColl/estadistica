@@ -48,7 +48,6 @@
 #'
 #' matriz_cor <- matriz.correlacion(startup)
 #'
-#'
 #' @importFrom stats na.omit cor
 #' @import dplyr
 #'

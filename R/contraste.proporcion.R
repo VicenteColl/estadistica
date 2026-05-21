@@ -52,7 +52,6 @@
 #'
 #' @importFrom stats pnorm na.omit dnorm
 #' @import dplyr ggplot2
-#'
 #' @export
 contraste.proporcion <- function(x,
                                  variable = NULL,

@@ -9,3 +9,4 @@ print.resumen <- function(x, ...) {
   print(format(round(x, 4), scientific = FALSE, nsmall = 4),
         quote = FALSE, ...)
 }
+

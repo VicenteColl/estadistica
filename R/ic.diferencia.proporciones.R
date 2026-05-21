@@ -42,7 +42,6 @@
 #'
 #' @importFrom stats pnorm qnorm na.omit
 #' @import dplyr ggplot2
-#'
 #' @export
 ic.diferencia.proporciones <- function(x,
                                        variable = NULL,

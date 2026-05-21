@@ -59,7 +59,6 @@
 #'
 #' @importFrom stats na.omit cov
 #' @import dplyr
-#'
 #' @export
 matriz.covar <- function(x,
                          variable = NULL,

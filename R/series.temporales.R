@@ -57,7 +57,6 @@
 #' }
 #' @import dplyr tidyr
 #' @importFrom stats lm
-#'
 #' @export
 series.temporales <- function(x,
                               variable = NULL,

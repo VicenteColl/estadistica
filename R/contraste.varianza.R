@@ -63,7 +63,6 @@
 #'  Nota: En todos los casos, el estadístico chi-dos se distrubuye con n-1 grados de libertad.
 #'
 #' @seealso \code{\link{ic.varianza}}
-#'
 #' @references
 #' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 #'

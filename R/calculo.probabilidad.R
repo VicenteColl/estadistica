@@ -15,7 +15,6 @@
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
 #' @import shiny
-#'
 #' @export
 calculo.probabilidad <- function() {
   appDir <- system.file("examples/calculo", package = "estadistica")

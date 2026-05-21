@@ -68,7 +68,6 @@
 #'
 #' @importFrom stats pnorm qnorm pt qt na.omit dt
 #' @import dplyr ggplot2 cowplot
-#'
 #' @export
 ic.media <- function(x,
                      variable = NULL,

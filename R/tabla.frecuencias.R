@@ -32,7 +32,6 @@
 #'
 #' @importFrom tidyr pivot_longer drop_na
 #' @import dplyr
-#'
 #' @export
 tabla.frecuencias <- function(x,
                               eliminar.na = TRUE,

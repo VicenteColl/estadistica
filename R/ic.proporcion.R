@@ -59,7 +59,6 @@
 #'
 #' @importFrom stats pnorm qnorm na.omit
 #' @import dplyr ggplot2
-#'
 #' @export
 ic.proporcion <- function(x,
                           variable = NULL,

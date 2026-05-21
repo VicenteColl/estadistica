@@ -87,7 +87,6 @@
 #' @importFrom stats cor
 #' @importFrom utils capture.output
 #' @import dplyr knitr ggplot2 cowplot
-#'
 #' @export
 regresion.simple <- function(x,
                              var_depen = NULL,

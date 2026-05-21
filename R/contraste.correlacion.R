@@ -36,6 +36,7 @@
 #' @seealso \code{\link{ic.correlacion}}
 #'
 #' @references
+#'
 #' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X
 #'
 #' Esteban García, J. et al. (2008). Curso básico de inferencia estadística. ReproExprés, SL. ISBN: 8493036595.
