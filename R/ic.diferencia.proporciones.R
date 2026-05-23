@@ -2,7 +2,7 @@
 #'
 #' @description Calcula el intervalo de confianza de la diferencia de dos proporciones.
 #'
-#' \if{html}{\figure{qricdiferenciaproporciones.png}{width = 200px}}
+#' \if{html}{\figure{qricdiferenciaproporciones.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qricdiferenciaproporciones.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -24,8 +24,18 @@
 #'
 #' Se obtiene el intervalo:
 #'
-#' \if{html}{\figure{icdifproporciones.png}{width = 520px}}
-#' \if{latex}{\figure{icdifproporciones.png}{options: width=12cm}}
+#' \deqn{\displaystyle
+#' \left[
+#' (\hat{p}_x-\hat{p}_y)
+#' \pm
+#' z_{\frac{\alpha}{2}}\cdot
+#' \sqrt{
+#' \frac{\hat{p}_x\cdot(1-\hat{p}_x)}{n_x}
+#' +
+#' \frac{\hat{p}_y\cdot(1-\hat{p}_y)}{n_y}
+#' }
+#' \right]
+#' }
 #'
 #' Nota: El usuario puede seguir dos estrategias:
 #' (1) Sustituir las proporciones muestrales del error típico por sus estimaciones máximo-verosímiles (proporciones muestrales)

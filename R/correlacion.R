@@ -4,10 +4,10 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrcorrelacion.png}{width = 200px}}
+#' \if{html}{\figure{qrcorrelacion.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qrcorrelacion.png}{options: width=3cm}}
 #'
-#' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
+#' @param data Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #'
@@ -26,16 +26,21 @@
 #'
 #' El coeficiente de correlación muestral se obtiene a partir de la siguiente expresión:
 #'
-#' \if{html}{\figure{correlacion.png}{width = 400px}}
-#' \if{latex}{\figure{correlacion.png}{options: width=5.5cm}}
+#' \deqn{\displaystyle
+#' r_{XY} =
+#' \frac{S_{XY}}{S_X \cdot S_Y}
+#' =
+#' \frac{S_{c_{XY}}}{S_{c_X} \cdot S_{c_Y}}
+#' }
 #'
 #' Por su construcción, el valor del coeficiente de correlación muestral es el mismo tanto si se calcula a partir de la covarianza y desviaciones típicas muestrales como si se hace a partir de la cuasi-covarianza y cuasi-desviaciones típicas muestrales.
 #'
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene el coeficiente de correlació poblacional:
 #'
-#' \if{html}{\figure{correlacionpob.png}{width = 240px}}
-#' \if{latex}{\figure{correlacionpob.png}{options: width=3.5cm}}
+#' \deqn{\displaystyle
+#' \rho_{XY} = \frac{\sigma_{XY}}{\sigma_X \cdot \sigma_Y}
+#' }
 #'
 #' @seealso \code{\link{matriz.correlacion}}, \code{\link{covarianza}},\code{\link{matriz.covar}}
 #'
@@ -59,25 +64,14 @@ correlacion <- function(data,
                         variable = NULL,
                         pesos = NULL) {
 
-  # =========================================================
-  # Validación inicial
-  # =========================================================
-
   if (!is.data.frame(data)) {
-    stop("El argumento 'data' debe ser un data.frame.")
+    stop("El argumento 'data' debe ser un dataframe.")
   }
-
-  # =========================================================
-  # Captura tidy evaluation
-  # =========================================================
 
   var_quo <- rlang::enquo(variable)
   pesos_quo <- rlang::enquo(pesos)
 
-  # =========================================================
-  # Selección de variables
-  # =========================================================
-
+# Seleccion de variables
   legacy_var <- FALSE
   varnames <- NULL
   vars_expr <- NULL
@@ -87,7 +81,7 @@ correlacion <- function(data,
     num_vars <- names(data)[sapply(data, is.numeric)]
 
     if (length(num_vars) < 2) {
-      stop("Se necesitan al menos dos variables numéricas.")
+      stop("Se necesitan al menos dos variables num\u00e9ricas.")
     }
 
     varnames <- num_vars[1:2]
@@ -99,10 +93,6 @@ correlacion <- function(data,
       rlang::eval_tidy(var_quo, env = rlang::caller_env()),
       error = function(e) NULL
     )
-
-    # -------------------------------------------------------
-    # Compatibilidad legacy
-    # -------------------------------------------------------
 
     if (is.numeric(eval_res) || is.character(eval_res)) {
 
@@ -120,10 +110,7 @@ correlacion <- function(data,
 
     } else {
 
-      # -----------------------------------------------------
-      # Tidy evaluation
-      # -----------------------------------------------------
-
+# Evaluacion tidy
       vars_expr <- var_quo
 
       sel_vars <- tidyselect::eval_select(
@@ -139,22 +126,15 @@ correlacion <- function(data,
     }
   }
 
-  # =========================================================
-  # Validaciones
-  # =========================================================
-
   var1 <- varnames[1]
   var2 <- varnames[2]
 
   if (!is.numeric(data[[var1]]) ||
       !is.numeric(data[[var2]])) {
-    stop("Las variables deben ser numéricas.")
+    stop("Las variables deben ser num\u00e9ricas.")
   }
 
-  # =========================================================
-  # Pesos
-  # =========================================================
-
+# Pesos
   peso_name <- NULL
 
   if (!rlang::quo_is_null(pesos_quo)) {
@@ -177,7 +157,7 @@ correlacion <- function(data,
       peso_name <- tryCatch(
         rlang::as_name(pesos_quo),
         error = function(e) {
-          stop("Selección de pesos inválida.")
+          stop("Selecci\u00f3n de pesos no v\u00e1lida.")
         }
       )
     }
@@ -187,22 +167,14 @@ correlacion <- function(data,
     }
 
     if (!is.numeric(data[[peso_name]])) {
-      stop("'pesos' debe ser numérica.")
+      stop("La variables 'pesos' debe ser num\u00e9rica.")
     }
   }
 
-  # =========================================================
-  # Nombre resultado
-  # =========================================================
-
   result_name <- paste0(var1, "_", var2)
 
-  # =========================================================
-  # SIN PESOS
-  # =========================================================
-
   if (is.null(peso_name)) {
-
+    #sin pesos
     result <- data %>%
       dplyr::summarise(
         !!result_name := {
@@ -224,11 +196,7 @@ correlacion <- function(data,
       )
 
   } else {
-
-    # =======================================================
-    # CON PESOS
-    # =======================================================
-
+    # con pesos
     result <- data %>%
       dplyr::summarise(
         !!result_name := {

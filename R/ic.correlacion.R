@@ -22,13 +22,34 @@
 #'
 #' (1) El intervalo para
 #'
-#' \if{html}{\figure{iccorrelacion1.png}{width = 160px}}
-#' \if{latex}{\figure{iccorrelacion1.png}{options: width=4cm}}
+#' \deqn{\displaystyle
+#' \frac{1}{2}\cdot
+#' \log\left(
+#' \frac{1+\rho}{1-\rho}
+#' \right)
+#' }
 #'
 #' (2) es:
 #'
-#' \if{html}{\figure{iccorrelacion2.png}{width = 6400px}}
-#' \if{latex}{\figure{iccorrelacion2.png}{options: width=15cm}}
+#' \deqn{\displaystyle
+#' \left[
+#' \frac{1}{2}\cdot
+#' \log\left(
+#' \frac{1+r}{1-r}
+#' \right)
+#' -
+#' z_{\frac{\alpha}{2}}\cdot
+#' \sqrt{\frac{1}{n-3}}
+#' \, , \,
+#' \frac{1}{2}\cdot
+#' \log\left(
+#' \frac{1+r}{1-r}
+#' \right)
+#' +
+#' z_{\frac{\alpha}{2}}\cdot
+#' \sqrt{\frac{1}{n-3}}
+#' \right]
+#' }
 #'
 #' Igualando la expresión en (1) al extremo inferior de (2) y al extremo superior de (2) se obtendrá el intervalo para la correlación.
 #'

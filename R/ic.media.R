@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qricmedia.png}{width = 200px}}
+#' \if{html}{\figure{qricmedia.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qricmedia.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -30,26 +30,33 @@
 #'
 #' (1) Si población desconocida, varianza poblacial conocida y muestra pequeña:
 #'
-#' \if{html}{\figure{icmediadesconocidavarcon.png}{width = 400px}}
-#' \if{latex}{\figure{icmediadesconocidavarcon.png}{options: width=10cm}}
+#' \deqn{\displaystyle
+#' \left]\bar{x} - \frac{\sigma}{\sqrt{n \cdot \alpha}} \, , \,
+#' \bar{x} + \frac{\sigma}{\sqrt{n \cdot \alpha}}\right[
+#' }
 #'
 #' (2) Si población normal, varianza poblacional conocida (muestra pequeña y grande)
 #'
-#' \if{html}{\figure{icmediavarcon.png}{width = 440px}}
-#' \if{latex}{\figure{icmediavarcon.png}{options: width=10cm}}
+#' \deqn{\displaystyle
+#' \left[ \bar{x} - z_{\frac{\alpha}{2}} \cdot \frac{\sigma}{\sqrt{n}} \, , \,
+#' \bar{x} + z_{\frac{\alpha}{2}} \cdot \frac{\sigma}{\sqrt{n}} \right]
+#' }
 #'
 #' (3) Si población normal, varianza poblacional desconocida y muestra pequeña
 #'
 #' Con la varianza muestral:
 #'
-#' \if{html}{\figure{icmediavardescmuestral.png}{width = 400px}}
-#' \if{latex}{\figure{icmediavardescmuestral.png}{options: width=10cm}}
+#' \deqn{\displaystyle
+#' \left[ \bar{x} - t_{\frac{\alpha}{2}} \cdot \frac{S}{\sqrt{n-1}} \, , \,
+#' \bar{x} + t_{\frac{\alpha}{2}} \cdot \frac{S}{\sqrt{n-1}} \right]
+#' }
 #'
 #' Con la cuasivarianza muestral:
 #'
-#' \if{html}{\figure{icmediavardesccuasi.png}{width = 400px}}
-#' \if{latex}{\figure{icmediavardesccuasi.png}{options: width=10cm}}
-
+#' \deqn{\displaystyle
+#' \left[ \bar{x} - t_{\frac{\alpha}{2}} \cdot \frac{S^*}{\sqrt{n}} \, , \,
+#' \bar{x} + t_{\frac{\alpha}{2}} \cdot \frac{S^*}{\sqrt{n}} \right]
+#' }
 #'
 #' Nota: En ambos casos, el valor crítico sigue una distribución t con n-1 grados de libertad
 #'

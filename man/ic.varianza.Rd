@@ -34,7 +34,7 @@ Calcula el intervalo de confianza de la varianza poblacional.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qricvarianza.png}{width = 200px}}
+\if{html}{\figure{qricvarianza.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qricvarianza.png}{options: width=3cm}}
 }
 \details{

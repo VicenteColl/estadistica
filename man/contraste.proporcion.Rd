@@ -40,7 +40,7 @@ Realiza el contraste de hipótesis sobre la proporción poblacional.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcproporcion.png}{width = 200px}}
+\if{html}{\figure{qrcproporcion.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrcproporcion.png}{options: width=3cm}}
 }
 \details{

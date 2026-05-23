@@ -4,10 +4,10 @@
 \alias{correlacion}
 \title{Coeficiente de correlación.}
 \usage{
-correlacion(x, variable = NULL, pesos = NULL)
+correlacion(data, variable = NULL, pesos = NULL)
 }
 \arguments{
-\item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}
+\item{data}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} solo tiene 2 variables (columnas), \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
 
@@ -21,22 +21,27 @@ Calcula el coeficiente de correlación de Pearson.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcorrelacion.png}{width = 200px}}
+\if{html}{\figure{qrcorrelacion.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrcorrelacion.png}{options: width=3cm}}
 }
 \details{
 El coeficiente de correlación muestral se obtiene a partir de la siguiente expresión:
 
-\if{html}{\figure{correlacion.png}{width = 400px}}
-\if{latex}{\figure{correlacion.png}{options: width=5.5cm}}
+\deqn{\displaystyle
+r_{XY} =
+\frac{S_{XY}}{S_X \cdot S_Y}
+=
+\frac{S_{c_{XY}}}{S_{c_X} \cdot S_{c_Y}}
+}
 
 Por su construcción, el valor del coeficiente de correlación muestral es el mismo tanto si se calcula a partir de la covarianza y desviaciones típicas muestrales como si se hace a partir de la cuasi-covarianza y cuasi-desviaciones típicas muestrales.
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene el coeficiente de correlació poblacional:
 
-\if{html}{\figure{correlacionpob.png}{width = 240px}}
-\if{latex}{\figure{correlacionpob.png}{options: width=3.5cm}}
+\deqn{\displaystyle
+\rho_{XY} = \frac{\sigma_{XY}}{\sigma_X \cdot \sigma_Y}
+}
 }
 \examples{
 

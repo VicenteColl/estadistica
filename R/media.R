@@ -4,10 +4,10 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrposicion.png}{width = 200px}}
+#' \if{html}{\figure{qrposicion.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
-#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param data Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #'
@@ -29,19 +29,16 @@
 #'
 #' Si se obtiene la media (muestral) a partir de los datos brutos, como generalmente hacen los softwares:
 #'
-#' \if{html}{\figure{media.png}{width = 640px}}
-#' \if{latex}{\figure{media.png}{options: width=3.5cm}}
+#' \deqn{\displaystyle \bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}}
 #'
 #' Si se desea obtener la media (muestral) a partir de una tabla estadística se utiliza la expresión:
 #'
-#' \if{html}{\figure{media2.png}{width = 64px}}
-#' \if{latex}{\figure{media2.png}{options: width=3.5cm}}
+#' \deqn{\displaystyle \bar{x} = \frac{\sum_{i=1}^{I} x_i \cdot n_i}{n}}
 #'
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la media poblacional:
 #'
-#' \if{html}{\figure{mediapob.png}{width = 640px}}
-#' \if{latex}{\figure{mediapob.png}{options: width=3cm}}
+#' \deqn{\displaystyle \mu = \frac{\sum_{i=1}^{N} x_i}{N}}
 #'
 #' @references
 #' Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741
@@ -56,24 +53,22 @@
 #' media2 <- media(startup,variable=1)
 #' media3 <- media(salarios2018,variable=6,pesos=7)
 #'
-#' @importFrom stats na.omit
-#'
+#' @importFrom stats na.omit weighted.mean
 #' @import dplyr rlang tidyselect
 #'
 #' @export
 media <- function(data, variable = NULL, pesos = NULL) {
 
-  # Solo convertir a data.frame si no lo es (para vectores simples)
+  # convertir a dataframe si no lo es (para vectores simples)
   if (!is.data.frame(data)) {
     data <- data.frame(variable = data)
   }
-  # ¡No convertimos a tibble ni tocamos la clase original!
 
   # Capturar argumentos
   var_quo <- enquo(variable)
   pesos_quo <- enquo(pesos)
 
-  # Determinar si 'variable' es legacy (índices o nombres) o tidy
+  # Determinar si se accede directamente a 'variable' (indices o nombres) o tidy
   legacy_var <- FALSE
   varnames <- NULL
   vars_expr <- NULL
@@ -95,7 +90,7 @@ media <- function(data, variable = NULL, pesos = NULL) {
         varnames <- eval_res
       }
       if (!all(varnames %in% names(data))) {
-        stop("Alguna variable seleccionada no existe en el data.frame")
+        stop("Alguna variable seleccionada no existe en el dataframe")
       }
     } else {
       legacy_var <- FALSE
@@ -118,13 +113,13 @@ media <- function(data, variable = NULL, pesos = NULL) {
         peso_name <- pesos_eval[1]
       }
       if (!peso_name %in% names(data)) {
-        stop("El nombre de los pesos no es válido")
+        stop("El nombre de los pesos no es v\u00e1lido")
       }
     } else {
       peso_name <- tryCatch(
         as_name(pesos_quo),
         error = function(e) {
-          stop("El argumento 'pesos' debe ser una columna única (ej. wt) o su nombre/índice")
+          stop("El argumento 'pesos' debe ser el nombre de una variable o su \u00f3ndice")
         }
       )
       if (!peso_name %in% names(data)) {
@@ -133,7 +128,7 @@ media <- function(data, variable = NULL, pesos = NULL) {
     }
   }
 
-  # Cálculo de medias (respetando grupos automáticamente)
+  # Calculo de medias (respeta grupos)
   if (is.null(peso_name)) {
     if (legacy_var) {
       result <- data %>%
@@ -147,16 +142,16 @@ media <- function(data, variable = NULL, pesos = NULL) {
     # Media ponderada (solo una variable)
     if (legacy_var) {
       if (length(varnames) != 1) {
-        stop("Para el cálculo ponderado solo puedes seleccionar una variable.")
+        stop("Para el c\u00e1lculo ponderado solo puedes seleccionar una variable.")
       }
       var_name <- varnames[1]
     } else {
       sel_vars <- tryCatch(
         tidyselect::eval_select(vars_expr, data = data),
-        error = function(e) stop("Selección inválida para ponderación")
+        error = function(e) stop("Selecci\u00f3n inv\u00e1lida para ponderaci\u00f3n")
       )
       if (length(sel_vars) != 1) {
-        stop("Para el cálculo ponderado solo puedes seleccionar una variable.")
+        stop("Para el \u00e1lculo ponderado solo puedes seleccionar una variable.")
       }
       var_name <- names(sel_vars)[1]
     }

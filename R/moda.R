@@ -4,10 +4,10 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrposicion.png}{width = 200px}}
+#' \if{html}{\figure{qrposicion.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
-#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param data Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #'
@@ -33,23 +33,23 @@
 #'
 #' @export
 moda <- function(data, variable = NULL, pesos = NULL) {
-  
+
   # Si no es data.frame, convertir (vector simple)
   if (!is.data.frame(data)) {
     data <- data.frame(variable = data)
   }
-  
+
   # Capturar argumentos
   var_quo <- enquo(variable)
   pesos_quo <- enquo(pesos)
-  
-  # --- Procesar 'variable' (legacy vs tidy) ---
+
+  # Definir variable
   legacy_var <- FALSE
   varnames <- NULL
   vars_expr <- NULL
-  
+
   if (quo_is_null(var_quo)) {
-    # Por defecto: todas las columnas numéricas, enteras, factor o lógicas
+    # Por defecto: todas las columnas num\u00e9ricas, enteras, factor o l\uu00f3gicas
     vars_expr <- where(~ is.numeric(.x) || is.integer(.x) || is.factor(.x) || is.logical(.x))
     legacy_var <- FALSE
   } else {
@@ -71,8 +71,8 @@ moda <- function(data, variable = NULL, pesos = NULL) {
       vars_expr <- var_quo
     }
   }
-  
-  # --- Procesar 'pesos' ---
+
+  # Pesos
   peso_name <- NULL
   if (!quo_is_null(pesos_quo)) {
     pesos_eval <- tryCatch(
@@ -90,13 +90,13 @@ moda <- function(data, variable = NULL, pesos = NULL) {
     } else {
       peso_name <- tryCatch(
         as_name(pesos_quo),
-        error = function(e) stop("El argumento 'pesos' debe ser una columna única o su nombre/índice")
+        error = function(e) stop("El argumento 'pesos' debe ser el nombre o \u00edndice de una columna.")
       )
       if (!peso_name %in% names(data)) stop("La columna de pesos no existe en los datos")
     }
   }
-  
-  # --- Validar reglas de ponderación ---
+
+  # Regla para ponderar
   if (!is.null(peso_name)) {
     # Solo una variable permitida con pesos
     if (legacy_var) {
@@ -104,24 +104,21 @@ moda <- function(data, variable = NULL, pesos = NULL) {
     } else {
       sel_vars <- tryCatch(
         tidyselect::eval_select(vars_expr, data = data),
-        error = function(e) stop("Selección inválida para ponderación")
+        error = function(e) stop("Selecci\u00f3n no v\u00e1lida de pesos")
       )
       if (length(sel_vars) != 1) stop("Para moda ponderada solo puedes seleccionar una variable")
     }
   }
-  
-  # --- Obtener nombres de las columnas seleccionadas ---
+
+  # Seleccionar columnas
   if (legacy_var) {
     selected_vars <- varnames
   } else {
     selected_vars <- names(tidyselect::eval_select(vars_expr, data = data))
   }
-  
-  # --- Función para aplicar moda a un data frame (con o sin pesos) ---
+
+  # calcula la moda en un dataframe (con o sin pesos) ---
   compute_mode <- function(df, vars, peso_name = NULL) {
-    # df: data frame (puede ser grouped o no)
-    # vars: vector de nombres de columnas
-    # Retorna un data.frame con columnas: variable, moda
     if (is.null(peso_name)) {
       # Sin pesos: calcular moda para cada variable
       res <- list()
@@ -139,8 +136,8 @@ moda <- function(data, variable = NULL, pesos = NULL) {
       modas_df
     }
   }
-  
-  # --- Aplicar respetando grupos ---
+
+  # Calcula respetando grupos
   if (inherits(data, "grouped_df")) {
     # Datos agrupados: usar group_modify
     result <- data %>%
@@ -152,10 +149,7 @@ moda <- function(data, variable = NULL, pesos = NULL) {
     # Datos no agrupados
     result <- compute_mode(data, vars = selected_vars, peso_name = peso_name)
   }
-  
-  # Reordenar columnas: poner primero las de grupo si existen, luego variable, luego moda
-  # No es necesario porque ya group_modify mantiene las columnas de grupo al inicio.
-  
+
   class(result) <- c("resumen", class(result))
   return(result)
 }

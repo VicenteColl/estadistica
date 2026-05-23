@@ -4,10 +4,10 @@
 \alias{media}
 \title{Media (aritmética).}
 \usage{
-media(x, variable = NULL, pesos = NULL)
+media(data, variable = NULL, pesos = NULL)
 }
 \arguments{
-\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
+\item{data}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
@@ -21,25 +21,22 @@ Calcula la media aritmética.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrposicion.png}{width = 200px}}
+\if{html}{\figure{qrposicion.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 }
 \details{
 Si se obtiene la media (muestral) a partir de los datos brutos, como generalmente hacen los softwares:
 
-\if{html}{\figure{media.png}{width = 640px}}
-\if{latex}{\figure{media.png}{options: width=3.5cm}}
+\deqn{\displaystyle \bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}}
 
 Si se desea obtener la media (muestral) a partir de una tabla estadística se utiliza la expresión:
 
-\if{html}{\figure{media2.png}{width = 64px}}
-\if{latex}{\figure{media2.png}{options: width=3.5cm}}
+\deqn{\displaystyle \bar{x} = \frac{\sum_{i=1}^{I} x_i \cdot n_i}{n}}
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la media poblacional:
 
-\if{html}{\figure{mediapob.png}{width = 640px}}
-\if{latex}{\figure{mediapob.png}{options: width=3cm}}
+\deqn{\displaystyle \mu = \frac{\sum_{i=1}^{N} x_i}{N}}
 }
 \examples{
 

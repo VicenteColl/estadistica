@@ -5,7 +5,7 @@
 \title{Medidas de forma}
 \usage{
 medidas.forma(
-  x,
+  data,
   variable = NULL,
   pesos = NULL,
   alternativa = FALSE,
@@ -13,7 +13,7 @@ medidas.forma(
 )
 }
 \arguments{
-\item{x}{Conjunto de datos, que puede estar formado por una o más variables.}
+\item{data}{Conjunto de datos, que puede estar formado por una o más variables.}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
@@ -28,39 +28,45 @@ Calcula el coeficiente de asimetría y de curtosis de Fisher.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrforma.png}{width = 200px}}
+\if{html}{\figure{qrforma.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrforma.png}{options: width=3cm}}
 }
 \details{
 El coeficiente de asimetría se obtiene a partir de la expresión:
 
-\if{html}{\figure{asimetriamuestra.png}{width = 160px}}
-\if{latex}{\figure{asimetriamuestra.png}{options: width=3cm}}
+\deqn{\displaystyle g_1 = \frac{m_3}{S^3}}
 
 y el coeficiente de curtosis:
 
-\if{html}{\figure{curtosismuestra.png}{width = 280px}}
-\if{latex}{\figure{curtosismuestra.png}{options: width=4cm}}
+\deqn{\displaystyle g_2 = \frac{m_4}{S^4}-3}
 }
 \note{
 (1) El coeficiente de asimetría poblacional es:
 
-\if{html}{\figure{asimetriapob.png}{width = 160px}}
-\if{latex}{\figure{asimetriapob.png}{options: width=3cm}}
+\deqn{\displaystyle \gamma_1 = \frac{\mu_3}{\sigma^3}}
 
 (2) El coeficiente de curtosis poblacional es:
 
-\if{html}{\figure{curtosispob.png}{width = 2800px}}
-\if{latex}{\figure{curtosispob.png}{options: width=4cm}}
+\deqn{\displaystyle \gamma_2 = \frac{\mu_4}{\sigma^4} - 3}
 
-(3) Si el argumento alternativa = TRUE, se obtienen los resultados de asimetría y curtosis que generalmente ofrecen softwares como: SPSS, Stata, SAS, Excel, etc.
+(3) Si el argumento alternativa = TRUE, se obtienen los resultados de asimetría y curtosis MUESTRALES que generalmente ofrecen softwares como: SPSS, Stata, SAS, Excel, etc.
 
 
-\if{html}{\figure{asimetriasoft.png}{width = 4800px}}
-\if{latex}{\figure{asimetriasoft.png}{options: width=8cm}}
+\deqn{\displaystyle
+g_1 =
+\frac{n}{(n-1)(n-2)}
+\cdot
+\frac{\sum_{i=1}^{n}(x_i-\bar{x})^3}{S^3}
+}
 
- \if{html}{\figure{curtosissoft.png}{width = 920px}}
-\if{latex}{\figure{curtosissoft.png}{options: width=13cm}}
+\deqn{\displaystyle
+g_2 =
+\frac{n \cdot (n+1)}{(n-1)\cdot(n-2)\cdot(n-3)}
+\cdot
+\frac{\sum_{i=1}^n (x_i - \bar{x})^4}{S_c^4}
+-
+3 \cdot \frac{(n-1)^2}{(n-2)\cdot(n-3)}
+}
 }
 \examples{
 

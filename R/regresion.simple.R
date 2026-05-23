@@ -4,10 +4,10 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrregresion1.png}{width = 200px}}
+#' \if{html}{\figure{qrregresion1.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qrregresion1.png}{options: width=3cm}}
 #'
-#' \if{html}{\figure{qrregresion2.png}{width = 200px}}
+#' \if{html}{\figure{qrregresion2.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qrregresion2.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).

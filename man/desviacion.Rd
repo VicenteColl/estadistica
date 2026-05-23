@@ -4,10 +4,10 @@
 \alias{desviacion}
 \title{Desviación típica.}
 \usage{
-desviacion(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi"))
+desviacion(data, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi"))
 }
 \arguments{
-\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
+\item{data}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
@@ -23,29 +23,35 @@ Calcula la desviación típica.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrdispersion.png}{width = 200px}}
+\if{html}{\figure{qrdispersion.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 }
 \details{
 (1) La expresión de la de la desviación típica muestral es:
 
-\if{html}{\figure{desviacion.png}{width = 32px}}
-\if{latex}{\figure{desviacion.png}{options: width=5cm}}
+\deqn{\displaystyle S =
+\sqrt{\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n}}}
 
-La desviación típica muestral así definida es el estimador máximo verosímil de la desviación típica de una población normal
+La desviación típica muestral así definida es el estimador máximo verosímil de la desviación típica de una población normal.
+
+Si los datos se encuentran dispuestos en forma de una tabla estadística:
+
+\deqn{\displaystyle S =
+\sqrt{\frac{\sum_{i=1}^{I}(x_i-\bar{x})^2 \cdot n_i}{n}}}
 
 (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
 
-\if{html}{\figure{cuasidesviacion.png}{width = 320px}}
-\if{latex}{\figure{cuasidesviacion.png}{options: width=5cm}}
+\deqn{\displaystyle S^{*} =
+\sqrt{\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}}}
 
-Nosotros llamamos a esta medida: cuasi-desviación típica muestral y es un estimador insesgado de la desviación típica poblacional.
+y nosotros llamamos a esta medida: cuasi-desviación típica muestral. La cuasi-desviación típica muestral se obtiene como la raíz cuadrada
+de la cuasivarianza muestral.
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la desviación típica poblacional:
 
-\if{html}{\figure{desviacionpob.png}{width = 320px}}
-\if{latex}{\figure{desviacionpob.png}{options: width=5cm}}
+\deqn{\displaystyle \sigma =
+\sqrt{\frac{\sum_{i=1}^{N}(x_i-\mu)^2}{N}}}
 }
 \examples{
 

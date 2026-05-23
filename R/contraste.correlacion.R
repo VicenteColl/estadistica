@@ -28,7 +28,7 @@
 #'
 #' El estadístico del contraste es:
 #'
-#' \if{html}{\figure{ccorrelacion.png}{width=240px}}
+#' \if{html}{\figure{ccorrelacion.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{ccorrelacion.png}{width=4cm}}
 #'
 #' que se distribuye como una t con n-2 grados de libertad.

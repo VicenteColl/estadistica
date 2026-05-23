@@ -6,14 +6,14 @@
 \title{Coeficiente de variación.}
 \usage{
 coeficiente.variacion(
-  x,
+  data,
   variable = NULL,
   pesos = NULL,
   tipo = c("muestral", "cuasi")
 )
 }
 \arguments{
-\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
+\item{data}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
@@ -35,16 +35,14 @@ Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo
 \details{
 El coeficiente de variación (muestral) se obtiene a partir de la siguiente expresión:
 
-\if{html}{\figure{coeficientevariacion.png}{options: style="width: 20\%;"}}
-\if{latex}{\figure{coeficientevariacion.png}{options: width=2cm}}
+\deqn{\displaystyle g_0 = \frac{S_X}{|\bar{x}|}}
 
-donde S es la desviación típica muestral. También puede calcularse utilizando la cuasi-desviación típica (Sc).
+donde S es la desviación típica muestral. También puede calcularse utilizando la cuasi-desviación típica (\eqn{S_*})).
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N), se obtiene el coeficiente de variación poblacional:
 
-\if{html}{\figure{coeficientevariacionpob.png}{options: style="width: 20\%;"}}
-\if{latex}{\figure{coeficientevariacionpob.png}{options: width=2cm}}
+\deqn{\displaystyle \gamma_0 = \frac{\sigma_X}{|\mu|}}
 }
 \examples{
 

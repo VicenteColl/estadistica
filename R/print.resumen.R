@@ -2,11 +2,21 @@
 #'
 #' @param x Objeto de clase "resumen"
 #' @param ... Argumentos adicionales
+#'
+#' @export
 #' @method print resumen
-#' @keywords internal
 print.resumen <- function(x, ...) {
-  x <- as.data.frame(x)
-  print(format(round(x, 4), scientific = FALSE, nsmall = 4),
-        quote = FALSE, ...)
-}
 
+  x <- as.data.frame(x)
+
+  op <- options(scipen = 999)
+  on.exit(options(op), add = TRUE)
+
+  print.data.frame(
+    x,
+    row.names = TRUE,
+    quote = FALSE
+  )
+
+  invisible(x)
+}

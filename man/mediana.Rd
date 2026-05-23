@@ -4,10 +4,10 @@
 \alias{mediana}
 \title{Mediana.}
 \usage{
-mediana(x, variable = NULL, pesos = NULL)
+mediana(data, variable = NULL, pesos = NULL)
 }
 \arguments{
-\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
+\item{data}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
@@ -21,14 +21,27 @@ Calcula la mediana.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrposicion.png}{width = 200px}}
+\if{html}{\figure{qrposicion.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 }
 \details{
 La mediana se obtiene a partir de la siguiente regla de decisión:
 
-\if{html}{\figure{mediana.png}{width = 640px}}
-\if{latex}{\figure{mediana.png}{options: scale=.8}}
+\deqn{
+\text{Si} \quad
+\left\{
+\begin{matrix}
+N_{i-1}<\displaystyle\frac{n}{2}<N_i
+& \Rightarrow &
+Me=x_i
+\\
+\\
+N_i=\displaystyle\frac{n}{2}
+& \Rightarrow &
+Me=\displaystyle\frac{x_i+x_{i+1}}{2}
+\end{matrix}
+\right.
+}
 
 donde: Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
 }

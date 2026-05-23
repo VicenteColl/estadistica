@@ -4,10 +4,10 @@
 \alias{covarianza}
 \title{Covarianza.}
 \usage{
-covarianza(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi"))
+covarianza(data, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi"))
 }
 \arguments{
-\item{x}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}
+\item{data}{Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de x. Si x solo tiene 2 variables (columnas), el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de las variables a seleccionar.}
 
@@ -23,27 +23,35 @@ Calcula la covarianza.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcovarianza.png}{width = 200px}}
+\if{html}{\figure{qrcovarianza.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrcovarianza.png}{options: width=3cm}}
 }
 \details{
 (1) La covarianza muestral se obtiene a partir de la siguiente expresión:
 
-\if{html}{\figure{covarianzamuestra.png}{width = 400px}}
-\if{latex}{\figure{covarianzamuestra.png}{options: width=6cm}}
+\deqn{\displaystyle
+S_{XY} =
+\frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{n}
+}
 
 (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la covarianza a partir de la expresión:
 
-\if{html}{\figure{covarianzacuasi.png}{width = 400px}}
-\if{latex}{\figure{covarianzacuasi.png}{options: width=6cm}}
+\deqn{\displaystyle
+S_{{XY}}^* =
+\frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{n-1}
+}
 
 Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
+
+si los datos vienen dispuestos en una tabla de frecuencias se debe calcular una covarianza (o cuasicovarianza) muestral ponderada.
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la covarianza poblacional:
 
-\if{html}{\figure{covarianzapob.png}{width = 400px}}
-\if{latex}{\figure{covarianzapob.png}{options: width=6cm}}
+\deqn{\displaystyle
+\sigma_{XY} =
+\frac{\sum_{i=1}^{N}(x_i - \mu_X)(y_i - \mu_Y)}{N}
+}
 }
 \references{
 Esteban García, J. y otros. (2005). Estadística descriptiva y nociones de probabilidad. Paraninfo. ISBN: 9788497323741

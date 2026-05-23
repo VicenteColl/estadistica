@@ -40,7 +40,7 @@ Realiza el contraste de hipótesis sobre la diferencia de dos proporciones.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcdifproporciones.png}{width = 200px}}
+\if{html}{\figure{qrcdifproporciones.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrcdifproporciones.png}{options: width=3cm}}
 }
 \details{

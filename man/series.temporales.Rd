@@ -52,7 +52,7 @@ A partir de las medias móviles, también se obtienen los índices de variación
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrseriestemporales.png}{width = 200px}}
+\if{html}{\figure{qrseriestemporales.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrseriestemporales.png}{options: width=3cm}}
 }
 \examples{

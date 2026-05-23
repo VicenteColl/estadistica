@@ -40,7 +40,7 @@ Realiza el contraste de hipótesis sobre la razón de dos varianzas poblacionale
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcrazonvarianzas.png}{width = 200px}}
+\if{html}{\figure{qrcrazonvarianzas.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrcrazonvarianzas.png}{options: width=3cm}}
 }
 \details{

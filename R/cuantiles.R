@@ -4,10 +4,10 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrcuantiles.png}{width = 200px}}
+#' \if{html}{\figure{qrcuantiles.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qrcuantiles.png}{options: width=3cm}}
 #'
-#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param data Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #' @param cortes Vector con los puntos de corte a calcular. Por defecto se calcula el primer, segundo y tercer cuartil.
@@ -29,8 +29,22 @@
 #'
 #' Los cuantiles se obtienen a partir de la siguiente regla de decisión:
 #'
-#' \if{html}{\figure{cuantiles.png}{width = 680px}}
-#' \if{latex}{\figure{cuantiles.png}{options: scale=.85}}
+#' Si:
+#'
+#' \deqn{
+#' \left\{
+#' \begin{array}{lll}
+#' N_{i-1}<\displaystyle\frac{s \cdot n}{k}<N_i
+#' & \Rightarrow &
+#' Q_{\frac{s}{k}}=x_i
+#' \\
+#' \\
+#' N_i=\displaystyle\frac{s \cdot n}{k}
+#' & \Rightarrow &
+#' Q_{\frac{s}{k}}=\displaystyle\frac{x_i+x_{i+1}}{2}
+#' \end{array}
+#' \right.
+#' }
 #'
 #' Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
 #'
@@ -61,21 +75,20 @@
 cuantiles <- function(data, variable = NULL, pesos = NULL,
                              cortes = c(0.25, 0.5, 0.75),
                              exportar = FALSE) {
-  
-  # Si no es data.frame, convertir (vector simple)
+
+  # Convertir dataframae (vector simple)
   if (!is.data.frame(data)) {
     data <- data.frame(variable = data)
   }
-  
+
   # Capturar argumentos
   var_quo <- enquo(variable)
   pesos_quo <- enquo(pesos)
-  
-  # --- Procesar 'variable' (legacy vs tidy) ---
+
   legacy_var <- FALSE
   varnames <- NULL
   vars_expr <- NULL
-  
+
   if (quo_is_null(var_quo)) {
     vars_expr <- where(is.numeric)
     legacy_var <- FALSE
@@ -98,8 +111,8 @@ cuantiles <- function(data, variable = NULL, pesos = NULL,
       vars_expr <- var_quo
     }
   }
-  
-  # --- Procesar 'pesos' ---
+
+  # Pesos
   peso_name <- NULL
   if (!quo_is_null(pesos_quo)) {
     pesos_eval <- tryCatch(
@@ -117,38 +130,28 @@ cuantiles <- function(data, variable = NULL, pesos = NULL,
     } else {
       peso_name <- tryCatch(
         as_name(pesos_quo),
-        error = function(e) stop("El argumento 'pesos' debe ser una columna única o su nombre/índice")
+        error = function(e) stop("El argumento 'pesos' debe ser el nombre o \u00edndice de una variable")
       )
       if (!peso_name %in% names(data)) stop("La columna de pesos no existe en los datos")
     }
   }
-  
-  # --- Verificar reglas de ponderación ---
+
+
   if (!is.null(peso_name)) {
     # Con pesos: solo se permite una variable
     if (legacy_var) {
       if (length(varnames) != 1) stop("Para cuantiles ponderados solo puedes seleccionar una variable")
     } else {
-      # Evaluar la selección tidy para saber cuántas variables
       sel_vars <- tryCatch(
         tidyselect::eval_select(vars_expr, data = data),
-        error = function(e) stop("Selección inválida")
+        error = function(e) stop("Selecci\u00f3n no v\u00e1lida")
       )
       if (length(sel_vars) != 1) stop("Para cuantiles ponderados solo puedes seleccionar una variable")
     }
-    # En el flujo con pesos, se manejará más adelante
   }
-  
-  # --------------------------------------------------------------------
-  # Cálculo de cuantiles respetando grupos
-  # --------------------------------------------------------------------
-  
-  # Función que aplica .cuantiles.int a una(s) variable(s) (sin pesos o con pesos)
+
+  # calcular cuantiles
   compute_quantiles <- function(df, vars, pesos_name = NULL, cortes) {
-    # df: data frame (puede ser grouped o no)
-    # vars: vector de nombres de columnas a evaluar
-    # pesos_name: nombre de columna de pesos (o NULL)
-    # Retorna un data frame con columnas: variable, prob, value
     if (is.null(pesos_name)) {
       # Sin pesos: calcular cuantiles para cada variable
       res_list <- list()
@@ -167,23 +170,18 @@ cuantiles <- function(data, variable = NULL, pesos = NULL,
     }
     return(result)
   }
-  
-  # Determinar las columnas de variable a usar (según legacy/tidy)
+
+  # Columnas a usar
   if (legacy_var) {
     selected_vars <- varnames
   } else {
-    # Evaluar la expresión tidy para obtener nombres de columnas
+    # Evaluar la expresion tidy para obtener nombres de columnas
     selected_vars <- names(tidyselect::eval_select(vars_expr, data = data))
   }
-  
-  # Verificar que sean numéricas (ya lo hace .cuantiles.int internamente, pero podemos advertir)
-  # No es necesario porque la función interna lanzará error.
-  
-  # Si hay grupos (grouped data frame)
+
+  # Si hay grupos
   if (inherits(data, "grouped_df")) {
-    # Trabajar con grupos
     group_vars <- dplyr::group_vars(data)
-    # Aplicar compute_quantiles a cada grupo
     result <- data %>%
       dplyr::group_modify(~ {
         .x %>%
@@ -192,17 +190,10 @@ cuantiles <- function(data, variable = NULL, pesos = NULL,
                             cortes = cortes)
       }) %>%
       dplyr::ungroup()
-    
-    # Reorganizar: queremos una columna por cada variable? o mantener formato largo?
-    # Dado que la salida original es ancha (variables como columnas, filas = cuantiles),
-    # para grupos lo más útil es mantener el formato largo con columnas de grupo, prob, variable, value.
-    # Dejamos así.
-    
+
   } else {
-    # Sin grupos: comportamiento original (ancho: columnas = variables, filas = cuantiles)
+    # Sin grupos
     if (is.null(peso_name)) {
-      # Múltiples variables sin pesos
-      # Aplicar .cuantiles.int a cada columna y luego combinar en matriz
       quantiles_list <- list()
       for (v in selected_vars) {
         q_df <- .cuantiles.int(data[[v]], pesos = NULL, cortes = cortes)
@@ -221,20 +212,18 @@ cuantiles <- function(data, variable = NULL, pesos = NULL,
       colnames(result) <- paste0("cuantiles_", v)
     }
   }
-  
-  # --- Exportar a Excel si se solicita ---
+
+  # Exportar excel
   if (exportar) {
     filename <- paste0("Cuantiles_", format(Sys.time(), "%Y-%m-%d_%H.%M.%S"), ".xlsx")
     wb <- openxlsx::createWorkbook()
     openxlsx::addWorksheet(wb, "Cuantiles")
-    
+
     if (inherits(data, "grouped_df")) {
-      # Para datos agrupados, el resultado ya es un data.frame largo con grupos.
-      # Lo escribimos directamente, añadiendo formato numérico a las columnas de valores.
       res_export <- result
-      # Asegurar que la columna 'value' tenga formato numérico con 4 decimales
+      # Asegurar que la columna 'value' tenga formato numerico con 4 decimales
       openxlsx::writeData(wb, "Cuantiles", res_export)
-      # Aplicar formato a las columnas numéricas (value)
+      # Aplicar formato a las columnas numericas
       value_col <- which(names(res_export) == "value")
       if (length(value_col) > 0) {
         openxlsx::addStyle(wb, "Cuantiles",
@@ -244,11 +233,9 @@ cuantiles <- function(data, variable = NULL, pesos = NULL,
                            gridExpand = TRUE)
       }
     } else {
-      # Formato ancho original
       res_export <- cbind(Cuantil = rownames(result), result)
       rownames(res_export) <- NULL
       openxlsx::writeData(wb, "Cuantiles", res_export)
-      # Formato numérico a todas las columnas excepto la primera
       openxlsx::addStyle(wb, "Cuantiles",
                          style = openxlsx::createStyle(numFmt = "0.0000"),
                          rows = 2:(nrow(res_export) + 1),
@@ -257,7 +244,7 @@ cuantiles <- function(data, variable = NULL, pesos = NULL,
     }
     openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   }
-  
+
   class(result) <- c("resumen", class(result))
   return(result)
 }

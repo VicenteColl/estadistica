@@ -34,14 +34,23 @@ Calcula el intervalo de confianza de una proporción.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qricproporcion.png}{width = 200px}}
+\if{html}{\figure{qricproporcion.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qricproporcion.png}{options: width=3cm}}
 }
 \details{
 (1) Para tamaños muestrales muy grandes (n>100):
 
-\if{html}{\figure{icproporcion3.png}{width = 640px}}
-\if{latex}{\figure{icproporcion3.png}{options: width=12cm}}
+\deqn{\displaystyle
+\left[
+\hat{p} -
+z_{\frac{\alpha}{2}}\cdot
+\sqrt{\frac{\hat{p}\cdot(1-\hat{p})}{n}}
+\, , \,
+\hat{p} +
+z_{\frac{\alpha}{2}}\cdot
+\sqrt{\frac{\hat{p}\cdot(1-\hat{p})}{n}}
+\right]
+}
 
 El usuario puede elegir entre tres estrategias:
 
@@ -51,13 +60,19 @@ El usuario puede elegir entre tres estrategias:
 
 (2) Para cualquier tamaño muestral puede obtenerse el intervalo:
 
-\if{html}{\figure{icproporcion1.png}{width = 120px}}
-\if{latex}{\figure{icproporcion1.png}{options: width=2.5cm}}
+\deqn{\displaystyle
+\left[ \pi_1 , \pi_2 \right]
+}
 
 correspondiendo los valores a las raíces de:
 
-\if{html}{\figure{icproporcion2.png}{width = 640px}}
-\if{latex}{\figure{icproporcion2.png}{options: width=12cm}}
+\deqn{\displaystyle
+\left(n + z_{\frac{\alpha}{2}}^2\right)\cdot p^2
+-
+\left(2\cdot \hat{p}\cdot n + z_{\frac{\alpha}{2}}^2\right)\cdot p
++
+\hat{p}^2\cdot n = 0
+}
 }
 \references{
 Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X

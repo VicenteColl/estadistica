@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrcovarianza.png}{width = 200px}}
+#' \if{html}{\figure{qrcovarianza.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qrcovarianza.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Es un dataframe con al menos 2 variables (2 columnas).
@@ -27,21 +27,39 @@
 #'
 #' (1) Se obtiene la matriz de varianzas y covarianzas muestrales:
 #'
-#' \if{html}{\figure{matrizvarcovmuestra.png}{width = 400px}}
-#' \if{latex}{\figure{matrizvarcovmuestra.png}{options: width=8cm}}
+#' \deqn{\displaystyle
+#' \begin{pmatrix}
+#' S_{X_1}^2 & S_{X_1X_2} & \cdots & S_{X_1X_k} \\
+#' S_{X_2X_1} & S_{X_2}^2 & \cdots & S_{X_2X_k} \\
+#' \vdots & \vdots & \ddots & \vdots \\
+#' S_{X_kX_1} & S_{X_kX_2} & \cdots & S_{X_k}^2
+#' \end{pmatrix}
+#' }
 #'
 #' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) facilitan la matriz de cuasi-varianzas y cuasi-covarianzas muestrales:
 #'
-#' \if{html}{\figure{matrizvarcovcuasi.png}{width = 440px}}
-#' \if{latex}{\figure{matrizvarcovcuasi.png}{options: width=8cm}}
+#' \deqn{\displaystyle
+#' \begin{pmatrix}
+#' S_{X_1}^{*2} & S_{X_1X_2}^{*} & \cdots & S_{X_1X_k}^{*} \\
+#' S_{X_2X_1}^{*} & S_{X_2}^{*2} & \cdots & S_{X_2X_k}^{*} \\
+#' \vdots & \vdots & \ddots & \vdots \\
+#' S_{X_kX_1}^{*} & S_{X_kX_2}^{*} & \cdots & S_{X_k}^{*2}
+#' \end{pmatrix}
+#' }
 #'
 #' Nosotros nos referimos a esta expresión como cuasi-covarianza muestral.
 #'
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de varianzas y covarianzas poblacional:
 #'
-#' \if{html}{\figure{matrizvarcovpob.png}{width = 440px}}
-#' \if{latex}{\figure{matrizvarcovpob.png}{options: width=8cm}}
+#' \deqn{\displaystyle
+#' \begin{pmatrix}
+#' \sigma_{X_1}^2 & \sigma_{X_1X_2} & \cdots & \sigma_{X_1X_k} \\
+#' \sigma_{X_2X_1} & \sigma_{X_2}^2 & \cdots & \sigma_{X_2X_k} \\
+#' \vdots & \vdots & \ddots & \vdots \\
+#' \sigma_{X_kX_1} & \sigma_{X_kX_2} & \cdots & \sigma_{X_k}^2
+#' \end{pmatrix}
+#' }
 #'
 #' @seealso \code{\link{varianza}}, \code{\link{desviacion}}
 #'

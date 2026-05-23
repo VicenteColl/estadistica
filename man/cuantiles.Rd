@@ -5,7 +5,7 @@
 \title{Cuantiles.}
 \usage{
 cuantiles(
-  x,
+  data,
   variable = NULL,
   pesos = NULL,
   cortes = c(0.25, 0.5, 0.75),
@@ -13,7 +13,7 @@ cuantiles(
 )
 }
 \arguments{
-\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
+\item{data}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
@@ -31,14 +31,28 @@ Calcula los cuantiles.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcuantiles.png}{width = 200px}}
+\if{html}{\figure{qrcuantiles.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrcuantiles.png}{options: width=3cm}}
 }
 \details{
 Los cuantiles se obtienen a partir de la siguiente regla de decisión:
 
-\if{html}{\figure{cuantiles.png}{width = 680px}}
-\if{latex}{\figure{cuantiles.png}{options: scale=.85}}
+Si:
+
+\deqn{
+\left\{
+\begin{array}{lll}
+N_{i-1}<\displaystyle\frac{s \cdot n}{k}<N_i
+& \Rightarrow &
+Q_{\frac{s}{k}}=x_i
+\\
+\\
+N_i=\displaystyle\frac{s \cdot n}{k}
+& \Rightarrow &
+Q_{\frac{s}{k}}=\displaystyle\frac{x_i+x_{i+1}}{2}
+\end{array}
+\right.
+}
 
 Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
 

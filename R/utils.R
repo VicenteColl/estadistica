@@ -16,7 +16,7 @@
     warning("Esta variable no tiene moda: todos los valores tienen la misma frecuencia")
     return(data.frame(moda = NA))
   }
-  # Convertir modas a tipo apropiado (numérico si se puede, sino carácter)
+  # Convertir modas a tipo apropiado (numerico si se puede, sino caracter)
   modas_num <- suppressWarnings(as.numeric(modas))
   if (all(!is.na(modas_num))) {
     modas <- modas_num
@@ -47,10 +47,7 @@
     warning("Esta variable no tiene moda ponderada: todos los valores tienen la misma frecuencia")
     return(data.frame(moda = NA))
   }
-  # Si hay múltiples modas, tomar la primera (por orden de aparición en x original)
-  # Para mantener consistencia con .moda_int, devolvemos todas? Mejor todas.
-  # Pero .moda_pond_int original (en el código del usuario) solo devolvía una.
-  # Por coherencia, devolvemos todas.
+
   modas <- as.character(modas)
   modas_num <- suppressWarnings(as.numeric(modas))
   if (all(!is.na(modas_num))) modas <- modas_num
@@ -68,13 +65,10 @@
 #' @noRd
 #' @importFrom stats setNames
 .cuantiles.int <- function(x, pesos = NULL, cortes = 0.5) {
-  # x: vector numérico
-  # pesos: vector de pesos (opcional)
-  # cortes: vector de probabilidades (0-1)
 
-  # Convertir a data.frame y verificar tipo
+  # Convertir a dataframe y verificar tipo
   x_df <- data.frame(x = x)
-  if (!is.numeric(x_df$x)) stop("Los datos deben ser numéricos")
+  if (!is.numeric(x_df$x)) stop("Los datos deben ser num\u00e9ricos")
 
   cortes <- sort(cortes)
 
@@ -114,13 +108,13 @@
     cuantiles[i] <- cuantil
   }
 
-  # Devolver data.frame con dos columnas: prob (corte) y value
+  # Devolver dataframe con dos columnas: corte y valor
   result <- data.frame(prob = cortes, value = cuantiles)
   return(result)
 }
 
 
-#' Facilita cálculo de la mediana
+#' Facilita calculo de la mediana
 #'
 #' @description Para obtener la mediana
 #' @param x Vector
@@ -181,7 +175,7 @@
   names(x) <- varnames
   orden <- as.integer(orden)
   if (!is.integer(orden)) {
-    stop("El orden del momento central debe ser un valor numérico entero")
+    stop("El orden del momento central debe ser un valor num\u00e9rico entero")
   }
   clase <- sapply(x, class)
   if (!all(clase %in% c("numeric", "integer"))) {
@@ -194,7 +188,7 @@
       momento_vacio[[i]] <- NA_real_
       next
     }
-    media_x <- media(x2)[[1]]   # extraer media de la única columna
+    media_x <- media(x2)[[1]]   # extraer media de la unica columna
     momento <- x2 %>%
       mutate(momento = (x2[[1]] - media_x)^orden) %>%
       summarise(momento = sum(momento) / n()) %>%

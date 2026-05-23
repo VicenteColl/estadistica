@@ -28,7 +28,7 @@ Calcula el tamaño muestral para estimar la media de una población normal o la 
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrmuestra1.png}{width = 200px}}
+\if{html}{\figure{qrmuestra1.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrmuestra1.png}{options: width=3cm}}
 
 \if{html}{\figure{qrmuestra2.png}{width = 200px}}
@@ -37,25 +37,33 @@ Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo
 \details{
 (1) El tamaño muestral para estimar la media poblacional se obtiene a partir de la siguiente expresión:
 
-\if{html}{\figure{tamanomedia.png}{options: style="width: 30\%;"}}
-\if{latex}{\figure{tamanomedia.png}{options: width=4cm}}
+\deqn{\displaystyle
+n = z_{\alpha/2}^2 \cdot \frac{\sigma^2}{E^2}
+}
 
 y si el muestreo es irrestricto:
 
-\if{html}{\figure{tamanomediairrestricto.png}{width = 480px}}
-\if{latex}{\figure{tamanomediairrestricto.png}{options: width=8cm}}
+\deqn{\displaystyle
+n =
+\frac{N \cdot z_{\alpha/2}^2 \cdot \sigma^2}
+{z_{\alpha/2}^2 \cdot \sigma^2 + E^2 \cdot (N-1)}
+}
 
 Nota: si la varianza poblacional no es conocida puede estimarse a través de la varianza (o cuasi-varianza) muestral.
 
 (2) El tamaño muestral para estimar la proporción de una característica se obtiene a partir de la expresión:
 
-\if{html}{\figure{tamanoproporcion.png}{width = 280px}}
-\if{latex}{\figure{tamanoproporcion.png}{options: width=4.5cm}}
+\deqn{\displaystyle
+n = z_{\alpha/2}^2 \cdot \frac{p \cdot q}{E^2}
+}
 
 y si el muestreo es irrectricto:
 
-\if{html}{\figure{tamanoproporcionirrestricto.png}{width = 520px}}
-\if{latex}{\figure{tamanoproporcionirrestricto.png}{options: width=10cm}}
+\deqn{\displaystyle
+n =
+\frac{N \cdot z_{\alpha/2}^2 \cdot p \cdot (1-p)}
+{z_{\alpha/2}^2 \cdot p \cdot (1-p) + E^2 \cdot (N-1)}
+}
 
 Nota: puede estimarse la proporción poblacional por la proporción muestral o, en caso
 de no disponer de información, suponer el caso más desfavorable: p=q=0.5

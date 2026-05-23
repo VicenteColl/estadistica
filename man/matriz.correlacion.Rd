@@ -21,25 +21,36 @@ Obtiene la matriz de correlación (de Pearson) entre 2 o más variables cuantita
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrcorrelacion.png}{width = 200px}}
+\if{html}{\figure{qrcorrelacion.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrcorrelacion.png}{options: width=3cm}}
 }
 \details{
 Se obtiene la matriz de correlación muestral:
 
-\if{html}{\figure{matrizcorrelacion.png}{width = 400px}}
-\if{latex}{\figure{matrizcorrelacion.png}{options: width=8cm}}
+\deqn{\displaystyle
+\begin{pmatrix}
+1 & r_{X_1X_2} & \cdots & r_{X_1X_k} \\
+r_{X_2X_1} & 1 & \cdots & r_{X_2X_k} \\
+\vdots & \vdots & \ddots & \vdots \\
+r_{X_kX_1} & r_{X_kX_2} & \cdots & 1
+\end{pmatrix}
+}
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la matriz de correlació poblacional:
 
-\if{html}{\figure{matrizcorrelacionpob.png}{width = 440px}}
-\if{latex}{\figure{matrizcorrelacionpob.png}{options: width=8cm}}
+\deqn{\displaystyle
+\begin{pmatrix}
+1 & \rho_{X_1X_2} & \cdots & \rho_{X_1X_k} \\
+\rho_{X_2X_1} & 1 & \cdots & \rho_{X_2X_k} \\
+\vdots & \vdots & \ddots & \vdots \\
+\rho_{X_kX_1} & \rho_{X_kX_2} & \cdots & 1
+\end{pmatrix}
+}
 }
 \examples{
 
 matriz_cor <- matriz.correlacion(startup)
-
 
 }
 \references{

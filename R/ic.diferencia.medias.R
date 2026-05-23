@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qricdiferenciamedias.png}{width = 200px}}
+#' \if{html}{\figure{qricdiferenciamedias.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qricdiferenciamedias.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.
@@ -32,8 +32,12 @@
 #'
 #' Caso 1: Varianzas poblacionales conocidas
 #'
-#' \if{html}{\figure{icdifmedias1.png}{width = 60px}}
-#' \if{latex}{\figure{icdifmedias1.png}{options: width=10cm}}
+#' \deqn{\displaystyle
+#' \left[ (\bar{x}-\bar{y}) - z_{\frac{\alpha}{2}} \cdot
+#' \sqrt{\frac{\sigma_x^2}{n_x} + \frac{\sigma_y^2}{n_y}} \, , \,
+#' (\bar{x}-\bar{y}) + z_{\frac{\alpha}{2}} \cdot
+#' \sqrt{\frac{\sigma_x^2}{n_x} + \frac{\sigma_y^2}{n_y}} \right]
+#' }
 #'
 #' Nota: Si los tamaños muestrales nx y ny son suficientemente grandes, pueden estimarse las varianzas poblacionales
 #' por sus correspondientes varianzas (o cuasivarianzas), incluso aunque las distribuciones poblacionales no sean normales
@@ -43,13 +47,33 @@
 #'
 #' (2.1) con varianza muestral:
 #'
-#' \if{html}{\figure{icdifmedias2.png}{width = 560px}}
-#' \if{latex}{\figure{icdifmedias2.png}{options: width=10cm}}
+#' \deqn{\displaystyle
+#' \left[ (\bar{x}-\bar{y}) \pm t_{\frac{\alpha}{2}} \cdot
+#' \left(
+#' \frac{\sqrt{n_x + n_y}}{\sqrt{n_x \cdot n_y}}
+#' \right)
+#' \cdot
+#' \left(
+#' \frac{\sqrt{n_x \cdot S_x^2 + n_y \cdot S_y^2}}{\sqrt{n_x + n_y - 2}}
+#' \right)
+#' \right]
+#' }
+#'
 #'
 #' (2.2) con cuasivarianza muestral:
 #'
-#' \if{html}{\figure{icdifmedias2cuasi.png}{width = 600px}}
-#' \if{latex}{\figure{icdifmedias2cuasi.png}{options: width=10cm}}
+#' \deqn{\displaystyle
+#' \left[ (\bar{x}-\bar{y}) \pm t_{\frac{\alpha}{2}} \cdot
+#' \left(
+#' \frac{\sqrt{n_x + n_y}}{\sqrt{n_x \cdot n_y}}
+#' \right)
+#' \cdot
+#' \left(
+#' \frac{\sqrt{(n_x - 1)\cdot S_x^{*2} + (n_y - 1)\cdot S_y^{*2}}}
+#' {\sqrt{n_x + n_y - 2}}
+#' \right)
+#' \right]
+#' }
 #'
 #' Nota: Tanto en el caso (2.1) como (2.2) la distribución t tiene (nx+ny-2) grados de libertad.
 #'
@@ -57,23 +81,51 @@
 #'
 #' (3.1) con varianza muestral:
 #'
-#' \if{html}{\figure{icdifmedias3.png}{width = 480px}}
-#' \if{latex}{\figure{icdifmedias3.png}{options: width=8cm}}
+#' \deqn{\displaystyle
+#' \left[
+#' (\bar{x}-\bar{y}) \pm t_{\frac{\alpha}{2}} \cdot
+#' \sqrt{\frac{S_x^2}{n_x-1} + \frac{S_y^2}{n_y-1}}
+#' \right]
+#' }
 #'
 #'la distribución t con grados de libertad igual al entero más próximo de v.
 #'
-#' \if{html}{\figure{icdifmedias3gl.png}{width = 520px}}
-#' \if{latex}{\figure{icdifmedias3gl.png}{options: width=8cm}}
+#' \deqn{\displaystyle
+#' \nu =
+#' \frac{
+#' \left(
+#' \frac{S_x^{2}}{n_x-1} +
+#' \frac{S_y^{2}}{n_y-1}
+#' \right)^2
+#' }
+#' {
+#' \left(
+#' \frac{S_x^{2}}{n_x-1}
+#' \right)^2 \cdot \frac{1}{n_x-1}
+#' +
+#' \left(
+#' \frac{S_y^{2}}{n_y-1}
+#' \right)^2 \cdot \frac{1}{n_y-1}
+#' }
+#' - 2
+#' }
 #'
 #' (3.2) con cuasivarianza muestral:
 #'
-#' \if{html}{\figure{icdifmedias3cuasi.png}{width = 480px}}
-#' \if{latex}{\figure{icdifmedias3cuasi.png}{options: width=7cm}}
+#' \deqn{\displaystyle
+#' \left[
+#' (\bar{x}-\bar{y}) \pm t_{\frac{\alpha}{2},\,\nu} \cdot
+#' \sqrt{\frac{S_x^{*2}}{n_x} + \frac{S_y^{*2}}{n_y}}
+#' \right]
+#' }
 #'
 #' la distribución t con grados de libertad igual a v, donde v = (parte entera de v*) + 1
 #'
-#' \if{html}{\figure{icdifmedias3cuasigl.png}{width = 520px}}
-#' \if{latex}{\figure{icdifmedias3cuasigl.png}{options: width=6cm}}
+#' \deqn{\displaystyle
+#' \nu^* =
+#' \frac{\left(\frac{S_x^{*2}}{n_x} + \frac{S_y^{*2}}{n_y}\right)^2}
+#' {\frac{(S_x^{*2}/n_x)^2}{n_x-1} + \frac{(S_y^{*2}/n_y)^2}{n_y-1}}
+#' }
 #'
 #' @references
 #' Casas José M. (1997) Inferencia estadística. Editorial: Centro de estudios Ramón Areces, S.A. ISBN: 848004263-X

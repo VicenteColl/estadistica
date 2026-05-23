@@ -4,10 +4,10 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrdispersion.png}{width = 200px}}
+#' \if{html}{\figure{qrdispersion.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 #'
-#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param data Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #' @param tipo Es un carácter. Por defecto de calcula la varianza muestral (\code{tipo = "muestral"}). Si \code{tipo = "cuasi"}, se calcula la cuasivarianza muestral.
@@ -30,24 +30,28 @@
 #'
 #' (1) La expresión de la varianza muestral es:
 #'
-#' \if{html}{\figure{varianza.png}{width = 320px}}
-#' \if{latex}{\figure{varianza.png}{options: width=5cm}}
+#' \deqn{\displaystyle S^2 = \frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n}}
 #'
-#' La varianza muestral así definida es el estimador máximo verosímil de la varianza de una población normal
+#' La varianza muestral así definida es el estimador máximo verosímil de la varianza de una población normal.
 #'
-#' (2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
+#' Si los datos se encuentran dispuestos en forma de una tabla estadística:
 #'
-#' \if{html}{\figure{cuasivarianza.png}{width = 320px}}
-#' \if{latex}{\figure{cuasivarianza.png}{options: width=5cm}}
+#' \deqn{\displaystyle S^2 =
+#' \frac{\sum_{i=1}^{I} (x_i-\bar{x})^2 \cdot n_i}{n}}
 #'
-#' Nosotros llamamos a esta medida: cuasi-varianza muestral y es un estimador insesgado de la varianza poblacional.
+#'
+#' (2) ¡Cudidado!. Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
+#'
+#' \deqn{\displaystyle S^{*2} =
+#' \frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}}
+#'
+#' y nosotros llamamos a esta medida: cuasi-varianza muestral. La cuasivarianza muestral es un estimador insesgado de la varianza poblacional.
 #'
 #' @note
 #' Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la varianza poblacional:
 #'
-#'
-#' \if{html}{\figure{varianzapob.png}{width = 320px}}
-#' \if{latex}{\figure{varianzapob.png}{options: width=5cm}}
+#' \deqn{\displaystyle \sigma^2 =
+#' \frac{\sum_{i=1}^{N}(x_i-\mu)^2}{N}}
 #'
 #' @seealso \code{\link{media}}, \code{\link{desviacion}}, \code{\link{coeficiente.variacion}}
 #'
@@ -68,24 +72,23 @@
 #'
 #' @export
 varianza <- function(data, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi")) {
-  
+
   tipo <- match.arg(tolower(tipo), c("muestral", "cuasi"))
-  
-  # Si no es data.frame, convertir (caso vector)
+
+  # Convertir a dataframe (caso vector)
   if (!is.data.frame(data)) {
     data <- data.frame(variable = data)
   }
-  # No convertir a tibble para preservar grupos
-  
+
   # Capturar argumentos
   var_quo <- enquo(variable)
   pesos_quo <- enquo(pesos)
-  
-  # --- Procesar 'variable' (legacy vs tidy) ---
+
+  # Procesar variable
   legacy_var <- FALSE
   varnames <- NULL
   vars_expr <- NULL
-  
+
   if (quo_is_null(var_quo)) {
     vars_expr <- where(is.numeric)
     legacy_var <- FALSE
@@ -108,8 +111,8 @@ varianza <- function(data, variable = NULL, pesos = NULL, tipo = c("muestral", "
       vars_expr <- var_quo
     }
   }
-  
-  # --- Procesar 'pesos' ---
+
+  # Pesos
   peso_name <- NULL
   if (!quo_is_null(pesos_quo)) {
     pesos_eval <- tryCatch(
@@ -127,13 +130,13 @@ varianza <- function(data, variable = NULL, pesos = NULL, tipo = c("muestral", "
     } else {
       peso_name <- tryCatch(
         as_name(pesos_quo),
-        error = function(e) stop("El argumento 'pesos' debe ser una columna única o su nombre/índice")
+        error = function(e) stop("El argumento 'pesos' debe ser el nombre o \u00edndice de una columna")
       )
       if (!peso_name %in% names(data)) stop("La columna de pesos no existe en los datos")
     }
   }
-  
-  # --- Funciones auxiliares para la varianza ---
+
+  # Funciones auxiliares para la varianza
   var_no_pond <- function(x, tipo_var) {
     n_eff <- sum(!is.na(x))
     if (n_eff < 2) return(NA_real_)
@@ -144,7 +147,7 @@ varianza <- function(data, variable = NULL, pesos = NULL, tipo = c("muestral", "
       v
     }
   }
-  
+
   var_pond <- function(valor, peso, tipo_var) {
     ok <- !is.na(valor) & !is.na(peso)
     valor <- valor[ok]
@@ -160,8 +163,8 @@ varianza <- function(data, variable = NULL, pesos = NULL, tipo = c("muestral", "
     if (denom <= 0) return(NA_real_)
     sum_cuad / denom
   }
-  
-  # --- Cálculo final respetando grupos ---
+
+  # Calculo respetando grupos
   if (is.null(peso_name)) {
     # Sin pesos
     if (legacy_var) {
@@ -184,24 +187,24 @@ varianza <- function(data, variable = NULL, pesos = NULL, tipo = c("muestral", "
     } else {
       sel_vars <- tryCatch(
         tidyselect::eval_select(vars_expr, data = data),
-        error = function(e) stop("Selección inválida para ponderación")
+        error = function(e) stop("Selecci\u00f3n inv\u00e1lida para ponderaci\u00f3n")
       )
       if (length(sel_vars) != 1) {
         stop("Solo puede calcularse la varianza ponderada para una variable a la vez")
       }
       var_name <- names(sel_vars)[1]
     }
-    
+
     if (var_name == peso_name) {
       stop("No puedes usar la misma variable como dato y como peso.")
     }
-    
+
     result <- data %>%
       dplyr::summarise(
         !!var_name := var_pond(.data[[var_name]], .data[[peso_name]], tipo_var = tipo)
       )
   }
-  
+
   class(result) <- c("resumen", class(result))
   return(result)
 }

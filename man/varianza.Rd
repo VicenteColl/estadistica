@@ -4,10 +4,10 @@
 \alias{varianza}
 \title{Varianza.}
 \usage{
-varianza(x, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi"))
+varianza(data, variable = NULL, pesos = NULL, tipo = c("muestral", "cuasi"))
 }
 \arguments{
-\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
+\item{data}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, el argumento variable es NULL. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
@@ -23,30 +23,34 @@ Calcula la varianza.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrdispersion.png}{width = 200px}}
+\if{html}{\figure{qrdispersion.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrdispersion.png}{options: width=3cm}}
 }
 \details{
 (1) La expresión de la varianza muestral es:
 
-\if{html}{\figure{varianza.png}{width = 320px}}
-\if{latex}{\figure{varianza.png}{options: width=5cm}}
+\deqn{\displaystyle S^2 = \frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n}}
 
-La varianza muestral así definida es el estimador máximo verosímil de la varianza de una población normal
+La varianza muestral así definida es el estimador máximo verosímil de la varianza de una población normal.
 
-(2) Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
+Si los datos se encuentran dispuestos en forma de una tabla estadística:
 
-\if{html}{\figure{cuasivarianza.png}{width = 320px}}
-\if{latex}{\figure{cuasivarianza.png}{options: width=5cm}}
+\deqn{\displaystyle S^2 =
+\frac{\sum_{i=1}^{I} (x_i-\bar{x})^2 \cdot n_i}{n}}
 
-Nosotros llamamos a esta medida: cuasi-varianza muestral y es un estimador insesgado de la varianza poblacional.
+
+(2) ¡Cudidado!. Muchos manuales y prácticamente todos los softwares (SPSS, Excel, etc.) calculan la expresión:
+
+\deqn{\displaystyle S^{*2} =
+\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}}
+
+y nosotros llamamos a esta medida: cuasi-varianza muestral. La cuasivarianza muestral es un estimador insesgado de la varianza poblacional.
 }
 \note{
 Si en lugar del tamaño muestral (n) se utiliza el tamaño de la población (N) se obtiene la varianza poblacional:
 
-
-\if{html}{\figure{varianzapob.png}{width = 320px}}
-\if{latex}{\figure{varianzapob.png}{options: width=5cm}}
+\deqn{\displaystyle \sigma^2 =
+\frac{\sum_{i=1}^{N}(x_i-\mu)^2}{N}}
 }
 \examples{
 

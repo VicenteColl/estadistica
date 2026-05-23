@@ -4,10 +4,10 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qrposicion.png}{width = 200px}}
+#' \if{html}{\figure{qrposicion.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qrposicion.png}{options: width=3cm}}
 #'
-#' @param x Conjunto de datos. Puede ser un vector o un dataframe.
+#' @param data Conjunto de datos. Puede ser un vector o un dataframe.
 #' @param variable Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.
 #' @param pesos Si los datos de la variable están resumidos en una distribución de frecuencias, debe indicarse la columna que representa los valores de la variable y la columna con las frecuencias o pesos.
 #'
@@ -29,8 +29,21 @@
 #'
 #' La mediana se obtiene a partir de la siguiente regla de decisión:
 #'
-#' \if{html}{\figure{mediana.png}{width = 640px}}
-#' \if{latex}{\figure{mediana.png}{options: scale=.8}}
+#' \deqn{
+#' \text{Si} \quad
+#' \left\{
+#' \begin{matrix}
+#' N_{i-1}<\displaystyle\frac{n}{2}<N_i
+#' & \Rightarrow &
+#' Me=x_i
+#' \\
+#' \\
+#' N_i=\displaystyle\frac{n}{2}
+#' & \Rightarrow &
+#' Me=\displaystyle\frac{x_i+x_{i+1}}{2}
+#' \end{matrix}
+#' \right.
+#' }
 #'
 #' donde: Ni son las frecuencias acumuladas y n el tamaño de la muestra (o N si es la población).
 #'
@@ -52,19 +65,19 @@
 #'
 #' @export
 mediana <- function(data, variable = NULL, pesos = NULL) {
-  
+
   if (!is.data.frame(data)) {
     data <- data.frame(variable = data)
   }
-  
+
   var_quo <- enquo(variable)
   pesos_quo <- enquo(pesos)
-  
-  # --- Procesar variable ---
+
+  # Identificar variables
   legacy_var <- FALSE
   varnames <- NULL
   vars_expr <- NULL
-  
+
   if (quo_is_null(var_quo)) {
     vars_expr <- where(is.numeric)
     legacy_var <- FALSE
@@ -87,8 +100,8 @@ mediana <- function(data, variable = NULL, pesos = NULL) {
       vars_expr <- var_quo
     }
   }
-  
-  # --- Procesar pesos ---
+
+  # Pesos
   peso_name <- NULL
   if (!quo_is_null(pesos_quo)) {
     pesos_eval <- tryCatch(
@@ -106,13 +119,13 @@ mediana <- function(data, variable = NULL, pesos = NULL) {
     } else {
       peso_name <- tryCatch(
         as_name(pesos_quo),
-        error = function(e) stop("El argumento 'pesos' debe ser una columna única o su nombre/índice")
+        error = function(e) stop("El argumento 'pesos' debe ser el nombre o \u00edndice de una variable.")
       )
       if (!peso_name %in% names(data)) stop("La columna de pesos no existe en los datos")
     }
   }
-  
-  # --- Cálculo de la mediana ---
+
+  # Calculo de mediana
   if (is.null(peso_name)) {
     if (legacy_var) {
       result <- data %>%
@@ -132,11 +145,11 @@ mediana <- function(data, variable = NULL, pesos = NULL) {
       var_name <- names(sel_vars)[1]
     }
     if (var_name == peso_name) stop("La variable y los pesos no pueden ser la misma columna")
-    
+
     result <- data %>%
       summarise(!!var_name := .mediana_int(.data[[var_name]], pesos = .data[[peso_name]]))
   }
-  
+
   result <- result %>% mutate(across(where(is.numeric), ~ round(.x, 4)))
   class(result) <- c("resumen", class(result))
   return(result)

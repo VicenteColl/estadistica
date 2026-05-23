@@ -4,7 +4,7 @@
 #'
 #' Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 #'
-#' \if{html}{\figure{qricrazonvarianzas.png}{width = 200px}}
+#' \if{html}{\figure{qricrazonvarianzas.png}{options: style="width: 25\%;"}}
 #' \if{latex}{\figure{qricrazonvarianzas.png}{options: width=3cm}}
 #'
 #' @param x Conjunto de datos. Puede ser un vector o un dataframe.

@@ -14,4 +14,3 @@
 \description{
 Método de impresión para objetos de clase "resumen"
 }
-\keyword{internal}

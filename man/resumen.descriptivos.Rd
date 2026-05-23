@@ -4,10 +4,10 @@
 \alias{resumen.descriptivos}
 \title{Resumen descriptivos.}
 \usage{
-resumen.descriptivos(x, variable = NULL, pesos = NULL, exportar = FALSE)
+resumen.descriptivos(data, variable = NULL, pesos = NULL, exportar = FALSE)
 }
 \arguments{
-\item{x}{Conjunto de datos. Puede ser un vector o un dataframe.}
+\item{data}{Conjunto de datos. Puede ser un vector o un dataframe.}
 
 \item{variable}{Es un vector (numérico o carácter) que indica las variables a seleccionar de \code{x}. Si \code{x} se refiere una sola variable, \code{variable = NULL}. En caso contrario, es necesario indicar el nombre o posición (número de columna) de la variable.}
 
@@ -23,7 +23,7 @@ Calcula un resumen de los principales estadísticos descriptivos.
 
 Lee el código QR para video-tutorial sobre el uso de la función con un ejemplo.
 
-\if{html}{\figure{qrdescriptivos.png}{width = 200px}}
+\if{html}{\figure{qrdescriptivos.png}{options: style="width: 25\%;"}}
 \if{latex}{\figure{qrdescriptivos.png}{options: width=3cm}}
 }
 \examples{
