@@ -17,8 +17,16 @@
 #'
 #' Facultad de Economía. Universidad de Valencia (España)
 #'
-#' @import dplyr ggplot2 plotly
+#' @import dplyr
 #' @importFrom stats rnorm
+#' @importFrom plotly plot_ly
+#' @importFrom plotly add_ribbons
+#' @importFrom plotly add_trace
+#' @importFrom plotly add_segments
+#' @importFrom plotly layout
+#' @importFrom plotly animation_opts
+#' @importFrom plotly animation_slider
+#'
 #' @export
 convergencia.varianza <- function(){
 
